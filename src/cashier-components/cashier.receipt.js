@@ -1,0 +1,192 @@
+import React from "react";
+import styles from "../../styles/css/cashier-styles/components-css/cashier.receipt.module.css";
+import styled from "@emotion/styled";
+import { Divider } from "@mui/material";
+
+export default function CashierReceipt(props) {
+  const {
+    orderData,
+    tid,
+    total,
+    dateTime,
+    misce,
+    getTotal,
+    change,
+    payment,
+    trID,
+    getTotalFixed,
+    getTotalFixed2,
+  } = props;
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.image__container}>
+        <img
+          src="/assets/admin-assets/pictures/logo.png"
+          height={100}
+          width={100}
+          alt="beverages Icon"
+        />
+      </div>
+      <div className={styles.info}>
+        <p>
+          Location @ ABRU Beach Front Resort <br></br>
+          Buton St., Brgy. Sabang,Baler, Aurora<br></br>
+          Contact: 0915-130-5981 / 0999-833-0802
+        </p>
+      </div>
+      <div className={styles.table__container}>
+        <table>
+          <tbody>
+            <tr>
+              <td>Table: </td>
+              <td>{tid}</td>
+            </tr>
+            <tr>
+              <td>Transaction #: </td>
+              <td>{trID}</td>
+            </tr>
+            <tr>
+              <td>Date: </td>
+              <td>{dateTime}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <Divider sx={{ marginBottom: "10px", marginTop: "10px" }} />
+
+      <div className={styles.order__list}>
+        <table>
+          <thead>
+            <tr>
+              <OrderList>Descr.</OrderList>
+              <OrderList>Qty.</OrderList>
+              <OrderList>Price</OrderList>
+              <OrderList>SubTotal</OrderList>
+            </tr>
+          </thead>
+          <ListBody>
+            {orderData.map((record) => {
+              return (
+                <List key={record.id}>
+                  <OrderReceipt>{record.mealName}</OrderReceipt>
+                  <OrderReceipt>{record.quantity}</OrderReceipt>
+                  <OrderReceipt>{Number(record.price).toFixed(2)}</OrderReceipt>
+                  <OrderReceipt>
+                    {Number(record.total)
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                  </OrderReceipt>
+                </List>
+              );
+            })}
+          </ListBody>
+        </table>
+      </div>
+
+      <Divider sx={{ marginBottom: "10px", marginTop: "10px" }} />
+
+      <div className={styles.table__container}>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <i>Miscellaneous Fee:</i>
+              </td>
+              <td>
+                <i>
+                  {Number(misce).toFixed(2) ? Number(misce).toFixed(2) : ""}
+                </i>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <i>Sub Total:</i>
+              </td>
+              <td>
+                <i>
+                  {Number(getTotal())
+                    .toFixed(2)
+                    .toString()
+                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                </i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <Divider sx={{ marginBottom: "10px", marginTop: "10px" }} />
+
+      <div className={styles.table__container}>
+        <table>
+          <tbody>
+            <tr>
+              <td>Total:</td>
+              <td>{total ? getTotalFixed() : getTotalFixed2()}</td>
+            </tr>
+            <tr>
+              <td>Cash:</td>
+              <td>
+                {Number(payment)
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
+            </tr>
+            <tr>
+              <td>Change:</td>
+              <td>
+                {Number(change)
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <Divider sx={{ marginBottom: "10px", marginTop: "10px" }} />
+
+      <div className={styles.other__details}>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <p>
+                  Good Times... Chilling Sounds... <br></br>
+                  Big Waves... GooZy Friends...<br></br>
+                  Thank You! Please Come Again!
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+const OrderList = styled.td`
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: "Times New Roman", Times, serif;
+  text-align: center;
+  font-size: small;
+`;
+const OrderReceipt = styled.td`
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  font-size: small;
+`;
+const List = styled.tr`
+  font-family: Times New Roman;
+`;
+
+const ListBody = styled.tbody`
+  text-align: center;
+`;

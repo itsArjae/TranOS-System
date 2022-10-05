@@ -1,0 +1,147 @@
+.Cashier__Container{
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.Cashier__Header{
+  display: flex;
+  flex-direction: row;
+  margin-right: auto;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.Cashier_Header_Text{
+  font-size: 35px;
+  margin-left: 15px;
+  font-family: sans-serif;
+  font-weight: bolder;
+}
+
+.Cashier__Tab__Container{
+  width: 100%;
+  padding: 20px;
+  height: 450px;
+}
+
+.Container{
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.Data__Container{
+    height: 160px;
+    width: 460px;
+    display: flex;
+    flex-direction: row;
+    font-family: sans-serif;
+    background-color: #72FFFF;
+    border-left-style: solid;
+    border-left-width: 10px;
+    border-left-color: #0096FF;
+    outline: none;
+    align-items: center;
+    margin-bottom: 40px;
+    margin-right: 40px;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.Data_Image{
+  display: flex;
+  padding: 20px;
+}
+
+.Data_Image img{
+  border-radius: 20px;
+}
+
+.Data_Info{
+  text-align: left;
+  
+}
+.Data_Info p{
+  font-size: larger;
+  line-height: .4;
+}
+
+.Pagination__Container{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Pagination__Prev,
+.Pagination__Next{
+  padding: .3rem;
+  margin: .5rem;
+  border-radius: 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+.Pagination__Prev:hover,
+.Pagination__Next:hover,
+.Pagination__Container a:hover{
+  background-color: #61A4BC;
+}
+.Pagination__Container a{
+  padding: .5rem;
+  margin: .3rem;
+  border-radius: 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+.paginationActive a{
+  padding: .5rem;
+  margin: .3rem;
+  border-radius: 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: #61A4BC;
+}
+
+.Table__Search_Box{
+  margin: auto;
+  height: 70px;
+  /*added*/
+  display: flex;
+  flex-direction: row;
+}
+.Table__Search_Form {
+  display: flex;
+  flex-direction: row;
+}
+.Table_Search_Input {
+  width: 300px;
+  height: 50px;
+  font-size: 20px;
+  text-align: center;
+}
+.Table_Search_Submit {
+  margin: 0 1rem;
+  height: 30px;
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Head__Container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

@@ -1,0 +1,95 @@
+.Data__Container{
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.Data__Box{
+  height: 500px;
+  width: 800px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+}
+.Exit__Button{
+  cursor: pointer;
+  background-color: white;
+  border: none;
+}
+.Btn__Box{
+  margin-right: auto;
+}
+.Exit__Button:hover{
+  border: 1px solid black;
+}
+.Data__Box1{
+  width: 300px;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction:  column;
+  align-items: center;
+  background-color: #25316D;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+.Data__Picture img{
+  width: 200px;
+  max-height: 230px;
+  border: 1px dotted black;
+  margin: 1rem 0;
+  border-radius: 100%;
+}
+.Data__Box2{
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid grey;
+  width: 100%;
+  font-family: 'Times New Roman', Times, serif;
+  background-image: linear-gradient(rgba(233, 213, 213, 0.5), rgba(255, 255, 255, 0.85)), url(/assets/admin-assets/pictures/logo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.Data__Box2 p{
+  font-size: 20px;
+}
+.Data__Box2 mark{
+  background-color: white ;
+}
+
+.Resume__Btn{
+  background-color: white;
+  border: 1px solid blue;
+  padding: 5px;
+  cursor: pointer;
+}
+.Resume__Btn:hover{
+  background-color: aqua;
+}
+
+.Box2__Container{
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+  color: rgb(0, 0, 0);
+}
+
+.Btn__Control{
+  margin-left: auto;
+}
+.Btn__Control button{
+  margin: .5rem .5rem;
+  padding: 10px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.Btn__Control button:hover{
+  background-color: #adafbb;
+}

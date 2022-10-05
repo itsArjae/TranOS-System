@@ -1,0 +1,18 @@
+.container{
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  background-color: white;
+  padding: 20px;
+  display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+}
+.container button{
+  cursor: pointer;
+  background-color: white;
+  font-weight: bold;
+  padding: 5px;
+}
+.container button:hover{
+  background-color: grey;
+}

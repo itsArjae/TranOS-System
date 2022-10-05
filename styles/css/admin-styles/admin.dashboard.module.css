@@ -1,0 +1,489 @@
+
+/*Employees page=======================================*/
+.table{
+  margin-top: 30px;
+  border: 2px solid black;
+
+}
+
+.table th{
+  padding: 15px;
+  background-color: #5584AC;
+  border:"1px black";
+  font-family: 'Times New Roman', Times, serif;
+  width: 180px;
+  font-weight: bold;
+}
+
+.table td{
+  padding: 15px;
+  background-color: #B8FFF9;
+  border:"1px black";
+  font-family: 'Times New Roman', Times, serif;
+  width: 180px;
+  font-weight: bold;
+}
+
+
+.dropcontent{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  height: 200px;
+  transition: 2s;
+  display: none;
+  background-color:#3A5BA0 ;
+  padding: 20px;
+}
+.btn{
+ 
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+
+.box{
+
+  position: absolute;
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: .5;
+  display: none;
+}
+.boxAdd{
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.add{
+  width: 800px;
+  height: 600px;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  z-index: 1;
+}
+
+.cancelbtn{
+position: absolute;
+margin-left: 730px;
+margin-bottom:50px;
+}
+
+.boxupdate{
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.update{
+  width: 800px;
+  height: 500px;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  z-index: 1;
+}
+
+/* dasboard page======================================== */
+
+.btnDashboard{
+  height: 160px;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  background-color: rgb(192, 1, 1);
+  outline: none;
+  border-radius: 30px;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.btnDashboard:hover{
+  border: 5px solid #FF5D5D ;
+}
+
+.btnEmployees{
+  height: 160px;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  background-color: #cf4800;
+  outline: none;
+  border-radius: 30px;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.btnEmployees:hover{
+  border: 5px solid #EC994B ;
+}
+
+.btnSales{
+  height: 160px;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  background-color: #1c4713;
+  outline: none;
+  border-radius: 30px;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.btnSales:hover{
+  border: 5px solid #D3EBCD ;
+}
+
+.btnMenu{
+  height: 160px;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  background-color: #1363DF;
+  outline: none;
+  border-radius: 30px;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.btnMenu:hover{
+  border: 5px solid #3AB0FF;
+}
+
+.btnBeverages{
+  height: 160px;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  background-color: #87805E;
+  outline: none;
+  border-radius: 30px;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.btnBeverages:hover{
+  border: 5px solid #B09B71 ;
+}
+
+.btnTables{
+  height: 160px;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  background-color: #810955;
+  outline: none;
+  border-radius: 30px;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.btnTables:hover{
+  border: 5px solid #EE81B3 ;
+}
+
+.btnTransactions{
+  height: 160px;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  background-color: #968a04 ;
+  outline: none;
+  border-radius: 30px;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.btnTransactions:hover{
+  border: 5px solid  #dace49 ;
+ 
+}
+
+.btnSignOut{
+  height: 160px;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  background-color: #000000 ;
+  outline: none;
+  border-radius: 30px;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.btnSignOut:hover{
+  border: 5px solid  #1B2430 ;
+ 
+}
+
+
+/* SALES page ==============================================*/
+.salesBox{
+  display: flex;
+  flex-direction: column;
+height: 100vh;
+
+}
+.dataBox{
+  border: 2px solid  black;
+  height: 50%;
+
+}
+
+/*INVENTORY PAGE=================================*/
+.inventoryOutsideBox{
+  display: flex;
+  flex-direction: row;
+height: 100vh;
+justify-content: center;
+align-items: center;
+}
+
+
+/*=================================*/
+
+.DashBoard__Container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Icons__Container{
+  display: flex;
+  flex-direction: column;
+  margin-right: 50px;
+  width: 950px;
+  height: 550px;
+}
+
+.Icons__Text{
+  font-family: sans-serif;
+  margin-top: 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.Icons__Container2{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 950px;
+  height: 350px;
+}
+
+.Icons__Container2_1{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 230px;
+  height: 350px;
+}
+
+.DashBoard__Container2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 650px;
+  margin-top: 70px;
+}
+
+.Calendar{
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+.Calendar__Container{
+  height: 350px;
+}
+
+.Others__Container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 950px;
+  height: 250px;
+}
+
+.Sales__Container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 250px;
+}
+
+.Sales__Container1{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  width: 450px;
+  height: 110px;
+  background-image: linear-gradient(to bottom right, rgb(140, 188, 243), rgb(19, 107, 165));
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.Sales__Container2{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  width: 450px;
+  height: 110px;
+  background-image: linear-gradient(to bottom right, rgb(242, 66, 66), rgb(133, 10, 10));
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.Graph__Container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  height: 250px;
+  margin-bottom: 35px;
+  margin-left: 40px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.Notifications__Container{
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 250px;
+  margin-bottom: 15px;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  border: 1px solid black;
+}
+
+.Notifications__Header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 348px;
+  height: 50px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: rgb(98, 236, 98);
+}
+
+.Notifications{
+  display: flex;
+  max-width: 350px;
+  height: 250px;
+  overflow: auto;
+  flex-direction: column;
+  margin-top: 5px;
+}
+
+.Notifications__Content{
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  height: 40px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid black;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.Notifications__Content p{
+  font-weight: bold;
+}
+
+
+.MSales__Container{
+  width: 80px;
+  height: 80px;
+  display: flex; 
+}
+
+.TxtSales{
+  width: 200px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.TxtSales_Price{
+  width: 200px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+}
+
+.Price_Text{
+  color: white;
+  font-size: 50px;
+  text-shadow: 2px 2px black;
+}
+
+.Sales_Text{
+  color: white;
+  text-shadow: 1px 1px black;
+}
+
+.btnClose_Notif{
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-self: center;
+  margin-left: auto;
+  justify-content: center;
+  align-items: center;
+}

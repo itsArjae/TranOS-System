@@ -1,0 +1,191 @@
+.Outside__Container{
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.Container{
+  display: flex;
+  flex-direction: column;
+  height: 550px;
+  width: 550px;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(233, 213, 213, 0.5)), url(/assets/admin-assets/pictures/logo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.Exit__Button{
+  cursor: pointer;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+}
+.Exit{
+  cursor: pointer;
+}
+.Btn__Box{
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+.Exit__Button:hover{
+  border: 1px solid black;
+}
+
+.Employees__Form{
+  height: 600px;
+  overflow: auto;
+}
+.Form__Input_Container{
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  margin: .5rem 0;
+}
+
+.Form__Header{
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.Header__Top1{
+  height: 100%;
+  flex-grow: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ABD9FF;
+  border: 1px solid black;
+}
+.Header__Top2{
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFF6BF;
+  border: 1px solid black;
+}
+.Header__Top3{
+  height: 100%;
+  flex-grow: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #D9F8C4;
+}
+
+.Form__Input{
+  height: 40px;
+  margin: .5rem;
+  padding: 10px;
+}
+
+.Form__Input_Box1{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Form__Input_Box1 select{
+  height: 40px;
+  margin: .5rem;
+  padding: 10px;
+}
+
+.Form__Input_Box1 select option{
+  cursor: pointer;
+}
+
+.Form__Input_Box2{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 21px;
+}
+
+.Form__Input_Box2 select{
+  height: 40px;
+  margin: .5rem;
+  padding: 10px;
+}
+
+.Form__Input_Box2 select option{
+  cursor: pointer;
+}
+
+.Form__Input_Box{
+  width: 100%;
+}
+
+.Form__Input_Email{
+  height: 40px;
+  margin: .5rem;
+  margin-right: 1.1rem;
+  width: 410px;
+  padding: 10px;
+}
+
+.Form__Input_Box_File{
+  background-color: white;
+  border: 1px solid black;
+  padding: 5px;
+  margin: .5rem;
+}
+
+.Form__Btn_Container{
+display: flex;
+justify-content: center;
+margin: 1rem;
+margin-top: 50px;
+}
+
+.Form__Submit_Btn,
+.Form__Clear_Btn, 
+.Form__Reset_Btn{
+height: 50px;
+width: 100px;
+margin: 0 1rem;
+cursor: pointer;
+font-size: 15px;
+border-radius: 10px;
+}
+.Form__Submit_Btn{
+  background-color: rgb(167, 167, 204);
+}
+.Form__Submit_Btn:hover{
+  background-color: rgb(139, 139, 197);
+}
+
+.Form__Clear_Btn{
+  background-color: rgb(208, 144, 144);
+}
+.Form__Clear_Btn:hover{
+  background-color: rgb(209, 82, 82);
+}
+
+.Form__Reset_Btn{
+  background-color: rgb(126, 235, 116);
+}
+.Form__Reset_Btn:hover{
+  background-color: rgb(55, 233, 55);
+}
+
+.Form__Input_Box label{
+  font-weight: bold;
+}
+
+.Form__Input_Box1 label{
+  font-weight: bold;
+}

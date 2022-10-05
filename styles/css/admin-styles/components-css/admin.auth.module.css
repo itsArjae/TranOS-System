@@ -1,0 +1,59 @@
+.container{
+  height: 200px;
+  width: 500px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.logo{
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgb(179, 157, 157);
+}
+.logo button{
+width: 30px;
+background-color: transparent;
+border: none;
+cursor: pointer;
+}
+.logo button:hover{
+  background-color: rgb(136, 112, 112);
+}
+.logo img{
+height: 150px;
+margin-left: 20px;
+}
+
+.content{
+  flex-grow: 1;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content h4{
+  margin-right: auto;
+  margin-left: 30px;
+}
+.pass__input{
+  width: 80%;
+  text-align: center;
+  padding: 5px;
+}
+.content button{
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  margin: 1rem 0;
+  font-size: 20px;
+  cursor: pointer;
+  color: rgb(35, 58, 1);
+}
+.content button:hover{
+  color: rgb(75, 97, 43);
+}
