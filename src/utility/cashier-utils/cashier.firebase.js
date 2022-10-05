@@ -52,6 +52,7 @@ export async function saveTransaction(
   }
 }
 
+
 export async function saveItems(id, orderData, date) {
   orderData.map(async (val) => {
     try {
@@ -64,7 +65,7 @@ export async function saveItems(id, orderData, date) {
         total: val.total,
         dateBought: date,
       });
-      console.log("Document written with ID: ", docRef.id);
+      console.log("Document written with a ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
