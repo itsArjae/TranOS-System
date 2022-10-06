@@ -23,7 +23,7 @@ import MessageBox from "../../src/misc/messagebox";
 import { useRouter } from "next/router";
 
 export default function CashierManageTableredo() {
- const router = useRouter();
+  const router = useRouter();
 
   const [hasloaded, setHasLoaded] = useState(false);
   const [tableRecord, setTableRecord] = useState([]);
@@ -58,8 +58,6 @@ export default function CashierManageTableredo() {
     getTableData();
     setHasLoaded(true);
   }, [tableRecord]);
-
-  
 
   return hasloaded ? (
     <div className={styles.Container}>

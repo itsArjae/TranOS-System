@@ -5,14 +5,28 @@ import { app } from "../utility/firebase";
 import {
   saveTransaction,
   saveItems,
-  saveDaily,
   deleteData,
   updateTable,
-  saveData,
+  saveDaily,
+  saveMonthly,
+  saveYearly,
+  updateDaily,
+  updateMonthly,
+  updateYearly,
 } from "../utility/cashier-utils/cashier.firebase";
-import { collection, getDocs, getFirestore,query,where,onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  onSnapshot,
+  where,
+} from "firebase/firestore";
+import { useRouter } from "next/router";
 
 export default function CashierPay(props) {
+  const router = useRouter();
+
   const {
     setEditDataVisible,
     orderData,
@@ -48,23 +62,8 @@ export default function CashierPay(props) {
   const [payment, setPayment] = useState(0);
   const [change, setChange] = useState(0);
   const [cashier, setCaschier] = useState("Mark");
-  const [monthlyData, setMonthly] = useState([]);
-  const [yearlyData, setYearly] = useState([]);
 
   const trID = Date.now();
-
-  const getMonthlyData = async () => {
-    const querySnapshot = await getDocs(collection(db, "monthlySales"));
-    let msale = [];
-    querySnapshot.forEach((doc) => {
-      msale.push({ ...doc.data(), id: doc.id });
-    });
-    console.log("read");
-    setMonthly(msale);
-  };
-  useEffect(() => {
-    getMonthlyData();
-  }, []);
 
   const pay = (val) => {
     setPayment(Number(val));
@@ -89,46 +88,112 @@ export default function CashierPay(props) {
     return subtotal;
   };
 
-  const confirmPayment = async() => {
-    saveTransaction(trID, d, cashier, getSubTotal(), tid, day, month, year);
-    saveItems(trID, orderData, dateTime);
-    saveDaily(year, month, day, getSubTotal());
-    saveTodaySales();
-  };
+  const [dSales, setDSales] = useState();
+  const [mSales, setMSales] = useState();
+  const [ySales, setYSales] = useState();
+  const [dSalesID, setDSalesID] = useState();
+  const [mSalesID, setMSalesID] = useState();
+  const [ySalesID, setYSalesID] = useState();
 
-  const saveTodaySales = (year, month, day, total) => {
-    saveNewDaily(year, month, day, total);
-  }
-
-    let foundDaily = true;
-    async function saveDaily(year, month, day, total) {
-    const empRef = collection(db, "dailySales");
-    console.log("read");
+  const getDailySales = () => {
+    const saleRef = collection(db, "dailySales");
+    console.log("read daily");
     const q = query(
-      empRef,
+      saleRef,
       where("day", "==", day),
       where("month", "==", month),
       where("year", "==", year)
     );
- onSnapshot(q, (snapshot) => {
-      let daily = "";
-      let data = [];
+    onSnapshot(q, (snapshot) => {
+      let sale = [];
       snapshot.docs.forEach((doc) => {
-        data.push({ ...doc.data(), id: doc.id });
+        sale.push({ ...doc.data(), id: doc.id });
       });
-     if(!data.id){
-      return saveNewDaily(year, month, day, total);
-     }
-     else{
-      foundDaily = true;
-     }
-  
-    });
 
-  
-    
-  }
-  
+      sale.map((data) => {
+        setDSales(data.totalSales);
+        setDSalesID(data.id);
+      });
+    });
+  };
+
+  const getMonthlySales = () => {
+    const saleRef = collection(db, "monthlySales");
+    console.log("read monthly");
+    const q = query(
+      saleRef,
+      where("month", "==", month),
+      where("year", "==", year)
+    );
+    onSnapshot(q, (snapshot) => {
+      let sale = [];
+      snapshot.docs.forEach((doc) => {
+        sale.push({ ...doc.data(), id: doc.id });
+      });
+
+      sale.map((data) => {
+        setMSales(data.totalSales);
+        setMSalesID(data.id);
+      });
+    });
+  };
+
+  const getYearlySales = () => {
+    const saleRef = collection(db, "yearlySales");
+    console.log("read yearly");
+    const q = query(saleRef, where("year", "==", year));
+    onSnapshot(q, (snapshot) => {
+      let sale = [];
+      snapshot.docs.forEach((doc) => {
+        sale.push({ ...doc.data(), id: doc.id });
+      });
+
+      sale.map((data) => {
+        setYSales(data.totalSales);
+        setYSalesID(data.id);
+      });
+    });
+  };
+
+  useEffect(() => {
+    getDailySales();
+    getMonthlySales();
+    getYearlySales();
+  }, []);
+
+  const confirmPayment = () => {
+    if (payment < getSubTotal()) {
+      console.log("Kulang"); //MAY LALABAS
+      return;
+    }
+    if (!dSales) {
+      saveDaily(getSubTotal(), year, month, day);
+    } else {
+      let sum = 0;
+      sum = Number(dSales) + Number(getSubTotal());
+      updateDaily(dSalesID, sum);
+    }
+    if (!mSales) {
+      saveMonthly(getSubTotal(), year, month);
+    } else {
+      let sum = 0;
+      sum = Number(mSales) + Number(getSubTotal());
+      updateMonthly(mSalesID, sum);
+    }
+    if (!ySales) {
+      saveYearly(getSubTotal(), year);
+    } else {
+      let sum = 0;
+      sum = Number(ySales) + Number(getSubTotal());
+      updateYearly(ySalesID, sum);
+    }
+
+    saveTransaction(trID, d, cashier, getSubTotal(), tid, day, month, year);
+    saveItems(trID, orderData, dateTime);
+    deleteData(orderData);
+    updateTable(tid);
+    router.push("/cashier/cashier.table");
+  };
 
   return (
     <div className={styles.container}>
@@ -215,7 +280,4 @@ export default function CashierPay(props) {
       </div>
     </div>
   );
-}
-{
-  /**try */
 }

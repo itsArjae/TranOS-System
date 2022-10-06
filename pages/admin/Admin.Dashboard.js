@@ -28,6 +28,7 @@ import {
   onSnapshot,
   FieldPath,
   Firestore,
+  getDocs,
 } from "firebase/firestore";
 
 const SampleData = [
@@ -159,6 +160,7 @@ const Dashboard = () => {
     }
   }, []);*/
   }
+
   var dt = new Date();
   let day = dt.getDate();
   let month = dt.getMonth() + 1;
@@ -166,8 +168,22 @@ const Dashboard = () => {
 
   const [dsalesData, setDSalesData] = useState([]);
   const [msalesData, setMSalesData] = useState([]);
+  const [ysalesData, setYSalesData] = useState([]);
 
   const db = getFirestore(app);
+
+  const getYearlyData = async () => {
+    const querySnapshot = await getDocs(collection(db, "yearlySales"));
+    let sales = [];
+    querySnapshot.forEach((doc) => {
+      sales.push({ ...doc.data(), id: doc.id });
+    });
+    console.log("read yearly");
+    setYSalesData(sales);
+  };
+  useEffect(() => {
+    getYearlyData();
+  }, []);
 
   const getDSalesData = () => {
     const saleRef = collection(db, "transactions");
