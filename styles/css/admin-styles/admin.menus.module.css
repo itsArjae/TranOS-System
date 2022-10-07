@@ -1,0 +1,65 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Crete+Round&family=Lobster&display=swap');
+
+.container{
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.inner__container{
+  height: 40%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.header{
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.header h1{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 50px;
+}
+
+.content__container{
+  border-top-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.content{
+  border-top-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: linear-gradient(to bottom right, #F7CA44, #F1FFAB, #87E0FF, #53C7F0);
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.content h1{
+  font-family: 'Crete Round', serif;
+}

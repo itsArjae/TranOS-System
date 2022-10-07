@@ -112,6 +112,10 @@ const Dashboard = () => {
     setopen(false);
     router.push("/admin/admin.menu");
   };
+  const goMenuList = () => {
+    setopen(false);
+    router.push("/admin/admin.menu.list");
+  };
   const goTransac = () => {
     setopen(false);
     //router.push("/admin/admin.transactions");
@@ -309,15 +313,15 @@ const Dashboard = () => {
               <button
                 className={styles.btnDashboard}
                 style={{ marginBottom: "10px" }}
-                onClick={goRawGoods}
+                onClick={goDash}
               >
                 <Image
-                  src="/assets/admin-assets/svg/db.rawgoods.icon.svg"
+                  src="/assets/admin-assets/svg/db.dashboard.icon.svg"
                   width={50}
                   height={50}
                   alt="raw goods icon"
                 />
-                <p className={styles.Icons__Text}>RAW GOODS</p>
+                <p className={styles.Icons__Text}>DASHBOARD</p>
               </button>
 
               <button className={styles.btnEmployees} onClick={goEmp}>
@@ -330,19 +334,20 @@ const Dashboard = () => {
                 <p className={styles.Icons__Text}>EMPLOYEES</p>
               </button>
             </div>
+
             <div className={styles.Icons__Container2_1}>
               <button
                 className={styles.btnBeverages}
                 style={{ marginBottom: "10px" }}
-                onClick={goDrinks}
+                onClick={goRawGoods}
               >
                 <Image
-                  src="/assets/admin-assets/svg/db.beverages.icon.svg"
+                  src="/assets/admin-assets/svg/db.rawgoods.icon.svg"
                   width={50}
                   height={50}
                   alt="beverages icon"
                 />
-                <p className={styles.Icons__Text}>BEVERAGES</p>
+                <p className={styles.Icons__Text}>RAW GOODS</p>
               </button>
 
               <button className={styles.btnTables} onClick={goTables}>
@@ -386,15 +391,15 @@ const Dashboard = () => {
               <button
                 className={styles.btnMenu}
                 style={{ marginBottom: "10px" }}
-                onClick={goMenu}
+                onClick={goMenuList}
               >
                 <Image
-                  src="/assets/admin-assets/svg/db.menu.icon.svg"
+                  src="/assets/admin-assets/svg/db.menulist.icon.svg"
                   width={50}
                   height={50}
                   alt="menu icon"
                 />
-                <p className={styles.Icons__Text}>MEALS</p>
+                <p className={styles.Icons__Text}>MENU</p>
               </button>
 
               <button className={styles.btnSignOut}>

@@ -12,11 +12,11 @@ const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Drinks.png";
 const headers = [
   {
     id: 1,
-    header: "Picture",
+    header: "Combo Name",
   },
   {
     id: 2,
-    header: "Description",
+    header: "Beverage Name",
   },
   {
     id: 3,
@@ -28,7 +28,15 @@ const headers = [
   },
   {
     id: 5,
-    header: "Set Status as",
+    header: "Size",
+  },
+  {
+    id: 6,
+    header: "Status",
+  },
+  {
+    id: 7,
+    header: "Set as",
   },
 ];
 
@@ -85,15 +93,18 @@ export default function AdminTables(props) {
               <div className={styles.text}>Click to view</div>
             </div>
           </div>
-          <div className={styles.Table__Data__Box}>
-            {data.BeverageName} &nbsp;
-            {data.Size ? data.Size : ""}
-            {data.Details ? data.Details : ""}
-          </div>
+          <div className={styles.Table__Data__Box}> {data.BeverageName}</div>
           <div className={styles.Table__Data__Box}>
             {Number(data.Price).toFixed(2)}
           </div>
           <div className={styles.Table__Data__Box}> {data.Quantity}</div>
+          <div className={styles.Table__Data__Box}>
+            {data.Size ? data.Size : "N/A"}
+            {data.Details ? data.Details : ""}
+          </div>
+          <div className={styles.Table__Data__Box}>
+            {data.Status == true ? "Available" : "Not Available"}
+          </div>
           <div className={styles.Table__Data__Box}>
             <button
               className={styles.Table__Data_Available_Btn}

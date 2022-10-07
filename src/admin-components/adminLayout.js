@@ -129,6 +129,10 @@ export default function AdminLayout({ children }) {
     setopen(false);
     router.push("/admin/admin.menu");
   };
+  const goMenuList = () => {
+    setopen(false);
+    router.push("/admin/admin.menu.list");
+  };
   const goTransac = () => {
     setopen(false);
     //router.push("/admin/admin.transactions");
@@ -137,11 +141,11 @@ export default function AdminLayout({ children }) {
     setopen(false);
     router.push("/admin/admin.raw-goods");
   };
-  const goSignout = async() => {
+  const goSignout = async () => {
     setopen(false);
-    try{
-        await logoutUser();
-    }catch(err){
+    try {
+      await logoutUser();
+    } catch (err) {
       console.log(err);
     }
     router.push("/sign-in");
@@ -210,8 +214,8 @@ export default function AdminLayout({ children }) {
                 flexDirection: "column",
                 marginLeft: "auto",
                 marginRight: "20px",
-                justifyContent:"center",
-                alignItems:"left"
+                justifyContent: "center",
+                alignItems: "left",
               }}
             >
               <Typography
@@ -219,9 +223,9 @@ export default function AdminLayout({ children }) {
               >
                 {dateNow}
               </Typography>
-           <Box sx={{marginLeft:"auto",color:"black"}} >
-           Welcome {currentUser?.email}
-           </Box>
+              <Box sx={{ marginLeft: "auto", color: "black" }}>
+                Welcome {currentUser?.email}
+              </Box>
             </Box>
           </Box>
         </toolbar>
@@ -310,32 +314,10 @@ export default function AdminLayout({ children }) {
               </ListItemText>
             </ListItem>
 
-            <ListItem button onClick={goDrinks}>
+            <ListItem button onClick={goMenuList}>
               <ListItemIcon>
                 <Image
-                  src="/assets/admin-assets/svg/beverage.logo.svg"
-                  alt="Beverages Icon"
-                  width={25}
-                  height={25}
-                />
-              </ListItemIcon>
-              <ListItemText sx={{}}>
-                <Typography
-                  variant="h2"
-                  sx={{
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Beverages
-                </Typography>
-              </ListItemText>
-            </ListItem>
-
-            <ListItem button onClick={goMenu}>
-              <ListItemIcon>
-                <Image
-                  src="/assets/cashier-assets/svg/cashier.menu.icon.svg"
+                  src="/assets/admin-assets/svg/admin.menulist.icon.svg"
                   alt="Menu Icon"
                   width={25}
                   height={25}
@@ -349,7 +331,7 @@ export default function AdminLayout({ children }) {
                     fontWeight: "bold",
                   }}
                 >
-                  Meals
+                  Menu
                 </Typography>
               </ListItemText>
             </ListItem>

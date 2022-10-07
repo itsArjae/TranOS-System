@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
-import styles from "../../styles/css/admin-styles/admin.menu.module.css";
+import styles from "../../styles/css/admin-styles/admin.combomeal.module.css";
 import AdminLayout from "../../src/admin-components/adminLayout";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { app } from "../../src/utility/firebase";
@@ -15,24 +15,26 @@ import {
   equalTo,
   orderByChild,
 } from "firebase/database";
-import AdminTablesMenu from "../../src/admin-components/admin.tables.menu";
-import { saveMiddleware2 } from "../../src/utility/admin-utils/menu.firebase";
+import AdminTablesBeverages from "../../src/admin-components/admin.tables.combo_meals";
+import { saveMiddleware2 } from "../../src/utility/admin-utils/beverages.firebase";
 import styled from "@emotion/styled";
 import LoadingScreen from "../loading-screen";
 import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
 import { useRouter } from "next/router";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 
-export default function AdminMenu() {
+export default function AdminBeverages() {
   const router = useRouter();
   const db = getFirestore(app);
 
   const [isLoading, setLoading] = useState(false);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
-  const [menuData, setMenuData] = useState([]); // data container
+  const [menuData, setMenuData] = useState([]);
+  const [beverageData, setBeverageData] = useState([]); // data container
   const [picItem, setPicItem] = useState(); // for image
   const imageRef = useRef(null);
   const [stat, setStatus] = useState("Available");
+  const [bevSize, setSize] = useState("");
 
   function Loading() {
     setLoading(!isLoading);
@@ -60,11 +62,11 @@ export default function AdminMenu() {
   const onSubmit = (data, { resetForm }) => {
     setLoading(null);
     try {
-      saveMiddleware2(data, menuData.length, picItem);
+      saveMiddleware2(data, beverageData.length, bevSize, picItem);
       resetForm();
       imageRef.current.value = "";
       setPicItem(null);
-      const { id, MealName, Price, Image } = data;
+      const { id, BeverageName, Price, Quantity, Size, Image } = data;
       let needRender = true;
       const interval = setInterval(() => {
         if (needRender === true) {
@@ -78,12 +80,29 @@ export default function AdminMenu() {
   };
 
   const id = () => {
-    if (menuData.length === 0) {
+    if (beverageData.length === 0) {
       return 1;
     } else {
-      return menuData.length + 1;
+      return beverageData.length + 1;
     }
   };
+
+  const getBeverageData = async () => {
+    const querySnapshot = await getDocs(collection(db, "beverages"));
+    let beverage = [];
+    querySnapshot.forEach((doc) => {
+      beverage.push({ ...doc.data(), id: doc.id });
+    });
+    console.log("read");
+    setBeverageData(beverage);
+    setLoading(true);
+  };
+  useEffect(() => {
+    try {
+      getBeverageData("id", "");
+    } catch (err) {}
+  }, [ignored]);
+  //
 
   const getMenuData = async () => {
     const querySnapshot = await getDocs(collection(db, "meals"));
@@ -116,37 +135,39 @@ export default function AdminMenu() {
   let date = monthFixed() + `/${day}/${year}`;
 
   const initialValues = {
-    MealName: "",
+    BeverageName: "",
     Price: "",
+    Quantity: "",
+    Size: "",
     Status: "",
     Image: "",
     id: id(),
   };
 
   const validationSchema = Yup.object().shape({
-    MealName: Yup.string().required("Incomplete Details!"),
+    BeverageName: Yup.string().required("Incomplete Details!"),
     Price: Yup.string().required("Incomplete Details!"),
-    Serving: Yup.string().required("Incomplete Details!"),
+    Quantity: Yup.string().required("Incomplete Details!"),
   });
 
   return isLoading ? (
     <IdleTimerContainer>
-      <div className={styles.Menu__Container}>
+      <div className={styles.Beverages__Container}>
         <div className={styles.Form__Container}>
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
           >
-            <Form autoComplete="off" className={styles.Menu__Form}>
+            <Form autoComplete="off" className={styles.Beverages__Form}>
               <div className={styles.Form__Header}>
-                <div className={styles.Header__Top1}>ADD MEALS</div>
+                <div className={styles.Header__Top1}>ADD COMBO MEALS</div>
                 <div className={styles.Header__Top2}>
                   <Image
-                    src="/assets/cashier-assets/svg/cashier.menu.icon.svg"
+                    src="/assets/admin-assets/svg/combomeal.icon.svg"
                     height={30}
                     width={30}
-                    alt="User Icon"
+                    alt="beverages Icon"
                   />
                 </div>
                 <div className={styles.Header__Top3}>{date}</div>
@@ -155,12 +176,60 @@ export default function AdminMenu() {
                 <div className={styles.Form__Input_Box}>
                   <Field
                     className={styles.Form__Input}
-                    name="MealName"
-                    placeholder=" Meal Name"
+                    name="ComboName"
+                    placeholder=" Combo Name"
                   />
-                  <ErrorMessage name="MealName" />
+                  <ErrorMessage name="ComboName" />
                 </div>
               </div>
+
+              <div className={styles.Form__Input_Container}>
+                <div className={styles.Form__Input_Box}>
+                  <select
+                    name="beverage"
+                    id="beverage"
+                    onChange={(e) => setSize(e.target.value)}
+                  >
+                    <option value="">
+                      &lt;&minus;&minus;Select Beverage&minus;&minus;&gt;
+                    </option>
+                    {beverageData.map((item) => {
+                      return (
+                        <option
+                          key={item.id}
+                          value={
+                            item.BeverageName + item.Size + " " + item.Details
+                          }
+                        >
+                          {item.BeverageName + item.Size + " " + item.Details}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
+
+              <div className={styles.Form__Input_Container}>
+                <div className={styles.Form__Input_Box}>
+                  <select
+                    name="meal"
+                    id="meal"
+                    onChange={(e) => setSize(e.target.value)}
+                  >
+                    <option value="">
+                      &lt;&minus;&minus;Select Meal&minus;&minus;&gt;
+                    </option>
+                    {menuData.map((item) => {
+                      return (
+                        <option key={item.id} value={item.MealName}>
+                          {item.MealName}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
+
               <div className={styles.Form__Input_Container}>
                 <div className={styles.Form__Input_Box}>
                   <Field
@@ -173,31 +242,6 @@ export default function AdminMenu() {
                 </div>
               </div>
 
-              <div className={styles.Form__Input_Container}>
-                <div className={styles.Form__Input_Box}>
-                  <Field
-                    className={styles.Form__Input}
-                    name="Serving"
-                    placeholder="Estimated Servings"
-                    type="number"
-                  />
-                  <ErrorMessage name="Serving" />
-                </div>
-              </div>
-
-              <div className={styles.Form__Input_Container}>
-                <div className={styles.Form__Input_Box_File}>
-                  <label htmlFor="imageFile">Image: </label>
-                  <input
-                    className={styles.Form__Input_File}
-                    name="Image"
-                    type="file"
-                    id="imageFile"
-                    onChange={imageHandler}
-                    ref={imageRef}
-                  />
-                </div>
-              </div>
               <div className={styles.Form__Btn_Container}>
                 <button
                   className={styles.Form__Clear_Btn}
@@ -216,8 +260,8 @@ export default function AdminMenu() {
           </Formik>
         </div>
         <div className={styles.Table__Container}>
-          <AdminTablesMenu
-            menuData={menuData}
+          <AdminTablesBeverages
+            beverageData={beverageData}
             updateData={updateData}
             Loading={Loading}
           />
@@ -247,6 +291,6 @@ const InnerBox = styled.div`
   margin: auto;
 `;
 
-AdminMenu.getLayout = function getLayout(page) {
+AdminBeverages.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
