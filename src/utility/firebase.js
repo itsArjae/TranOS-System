@@ -1,9 +1,8 @@
 import { initializeApp } from "firebase/app";
 import {getStorage} from "firebase/storage";
-import { getFirestore } from "firebase/firestore"
+import { getFirestore } from "firebase/firestore";
 import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut,sendPasswordResetEmail} from 'firebase/auth';
 import { useEffect, useState } from "react";
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyC6szvLEp_-PUoPTGk9C1Kea2OrYeVmGrM",
@@ -16,7 +15,6 @@ const firebaseConfig = {
   measurementId: "G-RZNHPZ8SMZ",
 };
 
-
 export const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);
 const auth = getAuth(app);
@@ -24,9 +22,8 @@ const auth = getAuth(app);
 var secondaryAuth = initializeApp(firebaseConfig,"Secondary");
 const auth2 = getAuth(secondaryAuth);
 
-
-export const addUser = (email,password) =>{
-  return createUserWithEmailAndPassword(auth2,email,password).then(()=>{
+export const addUser = (email,password,position) =>{
+  return createUserWithEmailAndPassword(auth2,email,password,position).then(()=>{
     console.log('created')
     signOut(auth2);
   });
@@ -46,11 +43,12 @@ export const useAuth = () =>{
 
 export function loginUser(email,password){
   return signInWithEmailAndPassword(auth,email,password);
-}
+};
+
 export function logoutUser(){
   return signOut(auth);
-}
+};
 
 export function resetUserPassword(email){
   return sendPasswordResetEmail(auth,email);
-}
+};

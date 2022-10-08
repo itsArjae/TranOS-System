@@ -57,7 +57,6 @@
 .Form__Box{
   width: 300px;
   height: 200px;
-  border: 1px solid black;
   margin: 1rem 0;
   display: flex;
   flex-direction: column;
@@ -67,10 +66,11 @@
 
 .Input__Box input{
   outline: none;
-  border: 1px solid black;
+  border: none;
   height: 40px;
   width: 250px;
-  padding: 10px;
+  border-bottom: 1px solid black;
+  
 }
 
 .Button__Box{
@@ -79,9 +79,36 @@
 .Button__Box button{
   margin: 1rem 1rem;
   margin-left: auto;
+  padding: 10px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid black;
  
 }
+.Input_Pass__Box{
+  display: flex;
+  flex-direction: column;
 
+  width: 100%;
+  padding: 10px;
+}
+.Button__Box2{
+  display: flex;
+}
+.Button__Box2 button{
+  margin: .5rem 0;
+  margin-right: auto;
+  padding: 5px;
+  cursor: pointer;
+}
+.Input1__Pass input{
+  outline: none;
+  height: 40px;
+  width: 250px;
+  padding: 10px;
+  margin: .5rem 1rem;
+
+}
 
 @media screen and (max-width: 600px) {
 .Login__Box{

@@ -5,19 +5,18 @@ import * as Yup from "yup";
 import { app, loginUser, useAuth } from "../src/utility/firebase";
 import { useRouter } from "next/router";
 import {
-  getDatabase,
-  ref,
-  set,
-  child,
-  get,
+  collection,
+  getDocs,
+  getFirestore,
   query,
-  equalTo,
-  orderByChild,
-} from "firebase/database";
+  onSnapshot,
+  where,
+} from "firebase/firestore";
 import bcrypt from "bcryptjs";
 import { async } from "@firebase/util";
 import { sign } from "jsonwebtoken";
 import { TailSpin } from "react-loader-spinner";
+import { UserDocument } from "../src/misc/userdata";
 
 export default function SignIn() {
   const router = useRouter();
@@ -27,36 +26,152 @@ export default function SignIn() {
     email: "",
     password: "",
   };
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const db = getFirestore(app);
 
   const [step, setStep] = useState(1);
 
-  const validationSchema = Yup.object().shape({
-    password: Yup.string().required(),
-    email: Yup.string().required(),
-  });
 
-  const onSubmit = async (data, resetForm) => {
-    await loginUser(data.email, data.password);
-    router.push("/admin/admin.employees");
+  const onSubmit = async (password) => {
+    try{
+      await loginUser(userInfo.Email,password);
+    }catch(err){
+      handleErrorMessage("Wrong Password");
+      return;
+    }
+  if(userInfo.Position == "Admin"){
+    router.push("/admin/Admin.Dashboard");
+    return;
+  }
+  if(userInfo.Position == "Cashier"){
+    router.push("/cashier/cashier.meals");
+    return;
+  }
+ 
   };
 
+  const [userInfo, setUserInfo] = useState([]);
+  const [hasLoaded, setHasLoaded] = useState(true);
+  const [emailExist, setEmailExist] = useState(true);
+  const [email, setEmail] = useState("");
+  const [errorMes,setErrorMes] = useState('');
+  const [hasError,setHasError] = useState(false);
 
-  const [hasLoaded,setHasLoaded] = useState(true);
-  const [emailExist,setEmailExist] = useState(true);
-  const InputEmail = () => {
-    return hasLoaded?
-     <div>
-        <div className={styles.Input__Box} >
-            <input placeholder="Enter Email" />
+  const getUserInfo = async (temp) => {
+    setHasLoaded(false);
+    console.log("try");
+    setUserInfo([]);
+    try {
+      const saleRef = collection(db, "employees");
+      console.log("read users");
+      const q = query(saleRef, where("Email", "==", temp));
+      onSnapshot(q, (snapshot) => {
+        let sale = [];
+        let uid = "";
+        snapshot.docs.forEach((doc) => {
+          sale.push({ ...doc.data(), id: doc.id });
+          uid = doc.id;
+        });
+        if (!uid) {
+          handleErrorMessage("Email Doesn't Exist");
+          setHasLoaded(true);
+          return;
+        }
+        sale.map((data) => {
+          setUserInfo({ Email: data.Email, Position: data.Position });
+        });
+        setHasLoaded(true);
+      });
+    } catch (err) {}
+  };
+  useEffect(() => {
+    if (!userInfo.Email) {
+      console.log("emaill", userInfo.Email);
+    } else {
+      console.log("the Email has changed", userInfo.Email);
+      setStep(2);
+      setHasError(false);
+    }
+  }, [userInfo]);
+  
+  const handleErrorMessage = (message) => {
+    setErrorMes(message);
+    setHasError(true);
+  }
+
+  const InputEmail = (props) => {
+    const [temp, setTemp] = useState("");
+    return hasLoaded ? (
+      <div>
+        <div className={styles.Input__Box}>
+          <input
+            placeholder="Enter Email"
+            onChange={(event) => {
+              setTemp(event.target.value);
+            }}
+          />
         </div>
-        <div className={styles.Button__Box} >
-          <button>Next</button>
+        <div className={styles.Button__Box}>
+          <button
+            onClick={() => {
+              if (!temp) {
+                handleErrorMessage("Please input an email");
+                return;
+              }
+             getUserInfo(temp);
+            }}
+          >
+            Next
+          </button>
         </div>
-    </div>: 
-    <Loading/>;
+      </div>
+    ) : (
+      <Loading />
+    );
+  };
+
+  const back = () => {
+    setStep(1);
+    setUserInfo([]);
+  }
+
+  const InputPassword = () => {
+    const [temp, setTemp] = useState("");
+    return hasLoaded ? (
+      <div className={styles.Input_Pass__Box}>
+        <div className={styles.Button__Box2}>
+          <button onClick={back} >Back</button>
+        </div>
+        <div className={styles.Input_Pass_Content}>
+          <div className={styles.Input_Pass__Credentials}>
+            <b>Log in as: </b>{userInfo.Email}
+            <br/>
+            <b>Position: </b>{userInfo.Position}
+          </div>
+          <div className={styles.Input1__Pass} >
+                <input placeholder="Enter Password" onChange={(event) => {
+              setTemp(event.target.value);
+            }}/>
+          </div>
+          <div className={styles.Button__Box}>
+          <button
+            onClick={() => {
+              if (!temp) {
+                handleErrorMessage("Please Input a password");
+                return;
+              }
+              onSubmit(temp);
+              
+            }}
+          >
+            Login
+          </button>
+        </div>
+          
+        </div>
+      </div>
+    ) : (
+      <Loading />
+    );
   };
 
   const Loading = () => {
@@ -80,10 +195,24 @@ export default function SignIn() {
     <div className={styles.container}>
       <div className={styles.Login__Box}>
         <div className={styles.Login__Form}>
-          <h2>Login</h2>
-          <div className={styles.Form__Box} >
-            <InputEmail />
+          <h2>Welcome to TranOS</h2>
+          <h3>Login</h3>
+          <div className={styles.Form__Box}>
+            {step == 1 && hasLoaded ? (
+              <InputEmail />
+            ) : step == 2 && hasLoaded ? (
+              <InputPassword />
+            ) : (
+              <Loading />
+            )}
           </div>
+          {
+            hasError? (
+              <div style={{color:"red"}} >
+                {errorMes}
+                </div>
+            ): null
+          }
         </div>
         <div className={styles.logo}>
           <img src="/assets/admin-assets/pictures/logo.png" alt="logo" />

@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import { logoutUser, useAuth } from "../utility/firebase";
 
 export default function AdminLayout({ children }) {
+  const userss = 'arjae';
   const currentUser = useAuth();
   const dateRef = useRef(null);
   const [dateNow, setDateNow] = useState("");
@@ -224,7 +225,7 @@ export default function AdminLayout({ children }) {
                 {dateNow}
               </Typography>
               <Box sx={{ marginLeft: "auto", color: "black" }}>
-                Welcome {currentUser?.email}
+                Welcome {currentUser?.position}
               </Box>
             </Box>
           </Box>

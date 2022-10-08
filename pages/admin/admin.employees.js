@@ -14,6 +14,7 @@ import bcrypt from "bcryptjs";
 import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import MessageBox from "../../src/misc/messagebox";
+import { UserDocument } from "../../src/misc/userdata";
 
 
 export default function AdminEmployees() {
@@ -77,7 +78,7 @@ export default function AdminEmployees() {
    
       try{
       
-        await addUser(data.Email,password);
+        await addUser(data.Email,password,pos);
       }catch(err){
         console.log(err);
         setMessage("Email is already taken");
@@ -205,7 +206,10 @@ export default function AdminEmployees() {
 
   return isLoading ? (
     <IdleTimerContainer>
+     
       <div className={styles.Employees__Container}>
+      
+
         <div className={styles.Form__Container}>
           <Formik
             initialValues={initialValues}
