@@ -44,37 +44,42 @@
   align-items: center;
   justify-content: center;
 }
-.input__box{
-  display: flex;
-  flex-direction: column;
-  margin: 1rem 1rem;
+.Login__Form h2{
+  font-size: 20px;
+  font-weight: bold;
 }
-.input{
-  height: 50px;
-  width: 300px;
-  font-size: 18px;
-  text-align: center;
-  outline: none;
-  border: 1px solid grey;
-  border-radius: 10px;
-}
-.submit{
-  width:200px;
-  height: 50px;
-  border-radius: 20px;
-  background-color: #85d3fe;
-  border: none;
-  font-weight: bolder;
-  font-size: 15px;
-  cursor: pointer;
-  margin: 1rem 0;
-}
-.submit:hover{
-  background-color: #EEF1FF;
-  border: 1px solid black;
-}
+
 .logo h4{
   color: blue;
+}
+
+
+.Form__Box{
+  width: 300px;
+  height: 200px;
+  border: 1px solid black;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Input__Box input{
+  outline: none;
+  border: 1px solid black;
+  height: 40px;
+  width: 250px;
+  padding: 10px;
+}
+
+.Button__Box{
+  display: flex;
+}
+.Button__Box button{
+  margin: 1rem 1rem;
+  margin-left: auto;
+ 
 }
 
 
