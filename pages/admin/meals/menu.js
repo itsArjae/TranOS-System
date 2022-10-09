@@ -116,6 +116,9 @@ export default function AdminMenuData() {
                     <p>
                       Price: <b>{Number(data.Price).toFixed(2)}</b>
                     </p>
+                    <p>
+                      Serving/s: <b>{data.Serving}</b>
+                    </p>
                   </div>
                 </div>
               </div>

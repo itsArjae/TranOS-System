@@ -92,6 +92,13 @@
   padding: 10px;
 }
 
+.Form__Input1{
+  height: 40px;
+  width: 50%;
+  margin: .5rem;
+  padding: 10px;
+}
+
 .Form__Input_Box1{
   width: 100%;
   display: flex;

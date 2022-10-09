@@ -71,7 +71,7 @@ export default function EditBeverage(props) {
   const Bevqty = useRef(null);
   const Bevprice = useRef(null);
   const Bevsize = useRef(null);
-  const Bevdetail = useRef(null);
+  const Bevnewqty = useRef(null);
 
   useEffect(() => {
     {
@@ -124,7 +124,7 @@ export default function EditBeverage(props) {
   };
 
   const updateBeverageData = () => {
-    if (Bevsize.current.value == "") {
+    if (Bevsize.current.value == "" && Bevnewqty == "") {
       updateBeverage(
         id,
         Bevname.current.value,
@@ -136,10 +136,12 @@ export default function EditBeverage(props) {
       );
       clear();
     } else {
+      let newqty = 0;
+      newqty = Number(bevQty) + Number(Bevqty.current.value);
       updateBeverage(
         id,
         Bevname.current.value,
-        Bevqty.current.value,
+        Number(newqty),
         Number(Bevprice.current.value),
         Bevsize.current.value,
         bevDetail
@@ -182,22 +184,6 @@ export default function EditBeverage(props) {
                   }}
                 ></input>
               </div>
-            </div>
-
-            <div className={styles.Form__Input_Container}>
-              <div className={styles.Form__Input_Box1}>
-                <label htmlFor="quantity">Quantity:</label>
-                <input
-                  className={styles.Form__Input}
-                  type="text"
-                  id="quantity"
-                  ref={Bevqty}
-                  onChange={(event) => {
-                    setQty(event.target.value);
-                    setChange(false);
-                  }}
-                ></input>
-              </div>
 
               <div className={styles.Form__Input_Box1}>
                 <label htmlFor="price">Price:</label>
@@ -208,6 +194,33 @@ export default function EditBeverage(props) {
                   ref={Bevprice}
                   onChange={(event) => {
                     setPrice(event.target.value);
+                    setChange(false);
+                  }}
+                ></input>
+              </div>
+            </div>
+
+            <div className={styles.Form__Input_Container}>
+              <div className={styles.Form__Input_Box1}>
+                <label htmlFor="quantity">Remaining Stocks:</label>
+                <input
+                  className={styles.Form__Input}
+                  type="text"
+                  id="quantity"
+                  ref={Bevqty}
+                  readOnly={true}
+                ></input>
+              </div>
+
+              <div className={styles.Form__Input_Box1}>
+                <label htmlFor="quantity">Additonal Stocks:</label>
+                <input
+                  className={styles.Form__Input}
+                  type="text"
+                  id="quantity"
+                  ref={Bevnewqty}
+                  onChange={(event) => {
+                    setQty(event.target.value);
                     setChange(false);
                   }}
                 ></input>

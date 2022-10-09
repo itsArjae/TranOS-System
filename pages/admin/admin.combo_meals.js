@@ -11,17 +11,23 @@ import {
   set,
   child,
   get,
-  query,
   equalTo,
   orderByChild,
 } from "firebase/database";
-import AdminTablesBeverages from "../../src/admin-components/admin.tables.combo_meals";
+import AdminTablesCombo from "../../src/admin-components/admin.tables.combo_meals";
 import { saveMiddleware2 } from "../../src/utility/admin-utils/beverages.firebase";
 import styled from "@emotion/styled";
 import LoadingScreen from "../loading-screen";
 import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
 import { useRouter } from "next/router";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 
 export default function AdminBeverages() {
   const router = useRouter();
@@ -30,11 +36,18 @@ export default function AdminBeverages() {
   const [isLoading, setLoading] = useState(false);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
   const [menuData, setMenuData] = useState([]);
+  const [comboData, setComboData] = useState([]);
   const [beverageData, setBeverageData] = useState([]); // data container
   const [picItem, setPicItem] = useState(); // for image
   const imageRef = useRef(null);
   const [stat, setStatus] = useState("Available");
   const [bevSize, setSize] = useState("");
+  const [BevID, setBevID] = useState("");
+  const [MealID, setMealID] = useState("");
+  const [BevName, setBevName] = useState("");
+  const [MealName, setMealName] = useState("");
+  const [BevPrice, setBevPrice] = useState("");
+  const [MealPrice, setMealPrice] = useState("");
 
   function Loading() {
     setLoading(!isLoading);
@@ -87,6 +100,23 @@ export default function AdminBeverages() {
     }
   };
 
+  const getComboData = async () => {
+    const querySnapshot = await getDocs(collection(db, "comboMeals"));
+    let beverage = [];
+    querySnapshot.forEach((doc) => {
+      beverage.push({ ...doc.data(), id: doc.id });
+    });
+    console.log("read");
+    setComboData(beverage);
+    setLoading(true);
+  };
+  useEffect(() => {
+    try {
+      getComboData("id", "");
+    } catch (err) {}
+  }, [ignored]);
+  //
+
   const getBeverageData = async () => {
     const querySnapshot = await getDocs(collection(db, "beverages"));
     let beverage = [];
@@ -120,6 +150,42 @@ export default function AdminBeverages() {
     } catch (err) {}
   }, [ignored]);
   //
+
+  const getBevData = (id) => {
+    const bevRef = collection(db, "beverages");
+    const q = query(bevRef, where("__name__", "==", id));
+
+    onSnapshot(q, (snapshot) => {
+      let bev = [];
+      snapshot.docs.forEach((doc) => {
+        bev.push({ ...doc.data(), id: doc.id });
+      });
+      console.log("read");
+
+      bev.map((data) => {
+        setBevName(data.BeverageName);
+        setBevPrice(data.Price);
+      });
+    });
+  };
+
+  const getMealData = (id) => {
+    const mealRef = collection(db, "meals");
+    const q = query(mealRef, where("__name__", "==", id));
+
+    onSnapshot(q, (snapshot) => {
+      let meals = [];
+      snapshot.docs.forEach((doc) => {
+        meals.push({ ...doc.data(), id: doc.id });
+      });
+      console.log("read");
+
+      meals.map((data) => {
+        setMealName(data.MealName);
+        setMealPrice(data.Price);
+      });
+    });
+  };
 
   var dt = new Date();
   let day = dt.getDate();
@@ -188,20 +254,17 @@ export default function AdminBeverages() {
                   <select
                     name="beverage"
                     id="beverage"
-                    onChange={(e) => setSize(e.target.value)}
+                    onChange={(e) => {
+                      getBevData(e.target.value);
+                    }}
                   >
                     <option value="">
                       &lt;&minus;&minus;Select Beverage&minus;&minus;&gt;
                     </option>
                     {beverageData.map((item) => {
                       return (
-                        <option
-                          key={item.id}
-                          value={
-                            item.BeverageName + item.Size + " " + item.Details
-                          }
-                        >
-                          {item.BeverageName + item.Size + " " + item.Details}
+                        <option key={item.id} value={item.id}>
+                          {item.BeverageName + " " + item.Size + item.Details}
                         </option>
                       );
                     })}
@@ -214,14 +277,16 @@ export default function AdminBeverages() {
                   <select
                     name="meal"
                     id="meal"
-                    onChange={(e) => setSize(e.target.value)}
+                    onChange={(e) => {
+                      getMealData(e.target.value);
+                    }}
                   >
                     <option value="">
                       &lt;&minus;&minus;Select Meal&minus;&minus;&gt;
                     </option>
                     {menuData.map((item) => {
                       return (
-                        <option key={item.id} value={item.MealName}>
+                        <option key={item.id} value={item.id}>
                           {item.MealName}
                         </option>
                       );
@@ -230,24 +295,13 @@ export default function AdminBeverages() {
                 </div>
               </div>
 
-              <div className={styles.Form__Input_Container}>
-                <div className={styles.Form__Input_Box}>
-                  <Field
-                    className={styles.Form__Input}
-                    name="Price"
-                    placeholder="Price"
-                    type="number"
-                  />
-                  <ErrorMessage name="Price" />
-                </div>
-              </div>
-
               <div className={styles.Form__Btn_Container}>
                 <button
                   className={styles.Form__Clear_Btn}
                   type="button"
                   onClick={() => {
-                    console.log(initialValues);
+                    console.log(BevName, BevPrice);
+                    console.log(MealName, MealPrice);
                   }}
                 >
                   Clear
@@ -260,7 +314,7 @@ export default function AdminBeverages() {
           </Formik>
         </div>
         <div className={styles.Table__Container}>
-          <AdminTablesBeverages
+          <AdminTablesCombo
             beverageData={beverageData}
             updateData={updateData}
             Loading={Loading}
