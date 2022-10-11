@@ -177,11 +177,13 @@ export default function AdminManageTableredo() {
   };
 
   const getOffsetLeft = () => {
-    return containerRef.current.offsetLeft? containerRef.current.offsetLeft: 0;
-  }
+    return containerRef.current.offsetLeft
+      ? containerRef.current.offsetLeft
+      : 0;
+  };
   const getOffsetTop = () => {
-    return containerRef.current.offsetTop? containerRef.current.offsetTop: 0;
-  }
+    return containerRef.current.offsetTop ? containerRef.current.offsetTop : 0;
+  };
 
   return hasloaded ? (
     <IdleTimerContainer>
