@@ -22,15 +22,6 @@ import { useRouter } from "next/router";
 
 export default function AdminManageTableredo() {
   const router = useRouter();
-  useEffect(() => {
-    const tableUpdate = setInterval(() => {
-      const access = { accessToken: localStorage.getItem("accessToken") };
-      if (!access.accessToken) {
-        console.log("lost login");
-        router.push("../sign-in");
-      }
-    }, 1000);
-  }, []);
 
   const [hasloaded, setHasLoaded] = useState(false);
   const [tableRecord, setTableRecord] = useState([]);
