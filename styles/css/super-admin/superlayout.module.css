@@ -1,0 +1,51 @@
+.layout__container {
+  display: flex;
+  flex-direction: row;
+}
+
+.layout__box {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  height: 100vh;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 3%,
+    rgba(0, 212, 255, 1) 45%
+  );
+  
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+.layout__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Times New Roman", Times, serif;
+  color: rgb(28, 27, 27);
+  margin: 1rem;
+  
+}
+.layout__header img {
+  height: 200px;
+}
+
+.layout__nav{
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgb(148, 141, 141);
+}
+.layout__nav button{
+  width: 100%;
+  height: 50px;
+  font-size: 25px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+.layout__nav button:hover{
+  color: gray;
+}

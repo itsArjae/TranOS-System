@@ -96,7 +96,7 @@ export async function saveDaily(total, year, month, day) {
       year: year,
       month: month,
       day: day,
-      date: Date.now(),
+      date: Number(`${year}${Date.now()}`),
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
@@ -110,7 +110,7 @@ export async function saveMonthly(total, year, month) {
       totalSales: total,
       year: year,
       month: month,
-      date: Date.now(),
+      date: Number(`${year}${Date.now()}`),
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
@@ -123,7 +123,7 @@ export async function saveYearly(total, year) {
     const docRef = await addDoc(collection(db, "yearlySales"), {
       totalSales: total,
       year: year,
-      date: Date.now(),
+      date: Number(`${year}${Date.now()}`),
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
