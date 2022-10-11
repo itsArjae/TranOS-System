@@ -41,6 +41,7 @@ export async function saveMenuData(data, menuId, pictureUrl) {
     const docRef = await addDoc(collection(db, "meals"), {
       MealName: data.MealName,
       Price: data.Price,
+      Serving: data.Serving,
       Status: true,
       ImageUrl: pictureUrl,
     });
@@ -70,11 +71,12 @@ function uploadMenuPicture(data, menuId, pictureFile) {
   );
 }
 
-export function updateMeal(id, mealname, mealprice) {
+export function updateMeal(id, mealname, mealprice, serving) {
   const docRef = doc(db, "meals", id);
   const data = {
     MealName: mealname,
     Price: mealprice,
+    Serving: serving,
   };
   setDoc(docRef, data, { merge: true })
     .then((docRef) => {

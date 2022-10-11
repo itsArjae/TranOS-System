@@ -87,7 +87,9 @@ export default function AdminTables(props) {
           <div className={styles.Table__Data__Box}>
             {Number(data.Price).toFixed(2)}
           </div>
-          <div className={styles.Table__Data__Box}>{data.Serving}</div>
+          <div className={styles.Table__Data__Box}>
+            {data.Serving ? data.Serving : "N/A"}
+          </div>
           <div className={styles.Table__Data__Box}>
             <button
               className={styles.Table__Data_Available_Btn}

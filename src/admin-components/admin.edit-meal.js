@@ -57,18 +57,21 @@ export default function EditMeal(props) {
 
   const [mealName, setName] = useState("");
   const [mealPrice, setPrice] = useState("");
+  const [mealServing, setServing] = useState("");
 
   const [change, setChange] = useState(true);
   const [enable, setEnable] = useState(false);
 
   const Mealname = useRef(null);
   const Mealprice = useRef(null);
+  const Mealserving = useRef(null);
 
   useEffect(() => {
     {
       mealsData.map((data) => {
         Mealname.current.value = data.MealName;
         Mealprice.current.value = data.Price;
+        Mealserving.current.value = data.Serving;
       });
     }
   }, []);
@@ -78,6 +81,7 @@ export default function EditMeal(props) {
       mealsData.map((data) => {
         Mealname.current.value = data.MealName;
         Mealprice.current.value = data.Price;
+        Mealserving.current.value = data.Serving;
       });
       setChange(true);
     }
@@ -86,10 +90,28 @@ export default function EditMeal(props) {
   const clear = () => {
     Mealname.current.value = null;
     Mealprice.current.value = null;
+    Mealserving.current.value = null;
   };
 
   const updateMealData = () => {
-    updateMeal(id, Mealname.current.value, Number(Mealprice.current.value));
+    if (mealServing == "") {
+      updateMeal(
+        id,
+        Mealname.current.value,
+        Number(Mealprice.current.value),
+        Number(Mealserving.current.value)
+      );
+    } else {
+      let qty = 0;
+      qty = Number(Mealserving.current.value) + Number(mealServing);
+      updateMeal(
+        id,
+        Mealname.current.value,
+        Number(Mealprice.current.value),
+        Number(qty)
+      );
+    }
+
     clear();
   };
 
@@ -127,9 +149,7 @@ export default function EditMeal(props) {
                   }}
                 ></input>
               </div>
-            </div>
 
-            <div className={styles.Form__Input_Container}>
               <div className={styles.Form__Input_Box1}>
                 <label htmlFor="price">Price:</label>
                 <input
@@ -139,6 +159,32 @@ export default function EditMeal(props) {
                   ref={Mealprice}
                   onChange={(event) => {
                     setPrice(event.target.value);
+                    setChange(false);
+                  }}
+                ></input>
+              </div>
+            </div>
+
+            <div className={styles.Form__Input_Container}>
+              <div className={styles.Form__Input_Box1}>
+                <label htmlFor="rServing"> Remaining Serving/s:</label>
+                <input
+                  className={styles.Form__Input}
+                  type="text"
+                  id="rServing"
+                  ref={Mealserving}
+                  readOnly={true}
+                ></input>
+              </div>
+
+              <div className={styles.Form__Input_Box1}>
+                <label htmlFor="aServing"> Additional Serving/s:</label>
+                <input
+                  className={styles.Form__Input}
+                  type="text"
+                  id="aServing"
+                  onChange={(event) => {
+                    setServing(event.target.value);
                     setChange(false);
                   }}
                 ></input>
