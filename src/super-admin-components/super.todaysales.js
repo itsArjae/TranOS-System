@@ -1,11 +1,12 @@
 import React from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, ResponsiveContainer } from 'recharts';
 
 
 export default function SuperTodaySales(props) {
   const {dailySales} = props;
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    
+  <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           width={200}
           height={60}
@@ -20,5 +21,7 @@ export default function SuperTodaySales(props) {
           <Area type="monotone" dataKey="totalSales" stroke="#8884d8" fill="#8884d8" />
         </AreaChart>
       </ResponsiveContainer>
+    
+  
   )
 }

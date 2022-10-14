@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { app } from "../../src/utility/firebase";
 import SuperTodaySales from '../../src/super-admin-components/super.todaysales';
+//import SuperTodaySales from '../../src/super-admin-components/super.todaysales';
 export default function SuperDashboard() {
   const db = getFirestore(app);
  const [dailySales,setDailySales] = useState([]);
@@ -39,16 +40,15 @@ getDailySales();
     <div className={styles.dash__container} >
         <div className={styles.sales__box} >
           <div className={styles.dash__today} >
-            <h4>Today Sales: 1000</h4>
-        <SuperTodaySales dailySales={dailySales} />
+              <h4>Today Sales: 1000</h4>
+              <SuperTodaySales dailySales={dailySales}/>
           </div>
           <div className={styles.dash__today} >
             <h4>Monthly Sales: 1000</h4>
-        <SuperTodaySales dailySales={dailySales} />
+       
           </div>
           <div className={styles.dash__today} >
-            <h4>Yearly Sales: 1000</h4>
-        <SuperTodaySales dailySales={dailySales} />
+      
           </div>
         </div>
         <div className={styles.notif__box} >
