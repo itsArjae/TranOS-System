@@ -16,7 +16,6 @@ import {
 } from "../utility/cashier-utils/cashier.firebase";
 import {
   collection,
-  getDocs,
   getFirestore,
   query,
   onSnapshot,
@@ -26,7 +25,6 @@ import { useRouter } from "next/router";
 
 export default function CashierPay(props) {
   const router = useRouter();
-
   const {
     setEditDataVisible,
     orderData,

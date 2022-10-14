@@ -173,7 +173,7 @@ export default function AdminManageTableredo() {
       : 0;
   };
   const getOffsetTop = () => {
-    return containerRef.current.offsetTop ? containerRef.current.offsetTop : 0;
+    return containerRef.current.offsetTop? containerRef.current.offsetTop: 0;
   };
 
   return hasloaded ? (

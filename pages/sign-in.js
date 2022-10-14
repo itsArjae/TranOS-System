@@ -148,7 +148,7 @@ export default function SignIn() {
             <b>Position: </b>{userInfo.Position}
           </div>
           <div className={styles.Input1__Pass} >
-                <input placeholder="Enter Password" onChange={(event) => {
+                <input type="password" placeholder="Enter Password" onChange={(event) => {
               setTemp(event.target.value);
             }}/>
           </div>

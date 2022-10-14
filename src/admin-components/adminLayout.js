@@ -225,7 +225,7 @@ export default function AdminLayout({ children }) {
                 {dateNow}
               </Typography>
               <Box sx={{ marginLeft: "auto", color: "black" }}>
-                Welcome {currentUser?.position}
+                Welcome {currentUser?.email}
               </Box>
             </Box>
           </Box>
