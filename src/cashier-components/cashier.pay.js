@@ -190,8 +190,8 @@ export default function CashierPay(props) {
 
     saveTransaction(trID, d, cashier, getSubTotal(), tid, day, month, year);
     saveItems(trID, orderData, dateTime);
-    deleteData(orderData);
-    updateTable(tid);
+    //deleteData(orderData);
+    //updateTable(tid);
     router.push("/cashier/cashier.table");
   };
 

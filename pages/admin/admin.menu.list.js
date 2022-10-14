@@ -67,18 +67,6 @@ export default function AdminMenus() {
             <h1>MEALS</h1>
           </div>
         </div>
-
-        <div className={styles.content__container} onClick={goCombo}>
-          <div className={styles.content}>
-            <img
-              src="/assets/admin-assets/svg/admin.combomeal.icon.svg"
-              height={100}
-              width={100}
-              alt="Combo Meals Icon"
-            />
-            <h1>COMBO MEALS</h1>
-          </div>
-        </div>
       </div>
     </div>
   );

@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import LineChart from "../../src/admin-components/linechart";
 import { app } from "../../src/utility/firebase";
+import { saveNotificationData } from "../../src/utility/admin-utils/dashboard.firebase";
+import { updateBeverageStatus } from "../../src/utility/admin-utils/beverages.firebase";
 import {
   getDatabase,
   ref,
@@ -129,26 +131,24 @@ const Dashboard = () => {
     localStorage.removeItem("accessToken");
     router.push("/sign-in");
   };
-  {
-    /*
   const [notifData, setNotif] = useState([]);
   const [notif, setNotification] = useState();
 
-  const getNotifData = (field, fieldData) => {
-    try {
-      const db = getDatabase(app);
-      const notifRef = query(ref(db, "notifications"), orderByChild("id"));
-      get(notifRef).then((snapshot) => {
-        var notification = [];
-
-        snapshot.forEach((childSnapshot) => {
-          notification.push(childSnapshot.val());
-        });
-        setNotif(notification);
-      });
-      console.log(notification);
-    } catch (err) {}
+  const getNotifData = async () => {
+    const querySnapshot = await getDocs(collection(db, "stockNotifications"));
+    let notif = [];
+    querySnapshot.forEach((doc) => {
+      notif.push({ ...doc.data(), id: doc.id });
+    });
+    console.log("read");
+    setNotif(notif);
   };
+  useEffect(() => {
+    try {
+      getNotifData("id", "");
+    } catch (err) {}
+  }, []);
+  //
 
   useEffect(() => {
     try {
@@ -162,8 +162,37 @@ const Dashboard = () => {
         setNotification(data.Details);
       });
     }
-  }, []);*/
-  }
+  }, []);
+
+  const [beverageData, setBeverageData] = useState([]);
+  const [notifDetails, setNotifDetails] = useState();
+
+  const getBeverageData = async () => {
+    const querySnapshot = await getDocs(collection(db, "beverages"));
+    let beverage = [];
+    querySnapshot.forEach((doc) => {
+      beverage.push({ ...doc.data(), id: doc.id });
+    });
+    console.log("read");
+    setBeverageData(beverage);
+  };
+  useEffect(() => {
+    try {
+      getBeverageData("id", "");
+    } catch (err) {}
+  }, []);
+  //
+
+  const showNotif = () => {
+    {
+      beverageData.map((data) => {
+        let name = data.BeverageName;
+        if (data.Quantity <= 10) {
+          setNotifDetails(name + "sadsadasd");
+        }
+      });
+    }
+  };
 
   var dt = new Date();
   let day = dt.getDate();
@@ -187,6 +216,7 @@ const Dashboard = () => {
   };
   useEffect(() => {
     getYearlyData();
+    showNotif();
   }, []);
 
   const getDSalesData = () => {
@@ -422,18 +452,18 @@ const Dashboard = () => {
             <div className={styles.Notifications__Header}>
               <h4>Notifications</h4>
             </div>
-            {/**  <div className={styles.Notifications}>
-             {notifData.map((data) => {
+            <div className={styles.Notifications}>
+              {notifData.map((data) => {
                 return (
                   <div key={data.id} className={styles.Notifications__Content}>
                     <div style={{ display: "flex" }}>
-                      <p>{data.Details}</p>
+                      <p>{data.details}</p>
                       <button className={styles.btnClose_Notif}>❌</button>
                     </div>
                   </div>
                 );
               })}
-            </div>*/}
+            </div>
           </div>
 
           <div className={styles.Calendar__Container}>
