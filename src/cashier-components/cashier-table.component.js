@@ -15,7 +15,7 @@ export default function CashierTableComponent(props) {
   const nodeRef = useRef(null);
   const router = useRouter();
   const tableRef = useRef(null);
-  const { table, coordinates, handleMessageVisible } = props;
+  const { table, coordinates, handleMessageVisible,notify } = props;
 
   const handleView = (id, Status) => {
     if (Status == true) {

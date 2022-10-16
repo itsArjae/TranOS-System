@@ -40,6 +40,7 @@ export default function SignIn() {
     }
   if(userInfo.Position == "Admin"){
     router.push("/admin/Admin.Dashboard");
+    localStorage.setItem("Position","Admin");
     return;
   }
   if(userInfo.Position == "Cashier"){

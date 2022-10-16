@@ -8,8 +8,8 @@
 }
 
 .dash__today{
-  width: 300px;
-  height: 200px;
+  width: 500px;
+  height: 300px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
   flex-direction: column;
@@ -17,6 +17,7 @@
   justify-content: center;
   font-family: sans-serif;
   margin: 1rem 1rem;
+  background-color: #8884d8;
 }
 
 .sales__box{

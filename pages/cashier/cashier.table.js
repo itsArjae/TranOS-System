@@ -21,8 +21,15 @@ import CashierTableComponent from "../../src/cashier-components/cashier-table.co
 import styled from "@emotion/styled";
 import MessageBox from "../../src/misc/messagebox";
 import { useRouter } from "next/router";
+//
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CashierManageTableredo() {
+  const notify = () => toast.warn("There's no order yet or this table", {
+    icon: "✔️"
+  });
+
   const router = useRouter();
 
   const [hasloaded, setHasLoaded] = useState(false);
@@ -34,8 +41,9 @@ export default function CashierManageTableredo() {
   const [messageVisible, setMessageVisible] = useState(false);
   const [message, setMessage] = useState("");
   const handleMessageVisible = (temp, message) => {
-    setMessage(message);
-    setMessageVisible(temp);
+   // setMessage(message);
+  //  setMessageVisible(temp);
+notify();
   };
 
   function getTableData() {
@@ -78,10 +86,11 @@ export default function CashierManageTableredo() {
           );
         })}
       </div>
+      <ToastContainer/>
       {messageVisible == true && (
         <OuterBox>
           <InnerBox>
-            <MessageBox message={message} setClose={handleMessageVisible} />
+            <MessageBox message={message} setClose={handleMessageVisible} notify={notify} />
           </InnerBox>
         </OuterBox>
       )}
