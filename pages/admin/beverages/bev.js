@@ -27,8 +27,24 @@ import {
   Firestore,
 } from "firebase/firestore";
 const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Drinks.png";
+import { deleteData } from "../../../src/utility/admin-utils/beverages.firebase";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminBeverageData() {
+  const notify = () =>
+    toast.success("Data updated successfully!", {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
+  const notifyDel = () =>
+    toast.success("Data deleted successfully!", {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
   const router = useRouter();
   const db = getFirestore(app);
   const id = router.query.BevID;
@@ -69,6 +85,18 @@ export default function AdminBeverageData() {
     window.open(link, "_blank");
   };
 
+  const deleteBev = () => {
+    let needRender = true;
+    deleteData(id);
+    notifyDel();
+    const interval = setInterval(() => {
+      if (needRender == true) {
+        router.push("/admin/admin.beverages");
+        needRender = false;
+      }
+    }, 3000);
+  };
+
   return (
     <div className={styles.Data__Container}>
       {beverageData.map((data) => {
@@ -94,7 +122,9 @@ export default function AdminBeverageData() {
                     Edit
                   </button>
                   &nbsp;
-                  <button className={styles.Delete__Btn}>Delete</button>
+                  <button className={styles.Delete__Btn} onClick={deleteBev}>
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>
@@ -140,10 +170,12 @@ export default function AdminBeverageData() {
               setEditDataVisible={setEditDataVisible}
               id={id}
               beverageData={beverageData}
+              notify={notify}
             />
           </InnerBox>
         </OuterBox>
       )}
+      <ToastContainer />
     </div>
   );
 }

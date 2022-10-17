@@ -6,6 +6,7 @@ import {
   getFirestore,
   doc,
   setDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import {
   getDownloadURL,
@@ -86,4 +87,13 @@ export function updateMeal(id, mealname, mealprice, serving) {
     .catch((error) => {
       console.log(error);
     });
+}
+
+export async function deleteData(bevID) {
+  try {
+    await deleteDoc(doc(db, "beverages", bevID));
+    console.log("Document deleted");
+  } catch (e) {
+    console.error("Error deleting document: ", e);
+  }
 }

@@ -75,7 +75,7 @@ export default function AdminEmployees() {
     if (pos === "Cashier") {
       password = `TCashier2022`;
       username = `TCashier`;
-      dpassword = `TCashier$2022`;
+      dpassword = `TCashier2022`;
     }
 
     try {
@@ -115,6 +115,7 @@ export default function AdminEmployees() {
     const interval = setInterval(() => {
       if (needRender === true) {
         renderEmp();
+        needRender = false;
       }
     }, 5000);
   };

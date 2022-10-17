@@ -20,11 +20,14 @@ import { useState, useEffect, useRef } from "react";
 import { updateBeverage } from "../utility/admin-utils/beverages.firebase";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function EditBeverage(props) {
   const router = useRouter();
   const db = getFirestore(app);
 
-  const { setEditDataVisible, id, beverageData } = props;
+  const { setEditDataVisible, id, beverageData, notify } = props;
   const [isLoading, setLoading] = useState(false);
   // data container
   const [picItem, setPicItem] = useState(); // for image
@@ -134,6 +137,7 @@ export default function EditBeverage(props) {
         bev
         //Bevdetail.current.value
       );
+      notify();
       clear();
     } else {
       let newqty = 0;
@@ -147,6 +151,7 @@ export default function EditBeverage(props) {
         bevDetail
         //Bevdetail.current.value
       );
+      notify();
       clear();
     }
   };

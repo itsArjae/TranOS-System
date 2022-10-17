@@ -22,8 +22,10 @@ import {
   where,
 } from "firebase/firestore";
 import { useRouter } from "next/router";
+import { useAuth } from "../utility/firebase";
 
 export default function CashierPay(props) {
+  const currentUser = useAuth();
   const router = useRouter();
   const {
     setEditDataVisible,
@@ -59,7 +61,7 @@ export default function CashierPay(props) {
   const changeRef = new useRef(null);
   const [payment, setPayment] = useState(0);
   const [change, setChange] = useState(0);
-  const [cashier, setCaschier] = useState("Mark");
+  const [cashier, setCashier] = useState("");
 
   const trID = Date.now();
 
@@ -186,7 +188,16 @@ export default function CashierPay(props) {
       updateYearly(ySalesID, sum);
     }
 
-    saveTransaction(trID, d, cashier, getSubTotal(), tid, day, month, year);
+    saveTransaction(
+      trID,
+      d,
+      currentUser.email,
+      getSubTotal(),
+      tid,
+      day,
+      month,
+      year
+    );
     saveItems(trID, orderData, dateTime);
     //deleteData(orderData);
     //updateTable(tid);

@@ -16,14 +16,26 @@ import {
   orderByChild,
 } from "firebase/database";
 import AdminTablesBeverages from "../../src/admin-components/admin.tables.beverages";
-import { saveMiddleware2 } from "../../src/utility/admin-utils/beverages.firebase";
+import {
+  saveMiddleware2,
+  saveNotifData,
+} from "../../src/utility/admin-utils/beverages.firebase";
 import styled from "@emotion/styled";
 import LoadingScreen from "../loading-screen";
 import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
 import { useRouter } from "next/router";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function AdminBeverages() {
+  const notify = () =>
+    toast.success("Data added successfully!", {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
   const router = useRouter();
   const db = getFirestore(app);
 
@@ -59,23 +71,21 @@ export default function AdminBeverages() {
   };
   //backend
   const onSubmit = (data, { resetForm }) => {
+    let needRender = true;
     setLoading(null);
-    try {
-      saveMiddleware2(data, beverageData.length, bevSize, picItem);
-      resetForm();
-      imageRef.current.value = "";
-      setPicItem(null);
-      const { id, BeverageName, Price, Quantity, Size, Image } = data;
-      let needRender = true;
-      const interval = setInterval(() => {
-        if (needRender === true) {
-          console.log("update");
-          needRender = false;
-          forceUpdate();
-          setLoading(true);
-        }
-      }, 5000);
-    } catch (err) {}
+    saveMiddleware2(data, beverageData.length, bevSize, picItem, date);
+    resetForm();
+    imageRef.current.value = "";
+    setPicItem(null);
+    const { id, BeverageName, Price, Quantity, Size, Image } = data;
+
+    const interval = setInterval(() => {
+      if (needRender === true) {
+        notify();
+        renderEmp();
+        needRender = false;
+      }
+    }, 5000);
   };
 
   const id = () => {
@@ -96,12 +106,24 @@ export default function AdminBeverages() {
     setBeverageData(beverage);
     setLoading(true);
   };
+  //
+
+  const renderEmp = async () => {
+    const querySnapshot = await getDocs(collection(db, "beverages"));
+    let emp = [];
+    querySnapshot.forEach((doc) => {
+      emp.push({ ...doc.data(), id: doc.id });
+    });
+    console.log("read");
+    setBeverageData(emp);
+    setLoading(true);
+  };
+
   useEffect(() => {
     try {
-      getBeverageData("id", "");
+      getBeverageData();
     } catch (err) {}
-  }, [ignored]);
-  //
+  }, []);
 
   var dt = new Date();
   let day = dt.getDate();
@@ -114,7 +136,7 @@ export default function AdminBeverages() {
     }
   };
   let year = dt.getFullYear();
-  let date = monthFixed() + `/${day}/${year}`;
+  let date = `${month}/${day}/${year}`;
 
   const initialValues = {
     BeverageName: "",
@@ -245,6 +267,7 @@ export default function AdminBeverages() {
             Loading={Loading}
           />
         </div>
+        <ToastContainer />
       </div>
     </IdleTimerContainer>
   ) : (
