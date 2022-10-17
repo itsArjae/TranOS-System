@@ -21,7 +21,13 @@ import styled from "@emotion/styled";
 import LoadingScreen from "../loading-screen";
 import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
 import { useRouter } from "next/router";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 
 export default function AdminMenu() {
   const router = useRouter();
@@ -30,9 +36,10 @@ export default function AdminMenu() {
   const [isLoading, setLoading] = useState(false);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
   const [menuData, setMenuData] = useState([]); // data container
+  const [categoryData, setCategoryData] = useState([]);
   const [picItem, setPicItem] = useState(); // for image
   const imageRef = useRef(null);
-  const [stat, setStatus] = useState("Available");
+  const [type, setType] = useState("Appetizer");
 
   function Loading() {
     setLoading(!isLoading);
@@ -60,7 +67,7 @@ export default function AdminMenu() {
   const onSubmit = (data, { resetForm }) => {
     setLoading(null);
     try {
-      saveMiddleware2(data, menuData.length, picItem);
+      saveMiddleware2(data, menuData.length, type, picItem);
       resetForm();
       imageRef.current.value = "";
       setPicItem(null);
@@ -95,9 +102,41 @@ export default function AdminMenu() {
     setMenuData(meals);
     setLoading(true);
   };
+
+  const getCategoryData = async () => {
+    const bevRef = collection(db, "menuCategory");
+    const q = query(bevRef, where("category", "==", "Meal"));
+
+    onSnapshot(q, (snapshot) => {
+      let category = [];
+      snapshot.docs.forEach((doc) => {
+        category.push({ ...doc.data(), id: doc.id });
+      });
+      console.log("read");
+      setCategoryData(category);
+      setLoading(true);
+      // bev.map((data) => {
+      //   setBevName(data.BeverageName);
+      //   setBevPrice(data.Price);
+      // });
+    });
+  };
+
+  // const getCategory = async () => {
+  //   const querySnapshot = await getDocs(collection(db, "menuCategory"));
+  //   let category = [];
+  //   querySnapshot.forEach((doc) => {
+  //     category.push({ ...doc.data(), id: doc.id });
+  //   });
+  //   console.log("read");
+  //   setCategoryData(category);
+  //   setLoading(true);
+  // };
   useEffect(() => {
     try {
       getMenuData("id", "");
+      //getCategory();
+      getCategoryData();
     } catch (err) {}
   }, [ignored]);
   //
@@ -126,7 +165,6 @@ export default function AdminMenu() {
   const validationSchema = Yup.object().shape({
     MealName: Yup.string().required("Incomplete Details!"),
     Price: Yup.string().required("Incomplete Details!"),
-    Serving: Yup.string().required("Incomplete Details!"),
   });
 
   return isLoading ? (
@@ -170,6 +208,29 @@ export default function AdminMenu() {
                     type="number"
                   />
                   <ErrorMessage name="Price" />
+                </div>
+              </div>
+
+              <div className={styles.Form__Input_Container}>
+                <div className={styles.Form__Input_Box}>
+                  <select
+                    name="type"
+                    id="type"
+                    onChange={(event) => {
+                      setType(event.target.value);
+                    }}
+                  >
+                    <option value="">
+                      &lt;&minus;&minus;Select Meal Type&minus;&minus;&gt;
+                    </option>
+                    {categoryData.map((item) => {
+                      return (
+                        <option key={item.id} value={item.type}>
+                          {item.type}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </div>
               </div>
 

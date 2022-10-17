@@ -18,32 +18,23 @@ const db = getFirestore(app);
 var ImageUrl;
 var ResumeUrl;
 
-export function saveMiddleware2(data, menuId, type, pictureFile) {
-  uploadMenuPicture(data, menuId, type, pictureFile);
+export function saveMiddleware2(data, expensesID, date, time, pictureFile) {
+  uploadRawGoodsPicture(data, expensesID, date, time, pictureFile);
 }
 
-export function updateMenu(mealID, stat) {
-  const docRef = doc(db, "meals", mealID);
-  const data = {
-    Status: stat,
-  };
-  setDoc(docRef, data, { merge: true })
-    .then((docRef) => {
-      console.log("Entire Document has been updated successfully");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
-
-export async function saveMenuData(data, menuId, type, pictureUrl) {
+export async function saveExpensesData(
+  data,
+  expensesID,
+  date,
+  time,
+  pictureUrl
+) {
   try {
-    const docRef = await addDoc(collection(db, "meals"), {
-      MealName: data.MealName,
-      Price: data.Price,
-      Serving: data.Serving,
-      Status: true,
-      Type: type,
+    const docRef = await addDoc(collection(db, "expenses"), {
+      remarks: data.remarks,
+      amount: data.amount,
+      date: date,
+      time: time,
       ImageUrl: pictureUrl,
     });
     console.log("Document written with ID: ", docRef.id);
@@ -52,12 +43,12 @@ export async function saveMenuData(data, menuId, type, pictureUrl) {
   }
 }
 
-function uploadMenuPicture(data, menuId, type, pictureFile) {
+function uploadRawGoodsPicture(data, expensesID, date, time, pictureFile) {
   if (!pictureFile) {
-    return saveMenuData(data, menuId, type, null);
+    return saveExpensesData(data, expensesID, date, time, null);
   }
 
-  const storageRef = sref(storage, "MenuFiles/" + pictureFile.name);
+  const storageRef = sref(storage, "RawGoodsFiles/" + pictureFile.name);
   const uploadTask = uploadBytesResumable(storageRef, pictureFile);
   console.log("picture upload");
   uploadTask.on(
@@ -66,18 +57,20 @@ function uploadMenuPicture(data, menuId, type, pictureFile) {
     (err) => console.log(err),
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((pictureUrl) => {
-        saveMenuData(data, menuId, type, pictureUrl);
+        saveExpensesData(data, expensesID, date, time, pictureUrl);
       });
     }
   );
 }
 
-export function updateMeal(id, mealname, mealprice, serving) {
-  const docRef = doc(db, "meals", id);
+export function updateRawGoods(id, rawgoodsname, detail, unit, date, time) {
+  const docRef = doc(db, "rawGoods", id);
   const data = {
-    MealName: mealname,
-    Price: mealprice,
-    Serving: serving,
+    rawGoodsName: rawgoodsname,
+    Details: detail,
+    Unit: unit,
+    UpdatedDate: date,
+    Time: time,
   };
   setDoc(docRef, data, { merge: true })
     .then((docRef) => {

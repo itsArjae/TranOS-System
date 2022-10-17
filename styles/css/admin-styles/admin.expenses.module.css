@@ -1,0 +1,116 @@
+.expenses__Container{
+  display: flex;
+  height: 100vh;
+  background-color: aliceblue;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  
+}
+
+.expenses__Form{
+  height: 500px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  overflow: auto;
+}
+.Form__Input_Container{
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  margin: .5rem 0;
+}
+.Form__Header{
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  height: 50px;
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+}
+.Header__Top1{
+  height: 100%;
+  flex-grow: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #277BC0;
+}
+.Header__Top2{
+  height: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+.Header__Top3{
+  height: 100%;
+  flex-grow: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #D9F8C4;
+}
+.Table__Container{
+  width: 100%;
+}
+
+.Form__Input{
+  height: 50px;
+  margin: .5rem;
+  padding: 10px;
+  width: 90%;
+}
+
+.Form__Input_Box select{
+  height: 50px;
+  margin: .5rem;
+  width: 80%;
+  padding: 10px;
+}
+
+.Form__Input_Box select option{
+  cursor: pointer;
+}
+.Form__Input_Box{
+  width: 100%;
+}
+.Form__Input_Box_File{
+  background-color: white;
+  border: 1px solid black;
+  padding: 5px;
+  margin: .5rem;
+  width: 90%;
+}
+.Form__Btn_Container{
+display: flex;
+justify-content: center;
+margin: 1rem;
+}
+
+.Form__Submit_Btn,
+.Form__Clear_Btn{
+height: 50px;
+width: 100px;
+margin: 0 1rem;
+cursor: pointer;
+font-size: 15px;
+border-radius: 10px;
+}
+.Form__Submit_Btn{
+  background-color: rgb(167, 167, 204);
+}
+.Form__Submit_Btn:hover{
+  background-color: rgb(139, 139, 197);
+}
+
+.Form__Clear_Btn{
+  background-color: rgb(208, 144, 144);
+}
+.Form__Clear_Btn:hover{
+  background-color: rgb(143, 45, 45);
+}

@@ -6,6 +6,8 @@ import {
   getFirestore,
   doc,
   setDoc,
+  deleteDoc,
+  where,
 } from "firebase/firestore";
 import {
   getDownloadURL,
@@ -36,15 +38,24 @@ export function updateMenu(mealID, stat) {
     });
 }
 
-export async function saveNotificationData(data, menuId, pictureUrl) {
+export async function saveNotificationData(details, itemID) {
   try {
     const docRef = await addDoc(collection(db, "stockNotifications"), {
-      details: data.MealName,
-      itemID: data.Price,
+      details: details,
+      itemID: itemID,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
+  }
+}
+
+export async function deleteData(dataID, itemID) {
+  try {
+    await deleteDoc(doc(db, "stockNotifications", dataID));
+    console.log("Document deleted");
+  } catch (e) {
+    console.error("Error deleting document: ", e);
   }
 }
 

@@ -20,7 +20,7 @@ import { useRouter } from "next/router";
 import { logoutUser, useAuth } from "../utility/firebase";
 
 export default function AdminLayout({ children }) {
-  const userss = 'arjae';
+  const userss = "arjae";
   const currentUser = useAuth();
   const dateRef = useRef(null);
   const [dateNow, setDateNow] = useState("");
@@ -136,11 +136,15 @@ export default function AdminLayout({ children }) {
   };
   const goTransac = () => {
     setopen(false);
-    //router.push("/admin/admin.transactions");
+    router.push("/admin/admin.transactions");
   };
   const goRawGoods = () => {
     setopen(false);
     router.push("/admin/admin.raw-goods");
+  };
+  const goExpenses = () => {
+    setopen(false);
+    router.push("/admin/admin.expenses");
   };
   const goSignout = async () => {
     setopen(false);
@@ -359,10 +363,10 @@ export default function AdminLayout({ children }) {
               </ListItemText>
             </ListItem>
 
-            <ListItem button onClick={goRawGoods}>
+            <ListItem button onClick={goExpenses}>
               <ListItemIcon>
                 <Image
-                  src="/assets/admin-assets/svg/rawgoods.icon.svg"
+                  src="/assets/admin-assets/svg/admin.expenses.icon.svg"
                   alt="Raw Goods Icon"
                   width={25}
                   height={25}
@@ -376,7 +380,7 @@ export default function AdminLayout({ children }) {
                     fontWeight: "bold",
                   }}
                 >
-                  Raw Goods
+                  Expenses
                 </Typography>
               </ListItemText>
             </ListItem>

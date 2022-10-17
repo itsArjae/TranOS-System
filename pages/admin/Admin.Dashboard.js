@@ -8,7 +8,10 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import LineChart from "../../src/admin-components/linechart";
 import { app } from "../../src/utility/firebase";
-import { saveNotificationData } from "../../src/utility/admin-utils/dashboard.firebase";
+import {
+  saveNotificationData,
+  deleteData,
+} from "../../src/utility/admin-utils/dashboard.firebase";
 import { updateBeverageStatus } from "../../src/utility/admin-utils/beverages.firebase";
 import {
   getDatabase,
@@ -120,11 +123,15 @@ const Dashboard = () => {
   };
   const goTransac = () => {
     setopen(false);
-    //router.push("/admin/admin.transactions");
+    router.push("/admin/admin.transactions");
   };
   const goRawGoods = () => {
     setopen(false);
     router.push("/admin/admin.raw-goods");
+  };
+  const goExpenses = () => {
+    setopen(false);
+    router.push("/admin/admin.expenses");
   };
   const goSignout = () => {
     setopen(false);
@@ -133,65 +140,36 @@ const Dashboard = () => {
   };
   const [notifData, setNotif] = useState([]);
   const [notif, setNotification] = useState();
-
-  const getNotifData = async () => {
-    const querySnapshot = await getDocs(collection(db, "stockNotifications"));
-    let notif = [];
-    querySnapshot.forEach((doc) => {
-      notif.push({ ...doc.data(), id: doc.id });
-    });
-    console.log("read");
-    setNotif(notif);
-  };
-  useEffect(() => {
-    try {
-      getNotifData("id", "");
-    } catch (err) {}
-  }, []);
-  //
-
-  useEffect(() => {
-    try {
-      getNotifData("id", "");
-    } catch (err) {}
-  }, []);
-
-  useEffect(() => {
-    {
-      notifData.map((data) => {
-        setNotification(data.Details);
-      });
-    }
-  }, []);
-
+  const [notifID, setNotifID] = useState();
   const [beverageData, setBeverageData] = useState([]);
-  const [notifDetails, setNotifDetails] = useState();
+  const [notifDetails, setNotifDetails] = useState([]);
 
-  const getBeverageData = async () => {
-    const querySnapshot = await getDocs(collection(db, "beverages"));
-    let beverage = [];
-    querySnapshot.forEach((doc) => {
-      beverage.push({ ...doc.data(), id: doc.id });
-    });
-    console.log("read");
-    setBeverageData(beverage);
-  };
-  useEffect(() => {
-    try {
-      getBeverageData("id", "");
-    } catch (err) {}
-  }, []);
-  //
-
-  const showNotif = () => {
-    {
-      beverageData.map((data) => {
-        let name = data.BeverageName;
-        if (data.Quantity <= 10) {
-          setNotifDetails(name + "sadsadasd");
-        }
+  const getBeverageData = () => {
+    const bevRef = collection(db, "beverages");
+    console.log("read beverage");
+    const q = query(bevRef, where("Quantity", "<=", 10));
+    onSnapshot(q, (snapshot) => {
+      let bev = [];
+      snapshot.docs.forEach((doc) => {
+        bev.push({ ...doc.data(), id: doc.id });
       });
-    }
+      //console.log(bev);
+      setBeverageData(bev);
+
+      bev.map((data) => {
+        const add = {
+          details: `${data.BeverageName} out of Stocks!`,
+          bevID: data.id,
+          stocks: data.Quantity,
+        };
+        console.log(add);
+        setNotif([...notifData, add]);
+      });
+    });
+  };
+
+  const deleteNotif = (dataID) => {
+    deleteData(dataID, notifID);
   };
 
   var dt = new Date();
@@ -214,10 +192,6 @@ const Dashboard = () => {
     console.log("read yearly");
     setYSalesData(sales);
   };
-  useEffect(() => {
-    getYearlyData();
-    showNotif();
-  }, []);
 
   const getDSalesData = () => {
     const saleRef = collection(db, "transactions");
@@ -236,9 +210,6 @@ const Dashboard = () => {
       setDSalesData(sale);
     });
   };
-  useEffect(() => {
-    getDSalesData();
-  }, []);
 
   const getMSalesData = () => {
     const saleRef = collection(db, "transactions");
@@ -256,8 +227,12 @@ const Dashboard = () => {
       setMSalesData(sale);
     });
   };
+
   useEffect(() => {
     getMSalesData();
+    getDSalesData();
+    getYearlyData();
+    getBeverageData();
   }, []);
 
   const getDTotal = () => {
@@ -369,15 +344,15 @@ const Dashboard = () => {
               <button
                 className={styles.btnBeverages}
                 style={{ marginBottom: "10px" }}
-                onClick={goRawGoods}
+                onClick={goExpenses}
               >
                 <Image
-                  src="/assets/admin-assets/svg/db.rawgoods.icon.svg"
+                  src="/assets/admin-assets/svg/db.expenses.icon.svg"
                   width={50}
                   height={50}
                   alt="beverages icon"
                 />
-                <p className={styles.Icons__Text}>RAW GOODS</p>
+                <p className={styles.Icons__Text}>EXPENSES</p>
               </button>
 
               <button className={styles.btnTables} onClick={goTables}>
@@ -406,7 +381,7 @@ const Dashboard = () => {
                 <p className={styles.Icons__Text}>SALES</p>
               </button>
 
-              <button className={styles.btnTransactions}>
+              <button className={styles.btnTransactions} onClick={goTransac}>
                 <Image
                   src="/assets/admin-assets/svg/db.transaction.icon.svg"
                   width={50}
@@ -450,15 +425,14 @@ const Dashboard = () => {
         <div className={styles.DashBoard__Container2}>
           <div className={styles.Notifications__Container}>
             <div className={styles.Notifications__Header}>
-              <h4>Notifications</h4>
+              <p>Notifications</p>
             </div>
             <div className={styles.Notifications}>
-              {notifData.map((data) => {
+              {beverageData.map((data) => {
                 return (
                   <div key={data.id} className={styles.Notifications__Content}>
                     <div style={{ display: "flex" }}>
-                      <p>{data.details}</p>
-                      <button className={styles.btnClose_Notif}>❌</button>
+                      <p>{data.BeverageName} running out of stocks!</p>
                     </div>
                   </div>
                 );
