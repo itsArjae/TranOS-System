@@ -1,30 +1,65 @@
 .dash__container{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 80vw;
+  flex-direction: row ;
+  width: 100vw;
   height: 100vh;
+  
 }
 
 .dash__today{
-  width: 500px;
-  height: 300px;
+  width: 700px;
+  height: 250px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-family: sans-serif;
-  margin: 1rem 1rem;
-  background-color: #8884d8;
+  padding: 10px;
+  font-family: 'Times New Roman', Times, serif;
+  margin: 2rem 2rem;
+
 }
 
 .sales__box{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  padding: 10px;
 }
 
 .notif__box{
   flex-grow: 1;
+  display: flex;
+  align-items: center;
+  font-family: 'Times New Roman', Times, serif;
+  flex-direction: column;
+}
+
+.notif__container{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 700px;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-size: 20px;
+}
+
+.notif__message{
+  flex-grow: 1;
+}
+
+.notif__box button{
+  margin: 1rem 1rem;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bold;
+  color: gray;
+  cursor: pointer;
+}
+
+.notif__box button:hover{
+  color: rgb(20, 18, 18);
 }

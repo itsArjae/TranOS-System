@@ -57,17 +57,17 @@ const data = [
     amt: 2100,
   },
 ];
-export default function SuperTodaySales() {
+export default function SuperMonthlySales() {
 
-  const [dailySales,setDailySales] = useState([]);
+  const [monthlySales,setMonthlySales] = useState([]);
   const db = getFirestore(app);
-  const getDailySales = () => {
-    const saleRef = collection(db, "dailySales");
-    console.log("read daily");
+  const getMonthlySales = () => {
+    const saleRef = collection(db, "monthlySales");
+    console.log("read monthly");
     const q = query(
       saleRef,
       orderBy("date"),
-      limitToLast(30)
+      limitToLast(12)
     );
     onSnapshot(q, (snapshot) => {
       let sale = [];
@@ -75,21 +75,21 @@ export default function SuperTodaySales() {
         sale.push({ ...doc.data(), id: doc.id });
       });
 
-      setDailySales(sale);
+      setMonthlySales(sale);
 
       
     });
   };
 
   useEffect(()=>{
-    getDailySales();
+    getMonthlySales();
   },[])
   return (
     <ResponsiveContainer width="100%" height="100%">
     <AreaChart
       width={500}
       height={400}
-      data={dailySales}
+      data={monthlySales}
       margin={{
         top: 10,
         right: 30,
@@ -98,7 +98,7 @@ export default function SuperTodaySales() {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="day" />
+      <XAxis dataKey="month" />
       <YAxis />
       <Tooltip />
       <Area type="monotone" dataKey="totalSales" stroke="#8884d8" fill="#8884d8" />
