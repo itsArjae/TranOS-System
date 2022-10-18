@@ -22,8 +22,16 @@ import {
   where,
 } from "firebase/firestore";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CashierPay(props) {
+  const successPayment = () => toast.success("SUCCESSFULLY PAID", {
+    icon: "✔️"
+  });
+  const failPayment = () => toast.error("NOT ENOUGH MONEY! ", {
+    icon: "X"
+  });
   const router = useRouter();
   const {
     setEditDataVisible,
@@ -162,6 +170,7 @@ export default function CashierPay(props) {
   const confirmPayment = () => {
     if (payment < getSubTotal()) {
       console.log("Kulang"); //MAY LALABAS
+      failPayment();
       return;
     }
     if (!dSales) {
@@ -185,7 +194,7 @@ export default function CashierPay(props) {
       sum = Number(ySales) + Number(getSubTotal());
       updateYearly(ySalesID, sum);
     }
-
+    successPayment();
     saveTransaction(trID, d, cashier, getSubTotal(), tid, day, month, year);
     saveItems(trID, orderData, dateTime);
     //deleteData(orderData);
@@ -276,6 +285,7 @@ export default function CashierPay(props) {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 }

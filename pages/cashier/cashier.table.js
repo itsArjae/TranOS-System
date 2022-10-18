@@ -26,8 +26,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function CashierManageTableredo() {
-  const notify = () => toast.warn("There's no order yet or this table", {
-    icon: "✔️"
+  const notify = () => toast.error("There's no order yet or this table", {
+    icon: "X"
   });
 
   const router = useRouter();
@@ -43,7 +43,7 @@ export default function CashierManageTableredo() {
   const handleMessageVisible = (temp, message) => {
    // setMessage(message);
   //  setMessageVisible(temp);
-notify();
+     notify();
   };
 
   function getTableData() {

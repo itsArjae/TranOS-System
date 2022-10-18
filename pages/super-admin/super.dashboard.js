@@ -7,11 +7,15 @@ import {
   query,
   onSnapshot,
   where,
+  orderBy,
+  limitToLast,
+  limit
 } from "firebase/firestore";
 import {app} from '../../src/utility/firebase'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import SuperMonthlySales from '../../src/super-admin-components/supermonthlysales';
+import SuperAdminLayout from '../../src/super-admin-components/superAdminLayout';
 export default function SuperDashboard() {
 
   var dt = new Date();
@@ -85,11 +89,32 @@ export default function SuperDashboard() {
       })
     });
   };
+  const [notifSize,setNotifSize] = useState(5);
+  const [notif,setNotif] = useState([]);
+  const getNotif = () => {
+    const temp = Number(notifSize);
+    setNotifSize(temp + 5);
+    const saleRef = collection(db, "actionNotifications");
+    console.log("read notif",temp);
+    const q = query(saleRef, orderBy('timeStamp','desc'),limit(Number(notifSize)));
+    onSnapshot(q, (snapshot) => {
+      let sale = [];
+      snapshot.docs.forEach((doc) => {
+        sale.push({ ...doc.data(), id: doc.id });
+      });
+
+      setNotif(sale);
+    });
+  };
+
+ 
+
 
   useEffect(() => {
     getDailySales();
     getMonthlySales();
     getYearlySales();
+    getNotif();
   }, []);
   return (
     <div className={styles.dash__container} >
@@ -110,14 +135,25 @@ export default function SuperDashboard() {
 
       <div className={styles.notif__box} >
       <h1>NOTIFICATION</h1>
-      <div className={styles.notif__container} >
-        <div className={styles.notif__message} ><div>25 Pieces of Red Horse Has been added</div><div>-arjaeiporong@gmail.com</div></div>
-        <div className={styles.notif__date} > 10 / 17 / 2022 </div>
+      {
+        notif.map((data)=>{
+          return(
+            <div className={styles.notif__container} >
+        <div className={styles.notif__message} ><div>{data.details}</div><div>-arjaeiporong@gmail.com</div></div>
+        <div className={styles.notif__date} > {data.date}</div>
       </div>
+          )
+        })
+      }
 
-      <button>LOAD MORE</button>
+      <button onClick={getNotif} >LOAD MORE</button>
       </div>
     
     </div>
   )
 }
+
+SuperDashboard.getLayout = function getLayout(page) {
+ 
+  return  <SuperAdminLayout>{page}</SuperAdminLayout>;
+};

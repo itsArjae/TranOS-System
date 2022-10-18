@@ -19,7 +19,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { logoutUser, useAuth } from "../utility/firebase";
 
-export default function AdminLayout({ children }) {
+export default function SuperAdminLayout({ children }) {
   const userss = 'arjae';
   const currentUser = useAuth();
   const dateRef = useRef(null);
@@ -112,35 +112,7 @@ export default function AdminLayout({ children }) {
   };
   const goEmp = () => {
     setopen(false);
-    router.push("/admin/admin.emp");
-  };
-  const goDrinks = () => {
-    setopen(false);
-    router.push("/admin/admin.beverages");
-  };
-  const goSales = () => {
-    setopen(false);
-    router.push("/admin/admin.sales");
-  };
-  const goTables = () => {
-    setopen(false);
-    router.push("/admin/admin.manage-tableredo");
-  };
-  const goMenu = () => {
-    setopen(false);
-    router.push("/admin/admin.menu");
-  };
-  const goMenuList = () => {
-    setopen(false);
-    router.push("/admin/admin.menu.list");
-  };
-  const goTransac = () => {
-    setopen(false);
-    //router.push("/admin/admin.transactions");
-  };
-  const goRawGoods = () => {
-    setopen(false);
-    router.push("/admin/admin.raw-goods");
+    router.push("/admin/admin.employees");
   };
   const goSignout = async () => {
     setopen(false);
@@ -315,116 +287,7 @@ export default function AdminLayout({ children }) {
               </ListItemText>
             </ListItem>
 
-            <ListItem button onClick={goMenuList}>
-              <ListItemIcon>
-                <Image
-                  src="/assets/admin-assets/svg/admin.menulist.icon.svg"
-                  alt="Menu Icon"
-                  width={25}
-                  height={25}
-                />
-              </ListItemIcon>
-              <ListItemText sx={{}}>
-                <Typography
-                  variant="h2"
-                  sx={{
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Menu
-                </Typography>
-              </ListItemText>
-            </ListItem>
-
-            <ListItem button onClick={goTables}>
-              <ListItemIcon>
-                <Image
-                  src="/assets/cashier-assets/svg/cashier.table.icon.svg"
-                  alt="Table Icon"
-                  width={25}
-                  height={25}
-                />
-              </ListItemIcon>
-              <ListItemText sx={{}}>
-                <Typography
-                  variant="h2"
-                  sx={{
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Tables
-                </Typography>
-              </ListItemText>
-            </ListItem>
-
-            <ListItem button onClick={goRawGoods}>
-              <ListItemIcon>
-                <Image
-                  src="/assets/admin-assets/svg/rawgoods.icon.svg"
-                  alt="Raw Goods Icon"
-                  width={25}
-                  height={25}
-                />
-              </ListItemIcon>
-              <ListItemText sx={{}}>
-                <Typography
-                  variant="h2"
-                  sx={{
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Raw Goods
-                </Typography>
-              </ListItemText>
-            </ListItem>
-
-            <ListItem button onClick={goSales}>
-              <ListItemIcon>
-                <Image
-                  src="/assets/admin-assets/svg/admin.sales.svg"
-                  alt="Sales Icon"
-                  width={25}
-                  height={25}
-                />
-              </ListItemIcon>
-              <ListItemText sx={{}}>
-                <Typography
-                  variant="h2"
-                  sx={{
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Sales
-                </Typography>
-              </ListItemText>
-            </ListItem>
-
-            <ListItem button onClick={goTransac}>
-              <ListItemIcon>
-                <Image
-                  src="/assets/admin-assets/svg/admin.transactions.svg"
-                  alt="Transactions Icon"
-                  width={25}
-                  height={25}
-                />
-              </ListItemIcon>
-              <ListItemText sx={{}}>
-                <Typography
-                  variant="h2"
-                  sx={{
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Transactions
-                </Typography>
-              </ListItemText>
-            </ListItem>
-
+           
             <ListItem button onClick={goSignout}>
               <ListItemIcon>
                 <Image
