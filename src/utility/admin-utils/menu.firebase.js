@@ -6,6 +6,7 @@ import {
   getFirestore,
   doc,
   setDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import {
   getDownloadURL,
@@ -18,8 +19,8 @@ const db = getFirestore(app);
 var ImageUrl;
 var ResumeUrl;
 
-export function saveMiddleware2(data, menuId, pictureFile) {
-  uploadMenuPicture(data, menuId, pictureFile);
+export function saveMiddleware2(data, menuId, type, pictureFile) {
+  uploadMenuPicture(data, menuId, type, pictureFile);
 }
 
 export function updateMenu(mealID, stat) {
@@ -36,13 +37,14 @@ export function updateMenu(mealID, stat) {
     });
 }
 
-export async function saveMenuData(data, menuId, pictureUrl) {
+export async function saveMenuData(data, menuId, type, pictureUrl) {
   try {
     const docRef = await addDoc(collection(db, "meals"), {
       MealName: data.MealName,
       Price: data.Price,
       Serving: data.Serving,
       Status: true,
+      Type: type,
       ImageUrl: pictureUrl,
     });
     console.log("Document written with ID: ", docRef.id);
@@ -51,9 +53,9 @@ export async function saveMenuData(data, menuId, pictureUrl) {
   }
 }
 
-function uploadMenuPicture(data, menuId, pictureFile) {
+function uploadMenuPicture(data, menuId, type, pictureFile) {
   if (!pictureFile) {
-    return saveMenuData(data, menuId, null);
+    return saveMenuData(data, menuId, type, null);
   }
 
   const storageRef = sref(storage, "MenuFiles/" + pictureFile.name);
@@ -65,7 +67,7 @@ function uploadMenuPicture(data, menuId, pictureFile) {
     (err) => console.log(err),
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((pictureUrl) => {
-        saveMenuData(data, menuId, pictureUrl);
+        saveMenuData(data, menuId, type, pictureUrl);
       });
     }
   );
@@ -85,4 +87,13 @@ export function updateMeal(id, mealname, mealprice, serving) {
     .catch((error) => {
       console.log(error);
     });
+}
+
+export async function deleteData(bevID) {
+  try {
+    await deleteDoc(doc(db, "beverages", bevID));
+    console.log("Document deleted");
+  } catch (e) {
+    console.error("Error deleting document: ", e);
+  }
 }

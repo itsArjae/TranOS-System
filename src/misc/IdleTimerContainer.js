@@ -18,7 +18,7 @@ export default function IdleTimerContainer({ children }) {
   };
 
   return (
-    <IdleTimerProvider timeout={5 * 1000} onIdle={onIdle}>
+    <IdleTimerProvider timeout={600 * 1000} onIdle={onIdle}>
       {isIdle ? (
         <OuterBox>
           <InnerBox>

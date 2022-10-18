@@ -22,13 +22,21 @@ import styled from "@emotion/styled";
 import MessageBox from "../../src/misc/messagebox";
 import { useRouter } from "next/router";
 //
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CashierManageTableredo() {
+<<<<<<< HEAD
   const notify = () => toast.error("There's no order yet or this table", {
     icon: "X"
   });
+=======
+  const notify = () =>
+    toast.error("No order/s available!", {
+      //icon: "✔️",
+      icon: "❌",
+    });
+>>>>>>> e923a37a333598c85398dd12e7598fda5c27cdf5
 
   const router = useRouter();
 
@@ -41,9 +49,15 @@ export default function CashierManageTableredo() {
   const [messageVisible, setMessageVisible] = useState(false);
   const [message, setMessage] = useState("");
   const handleMessageVisible = (temp, message) => {
+<<<<<<< HEAD
    // setMessage(message);
   //  setMessageVisible(temp);
      notify();
+=======
+    // setMessage(message);
+    //  setMessageVisible(temp);
+    notify();
+>>>>>>> e923a37a333598c85398dd12e7598fda5c27cdf5
   };
 
   function getTableData() {
@@ -86,11 +100,15 @@ export default function CashierManageTableredo() {
           );
         })}
       </div>
-      <ToastContainer/>
+      <ToastContainer />
       {messageVisible == true && (
         <OuterBox>
           <InnerBox>
-            <MessageBox message={message} setClose={handleMessageVisible} notify={notify} />
+            <MessageBox
+              message={message}
+              setClose={handleMessageVisible}
+              notify={notify}
+            />
           </InnerBox>
         </OuterBox>
       )}

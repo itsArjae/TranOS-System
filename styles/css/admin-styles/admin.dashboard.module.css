@@ -109,7 +109,7 @@ margin-bottom:50px;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  background-color: rgb(192, 1, 1);
+  background-image: linear-gradient(to bottom right, #e782f0, #670054);
   outline: none;
   border-radius: 30px;
   border: none;
@@ -118,7 +118,7 @@ margin-bottom:50px;
   margin-right: 10px;
 }
 .btnDashboard:hover{
-  border: 5px solid #FF5D5D ;
+  border: 5px solid #de65e9 ;
 }
 
 .btnEmployees{
@@ -127,7 +127,7 @@ margin-bottom:50px;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  background-color: #cf4800;
+  background-image: linear-gradient(to bottom right, #e5814b, #732a02);
   outline: none;
   border-radius: 30px;
   border: none;
@@ -145,7 +145,7 @@ margin-bottom:50px;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  background-color: #1c4713;
+  background-image: linear-gradient(to bottom right, #489c37, #072a00);
   outline: none;
   border-radius: 30px;
   border: none;
@@ -154,7 +154,7 @@ margin-bottom:50px;
   margin-right: 10px;
 }
 .btnSales:hover{
-  border: 5px solid #D3EBCD ;
+  border: 5px solid #76ca65 ;
 }
 
 .btnMenu{
@@ -163,7 +163,7 @@ margin-bottom:50px;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  background-color: #1363DF;
+  background-image: linear-gradient(to bottom right, #65b5fb, #01427a);
   outline: none;
   border-radius: 30px;
   border: none;
@@ -172,7 +172,7 @@ margin-bottom:50px;
   margin-right: 10px;
 }
 .btnMenu:hover{
-  border: 5px solid #3AB0FF;
+  border: 5px solid #73b7f3;
 }
 
 .btnBeverages{
@@ -181,7 +181,7 @@ margin-bottom:50px;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  background-color: #87805E;
+  background-image: linear-gradient(to bottom right, rgb(242, 66, 66), rgb(89, 0, 0));
   outline: none;
   border-radius: 30px;
   border: none;
@@ -190,7 +190,7 @@ margin-bottom:50px;
   margin-right: 10px;
 }
 .btnBeverages:hover{
-  border: 5px solid #B09B71 ;
+  border: 5px solid rgb(255, 108, 108) ;
 }
 
 .btnTables{
@@ -199,7 +199,7 @@ margin-bottom:50px;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  background-color: #810955;
+  background-image: linear-gradient(to bottom right, #9973f4, #22006f);
   outline: none;
   border-radius: 30px;
   border: none;
@@ -208,7 +208,7 @@ margin-bottom:50px;
   margin-right: 10px;
 }
 .btnTables:hover{
-  border: 5px solid #EE81B3 ;
+  border: 5px solid #9978e8 ;
 }
 
 .btnTransactions{
@@ -217,7 +217,7 @@ margin-bottom:50px;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  background-color: #968a04 ;
+  background-image: linear-gradient(to bottom right, #ffe100, #554e18);
   outline: none;
   border-radius: 30px;
   border: none;
@@ -226,7 +226,7 @@ margin-bottom:50px;
   margin-right: 10px;
 }
 .btnTransactions:hover{
-  border: 5px solid  #dace49 ;
+  border: 5px solid  #d4c028 ;
  
 }
 
@@ -236,7 +236,7 @@ margin-bottom:50px;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  background-color: #000000 ;
+  background-image: linear-gradient(to bottom right, #404040, #000000);
   outline: none;
   border-radius: 30px;
   border: none;
@@ -380,6 +380,19 @@ align-items: center;
   margin-bottom: 20px;
 }
 
+.Sales__Container3{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  width: 450px;
+  height: 110px;
+  background-image: linear-gradient(to bottom right, rgb(140, 243, 161), rgb(0, 104, 18));
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
 .Graph__Container{
   display: flex;
   flex-direction: column;
@@ -413,7 +426,13 @@ align-items: center;
   height: 50px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: rgb(98, 236, 98);
+  background-image: linear-gradient(180deg, rgb(98, 236, 98), rgb(6, 155, 6));
+}
+
+.Notifications__Header p{
+  font-size: 20px;
+  font-weight: bolder;
+  text-shadow: 1px 1px rgb(255, 255, 255);
 }
 
 .Notifications{
@@ -429,21 +448,21 @@ align-items: center;
   margin: auto;
   display: flex;
   flex-direction: column;
-  width: 320px;
+  width: 300px;
   height: 40px;
-  background-color: rgb(255, 255, 255);
-  border: 1px solid black;
+  background-image: linear-gradient(to bottom right, rgb(249, 187, 187), rgb(200, 62, 62));
   margin-top: 5px;
   margin-bottom: 5px;
   justify-content: center;
   padding: 10px;
-  border-radius: 5px;
+  border-left-style: solid;
+  border-left-width: 5px;
+  border-left-color: rgb(215, 74, 74);
 }
 
 .Notifications__Content p{
   font-weight: bold;
 }
-
 
 .MSales__Container{
   width: 80px;
@@ -486,4 +505,9 @@ align-items: center;
   margin-left: auto;
   justify-content: center;
   align-items: center;
+}
+
+.data__container{
+  display: flex;
+  flex-direction: row;
 }

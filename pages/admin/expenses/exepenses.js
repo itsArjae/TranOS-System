@@ -13,7 +13,7 @@ import {
   orderByChild,
 } from "firebase/database";
 import { Divider } from "@mui/material";
-import EditData from "../../../src/admin-components/admin.edit-beverage";
+import EditData from "../../../src/admin-components/admin.edit-rawGood";
 import styled from "@emotion/styled";
 import {
   query,
@@ -26,57 +26,41 @@ import {
   FieldPath,
   Firestore,
 } from "firebase/firestore";
-const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Drinks.png";
-import { deleteData } from "../../../src/utility/admin-utils/beverages.firebase";
+const DefaultPic = "/assets/admin-assets/pictures/rawGoods.png";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-export default function AdminBeverageData() {
-  const notify = () =>
-    toast.success("Data updated successfully!", {
-      icon: "✔️",
-      //icon: "❌",
-    });
-
-  const notifyDel = () =>
-    toast.success("Data deleted successfully!", {
-      icon: "✔️",
-      //icon: "❌",
-    });
-
+export default function AdminRawGoodsData() {
   const router = useRouter();
   const db = getFirestore(app);
-  const id = router.query.BevID;
-  const [beverageData, setBeverageData] = useState([]);
+  const id = router.query.RawGoodsID;
+  const [rawGoodsData, setRawGoodsData] = useState([]);
   const [visible, setVisible] = useState(false);
 
   function setEditDataVisible() {
     setVisible(!visible);
   }
 
-  const getBevData = () => {
-    const bevRef = collection(db, "beverages");
+  const getRawGoodsData = () => {
+    const rawGoodsRef = collection(db, "rawGoods");
 
     console.log(id);
 
-    const q = query(bevRef, where("__name__", "==", id));
+    const q = query(rawGoodsRef, where("__name__", "==", id));
 
     onSnapshot(q, (snapshot) => {
-      let bev = [];
+      let rawGoods = [];
       snapshot.docs.forEach((doc) => {
-        bev.push({ ...doc.data(), id: doc.id });
+        rawGoods.push({ ...doc.data(), id: doc.id });
       });
       console.log("read");
-      setBeverageData(bev);
+      setRawGoodsData(rawGoods);
     });
   };
   useEffect(() => {
-    getBevData();
+    getRawGoodsData();
   }, []);
 
   const goBack = () => {
-    router.push("../admin.beverages");
+    router.push("../admin.raw-goods");
   };
   const viewResume = (link) => {
     if (!link) {
@@ -85,21 +69,9 @@ export default function AdminBeverageData() {
     window.open(link, "_blank");
   };
 
-  const deleteBev = () => {
-    let needRender = true;
-    deleteData(id);
-    notifyDel();
-    const interval = setInterval(() => {
-      if (needRender == true) {
-        router.push("/admin/admin.beverages");
-        needRender = false;
-      }
-    }, 3000);
-  };
-
   return (
     <div className={styles.Data__Container}>
-      {beverageData.map((data) => {
+      {rawGoodsData.map((data) => {
         return (
           <div className={styles.Data__Box} key={data.id}>
             <div className={styles.Data__Box1}>
@@ -119,12 +91,10 @@ export default function AdminBeverageData() {
                       setVisible(!visible);
                     }}
                   >
-                    Edit
+                    Update
                   </button>
                   &nbsp;
-                  <button className={styles.Delete__Btn} onClick={deleteBev}>
-                    Delete
-                  </button>
+                  <button className={styles.Delete__Btn}>Delete</button>
                 </div>
               </div>
             </div>
@@ -132,29 +102,23 @@ export default function AdminBeverageData() {
               <div className={styles.Box2__Container}>
                 <div className={styles.Data__Box2_Info1}>
                   <div>
-                    <h1>{`${data.BeverageName}`}</h1>
+                    <h1>{`${data.rawGoodsName}`}</h1>
                     <Divider />
                     <p>
-                      Details:
-                      <b>
-                        {data.Size ? data.Size : "N/A"}
-                        {data.Details ? data.Details : ""}
-                      </b>
+                      Details: <b>{data.Details + data.Unit}</b>
                     </p>
                     <p>
-                      ID: <b>{data.id}</b>
+                      Raw Goods ID: <b>{data.id}</b>
                     </p>
                     <p>
-                      Status:&nbsp;
-                      <b>
-                        {data.Status == true ? "Available" : "Not Available"}
-                      </b>
+                      Recorded on: <b>{data.Date}</b>
+                    </p>
+                    <h3>Updated Details on:</h3>
+                    <p>
+                      Date: <b>{data.UpdatedDate}</b>
                     </p>
                     <p>
-                      Price: <b>{Number(data.Price).toFixed(2)}</b>
-                    </p>
-                    <p>
-                      Stocks: <b>{data.Quantity}</b>
+                      Time: <b>{data.Time}</b>
                     </p>
                   </div>
                 </div>
@@ -169,18 +133,16 @@ export default function AdminBeverageData() {
             <EditData
               setEditDataVisible={setEditDataVisible}
               id={id}
-              beverageData={beverageData}
-              notify={notify}
+              rawGoodsData={rawGoodsData}
             />
           </InnerBox>
         </OuterBox>
       )}
-      <ToastContainer />
     </div>
   );
 }
 
-AdminBeverageData.getLayout = function getLayout(page) {
+AdminRawGoodsData.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
 

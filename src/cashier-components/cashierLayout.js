@@ -17,9 +17,11 @@ import React from "react";
 import Image from "next/image";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { logoutUser, useAuth } from "../utility/firebase";
 
 export default function CashierLayout({ children }) {
   const dateRef = useRef(null);
+  const currentUser = useAuth();
   const [dateNow, setDateNow] = useState("");
   function dateNtime() {
     var objToday = new Date(),
@@ -181,9 +183,11 @@ export default function CashierLayout({ children }) {
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: "column",
                 marginLeft: "auto",
                 marginRight: "20px",
+                justifyContent: "center",
+                alignItems: "left",
               }}
             >
               <Typography
@@ -191,6 +195,9 @@ export default function CashierLayout({ children }) {
               >
                 {dateNow}
               </Typography>
+              <Box sx={{ marginLeft: "auto", color: "black" }}>
+                Welcome {currentUser?.email}
+              </Box>
             </Box>
           </Box>
         </toolbar>
