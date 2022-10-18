@@ -36,6 +36,12 @@ export default function AdminBeverages() {
       //icon: "❌",
     });
 
+  const notifyUD = (name) =>
+    toast.success(`${name} status successfully changed!`, {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
   const router = useRouter();
   const db = getFirestore(app);
 
@@ -57,7 +63,7 @@ export default function AdminBeverages() {
       if (needRender === true) {
         console.log("update");
         needRender = false;
-        forceUpdate();
+        getBeverageData();
         setLoading(true);
       }
     }, 3000);
@@ -192,7 +198,7 @@ export default function AdminBeverages() {
                   <Field
                     className={styles.Form__Input}
                     name="Quantity"
-                    placeholder="Quantity"
+                    placeholder="Quantity per piece"
                     type="number"
                   />
                   <ErrorMessage name="Quantity" />
@@ -201,7 +207,7 @@ export default function AdminBeverages() {
                   <Field
                     className={styles.Form__Input}
                     name="Price"
-                    placeholder="Price"
+                    placeholder="Price per piece"
                     type="number"
                   />
                   <ErrorMessage name="Price" />
@@ -213,6 +219,7 @@ export default function AdminBeverages() {
                     className={styles.Form__Input}
                     name="Size"
                     placeholder="Size"
+                    type="number"
                   />
                   <ErrorMessage name="Size" />
                 </div>
@@ -265,6 +272,7 @@ export default function AdminBeverages() {
             beverageData={beverageData}
             updateData={updateData}
             Loading={Loading}
+            notifyUD={notifyUD}
           />
         </div>
         <ToastContainer />

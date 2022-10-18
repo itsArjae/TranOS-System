@@ -27,8 +27,24 @@ import {
   Firestore,
 } from "firebase/firestore";
 const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Menu.png";
+import { deleteData } from "../../../src/utility/admin-utils/menu.firebase";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminMenuData() {
+  const notify = () =>
+    toast.success("Data updated successfully!", {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
+  const notifyDel = () =>
+    toast.success("Data deleted successfully!", {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
   const router = useRouter();
   const db = getFirestore(app);
   const id = router.query.MenuID;
@@ -62,11 +78,30 @@ export default function AdminMenuData() {
   const goBack = () => {
     router.push("../admin.menu");
   };
-  const viewResume = (link) => {
-    if (!link) {
-      return;
+
+  var dt = new Date();
+  let day = dt.getDate();
+  let month = dt.getMonth() + 1;
+  let monthFixed = () => {
+    if (month.toString.length === 1) {
+      return `0${month}`;
+    } else {
+      return month;
     }
-    window.open(link, "_blank");
+  };
+  let year = dt.getFullYear();
+  let date = `${month}/${day}/${year}`;
+
+  const deleteBev = (mealName) => {
+    let needRender = true;
+    deleteData(id, mealName, date);
+    notifyDel();
+    const interval = setInterval(() => {
+      if (needRender == true) {
+        router.push("/admin/admin.menu");
+        needRender = false;
+      }
+    }, 3000);
   };
 
   return (
@@ -94,7 +129,14 @@ export default function AdminMenuData() {
                     Edit
                   </button>
                   &nbsp;
-                  <button className={styles.Delete__Btn}>Delete</button>
+                  <button
+                    className={styles.Delete__Btn}
+                    onClick={() => {
+                      deleteBev(data.MealName);
+                    }}
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             </div>
@@ -133,10 +175,12 @@ export default function AdminMenuData() {
               setEditDataVisible={setEditDataVisible}
               id={id}
               mealsData={mealsData}
+              notify={notify}
             />
           </InnerBox>
         </OuterBox>
       )}
+      <ToastContainer />
     </div>
   );
 }

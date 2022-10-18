@@ -21,7 +21,13 @@ import styled from "@emotion/styled";
 import LoadingScreen from "../loading-screen";
 import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
 import { useRouter } from "next/router";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  orderBy,
+  onSnapshot,
+} from "firebase/firestore";
 
 export default function AdminMenu() {
   const router = useRouter();
@@ -59,16 +65,19 @@ export default function AdminMenu() {
   };
 
   const getTransactionData = async () => {
-    const querySnapshot = await getDocs(collection(db, "transactions"));
-    let transac = [];
-    querySnapshot.forEach((doc) => {
-      transac.push({ ...doc.data(), id: doc.id });
-    });
+    const saleRef = collection(db, "transactions");
     console.log("read");
-    console.log(transac);
-    setTransactData(transac);
-    setLoading(true);
+    const q = query(saleRef, orderBy("dateCreated", "desc"));
+    onSnapshot(q, (snapshot) => {
+      let sale = [];
+      snapshot.docs.forEach((doc) => {
+        sale.push({ ...doc.data(), id: doc.id });
+      });
+      setTransactData(sale);
+      setLoading(true);
+    });
   };
+
   useEffect(() => {
     try {
       getTransactionData("id", "");

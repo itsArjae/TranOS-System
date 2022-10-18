@@ -59,14 +59,15 @@ function uploadBeveragesPicture(data, bevId, bevSize, pictureFile, date) {
 }
 
 export function updateBeverage(
-  id,
+  drinksId,
   bevname,
   bevqty,
   bevprice,
   bevsize,
-  bevdetail
+  bevdetail,
+  date
 ) {
-  const docRef = doc(db, "beverages", id);
+  const docRef = doc(db, "beverages", drinksId);
   const data = {
     BeverageName: bevname,
     Quantity: bevqty,
@@ -77,6 +78,13 @@ export function updateBeverage(
   setDoc(docRef, data, { merge: true })
     .then((docRef) => {
       console.log("Entire Document has been updated successfully");
+      saveNotifDataUpd(
+        data,
+        date,
+        `${data.BeverageName} data successfully updated!`,
+        "beverages",
+        drinksId
+      );
     })
     .catch((error) => {
       console.log(error);
@@ -113,10 +121,16 @@ export async function saveBeveragesData(
   }
 }
 
-export async function deleteData(bevID) {
+export async function deleteData(bevID, bevName, date) {
   try {
     await deleteDoc(doc(db, "beverages", bevID));
     console.log("Document deleted");
+    saveNotifDataDel(
+      date,
+      `${bevName} successfully deleted!`,
+      "beverages",
+      bevID
+    );
   } catch (e) {
     console.error("Error deleting document: ", e);
   }
@@ -127,6 +141,41 @@ export async function saveNotifData(data, date, details, tblName, id) {
   let year = dt.getFullYear();
   try {
     const docRef = await addDoc(collection(db, "actionNotifications"), {
+      date: date,
+      details: details,
+      itemID: id,
+      tableName: tblName,
+      timeStamp: Number(`${year}${Date.now()}`),
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+
+export async function saveNotifDataDel(date, details, tblName, id) {
+  const dt = new Date();
+  let year = dt.getFullYear();
+  try {
+    const docRef = await addDoc(collection(db, "actionNotifications"), {
+      date: date,
+      details: details,
+      itemID: id,
+      tableName: tblName,
+      timeStamp: Number(`${year}${Date.now()}`),
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+
+export async function saveNotifDataUpd(data, date, details, tblName, id) {
+  const dt = new Date();
+  let year = dt.getFullYear();
+  try {
+    const docRef = await addDoc(collection(db, "actionNotifications"), {
+      data: data,
       date: date,
       details: details,
       itemID: id,

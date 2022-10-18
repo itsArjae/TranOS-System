@@ -78,16 +78,23 @@ export default function AdminBeverageData() {
   const goBack = () => {
     router.push("../admin.beverages");
   };
-  const viewResume = (link) => {
-    if (!link) {
-      return;
-    }
-    window.open(link, "_blank");
-  };
 
-  const deleteBev = () => {
+  var dt = new Date();
+  let day = dt.getDate();
+  let month = dt.getMonth() + 1;
+  let monthFixed = () => {
+    if (month.toString.length === 1) {
+      return `0${month}`;
+    } else {
+      return month;
+    }
+  };
+  let year = dt.getFullYear();
+  let date = `${month}/${day}/${year}`;
+
+  const deleteBev = (bevName) => {
     let needRender = true;
-    deleteData(id);
+    deleteData(id, bevName, date);
     notifyDel();
     const interval = setInterval(() => {
       if (needRender == true) {
@@ -122,7 +129,12 @@ export default function AdminBeverageData() {
                     Edit
                   </button>
                   &nbsp;
-                  <button className={styles.Delete__Btn} onClick={deleteBev}>
+                  <button
+                    className={styles.Delete__Btn}
+                    onClick={() => {
+                      deleteBev(data.BeverageName);
+                    }}
+                  >
                     Delete
                   </button>
                 </div>

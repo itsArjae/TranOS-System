@@ -24,7 +24,7 @@ export default function EditMeal(props) {
   const router = useRouter();
   const db = getFirestore(app);
 
-  const { setEditDataVisible, id, mealsData } = props;
+  const { setEditDataVisible, id, mealsData, notify } = props;
   const [isLoading, setLoading] = useState(false);
   // data container
   const [picItem, setPicItem] = useState(); // for image
@@ -53,7 +53,7 @@ export default function EditMeal(props) {
     }
   };
   let year = dt.getFullYear();
-  let date = monthFixed() + `/${day}/${year}`;
+  let date = `${month}/${day}/${year}`;
 
   const [mealName, setName] = useState("");
   const [mealPrice, setPrice] = useState("");
@@ -101,6 +101,7 @@ export default function EditMeal(props) {
         Number(Mealprice.current.value),
         Number(Mealserving.current.value)
       );
+      notify();
     } else {
       let qty = 0;
       qty = Number(Mealserving.current.value) + Number(mealServing);
@@ -110,6 +111,7 @@ export default function EditMeal(props) {
         Number(Mealprice.current.value),
         Number(qty)
       );
+      notify();
     }
 
     clear();

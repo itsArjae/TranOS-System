@@ -29,7 +29,16 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function AdminMenu() {
+  const notify = () =>
+    toast.success("Data added successfully!", {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
   const router = useRouter();
   const db = getFirestore(app);
 
@@ -65,23 +74,21 @@ export default function AdminMenu() {
   };
   //backend
   const onSubmit = (data, { resetForm }) => {
+    let needRender = true;
     setLoading(null);
-    try {
-      saveMiddleware2(data, menuData.length, type, picItem);
-      resetForm();
-      imageRef.current.value = "";
-      setPicItem(null);
-      const { id, MealName, Price, Image } = data;
-      let needRender = true;
-      const interval = setInterval(() => {
-        if (needRender === true) {
-          console.log("update");
-          needRender = false;
-          forceUpdate();
-          setLoading(true);
-        }
-      }, 5000);
-    } catch (err) {}
+    saveMiddleware2(data, menuData.length, picItem, date);
+    resetForm();
+    imageRef.current.value = "";
+    setPicItem(null);
+    const { id, MealName, Price, Image } = data;
+
+    const interval = setInterval(() => {
+      if (needRender === true) {
+        notify();
+        renderEmp();
+        needRender = false;
+      }
+    }, 5000);
   };
 
   const id = () => {
@@ -103,42 +110,22 @@ export default function AdminMenu() {
     setLoading(true);
   };
 
-  const getCategoryData = async () => {
-    const bevRef = collection(db, "menuCategory");
-    const q = query(bevRef, where("category", "==", "Meal"));
-
-    onSnapshot(q, (snapshot) => {
-      let category = [];
-      snapshot.docs.forEach((doc) => {
-        category.push({ ...doc.data(), id: doc.id });
-      });
-      console.log("read");
-      setCategoryData(category);
-      setLoading(true);
-      // bev.map((data) => {
-      //   setBevName(data.BeverageName);
-      //   setBevPrice(data.Price);
-      // });
+  const renderEmp = async () => {
+    const querySnapshot = await getDocs(collection(db, "meals"));
+    let emp = [];
+    querySnapshot.forEach((doc) => {
+      emp.push({ ...doc.data(), id: doc.id });
     });
+    console.log("read");
+    setMenuData(emp);
+    setLoading(true);
   };
 
-  // const getCategory = async () => {
-  //   const querySnapshot = await getDocs(collection(db, "menuCategory"));
-  //   let category = [];
-  //   querySnapshot.forEach((doc) => {
-  //     category.push({ ...doc.data(), id: doc.id });
-  //   });
-  //   console.log("read");
-  //   setCategoryData(category);
-  //   setLoading(true);
-  // };
   useEffect(() => {
     try {
       getMenuData("id", "");
-      //getCategory();
-      getCategoryData();
     } catch (err) {}
-  }, [ignored]);
+  }, []);
   //
 
   var dt = new Date();
@@ -152,12 +139,13 @@ export default function AdminMenu() {
     }
   };
   let year = dt.getFullYear();
-  let date = monthFixed() + `/${day}/${year}`;
+  let date = `${month}/${day}/${year}`;
 
   const initialValues = {
     MealName: "",
     Price: "",
     Status: "",
+    Serving: "",
     Image: "",
     id: id(),
   };
@@ -213,29 +201,6 @@ export default function AdminMenu() {
 
               <div className={styles.Form__Input_Container}>
                 <div className={styles.Form__Input_Box}>
-                  <select
-                    name="type"
-                    id="type"
-                    onChange={(event) => {
-                      setType(event.target.value);
-                    }}
-                  >
-                    <option value="">
-                      &lt;&minus;&minus;Select Meal Type&minus;&minus;&gt;
-                    </option>
-                    {categoryData.map((item) => {
-                      return (
-                        <option key={item.id} value={item.type}>
-                          {item.type}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </div>
-
-              <div className={styles.Form__Input_Container}>
-                <div className={styles.Form__Input_Box}>
                   <Field
                     className={styles.Form__Input}
                     name="Serving"
@@ -283,6 +248,7 @@ export default function AdminMenu() {
             Loading={Loading}
           />
         </div>
+        <ToastContainer />
       </div>
     </IdleTimerContainer>
   ) : (

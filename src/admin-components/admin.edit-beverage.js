@@ -56,7 +56,7 @@ export default function EditBeverage(props) {
     }
   };
   let year = dt.getFullYear();
-  let date = monthFixed() + `/${day}/${year}`;
+  let date = `${month}/${day}/${year}`;
 
   const [bevName, setName] = useState("");
   const [bevQty, setQty] = useState("");
@@ -134,7 +134,8 @@ export default function EditBeverage(props) {
         Bevqty.current.value,
         Number(Bevprice.current.value),
         Bevsize.current.value,
-        bev
+        bev,
+        date
         //Bevdetail.current.value
       );
       notify();
@@ -148,7 +149,8 @@ export default function EditBeverage(props) {
         Number(newqty),
         Number(Bevprice.current.value),
         Bevsize.current.value,
-        bevDetail
+        bevDetail,
+        date
         //Bevdetail.current.value
       );
       notify();

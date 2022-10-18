@@ -19,8 +19,8 @@ const db = getFirestore(app);
 var ImageUrl;
 var ResumeUrl;
 
-export function saveMiddleware2(data, menuId, type, pictureFile) {
-  uploadMenuPicture(data, menuId, type, pictureFile);
+export function saveMiddleware2(data, menuId, pictureFile, date) {
+  uploadMenuPicture(data, menuId, pictureFile, date);
 }
 
 export function updateMenu(mealID, stat) {
@@ -37,25 +37,31 @@ export function updateMenu(mealID, stat) {
     });
 }
 
-export async function saveMenuData(data, menuId, type, pictureUrl) {
+export async function saveMenuData(data, menuId, pictureUrl, date) {
   try {
     const docRef = await addDoc(collection(db, "meals"), {
       MealName: data.MealName,
       Price: data.Price,
       Serving: data.Serving,
       Status: true,
-      Type: type,
       ImageUrl: pictureUrl,
     });
     console.log("Document written with ID: ", docRef.id);
+    saveNotifData(
+      data,
+      date,
+      `${data.MealName} successfully added!`,
+      "meals",
+      docRef.id
+    );
   } catch (e) {
     console.error("Error adding document: ", e);
   }
 }
 
-function uploadMenuPicture(data, menuId, type, pictureFile) {
+function uploadMenuPicture(data, menuId, pictureFile, date) {
   if (!pictureFile) {
-    return saveMenuData(data, menuId, type, null);
+    return saveMenuData(data, menuId, null, date);
   }
 
   const storageRef = sref(storage, "MenuFiles/" + pictureFile.name);
@@ -67,7 +73,7 @@ function uploadMenuPicture(data, menuId, type, pictureFile) {
     (err) => console.log(err),
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((pictureUrl) => {
-        saveMenuData(data, menuId, type, pictureUrl);
+        saveMenuData(data, menuId, pictureUrl, date);
       });
     }
   );
@@ -89,11 +95,51 @@ export function updateMeal(id, mealname, mealprice, serving) {
     });
 }
 
-export async function deleteData(bevID) {
+export async function deleteData(mealID, mealName, date) {
   try {
-    await deleteDoc(doc(db, "beverages", bevID));
+    await deleteDoc(doc(db, "meals", mealID));
     console.log("Document deleted");
+    saveNotifDataDel(
+      date,
+      `${mealName} successfully deleted!`,
+      "meals",
+      mealID
+    );
   } catch (e) {
     console.error("Error deleting document: ", e);
+  }
+}
+
+export async function saveNotifData(data, date, details, tblName, id) {
+  const dt = new Date();
+  let year = dt.getFullYear();
+  try {
+    const docRef = await addDoc(collection(db, "actionNotifications"), {
+      date: date,
+      details: details,
+      itemID: id,
+      tableName: tblName,
+      timeStamp: Number(`${year}${Date.now()}`),
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+
+export async function saveNotifDataDel(date, details, tblName, id) {
+  const dt = new Date();
+  let year = dt.getFullYear();
+  try {
+    const docRef = await addDoc(collection(db, "actionNotifications"), {
+      date: date,
+      details: details,
+      itemID: id,
+      tableName: tblName,
+      timeStamp: Number(`${year}${Date.now()}`),
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
   }
 }
