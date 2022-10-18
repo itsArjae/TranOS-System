@@ -6,7 +6,6 @@ import { app, loginUser, useAuth } from "../src/utility/firebase";
 import { useRouter } from "next/router";
 import {
   collection,
-  getDocs,
   getFirestore,
   query,
   onSnapshot,
@@ -41,7 +40,6 @@ export default function SignIn() {
   if(userInfo.Position == "Admin"){
     sessionStorage.setItem("position","admin");
     router.push("/admin/Admin.Dashboard");
-   
     return;
   }
   if(userInfo.Position == "Cashier"){
@@ -54,7 +52,6 @@ export default function SignIn() {
     router.push("/super-admin/super.dashboard");
     return;
   }
- 
   };
 
   const [userInfo, setUserInfo] = useState([]);

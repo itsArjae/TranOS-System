@@ -138,7 +138,7 @@ export default function SuperDashboard() {
       {
         notif.map((data)=>{
           return(
-            <div className={styles.notif__container} >
+            <div className={styles.notif__container} key={data.id} >
         <div className={styles.notif__message} ><div>{data.details}</div><div>-arjaeiporong@gmail.com</div></div>
         <div className={styles.notif__date} > {data.date}</div>
       </div>
