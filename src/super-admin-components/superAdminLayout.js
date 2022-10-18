@@ -108,7 +108,7 @@ export default function SuperAdminLayout({ children }) {
   };
   const goDash = () => {
     setopen(false);
-    router.push("/admin/Admin.Dashboard");
+    router.push("/super-admin/super.dashboard");
   };
   const goEmp = () => {
     setopen(false);

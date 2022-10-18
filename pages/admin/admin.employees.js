@@ -20,6 +20,7 @@ import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import MessageBox from "../../src/misc/messagebox";
 import { UserDocument } from "../../src/misc/userdata";
+import SuperAdminLayout from "../../src/super-admin-components/superAdminLayout";
 
 export default function AdminEmployees() {
   const currentUser = useAuth();
@@ -391,5 +392,6 @@ const InnerBox = styled.div`
 `;
 
 AdminEmployees.getLayout = function getLayout(page) {
-  return <AdminLayout>{page}</AdminLayout>;
+  
+  return <SuperAdminLayout>{page}</SuperAdminLayout>;
 };

@@ -39,12 +39,19 @@ export default function SignIn() {
       return;
     }
   if(userInfo.Position == "Admin"){
+    sessionStorage.setItem("position","admin");
     router.push("/admin/Admin.Dashboard");
-    localStorage.setItem("Position","Admin");
+   
     return;
   }
   if(userInfo.Position == "Cashier"){
+    sessionStorage.setItem("position","cashier");
     router.push("/cashier/cashier.meals");
+    return;
+  }
+  if(userInfo.Position == "SuperAdmin"){
+    sessionStorage.setItem("position","superadmin");
+    router.push("/super-admin/super.dashboard");
     return;
   }
  
