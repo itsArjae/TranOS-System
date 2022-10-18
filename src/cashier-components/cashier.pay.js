@@ -22,16 +22,18 @@ import {
   where,
 } from "firebase/firestore";
 import { useRouter } from "next/router";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CashierPay(props) {
-  const successPayment = () => toast.success("SUCCESSFULLY PAID", {
-    icon: "✔️"
-  });
-  const failPayment = () => toast.error("NOT ENOUGH MONEY! ", {
-    icon: "X"
-  });
+  const successPayment = () =>
+    toast.success("SUCCESSFULLY PAID", {
+      icon: "✔️",
+    });
+  const failPayment = () =>
+    toast.error("NOT ENOUGH MONEY! ", {
+      icon: "X",
+    });
   const router = useRouter();
   const {
     setEditDataVisible,
@@ -285,7 +287,7 @@ export default function CashierPay(props) {
           </div>
         </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 }

@@ -63,7 +63,7 @@ export default function CashierOrder() {
       return;
     }
     console.log("read");
-    const q = query(empRef, where("TableID", "==", tid));
+    const q = query(empRef, where("tableId", "==", Number(tid)));
     onSnapshot(q, (snapshot) => {
       let emp = [];
       snapshot.docs.forEach((doc) => {
@@ -91,7 +91,7 @@ export default function CashierOrder() {
   const getTotal = () => {
     let sum = 0;
     orderData.map((data) => {
-      sum = sum + data.total;
+      sum = sum + data.subTotal;
     });
     return sum;
   };
@@ -120,13 +120,13 @@ export default function CashierOrder() {
     .map((data) => {
       return (
         <div className={styles.Table__Data} key={data.id}>
-          <div className={styles.Table__Data__Box}> {data.mealName}</div>
+          <div className={styles.Table__Data__Box}> {data.itemName}</div>
           <div className={styles.Table__Data__Box}>
             {Number(data.price).toFixed(2)}
           </div>
           <div className={styles.Table__Data__Box}> {data.quantity}</div>
           <div className={styles.Table__Data__Box}>
-            {Number(data.total).toFixed(2)}
+            {Number(data.subTotal).toFixed(2)}
           </div>
         </div>
       );

@@ -61,8 +61,8 @@ export default function CashierReceipt(props) {
           <thead>
             <tr>
               <OrderList>Descr.</OrderList>
-              <OrderList>Qty.</OrderList>
               <OrderList>Price</OrderList>
+              <OrderList>Qty.</OrderList>
               <OrderList>SubTotal</OrderList>
             </tr>
           </thead>
@@ -70,11 +70,11 @@ export default function CashierReceipt(props) {
             {orderData.map((record) => {
               return (
                 <List key={record.id}>
-                  <OrderReceipt>{record.mealName}</OrderReceipt>
-                  <OrderReceipt>{record.quantity}</OrderReceipt>
+                  <OrderReceipt>{record.itemName}</OrderReceipt>
                   <OrderReceipt>{Number(record.price).toFixed(2)}</OrderReceipt>
+                  <OrderReceipt>{record.quantity}</OrderReceipt>
                   <OrderReceipt>
-                    {Number(record.total)
+                    {Number(record.subTotal)
                       .toFixed(2)
                       .toString()
                       .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
