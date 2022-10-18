@@ -22,7 +22,6 @@ import {
   where,
 } from "firebase/firestore";
 import { useRouter } from "next/router";
-<<<<<<< HEAD
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -33,12 +32,6 @@ export default function CashierPay(props) {
   const failPayment = () => toast.error("NOT ENOUGH MONEY! ", {
     icon: "X"
   });
-=======
-import { useAuth } from "../utility/firebase";
-
-export default function CashierPay(props) {
-  const currentUser = useAuth();
->>>>>>> e923a37a333598c85398dd12e7598fda5c27cdf5
   const router = useRouter();
   const {
     setEditDataVisible,
@@ -201,22 +194,8 @@ export default function CashierPay(props) {
       sum = Number(ySales) + Number(getSubTotal());
       updateYearly(ySalesID, sum);
     }
-<<<<<<< HEAD
     successPayment();
     saveTransaction(trID, d, cashier, getSubTotal(), tid, day, month, year);
-=======
-
-    saveTransaction(
-      trID,
-      d,
-      currentUser.email,
-      getSubTotal(),
-      tid,
-      day,
-      month,
-      year
-    );
->>>>>>> e923a37a333598c85398dd12e7598fda5c27cdf5
     saveItems(trID, orderData, dateTime);
     //deleteData(orderData);
     //updateTable(tid);
