@@ -234,6 +234,7 @@ export default function EditEmployee(props) {
                   className={styles.Form__Input}
                   type="text"
                   id="email"
+                  readOnly={true}
                   ref={EmpEmail}
                   onChange={(event) => {
                     setEmail(event.target.value);
@@ -263,6 +264,7 @@ export default function EditEmployee(props) {
                 <select
                   name="Position"
                   id="position"
+                  disabled={true}
                   /*onChange={(event) => {
                       setPos(event.target.value);
                     }}*/

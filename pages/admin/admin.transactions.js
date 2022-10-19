@@ -96,7 +96,7 @@ export default function AdminMenu() {
     }
   };
   let year = dt.getFullYear();
-  let date = monthFixed() + `/${day}/${year}`;
+  let date = `${month}/${day}/${year}`;
 
   return isLoading ? (
     <IdleTimerContainer>

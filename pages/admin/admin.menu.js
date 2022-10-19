@@ -39,6 +39,12 @@ export default function AdminMenu() {
       //icon: "❌",
     });
 
+  const notifyUD = (name) =>
+    toast.success(`${name} status successfully changed!`, {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
   const router = useRouter();
   const db = getFirestore(app);
 

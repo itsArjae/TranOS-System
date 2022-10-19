@@ -99,7 +99,8 @@ export default function EditMeal(props) {
         id,
         Mealname.current.value,
         Number(Mealprice.current.value),
-        Number(Mealserving.current.value)
+        Number(Mealserving.current.value),
+        date
       );
       notify();
     } else {
@@ -109,7 +110,8 @@ export default function EditMeal(props) {
         id,
         Mealname.current.value,
         Number(Mealprice.current.value),
-        Number(qty)
+        Number(qty),
+        date
       );
       notify();
     }

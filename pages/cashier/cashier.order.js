@@ -46,7 +46,7 @@ export default function CashierOrder() {
 
   const [pageNumber, setPageNumber] = useState(0);
 
-  const itemsPerPage = 6;
+  const itemsPerPage = 7;
   const pagesVisited = pageNumber * itemsPerPage;
 
   const [visible, setVisible] = useState(false);

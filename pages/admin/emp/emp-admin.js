@@ -7,7 +7,7 @@ import { useState } from "react";
 import { app } from "../../../src/utility/firebase";
 import { Divider } from "@mui/material";
 import { statusChange } from "../../../src/utility/admin-utils/employees.firebase";
-import EditData from "../../../src/admin-components/admin.edit-employee";
+import EditData from "../../../src/admin-components/admin.edit-employee-admin";
 import styled from "@emotion/styled";
 import {
   query,
@@ -35,16 +35,15 @@ export default function AdminEmployeeData() {
     setVisible(!visible);
   }
 
-
   const getEmpData = () => {
     const empRef = collection(db, "employees");
 
-    if(!id){
-      router.push('../admin.emp');
+    if (!id) {
+      router.push("../admin.emp");
       return;
     }
     const q = query(empRef, where("__name__", "==", id));
-     onSnapshot(q, (snapshot) => {
+    onSnapshot(q, (snapshot) => {
       let emp = [];
       snapshot.docs.forEach((doc) => {
         emp.push({ ...doc.data(), id: doc.id });
@@ -84,7 +83,7 @@ export default function AdminEmployeeData() {
               <div className={styles.Btn__Box}>
                 <button className={styles.Exit__Button} onClick={goBack}>
                   ❌
-                </button>{" "}
+                </button>
               </div>
               <div className={styles.Data__First}>
                 <div className={styles.Data__Picture}>
@@ -93,17 +92,13 @@ export default function AdminEmployeeData() {
                 <Divider />
                 <div>
                   <p>
-                    EmpID: <b>{data.id.substring(1, 10)}...</b>{" "}
+                    EmpID: <b>{data.id.substring(1, 10)}...</b>
                   </p>
                   <p>
-                    {" "}
-                    Position: <b>{data.Position}</b>{" "}
+                    Position: <b>{data.Position}</b>
                   </p>
                   <p>
-                    {" "}
-                    Status: <b>
-                      {data.Status == true ? "Active" : "Inactive"}
-                    </b>{" "}
+                    Status: <b>{data.Status == true ? "Active" : "Inactive"}</b>
                   </p>
                   <button
                     className={styles.Resume__Btn}
@@ -120,10 +115,8 @@ export default function AdminEmployeeData() {
               <div className={styles.Box2__Container}>
                 <div className={styles.Data__Box2_Info1}>
                   <div>
-                    {" "}
                     <h1>
-                      {" "}
-                      {`${data.Surname}, ${data.FirstName} ${data.MiddleName}`}{" "}
+                      {`${data.Surname}, ${data.FirstName} ${data.MiddleName}`}
                     </h1>
                     <p>
                       Age: <b>{data.Age}</b>
@@ -133,25 +126,20 @@ export default function AdminEmployeeData() {
                     </p>
                     <p>
                       Address: <b>{data.Address}</b>
-                    </p>{" "}
+                    </p>
                   </div>
                 </div>
                 <Divider />
                 <div className={styles.Data__Box2_Info2}>
                   <h3>Contacts</h3>
                   <p>
-                    {" "}
-                    Username: <b>
-                      {data.Username ? data.Username : "Chef"}{" "}
-                    </b>{" "}
+                    Username: <b>{data.Username ? data.Username : "Chef"}</b>
                   </p>
                   <p>
-                    {" "}
-                    Email: <b>{data.Email} </b>{" "}
+                    Email: <b>{data.Email} </b>
                   </p>
                   <p>
-                    {" "}
-                    Mobile No: <b>{data.Number} </b>{" "}
+                    Mobile No: <b>{data.Number} </b>
                   </p>
                 </div>
               </div>
@@ -170,7 +158,6 @@ export default function AdminEmployeeData() {
                 >
                   Edit
                 </button>
-                <button>Delete</button>
               </div>
             </div>
           </div>

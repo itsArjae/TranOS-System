@@ -198,7 +198,7 @@ export default function AdminBeverages() {
     }
   };
   let year = dt.getFullYear();
-  let date = monthFixed() + `/${day}/${year}`;
+  let date = `${month}/${day}/${year}`;
 
   const initialValues = {
     BeverageName: "",

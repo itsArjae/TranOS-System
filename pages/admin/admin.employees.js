@@ -170,7 +170,7 @@ export default function AdminEmployees() {
     }
   };
   let year = dt.getFullYear();
-  let date = monthFixed() + `/${day}/${year}`;
+  let date = `${month}/${day}/${year}`;
 
   const initialValues = {
     Surname: "",
@@ -392,6 +392,5 @@ const InnerBox = styled.div`
 `;
 
 AdminEmployees.getLayout = function getLayout(page) {
-  
   return <SuperAdminLayout>{page}</SuperAdminLayout>;
 };

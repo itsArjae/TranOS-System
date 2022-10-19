@@ -182,6 +182,7 @@ export default function AdminBeverages() {
                 </div>
                 <div className={styles.Header__Top3}>{date}</div>
               </div>
+
               <div className={styles.Form__Input_Container}>
                 <div className={styles.Form__Input_Box}>
                   <Field
@@ -190,6 +191,16 @@ export default function AdminBeverages() {
                     placeholder=" Beverage Name"
                   />
                   <ErrorMessage name="BeverageName" />
+                </div>
+
+                <div className={styles.Form__Input_Box}>
+                  <Field
+                    className={styles.Form__Input}
+                    name="Price"
+                    placeholder="Price per piece"
+                    type="number"
+                  />
+                  <ErrorMessage name="Price" />
                 </div>
               </div>
 
@@ -203,16 +214,20 @@ export default function AdminBeverages() {
                   />
                   <ErrorMessage name="Quantity" />
                 </div>
+
                 <div className={styles.Form__Input_Box}>
-                  <Field
-                    className={styles.Form__Input}
-                    name="Price"
-                    placeholder="Price per piece"
-                    type="number"
-                  />
-                  <ErrorMessage name="Price" />
+                  <select
+                    name="Weight"
+                    id="Weight"
+                    onChange={(e) => setSize(e.target.value)}
+                  >
+                    <option value=""></option>
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                  </select>
                 </div>
               </div>
+
               <div className={styles.Form__Input_Container}>
                 <div className={styles.Form__Input_Box}>
                   <Field

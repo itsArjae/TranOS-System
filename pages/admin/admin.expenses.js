@@ -90,7 +90,7 @@ export default function AdminExpenses() {
     }
   };
   let year = dt.getFullYear();
-  let date = monthFixed() + `/${day}/${year}`;
+  let date = `${month}/${day}/${year}`;
 
   const initialValues = {
     remarks: "",

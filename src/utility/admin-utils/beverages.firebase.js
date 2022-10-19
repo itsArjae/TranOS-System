@@ -79,7 +79,6 @@ export function updateBeverage(
     .then((docRef) => {
       console.log("Entire Document has been updated successfully");
       saveNotifDataUpd(
-        data,
         date,
         `${data.BeverageName} data successfully updated!`,
         "beverages",
@@ -170,12 +169,11 @@ export async function saveNotifDataDel(date, details, tblName, id) {
   }
 }
 
-export async function saveNotifDataUpd(data, date, details, tblName, id) {
+export async function saveNotifDataUpd(date, details, tblName, id) {
   const dt = new Date();
   let year = dt.getFullYear();
   try {
     const docRef = await addDoc(collection(db, "actionNotifications"), {
-      data: data,
       date: date,
       details: details,
       itemID: id,

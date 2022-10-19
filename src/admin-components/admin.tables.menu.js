@@ -34,7 +34,7 @@ const headers = [
 
 export default function AdminTables(props) {
   const router = useRouter();
-  const { menuData, updateData, Loading } = props;
+  const { menuData, updateData, Loading, notifyUD } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   let pageCountFixed = () => {
@@ -94,7 +94,7 @@ export default function AdminTables(props) {
             <button
               className={styles.Table__Data_Available_Btn}
               onClick={() => {
-                getID(data.id, data.Status);
+                getID(data.id, data.Status, data.MealName);
               }}
             >
               {data.Status == false ? "Available" : "Not Available"}
@@ -109,16 +109,16 @@ export default function AdminTables(props) {
     setPageNumber(selected);
   };
 
-  const getID = (MenuId, Status) => {
+  const getID = (MenuId, Status, MealName) => {
     console.log("clicked");
     if (Status == true) {
       updateMenu(MenuId, false);
       updateData();
-      Loading();
+      notifyUD(MealName);
     } else {
       updateMenu(MenuId, true);
       updateData();
-      Loading();
+      notifyUD(MealName);
     }
   };
 
