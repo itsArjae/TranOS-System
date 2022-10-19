@@ -17,7 +17,14 @@ import LoadingScreen from "../loading-screen";
 import { useRouter } from "next/router";
 import bcrypt from "bcryptjs";
 import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
-import { collection, getDocs, getFirestore,query,where,onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+  onSnapshot,
+} from "firebase/firestore";
 import MessageBox from "../../src/misc/messagebox";
 import { UserDocument } from "../../src/misc/userdata";
 import AdminTablesEmp from "../../src/admin-components/admin.tables-emp";
@@ -132,7 +139,10 @@ export default function AdminEmployees() {
   const getEmpData = async () => {
     const saleRef = collection(db, "employees");
     console.log("read");
-    const q = query(saleRef, where("Position", "!=", "SuperAdmin"));
+    const q = query(
+      saleRef,
+      where("Position", "not-in", ["SuperAdmin", "Admin"])
+    );
     onSnapshot(q, (snapshot) => {
       let sale = [];
       snapshot.docs.forEach((doc) => {
@@ -146,7 +156,10 @@ export default function AdminEmployees() {
 
   const renderEmp = async () => {
     const saleRef = collection(db, "employees");
-    const q = query(saleRef, where("Position", "!=", "SuperAdmin"));
+    const q = query(
+      saleRef,
+      where("Position", "not-in", ["SuperAdmin", "Admin"])
+    );
     console.log("read");
     onSnapshot(q, (snapshot) => {
       let sale = [];

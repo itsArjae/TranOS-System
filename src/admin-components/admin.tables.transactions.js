@@ -43,7 +43,7 @@ export default function AdminTables(props) {
   const [pageNumber, setPageNumber] = useState(0);
   let pageCountFixed = () => {
     if (searchTerm === "") {
-      return 4;
+      return 7;
     } else {
       return transacData.length;
     }

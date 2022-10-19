@@ -22,6 +22,7 @@ import {
   where,
 } from "firebase/firestore";
 import { useRouter } from "next/router";
+import { logoutUser, useAuth } from "../utility/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -35,6 +36,7 @@ export default function CashierPay(props) {
       icon: "X",
     });
   const router = useRouter();
+  const currentUser = useAuth();
   const {
     setEditDataVisible,
     orderData,
@@ -197,10 +199,19 @@ export default function CashierPay(props) {
       updateYearly(ySalesID, sum);
     }
     successPayment();
-    saveTransaction(trID, d, cashier, getSubTotal(), tid, day, month, year);
-    saveItems(trID, orderData, dateTime);
-    deleteData(orderData);
-    updateTable(tid);
+    saveTransaction(
+      trID,
+      d,
+      currentUser.email,
+      getSubTotal(),
+      tid,
+      day,
+      month,
+      year
+    );
+    //saveItems(trID, orderData, dateTime);
+    //deleteData(orderData);
+    //updateTable(tid);
     router.push("/cashier/cashier.table");
   };
 

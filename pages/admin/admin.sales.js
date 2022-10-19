@@ -6,6 +6,9 @@ import styles from "../../styles/css/admin-styles/admin.sales.module.css";
 import { useEffect } from "react";
 import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
 import { useRouter } from "next/router";
+import SuperTodaySales from "../../src/super-admin-components/supertodaysales";
+import SuperMonthlySales from "../../src/super-admin-components/supermonthlysales";
+import SuperYearlySales from "../../src/super-admin-components/superyearsales";
 
 const SampleData = [
   {
@@ -48,8 +51,6 @@ const SampleData = [
 export default function AdminSales() {
   const router = useRouter();
 
-
-
   const [dataSet, setDataSet] = useState({
     labels: SampleData.map((data) => data.year),
     datasets: [
@@ -65,13 +66,26 @@ export default function AdminSales() {
   return (
     <IdleTimerContainer>
       <div className={styles.Sales__Container}>
-        <div className={styles.Ave__Box}>
-          <div className={styles.Daily__Box}></div>
-          <div className={styles.Monthly__Box}></div>
-          <div className={styles.Yearly__Box}></div>
-        </div>
-        <div className={styles.Sales__Daily_Chart}>
-          <LineChart chartData={dataSet} />
+        <div className={styles.Container}>
+          <div className={styles.Ave__Box}>
+            <div className={styles.Daily__Box}></div>
+            <div className={styles.Monthly__Box}></div>
+            <div className={styles.Yearly__Box}></div>
+          </div>
+          <div className={styles.Inner}>
+            <p>Daily Sales Chart</p>
+            <div className={styles.Sales__Daily_Chart}>
+              <SuperTodaySales />
+            </div>
+            <p>Monthly Sales Chart</p>
+            <div className={styles.Sales__Daily_Chart}>
+              <SuperMonthlySales />
+            </div>
+            <p>Yearly Sales Chart</p>
+            <div className={styles.Sales__Daily_Chart}>
+              <SuperYearlySales />
+            </div>
+          </div>
         </div>
       </div>
     </IdleTimerContainer>

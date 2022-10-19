@@ -1,36 +1,48 @@
-.Sales__Container{
+.Sales__Container {
   height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 100px;
+  padding-top: 500px;
+  overflow: auto;
 }
-.Ave__Box{
+.Ave__Box {
   display: flex;
 }
-
-.Daily__Box{
+.Container{
+  margin-top: 600px;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+}
+.Daily__Box {
   height: 150px;
   width: 300px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   margin: 1rem 1rem;
 }
-.Monthly__Box{
+.Monthly__Box {
   height: 150px;
   width: 300px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   margin: 1rem 1rem;
 }
-.Yearly__Box{
+.Yearly__Box {
   height: 150px;
   width: 300px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   margin: 1rem 1rem;
 }
-.Sales__Daily_Chart{
+.Sales__Daily_Chart {
+  height: 400px;
   width: 950px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  padding: 1rem;
+  margin: 1rem 1rem;
 }
+.Inner p{
+  font-size: larger;
+  font-weight: bold;
+}
+

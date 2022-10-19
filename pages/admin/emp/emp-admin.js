@@ -33,6 +33,11 @@ export default function AdminEmployeeData() {
       //icon: "❌",
     });
 
+  const notifyUD = (name) =>
+    toast.success(`${name} status successfully changed!`, {
+      icon: "✔️",
+      //icon: "❌",
+    });
   const db = getFirestore(app);
   const router = useRouter();
   const id = router.query.EmpID;
@@ -156,6 +161,7 @@ export default function AdminEmployeeData() {
                 <button
                   onClick={() => {
                     handleStatusChange(data.Status);
+                    notifyUD(data.Email);
                   }}
                 >
                   set as {data.Status == true ? "Inactive" : "Active"}
