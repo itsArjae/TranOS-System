@@ -30,8 +30,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminBeverages() {
-  const notify = () =>
-    toast.success("Data added successfully!", {
+  const notify = (name) =>
+    toast.success(`${name} successfully added!`, {
       icon: "✔️",
       //icon: "❌",
     });
@@ -52,6 +52,7 @@ export default function AdminBeverages() {
   const imageRef = useRef(null);
   const [stat, setStatus] = useState("Available");
   const [bevSize, setSize] = useState("");
+  const [bucket, setBucket] = useState("");
 
   function Loading() {
     setLoading(!isLoading);
@@ -76,10 +77,26 @@ export default function AdminBeverages() {
     setResItem(event.target.files[0]);
   };
   //backend
+
+  const bucketData = () => {
+    if (bucket == "bucket") {
+      return true;
+    } else if (bucket == "solo") {
+      return false;
+    }
+  };
+
   const onSubmit = (data, { resetForm }) => {
     let needRender = true;
     setLoading(null);
-    saveMiddleware2(data, beverageData.length, bevSize, picItem, date);
+    saveMiddleware2(
+      data,
+      beverageData.length,
+      bevSize,
+      picItem,
+      date,
+      bucketData()
+    );
     resetForm();
     imageRef.current.value = "";
     setPicItem(null);
@@ -87,7 +104,7 @@ export default function AdminBeverages() {
 
     const interval = setInterval(() => {
       if (needRender === true) {
-        notify();
+        notify(data.BeverageName);
         renderEmp();
         needRender = false;
       }
@@ -219,11 +236,11 @@ export default function AdminBeverages() {
                   <select
                     name="Weight"
                     id="Weight"
-                    onChange={(e) => setSize(e.target.value)}
+                    onChange={(e) => setBucket(e.target.value)}
                   >
-                    <option value=""></option>
-                    <option value="false">No</option>
-                    <option value="true">Yes</option>
+                    <option value="">Category</option>
+                    <option value="bucket">Bucket</option>
+                    <option value="solo">Solo</option>
                   </select>
                 </div>
               </div>

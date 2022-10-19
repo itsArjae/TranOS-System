@@ -60,6 +60,7 @@ export default function EditBeverage(props) {
   const [bevPrice, setPrice] = useState("");
   const [bevSize, setSize] = useState("");
   const [bevDetail, setDetail] = useState("");
+  const [bevCategory, setCategory] = useState("");
   const [bev, setBev] = useState("");
 
   const [change, setChange] = useState(true);
@@ -81,6 +82,7 @@ export default function EditBeverage(props) {
         Bevprice.current.value = data.Price;
         Bevsize.current.value = data.Size;
         setDetail(data.Details);
+        setCategory(data.Bucket);
         //Bevdetail.current.value = data.Details;
       });
 
@@ -98,6 +100,7 @@ export default function EditBeverage(props) {
         Bevprice.current.value = data.Price;
         Bevsize.current.value = data.Size;
         setDetail(data.Details);
+        setCategory(data.Bucket);
         //Bevdetail.current.value = data.Details;
       });
       setChange(true);
@@ -123,6 +126,14 @@ export default function EditBeverage(props) {
     //Bevdetail.current.value = null;
   };
 
+  const bucketData = () => {
+    if (bevCategory == true || bevCategory == "true") {
+      return true;
+    } else if (bevCategory == false || bevCategory == "false") {
+      return false;
+    }
+  };
+
   const updateBeverageData = () => {
     if (Bevsize.current.value == "" && Bevnewqty == "") {
       updateBeverage(
@@ -132,7 +143,8 @@ export default function EditBeverage(props) {
         Number(Bevprice.current.value),
         Bevsize.current.value,
         bev,
-        date
+        date,
+        bucketData()
         //Bevdetail.current.value
       );
       notify();
@@ -147,7 +159,8 @@ export default function EditBeverage(props) {
         Number(Bevprice.current.value),
         Bevsize.current.value,
         bevDetail,
-        date
+        date,
+        bucketData()
         //Bevdetail.current.value
       );
       notify();
@@ -174,6 +187,7 @@ export default function EditBeverage(props) {
                 Beverage {id.substring(1, 6)}...
               </div>
             </div>
+
             <div className={styles.Form__Input_Container}>
               <div className={styles.Form__Input_Box1}>
                 <label htmlFor="beveragename">Beverage Name:</label>
@@ -262,6 +276,22 @@ export default function EditBeverage(props) {
                   <option value="N/A">None</option>
                   <option value="ml">millimeter</option>
                   <option value="L">liter</option>
+                </select>
+              </div>
+
+              <div className={styles.Form__Input_Box1}>
+                <label htmlFor="category">Category:</label>
+                <select
+                  name="Category"
+                  id="category"
+                  value={bevCategory}
+                  onChange={(event) => {
+                    setCategory(event.target.value);
+                    setChange(false);
+                  }}
+                >
+                  <option value="true">Bucket</option>
+                  <option value="false">Solo</option>
                 </select>
               </div>
             </div>

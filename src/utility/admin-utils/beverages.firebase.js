@@ -20,8 +20,15 @@ const db = getFirestore(app);
 var ImageUrl;
 var ResumeUrl;
 
-export function saveMiddleware2(data, bevId, bevSize, pictureFile, date) {
-  uploadBeveragesPicture(data, bevId, bevSize, pictureFile, date);
+export function saveMiddleware2(
+  data,
+  bevId,
+  bevSize,
+  pictureFile,
+  date,
+  bucket
+) {
+  uploadBeveragesPicture(data, bevId, bevSize, pictureFile, date, bucket);
 }
 
 export function updateBeverageStatus(beverageID, stat) {
@@ -38,9 +45,16 @@ export function updateBeverageStatus(beverageID, stat) {
     });
 }
 
-function uploadBeveragesPicture(data, bevId, bevSize, pictureFile, date) {
+function uploadBeveragesPicture(
+  data,
+  bevId,
+  bevSize,
+  pictureFile,
+  date,
+  bucket
+) {
   if (!pictureFile) {
-    return saveBeveragesData(data, bevId, bevSize, null, date);
+    return saveBeveragesData(data, bevId, bevSize, null, date, bucket);
   }
 
   const storageRef = sref(storage, "BeveragesFiles/" + pictureFile.name);
@@ -52,7 +66,7 @@ function uploadBeveragesPicture(data, bevId, bevSize, pictureFile, date) {
     (err) => console.log(err),
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((pictureUrl) => {
-        saveBeveragesData(data, bevId, bevSize, pictureUrl, date);
+        saveBeveragesData(data, bevId, bevSize, pictureUrl, date, bucket);
       });
     }
   );
@@ -65,7 +79,8 @@ export function updateBeverage(
   bevprice,
   bevsize,
   bevdetail,
-  date
+  date,
+  bucket
 ) {
   const docRef = doc(db, "beverages", drinksId);
   const data = {
@@ -74,6 +89,7 @@ export function updateBeverage(
     Price: bevprice,
     Size: bevsize,
     Details: bevdetail,
+    Bucket: bucket,
   };
   setDoc(docRef, data, { merge: true })
     .then((docRef) => {
@@ -95,7 +111,8 @@ export async function saveBeveragesData(
   bevId,
   bevSize,
   pictureUrl,
-  date
+  date,
+  bucket
 ) {
   try {
     const docRef = await addDoc(collection(db, "beverages"), {
@@ -105,6 +122,7 @@ export async function saveBeveragesData(
       Size: data.Size,
       Details: bevSize,
       Status: true,
+      Bucket: bucket,
       ImageUrl: pictureUrl,
     });
     console.log("Document written with ID: ", docRef.id);

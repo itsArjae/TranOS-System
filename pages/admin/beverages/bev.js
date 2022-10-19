@@ -168,6 +168,9 @@ export default function AdminBeverageData() {
                     <p>
                       Stocks: <b>{data.Quantity}</b>
                     </p>
+                    <p>
+                      Category: <b>{data.Bucket == true ? "Bucket" : "Solo"}</b>
+                    </p>
                   </div>
                 </div>
               </div>

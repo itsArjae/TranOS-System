@@ -33,8 +33,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminMenu() {
-  const notify = () =>
-    toast.success("Data added successfully!", {
+  const notify = (name) =>
+    toast.success(`${name} status successfully changed!`, {
       icon: "✔️",
       //icon: "❌",
     });
@@ -90,7 +90,7 @@ export default function AdminMenu() {
 
     const interval = setInterval(() => {
       if (needRender === true) {
-        notify();
+        notify(data.MealName);
         renderEmp();
         needRender = false;
       }
@@ -252,6 +252,7 @@ export default function AdminMenu() {
             menuData={menuData}
             updateData={updateData}
             Loading={Loading}
+            notifyUD={notifyUD}
           />
         </div>
         <ToastContainer />
