@@ -16,8 +16,11 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import SuperMonthlySales from '../../src/super-admin-components/supermonthlysales';
 import SuperAdminLayout from '../../src/super-admin-components/superAdminLayout';
+import { useRouter } from 'next/router';
+import SuperYearlySales from '../../src/super-admin-components/superyearsales';
 export default function SuperDashboard() {
 
+  const router = useRouter();
   var dt = new Date();
 
   let day = dt.getDate();
@@ -32,12 +35,7 @@ export default function SuperDashboard() {
 
   const getDailySales = () => {
 
-     useEffect(()=>{
-    const position = sessionStorage.getItem("Position");
-    if(position != "SuperAdmin"){
-      router.push('/sign-in');
-    }
-},[]);
+     
 
     const saleRef = collection(db, "dailySales");
     console.log("read daily");
@@ -119,6 +117,10 @@ export default function SuperDashboard() {
 
 
   useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if(position != "SuperAdmin"){
+      router.push('/sign-in');
+    }
     getDailySales();
     getMonthlySales();
     getYearlySales();
@@ -137,7 +139,7 @@ export default function SuperDashboard() {
       </div>
       <div className={styles.dash__today} >
       <h2>THIS YEAR SALES: Php. {yearlySales}</h2>
-      <SuperTodaySales/>
+      <SuperYearlySales/>
       </div>
       </div>
 
