@@ -31,6 +31,14 @@ export default function SuperDashboard() {
   const [yearlySales,setYearlySales] = useState();
 
   const getDailySales = () => {
+
+     useEffect(()=>{
+    const position = sessionStorage.getItem("Position");
+    if(position != "SuperAdmin"){
+      router.push('/sign-in');
+    }
+},[]);
+
     const saleRef = collection(db, "dailySales");
     console.log("read daily");
     const q = query(

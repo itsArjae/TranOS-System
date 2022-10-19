@@ -38,17 +38,17 @@ export default function SignIn() {
       return;
     }
   if(userInfo.Position == "Admin"){
-    sessionStorage.setItem("position","Admin");
+    sessionStorage.setItem("Position","Admin");
     router.push("/admin/Admin.Dashboard");
     return;
   }
   if(userInfo.Position == "Cashier"){
-    sessionStorage.setItem("position","Cashier");
+    sessionStorage.setItem("Position","Cashier");
     router.push("/cashier/cashier.meals");
     return;
   }
   if(userInfo.Position == "SuperAdmin"){
-    sessionStorage.setItem("position","SuperAdmin");
+    sessionStorage.setItem("Position","SuperAdmin");
     router.push("/super-admin/super.dashboard");
     return;
   }

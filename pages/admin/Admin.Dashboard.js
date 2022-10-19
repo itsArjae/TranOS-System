@@ -77,7 +77,7 @@ const SampleData = [
 const Dashboard = () => {
   // ==> etooooo
 //   useEffect(()=>{
-//     const position = sessionStorage.getItem("position");
+//     const position = sessionStorage.getItem("Position");
 //     if(position != "Admin"){
 //       router.push('/sign-in');
 //     }
