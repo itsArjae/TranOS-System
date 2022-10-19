@@ -17,7 +17,7 @@ import LoadingScreen from "../loading-screen";
 import { useRouter } from "next/router";
 import bcrypt from "bcryptjs";
 import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, getDocs, getFirestore,query,where,onSnapshot } from "firebase/firestore";
 import MessageBox from "../../src/misc/messagebox";
 import { UserDocument } from "../../src/misc/userdata";
 import AdminTablesEmp from "../../src/admin-components/admin.tables-emp";
@@ -130,24 +130,32 @@ export default function AdminEmployees() {
 
   const [empData, setEmpData] = useState([]);
   const getEmpData = async () => {
-    const querySnapshot = await getDocs(collection(db, "employees"));
-    let emp = [];
-    querySnapshot.forEach((doc) => {
-      emp.push({ ...doc.data(), id: doc.id });
-    });
+    const saleRef = collection(db, "employees");
     console.log("read");
-    setEmpData(emp);
+    const q = query(saleRef, where("Position", "!=", "SuperAdmin"));
+    onSnapshot(q, (snapshot) => {
+      let sale = [];
+      snapshot.docs.forEach((doc) => {
+        sale.push({ ...doc.data(), id: doc.id });
+      });
+
+      setEmpData(sale);
+    });
     setLoading(true);
   };
 
   const renderEmp = async () => {
-    const querySnapshot = await getDocs(collection(db, "employees"));
-    let emp = [];
-    querySnapshot.forEach((doc) => {
-      emp.push({ ...doc.data(), id: doc.id });
-    });
+    const saleRef = collection(db, "employees");
+    const q = query(saleRef, where("Position", "!=", "SuperAdmin"));
     console.log("read");
-    setEmpData(emp);
+    onSnapshot(q, (snapshot) => {
+      let sale = [];
+      snapshot.docs.forEach((doc) => {
+        sale.push({ ...doc.data(), id: doc.id });
+      });
+
+      setEmpData(sale);
+    });
     setLoading(true);
   };
 

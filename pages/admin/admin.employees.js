@@ -153,6 +153,10 @@ export default function AdminEmployees() {
   };
 
   useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if(position != "SuperAdmin"){
+      router.push('/sign-in');
+    }
     try {
       getEmpData();
     } catch (err) {}
