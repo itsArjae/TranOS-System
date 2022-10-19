@@ -34,7 +34,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminMenu() {
   const notify = (name) =>
-    toast.success(`${name} status successfully changed!`, {
+    toast.success(`${name} successfully added!`, {
       icon: "✔️",
       //icon: "❌",
     });

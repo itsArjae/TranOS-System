@@ -76,12 +76,12 @@ const SampleData = [
 
 const Dashboard = () => {
   // ==> etooooo
-//   useEffect(()=>{
-//     const position = sessionStorage.getItem("Position");
-//     if(position != "Admin"){
-//       router.push('/sign-in');
-//     }
-// },[]);
+  //   useEffect(()=>{
+  //     const position = sessionStorage.getItem("Position");
+  //     if(position != "Admin"){
+  //       router.push('/sign-in');
+  //     }
+  // },[]);
   const [dataSet, setDataSet] = useState({
     labels: SampleData.map((data) => data.year),
     datasets: [
@@ -106,7 +106,7 @@ const Dashboard = () => {
   };
   const goEmp = () => {
     setopen(false);
-    router.push("/admin/admin.employees");
+    router.push("/admin/admin.emp");
   };
   const goDrinks = () => {
     setopen(false);

@@ -23,7 +23,16 @@ import {
 import { Field } from "formik";
 const DefaultPic = "/assets/admin-assets/pictures/default-profile.jpg";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function AdminEmployeeData() {
+  const notify = () =>
+    toast.success("Data updated successfully!", {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
   const db = getFirestore(app);
   const router = useRouter();
   const id = router.query.EmpID;
@@ -170,10 +179,12 @@ export default function AdminEmployeeData() {
               setEditDataVisible={setEditDataVisible}
               id={id}
               empData={empData}
+              notify={notify}
             />
           </InnerBox>
         </OuterBox>
       )}
+      <ToastContainer />
     </div>
   );
 }

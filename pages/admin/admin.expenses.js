@@ -23,7 +23,16 @@ import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
 import { useRouter } from "next/router";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function AdminExpenses() {
+  const notify = () =>
+    toast.success(`Expenses successfully added!`, {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
   const router = useRouter();
   const db = getFirestore(app);
 
@@ -33,6 +42,22 @@ export default function AdminExpenses() {
   const [picItem, setPicItem] = useState(); // for image
   const imageRef = useRef(null);
   const [weight, setWeight] = useState("kg");
+
+  function Loading() {
+    setLoading(!isLoading);
+  }
+
+  const updateData = () => {
+    let needRender = true;
+    const interval = setInterval(() => {
+      if (needRender === true) {
+        console.log("update");
+        needRender = false;
+        forceUpdate();
+        setLoading(true);
+      }
+    }, 3000);
+  };
 
   const imageHandler = (event) => {
     setPicItem(event.target.files[0]);
@@ -64,7 +89,7 @@ export default function AdminExpenses() {
     try {
       getExpensesData("id", "");
     } catch (err) {}
-  }, [ignored]);
+  }, []);
   //
 
   function formatAMPM(date) {
@@ -104,23 +129,32 @@ export default function AdminExpenses() {
   });
 
   const onSubmit = (data, { resetForm }) => {
+    let needRender = true;
     setLoading(null);
-    try {
-      saveMiddleware2(data, expensesData.length, date, time, picItem);
-      resetForm();
-      imageRef.current.value = "";
-      setPicItem(null);
-      const { id, remarks, amount, Image } = data;
-      let needRender = true;
-      const interval = setInterval(() => {
-        if (needRender === true) {
-          console.log("update");
-          needRender = false;
-          forceUpdate();
-          setLoading(true);
-        }
-      }, 5000);
-    } catch (err) {}
+    saveMiddleware2(data, expensesData.length, date, time, picItem);
+    resetForm();
+    imageRef.current.value = "";
+    setPicItem(null);
+    const { id, remarks, amount, Image } = data;
+
+    const interval = setInterval(() => {
+      if (needRender === true) {
+        notify();
+        renderEmp();
+        needRender = false;
+      }
+    }, 5000);
+  };
+
+  const renderEmp = async () => {
+    const querySnapshot = await getDocs(collection(db, "meals"));
+    let emp = [];
+    querySnapshot.forEach((doc) => {
+      emp.push({ ...doc.data(), id: doc.id });
+    });
+    console.log("read");
+    setExpensesData(emp);
+    setLoading(true);
   };
 
   return isLoading ? (
@@ -202,6 +236,7 @@ export default function AdminExpenses() {
         <div className={styles.Table__Container}>
           <AdminExpensesTable expensesData={expensesData} />
         </div>
+        <ToastContainer />
       </div>
     </IdleTimerContainer>
   ) : (

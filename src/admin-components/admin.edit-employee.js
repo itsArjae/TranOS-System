@@ -28,7 +28,7 @@ export default function EditEmployee(props) {
   const router = useRouter();
   const db = getFirestore(app);
 
-  const { setEditDataVisible, id, empData } = props;
+  const { setEditDataVisible, id, empData, notify } = props;
   const [isLoading, setLoading] = useState(false);
   // data container
   const [picItem, setPicItem] = useState(); // for image
@@ -136,6 +136,7 @@ export default function EditEmployee(props) {
       EmpContact.current.value,
       EmpAdd.current.value
     );
+    notify();
     clear();
   };
 

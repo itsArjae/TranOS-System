@@ -22,7 +22,16 @@ import MessageBox from "../../src/misc/messagebox";
 import { UserDocument } from "../../src/misc/userdata";
 import SuperAdminLayout from "../../src/super-admin-components/superAdminLayout";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function AdminEmployees() {
+  const notify = (name) =>
+    toast.success(`${name} successfully created!`, {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
   const currentUser = useAuth();
   const [messageVisible, setMessageVisible] = useState(false);
   const [message, setMessage] = useState("");
@@ -115,6 +124,7 @@ export default function AdminEmployees() {
 
     const interval = setInterval(() => {
       if (needRender === true) {
+        notify(data.Email);
         renderEmp();
         needRender = false;
       }
@@ -154,8 +164,8 @@ export default function AdminEmployees() {
 
   useEffect(() => {
     const position = sessionStorage.getItem("Position");
-    if(position != "SuperAdmin"){
-      router.push('/sign-in');
+    if (position != "SuperAdmin") {
+      router.push("/sign-in");
     }
     try {
       getEmpData();
@@ -371,6 +381,7 @@ export default function AdminEmployees() {
             </InnerBox>
           </OuterBox>
         )}
+        <ToastContainer />
       </div>
     </IdleTimerContainer>
   ) : (

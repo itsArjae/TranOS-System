@@ -23,7 +23,28 @@ import {
 import { Field } from "formik";
 const DefaultPic = "/assets/admin-assets/pictures/default-profile.jpg";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function AdminEmployeeData() {
+  const notify = () =>
+    toast.success("Data updated successfully!", {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
+  const notifyDel = () =>
+    toast.success("Data deleted successfully!", {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
+  const notifyUD = (name) =>
+    toast.success(`${name} status successfully changed!`, {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
   const db = getFirestore(app);
   const router = useRouter();
   const id = router.query.EmpID;
@@ -35,16 +56,15 @@ export default function AdminEmployeeData() {
     setVisible(!visible);
   }
 
-
   const getEmpData = () => {
     const empRef = collection(db, "employees");
 
-    if(!id){
-      router.push('../admin.employees');
+    if (!id) {
+      router.push("../admin.employees");
       return;
     }
     const q = query(empRef, where("__name__", "==", id));
-     onSnapshot(q, (snapshot) => {
+    onSnapshot(q, (snapshot) => {
       let emp = [];
       snapshot.docs.forEach((doc) => {
         emp.push({ ...doc.data(), id: doc.id });
@@ -159,6 +179,7 @@ export default function AdminEmployeeData() {
                 <button
                   onClick={() => {
                     handleStatusChange(data.Status);
+                    notifyUD(data.Email);
                   }}
                 >
                   set as {data.Status == true ? "Inactive" : "Active"}
@@ -183,10 +204,12 @@ export default function AdminEmployeeData() {
               setEditDataVisible={setEditDataVisible}
               id={id}
               empData={empData}
+              notify={notify}
             />
           </InnerBox>
         </OuterBox>
       )}
+      <ToastContainer />
     </div>
   );
 }
