@@ -130,7 +130,7 @@ export default function AdminTables(props) {
   };
 
   return (
-    <div className={styles.Table__Container}>
+    <div className={styles.Table__Container1}>
       <div className={styles.Table__Search_Box}>
         <div className={styles.Table__Search_Form}>
           <div

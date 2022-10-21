@@ -19,6 +19,9 @@ import CashierLayout from "../../src/cashier-components/cashierLayout";
 import styled from "@emotion/styled";
 import Pay from "../../src/cashier-components/cashier.pay";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const headers = [
   {
     id: 1,
@@ -39,6 +42,14 @@ const headers = [
 ];
 
 export default function CashierOrder() {
+  const successPayment = () =>
+    toast.success("SUCCESSFULLY PAID", {
+      icon: "✔️",
+    });
+  const failPayment = () =>
+    toast.error("NOT ENOUGH MONEY! ", {
+      icon: "❌",
+    });
   const router = useRouter();
   const tid = router.query.tid;
   const [orderData, setOrderData] = useState([]);
@@ -225,6 +236,7 @@ export default function CashierOrder() {
           </div>
         </div>
       </div>
+      <ToastContainer />
       {visible === true && (
         <OuterBox>
           <InnerBox>
@@ -237,6 +249,8 @@ export default function CashierOrder() {
               getTotal={getTotal}
               getTotalFixed={getTotalFixed}
               getTotalFixed2={getTotalFixed2}
+              successPayment={successPayment}
+              failPayment={failPayment}
             />
           </InnerBox>
         </OuterBox>

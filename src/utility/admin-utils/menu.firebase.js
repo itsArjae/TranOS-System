@@ -38,11 +38,19 @@ export function updateMenu(mealID, stat) {
 }
 
 export async function saveMenuData(data, menuId, pictureUrl, date) {
+  const noServing = () => {
+    let serve = 0;
+    if (data.Serving == "") {
+      return serve;
+    } else {
+      return data.Serving;
+    }
+  };
   try {
     const docRef = await addDoc(collection(db, "meals"), {
       MealName: data.MealName,
       Price: data.Price,
-      Serving: data.Serving,
+      Serving: noServing(),
       Status: true,
       ImageUrl: pictureUrl,
     });
@@ -80,7 +88,7 @@ function uploadMenuPicture(data, menuId, pictureFile, date) {
 }
 
 export function updateMeal(id, mealname, mealprice, serving, date) {
-  const docRef = doc(db, "MealName", id);
+  const docRef = doc(db, "meals", id);
   const data = {
     MealName: mealname,
     Price: mealprice,

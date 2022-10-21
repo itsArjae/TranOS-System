@@ -1,7 +1,7 @@
 .Beverages__Container{
   display: flex;
   height: 100vh;
-  background-color: aliceblue;
+  background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #55a3d6);
   flex-direction: row;
   align-items: center;
   width: 100%;
@@ -12,7 +12,10 @@
 .Beverages__Form{
   height: 500px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background-color: white;
   overflow: auto;
+  border-bottom-left-radius: 30px;
+  padding: 10px;
 }
 .Form__Input_Container{
   display: flex;

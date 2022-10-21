@@ -35,6 +35,7 @@ import {
   Firestore,
   getDocs,
 } from "firebase/firestore";
+import SuperTodaySales from "../../src/super-admin-components/supertodaysales";
 
 const SampleData = [
   {
@@ -187,6 +188,7 @@ const Dashboard = () => {
   const [dsalesData, setDSalesData] = useState([]);
   const [msalesData, setMSalesData] = useState([]);
   const [ysalesData, setYSalesData] = useState([]);
+  const [dsales, setDSales] = useState("");
 
   const db = getFirestore(app);
 
@@ -201,7 +203,7 @@ const Dashboard = () => {
   };
 
   const getDSalesData = () => {
-    const saleRef = collection(db, "transactions");
+    const saleRef = collection(db, "dailySales");
 
     const q = query(
       saleRef,
@@ -214,12 +216,13 @@ const Dashboard = () => {
       snapshot.docs.forEach((doc) => {
         sale.push({ ...doc.data(), id: doc.id });
       });
+
       setDSalesData(sale);
     });
   };
 
   const getMSalesData = () => {
-    const saleRef = collection(db, "transactions");
+    const saleRef = collection(db, "monthlySales");
 
     const q = query(
       saleRef,
@@ -245,17 +248,27 @@ const Dashboard = () => {
   const getDTotal = () => {
     let sum = 0;
     dsalesData.map((data) => {
-      sum = sum + data.totalAmount;
+      sum = data.totalSales;
     });
     return sum;
+    // let sum = 0;
+    // dsalesData.map((data) => {
+    //   sum = sum + data.totalAmount;
+    // });
+    // return sum;
   };
 
   const getMTotal = () => {
     let sum = 0;
     msalesData.map((data) => {
-      sum = sum + data.totalAmount;
+      sum = data.totalSales;
     });
     return sum;
+    // let sum = 0;
+    // msalesData.map((data) => {
+    //   sum = sum + data.totalAmount;
+    // });
+    // return sum;
   };
 
   return (
@@ -316,7 +329,7 @@ const Dashboard = () => {
               </div>
             </div>
             <div className={styles.Graph__Container}>
-              <LineChart chartData={dataSet} />
+              <SuperTodaySales />
             </div>
           </div>
 
@@ -439,7 +452,11 @@ const Dashboard = () => {
                 return (
                   <div key={data.id} className={styles.Notifications__Content}>
                     <div style={{ display: "flex" }}>
-                      <p>{data.BeverageName} running out of stocks!</p>
+                      <p>
+                        {data.Quantity == 0
+                          ? `${data.BeverageName} out of Stocks!`
+                          : `${data.BeverageName} running out of Stocks!`}
+                      </p>
                     </div>
                   </div>
                 );

@@ -37,6 +37,7 @@ export default function AdminTables(props) {
   const [searchTerm, setSearchTerm] = useState("");
   const { beverageData, updateData, Loading, notifyUD } = props;
   const [pageNumber, setPageNumber] = useState(0);
+  const [disableBtn, setDisable] = useState(false);
   let pageCountFixed = () => {
     if (searchTerm === "") {
       return 4;
@@ -100,6 +101,7 @@ export default function AdminTables(props) {
               onClick={() => {
                 getID(data.id, data.Status, data.BeverageName);
               }}
+              disabled={data.Quantity == 0 ? true : false}
             >
               {data.Status == false ? "Available" : "Not Available"}
             </button>
@@ -151,6 +153,26 @@ export default function AdminTables(props) {
     search: "",
   };
 
+  const statUpdate = () => {
+    beverageData.map((data) => {
+      if (data.Quantity == 0) {
+        updateBeverageStatus(data.id, false);
+        updateData();
+      }
+      if (data.Quantity > 0) {
+        updateBeverageStatus(data.id, true);
+        updateData();
+      }
+    });
+    console.log("re");
+  };
+
+  useEffect(() => {
+    try {
+      statUpdate();
+    } catch (err) {}
+  }, []);
+
   const validationSchema = Yup.object().shape({
     search: Yup.string().min(3).required("Invalid"),
   });
@@ -160,7 +182,7 @@ export default function AdminTables(props) {
   };
 
   return (
-    <div className={styles.Table__Container}>
+    <div className={styles.Table__Container1}>
       <div className={styles.Table__Search_Box}>
         <div className={styles.Table__Search_Form}>
           <div

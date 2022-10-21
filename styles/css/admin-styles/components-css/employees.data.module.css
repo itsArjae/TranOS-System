@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   padding: 10px;
+  background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #55a3d6);
 }
 
 .Data__Box{
@@ -15,6 +16,7 @@
   border-radius: 10px;
   display: flex;
   flex-direction: row;
+  background-color: white;
 }
 .Exit__Button{
   cursor: pointer;

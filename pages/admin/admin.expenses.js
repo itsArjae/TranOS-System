@@ -197,8 +197,8 @@ export default function AdminExpenses() {
                     name="amount"
                     placeholder="Amount"
                     type="number"
+                    required={true}
                   />
-                  <ErrorMessage name="amount" />
                 </div>
               </div>
 

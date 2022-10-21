@@ -248,24 +248,24 @@ export default function AdminEmployees() {
                     className={styles.Form__Input}
                     name="Surname"
                     placeholder="Surname"
+                    required={true}
                   />
-                  <ErrorMessage name="Surname" />
                 </div>
                 <div className={styles.Form__Input_Box}>
                   <Field
                     className={styles.Form__Input}
                     name="FirstName"
                     placeholder="FirstName"
+                    required={true}
                   />
-                  <ErrorMessage name="FirstName" />
                 </div>
                 <div className={styles.Form__Input_Box}>
                   <Field
                     className={styles.Form__Input}
                     name="MiddleName"
                     placeholder="MiddleName"
+                    required={true}
                   />
-                  <ErrorMessage name="MiddleName" />
                 </div>
               </div>
               <div className={styles.Form__Input_Container}>
@@ -275,16 +275,21 @@ export default function AdminEmployees() {
                     name="Age"
                     placeholder="Age"
                     type="number"
+                    required={true}
                   />
-                  <ErrorMessage name="Age" />
                 </div>
                 <div className={styles.Form__Input_Box}>
                   <select
                     name="Gender"
+                    id="Gender"
+                    required={true}
                     onChange={(event) => {
                       setGen(event.target.value);
                     }}
                   >
+                    <option selected disabled hidden value="">
+                      Select Category
+                    </option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                   </select>
@@ -292,10 +297,15 @@ export default function AdminEmployees() {
                 <div className={styles.Form__Input_Box}>
                   <select
                     name="Position"
+                    id="Position"
+                    required={true}
                     onChange={(event) => {
                       setPos(event.target.value);
                     }}
                   >
+                    <option selected disabled hidden value="">
+                      Select Position
+                    </option>
                     <option value="Cashier">Cashier</option>
                     <option value="Waiter">Waiter</option>
                     <option value="Chef">Chef</option>
@@ -310,24 +320,25 @@ export default function AdminEmployees() {
                     name="Email"
                     placeholder="Email"
                     type="email"
+                    required={true}
                   />
                   <Field
                     className={styles.Form__Input_Email}
                     name="Number"
                     placeholder="Contact No.(ex. 09983511675)"
+                    required={true}
                   />
-                  <ErrorMessage name="Number" />
                 </div>
               </div>
               <div className={styles.Form__Input_Container}>
                 <div className={styles.Form__Input_Box}>
                   <Field
-                    className={styles.Form__Input_Email}
+                    className={styles.Form__Input_Add}
                     name="Address"
                     placeholder="Address"
                     type="Address"
+                    required={true}
                   />
-                  <ErrorMessage name="Address" />
                 </div>
               </div>
               <div className={styles.Form__Input_Container}>
@@ -357,7 +368,7 @@ export default function AdminEmployees() {
               <div className={styles.Form__Btn_Container}>
                 <button
                   className={styles.Form__Clear_Btn}
-                  type="button"
+                  type="reset"
                   onClick={() => {
                     console.log(initialValues);
                   }}

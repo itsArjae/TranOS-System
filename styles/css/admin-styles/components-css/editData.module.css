@@ -22,21 +22,18 @@
 
 .Exit__Button{
   cursor: pointer;
-  background-color: white;
   border: none;
   border-radius: 5px;
-}
-.Exit{
-  cursor: pointer;
+  background: none;
+  font-size: larger;
 }
 .Btn__Box{
-  margin-right: auto;
+  margin-left: auto;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
 }
-.Exit__Button:hover{
-  border: 1px solid black;
-}
-
 .Employees__Form{
   height: 600px;
   overflow: auto;

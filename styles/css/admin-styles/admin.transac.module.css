@@ -1,13 +1,12 @@
 .transac__Container{
   display: flex;
   height: 100vh;
-  background-color: aliceblue;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   padding: 1rem;
-  
+  background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #55a3d6);
 }
 
 .header{

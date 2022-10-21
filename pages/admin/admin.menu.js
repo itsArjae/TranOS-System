@@ -189,8 +189,8 @@ export default function AdminMenu() {
                     className={styles.Form__Input}
                     name="MealName"
                     placeholder=" Meal Name"
+                    required={true}
                   />
-                  <ErrorMessage name="MealName" />
                 </div>
               </div>
               <div className={styles.Form__Input_Container}>
@@ -200,8 +200,8 @@ export default function AdminMenu() {
                     name="Price"
                     placeholder="Price"
                     type="number"
+                    required={true}
                   />
-                  <ErrorMessage name="Price" />
                 </div>
               </div>
 
@@ -213,7 +213,6 @@ export default function AdminMenu() {
                     placeholder="Estimated Servings"
                     type="number"
                   />
-                  <ErrorMessage name="Serving" />
                 </div>
               </div>
 
@@ -233,7 +232,7 @@ export default function AdminMenu() {
               <div className={styles.Form__Btn_Container}>
                 <button
                   className={styles.Form__Clear_Btn}
-                  type="button"
+                  type="reset"
                   onClick={() => {
                     console.log(initialValues);
                   }}

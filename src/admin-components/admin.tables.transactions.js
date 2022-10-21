@@ -12,7 +12,7 @@ const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Menu.png";
 const headers = [
   {
     id: 1,
-    header: "Transaction No.",
+    header: "Transaction ID",
   },
   {
     id: 2,
@@ -72,7 +72,18 @@ export default function AdminTables(props) {
     .map((data) => {
       return (
         <div className={styles.Table__Data} key={data.id}>
-          <div className={styles.Table__Data__Box}> {data.transacID}</div>
+          <div className={styles.Table__Image_Box}>
+            <div> {data.transacID}</div>
+            <div
+              className={styles.overlay}
+              onClick={() => {
+                viewData(data.transacID);
+              }}
+            >
+              <div className={styles.text}>View Details</div>
+            </div>
+          </div>
+
           <div className={styles.Table__Data__Box}> {data.tableNum}</div>
           <div className={styles.Table__Data__Box}>
             {Number(data.totalAmount).toFixed(2)}
@@ -107,10 +118,10 @@ export default function AdminTables(props) {
   const viewData = (id) => {
     router.push(
       {
-        pathname: `../admin/meals/menu`,
-        query: { MenuID: id },
+        pathname: `../admin/transactions/transaction`,
+        query: { TransacID: id },
       },
-      "../admin/meals/menu"
+      "../admin/transactions/transaction"
     );
   };
 

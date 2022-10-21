@@ -57,10 +57,10 @@ export async function saveItems(id, orderData, date) {
       const docRef = await addDoc(collection(db, "salesDetails"), {
         transacID: id,
         orderID: val.id,
-        description: val.mealName,
+        description: val.itemName,
         price: val.price,
         quantity: val.quantity,
-        total: val.total,
+        total: val.subTotal,
         dateBought: date,
       });
       console.log("Document written with ID: ", docRef.id);

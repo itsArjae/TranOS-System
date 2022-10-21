@@ -19,6 +19,7 @@ import AdminTablesBeverages from "../../src/admin-components/admin.tables.bevera
 import {
   saveMiddleware2,
   saveNotifData,
+  updateBeverageStatus,
 } from "../../src/utility/admin-utils/beverages.firebase";
 import styled from "@emotion/styled";
 import LoadingScreen from "../loading-screen";
@@ -126,6 +127,7 @@ export default function AdminBeverages() {
       beverage.push({ ...doc.data(), id: doc.id });
     });
     console.log("read");
+
     setBeverageData(beverage);
     setLoading(true);
   };
@@ -206,8 +208,8 @@ export default function AdminBeverages() {
                     className={styles.Form__Input}
                     name="BeverageName"
                     placeholder=" Beverage Name"
+                    required={true}
                   />
-                  <ErrorMessage name="BeverageName" />
                 </div>
 
                 <div className={styles.Form__Input_Box}>
@@ -216,8 +218,8 @@ export default function AdminBeverages() {
                     name="Price"
                     placeholder="Price per piece"
                     type="number"
+                    required={true}
                   />
-                  <ErrorMessage name="Price" />
                 </div>
               </div>
 
@@ -228,17 +230,20 @@ export default function AdminBeverages() {
                     name="Quantity"
                     placeholder="Quantity per piece"
                     type="number"
+                    required={true}
                   />
-                  <ErrorMessage name="Quantity" />
                 </div>
 
                 <div className={styles.Form__Input_Box}>
                   <select
                     name="Weight"
                     id="Weight"
+                    required={true}
                     onChange={(e) => setBucket(e.target.value)}
                   >
-                    <option value="">Category</option>
+                    <option selected disabled hidden value="">
+                      Select Category
+                    </option>
                     <option value="bucket">Bucket</option>
                     <option value="solo">Solo</option>
                   </select>
@@ -253,7 +258,6 @@ export default function AdminBeverages() {
                     placeholder="Size"
                     type="number"
                   />
-                  <ErrorMessage name="Size" />
                 </div>
 
                 <div className={styles.Form__Input_Box}>
@@ -262,7 +266,7 @@ export default function AdminBeverages() {
                     id="Weight"
                     onChange={(e) => setSize(e.target.value)}
                   >
-                    <option value="N/A">None</option>
+                    <option value="">None</option>
                     <option value="ml">millimeter</option>
                     <option value="L">liter</option>
                   </select>
@@ -285,10 +289,8 @@ export default function AdminBeverages() {
               <div className={styles.Form__Btn_Container}>
                 <button
                   className={styles.Form__Clear_Btn}
-                  type="button"
-                  onClick={() => {
-                    console.log(initialValues);
-                  }}
+                  type="reset"
+                  onClick={() => {}}
                 >
                   Clear
                 </button>

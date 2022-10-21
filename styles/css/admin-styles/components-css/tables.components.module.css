@@ -1,11 +1,25 @@
 .Table__Container {
   margin: 1rem 1rem;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   height: 500px;
   display: flex;
   justify-content: center;
   padding: 1rem;
   flex-direction: column;
+  background-color: white;
+  border-bottom-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+.Table__Container1 {
+  margin: 1rem 1rem;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  flex-direction: column;
+  background-color: white;
+  border-top-right-radius: 30px;
 }
 .Table__Search_Box{
   margin: auto;
@@ -55,9 +69,10 @@
 }
 .Table__Heads_Data{
   width: 100%;
- background-color: #61A4BC;
+ background-color: #C1EFFF;
  text-align: center;
  border: 1px solid black;
+ font-weight: bold;
  padding: .5rem;
 }
 .Table__Data_Container{

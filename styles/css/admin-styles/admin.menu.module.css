@@ -1,7 +1,7 @@
 .Menu__Container{
   display: flex;
   height: 100vh;
-  background-color: aliceblue;
+  background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #9bcdee);
   flex-direction: row;
   align-items: center;
   width: 100%;
@@ -13,6 +13,9 @@
   height: 500px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   overflow: auto;
+  background-color: white;
+  border-bottom-left-radius: 30px;
+  padding: 10px;
 }
 .Form__Input_Container{
   display: flex;

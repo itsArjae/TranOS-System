@@ -32,7 +32,7 @@ import { deleteData } from "../../../src/utility/admin-utils/beverages.firebase"
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function AdminBeverageData() {
+export default function AdminTransacData() {
   const notify = () =>
     toast.success("Data updated successfully!", {
       icon: "✔️",
@@ -47,20 +47,20 @@ export default function AdminBeverageData() {
 
   const router = useRouter();
   const db = getFirestore(app);
-  const id = router.query.BevID;
-  const [beverageData, setBeverageData] = useState([]);
+  const id = router.query.TransacID;
+  const [transacData, setTransacData] = useState([]);
   const [visible, setVisible] = useState(false);
 
   function setEditDataVisible() {
     setVisible(!visible);
   }
 
-  const getBevData = () => {
-    const bevRef = collection(db, "beverages");
+  const getTransacData = () => {
+    const bevRef = collection(db, "salesDetails");
 
     console.log(id);
 
-    const q = query(bevRef, where("__name__", "==", id));
+    const q = query(bevRef, where("transacID", "==", id));
 
     onSnapshot(q, (snapshot) => {
       let bev = [];
@@ -68,15 +68,16 @@ export default function AdminBeverageData() {
         bev.push({ ...doc.data(), id: doc.id });
       });
       console.log("read");
-      setBeverageData(bev);
+      console.log(bev);
+      setTransacData(bev);
     });
   };
   useEffect(() => {
-    getBevData();
+    getTransacData();
   }, []);
 
   const goBack = () => {
-    router.push("../admin.beverages");
+    router.push("../admin.transactions");
   };
 
   var dt = new Date();
@@ -106,7 +107,7 @@ export default function AdminBeverageData() {
 
   return (
     <div className={styles.Data__Container}>
-      {beverageData.map((data) => {
+      {transacData.map((data) => {
         return (
           <div className={styles.Data__Box} key={data.id}>
             <div className={styles.Data__Box1}>
@@ -115,7 +116,7 @@ export default function AdminBeverageData() {
                   ❌
                 </button>
               </div>
-              <div className={styles.Data__First}>
+              {/* <div className={styles.Data__First}>
                 <div className={styles.Data__Picture}>
                   <img src={data.ImageUrl ? data.ImageUrl : DefaultPic} />
                 </div>
@@ -138,15 +139,15 @@ export default function AdminBeverageData() {
                     Delete
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className={styles.Data__Box2}>
               <div className={styles.Box2__Container}>
                 <div className={styles.Data__Box2_Info1}>
                   <div>
-                    <h1>{`${data.BeverageName}`}</h1>
+                    <h1>{`${data.transacID}`}</h1>
                     <Divider />
-                    <p>
+                    {/* <p>
                       Details:
                       <b>
                         {data.Size ? data.Size : " N/A"}
@@ -170,7 +171,7 @@ export default function AdminBeverageData() {
                     </p>
                     <p>
                       Category: <b>{data.Bucket == true ? "Bucket" : "Solo"}</b>
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </div>
@@ -178,7 +179,7 @@ export default function AdminBeverageData() {
           </div>
         );
       })}
-      {visible === true && (
+      {/* {visible === true && (
         <OuterBox>
           <InnerBox>
             <EditData
@@ -189,13 +190,13 @@ export default function AdminBeverageData() {
             />
           </InnerBox>
         </OuterBox>
-      )}
+      )} */}
       <ToastContainer />
     </div>
   );
 }
 
-AdminBeverageData.getLayout = function getLayout(page) {
+AdminTransacData.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
 

@@ -65,6 +65,7 @@ export default function EditMeal(props) {
   const Mealname = useRef(null);
   const Mealprice = useRef(null);
   const Mealserving = useRef(null);
+  const newMealserving = useRef(null);
 
   useEffect(() => {
     {
@@ -94,7 +95,7 @@ export default function EditMeal(props) {
   };
 
   const updateMealData = () => {
-    if (mealServing == "") {
+    if (newMealserving == "") {
       updateMeal(
         id,
         Mealname.current.value,
@@ -105,7 +106,7 @@ export default function EditMeal(props) {
       notify();
     } else {
       let qty = 0;
-      qty = Number(Mealserving.current.value) + Number(mealServing);
+      qty = Number(mealServing) + Number(Mealserving.current.value);
       updateMeal(
         id,
         Mealname.current.value,
@@ -123,11 +124,9 @@ export default function EditMeal(props) {
     <div className={styles.Outside__Container}>
       <div className={styles.Container}>
         <div className={styles.Btn__Box}>
-          <div className={styles.Exit__Button}>
-            <button className={styles.Exit} onClick={setEditDataVisible}>
-              ❌
-            </button>
-          </div>
+          <button className={styles.Exit__Button} onClick={setEditDataVisible}>
+            ❌
+          </button>
         </div>
 
         <div className={styles.Form__Container}>
@@ -187,6 +186,7 @@ export default function EditMeal(props) {
                   className={styles.Form__Input}
                   type="text"
                   id="aServing"
+                  ref={newMealserving}
                   onChange={(event) => {
                     setServing(event.target.value);
                     setChange(false);

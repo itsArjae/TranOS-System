@@ -23,18 +23,8 @@ import {
 } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { logoutUser, useAuth } from "../utility/firebase";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default function CashierPay(props) {
-  const successPayment = () =>
-    toast.success("SUCCESSFULLY PAID", {
-      icon: "✔️",
-    });
-  const failPayment = () =>
-    toast.error("NOT ENOUGH MONEY! ", {
-      icon: "X",
-    });
   const router = useRouter();
   const currentUser = useAuth();
   const {
@@ -46,6 +36,8 @@ export default function CashierPay(props) {
     getTotal,
     getTotalFixed,
     getTotalFixed2,
+    successPayment,
+    failPayment,
   } = props;
 
   const db = getFirestore(app);
@@ -209,10 +201,17 @@ export default function CashierPay(props) {
       month,
       year
     );
-    //saveItems(trID, orderData, dateTime);
+    saveItems(trID, orderData, dateTime);
     //deleteData(orderData);
     //updateTable(tid);
-    router.push("/cashier/cashier.table");
+    let needRender = true;
+    const interval = setInterval(() => {
+      if (needRender === true) {
+        successPayment();
+        router.push("/cashier/cashier.table");
+        needRender = false;
+      }
+    }, 3000);
   };
 
   return (
@@ -298,7 +297,6 @@ export default function CashierPay(props) {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 }

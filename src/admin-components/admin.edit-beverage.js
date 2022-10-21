@@ -172,11 +172,9 @@ export default function EditBeverage(props) {
     <div className={styles.Outside__Container}>
       <div className={styles.Container}>
         <div className={styles.Btn__Box}>
-          <div className={styles.Exit__Button}>
-            <button className={styles.Exit} onClick={setEditDataVisible}>
-              ❌
-            </button>
-          </div>
+          <button className={styles.Exit__Button} onClick={setEditDataVisible}>
+            ❌
+          </button>
         </div>
 
         <div className={styles.Form__Container}>
