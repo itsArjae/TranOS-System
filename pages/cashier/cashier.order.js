@@ -145,30 +145,40 @@ export default function CashierOrder() {
     setTotal(getTotal() + Number(val));
   };
 
+  const [payList,setPayList] = useState([]);
+  const [totalPrice,setTotalPrice] = useState(0);
+  const tryLang = (name,id,total) => {
+    console.log("pwede")
+    const data = {itemName:name,id:id,total:total};
+    setPayList([...payList,data]);
+    setTotalPrice(totalPrice + total);
+   // console.log(payList);
+  };
+
+  const tryLang1 = (name,id,total) => {
+    console.log("bawall")
+    let data = [];
+    
+    payList.map((val)=>{
+      console.log(val.id,id,"hhh")
+      if(val.id != id){
+        data.push({itemName:val.itemName,id:val.id,total:val.total})
+      }
+    })
+
+    setPayList(data);
+    setTotalPrice(totalPrice - total);
+
+  };
+
+
   const DisplayItems = orderData
     .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((data) => {
-      const tryLang = (id) => {
-        console.log(id);
-      };
+      let isCheck = false;
       return (
-        <div className={styles.Table__Data} key={data.id}>
-          <div className={styles.Table__Data__Box1}>
-            <input
-              type="checkbox"
-              onClick={() => {
-                tryLang(data.itemName);
-              }}
-            ></input>
-          </div>
-          <div className={styles.Table__Data__Box}> {data.itemName}</div>
-          <div className={styles.Table__Data__Box}>
-            {Number(data.price).toFixed(2)}
-          </div>
-          <div className={styles.Table__Data__Box}> {data.quantity}</div>
-          <div className={styles.Table__Data__Box}>
-            {Number(data.subTotal).toFixed(2)}
-          </div>
+        <div key={data.id}>
+          <OrderItem data={data} tryLang={tryLang} tryLang1={tryLang1} />
         </div>
       );
     });
@@ -287,6 +297,8 @@ export default function CashierOrder() {
                   </button>
                 </div>
               </div> */}
+              <button onClick={()=>{console.log(payList)}} >hjsdh</button>
+              {totalPrice}
             </div>
           </div>
         </div>
@@ -317,6 +329,43 @@ export default function CashierOrder() {
 CashierOrder.getLayout = function getLayout(page) {
   return <CashierLayout>{page}</CashierLayout>;
 };
+
+
+const OrderItem = (props) => {
+
+  const {data,tryLang,tryLang1} = props;
+  const [isSelected,setIsSelected] = useState(false);
+
+return(
+  <div className={styles.Table__Data} >
+          <div className={styles.Table__Data__Box1}>
+            <input
+              type="checkbox"
+              onChange={(e) => {
+                setIsSelected(!isSelected);
+               if(!isSelected){
+                console.log("true")
+                tryLang(data.itemName,data.id,data.subTotal);
+               }
+               if(isSelected){
+                console.log("false")
+                tryLang1(data.itemName,data.id,data.subTotal);
+               }
+              }}
+            >
+            </input>
+          </div>
+          <div className={styles.Table__Data__Box}> {data.itemName}</div>
+          <div className={styles.Table__Data__Box}>
+            {Number(data.price).toFixed(2)}
+          </div>
+          <div className={styles.Table__Data__Box}> {data.quantity}</div>
+          <div className={styles.Table__Data__Box}>
+            {Number(data.subTotal).toFixed(2)}
+          </div>
+        </div>
+)
+}
 
 const OuterBox = styled.div`
   width: 100vw;

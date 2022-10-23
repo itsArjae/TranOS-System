@@ -76,6 +76,8 @@ const SampleData = [
 ];
 
 const Dashboard = () => {
+
+
   // ==> etooooo
   //   useEffect(()=>{
   //     const position = sessionStorage.getItem("Position");
@@ -83,6 +85,8 @@ const Dashboard = () => {
   //       router.push('/sign-in');
   //     }
   // },[]);
+
+
   const [dataSet, setDataSet] = useState({
     labels: SampleData.map((data) => data.year),
     datasets: [
@@ -146,6 +150,7 @@ const Dashboard = () => {
     localStorage.removeItem("accessToken");
     router.push("/sign-in");
   };
+  
   const [notifData, setNotif] = useState([]);
   const [notif, setNotification] = useState();
   const [notifID, setNotifID] = useState();
