@@ -9,8 +9,18 @@
   overflow: auto;
   background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #9bcdee);
   background-attachment: fixed;
-
 }
+
+.Sales__Container1 {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 70px;
+}
+
 .Ave__Box {
   display: flex;
 }
@@ -19,6 +29,7 @@
   margin-bottom: 100px;
   display: flex;
   flex-direction: column;
+  margin-top: 70px;
 }
 .Daily__Box {
   display: flex;
