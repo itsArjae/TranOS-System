@@ -160,81 +160,83 @@ export default function AdminExpenses() {
   return isLoading ? (
     <IdleTimerContainer>
       <div className={styles.expenses__Container}>
-        <div className={styles.Form__Container}>
-          <Formik
-            initialValues={initialValues}
-            onSubmit={onSubmit}
-            validationSchema={validationSchema}
-          >
-            <Form autoComplete="off" className={styles.expenses__Form}>
-              <div className={styles.Form__Header}>
-                <div className={styles.Header__Top1}>ADD EXPENSES</div>
-                <div className={styles.Header__Top2}>
-                  <Image
-                    src="/assets/admin-assets/svg/admin.expenses.icon.svg"
-                    height={30}
-                    width={30}
-                    alt="Expenses Icon"
-                  />
+        <div className={styles.expenses__Container1}>
+          <div className={styles.Form__Container}>
+            <Formik
+              initialValues={initialValues}
+              onSubmit={onSubmit}
+              validationSchema={validationSchema}
+            >
+              <Form autoComplete="off" className={styles.expenses__Form}>
+                <div className={styles.Form__Header}>
+                  <div className={styles.Header__Top1}>ADD EXPENSES</div>
+                  <div className={styles.Header__Top2}>
+                    <Image
+                      src="/assets/admin-assets/svg/admin.expenses.icon.svg"
+                      height={30}
+                      width={30}
+                      alt="Expenses Icon"
+                    />
+                  </div>
+                  <div className={styles.Header__Top3}>{date}</div>
                 </div>
-                <div className={styles.Header__Top3}>{date}</div>
-              </div>
 
-              <div className={styles.Form__Input_Container}>
-                <div className={styles.Form__Input_Box}>
-                  <Field
-                    className={styles.Form__Input}
-                    name="remarks"
-                    placeholder="Remarks"
-                  />
+                <div className={styles.Form__Input_Container}>
+                  <div className={styles.Form__Input_Box}>
+                    <Field
+                      className={styles.Form__Input}
+                      name="remarks"
+                      placeholder="Remarks"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className={styles.Form__Input_Container}>
-                <div className={styles.Form__Input_Box}>
-                  <Field
-                    className={styles.Form__Input}
-                    name="amount"
-                    placeholder="Amount"
-                    type="number"
-                    required={true}
-                  />
+                <div className={styles.Form__Input_Container}>
+                  <div className={styles.Form__Input_Box}>
+                    <Field
+                      className={styles.Form__Input}
+                      name="amount"
+                      placeholder="Amount"
+                      type="number"
+                      required={true}
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className={styles.Form__Input_Container}>
-                <div className={styles.Form__Input_Box_File}>
-                  <label htmlFor="imageFile">Image: </label> <br></br>
-                  <input
-                    className={styles.Form__Input_File}
-                    name="Image"
-                    type="file"
-                    id="imageFile"
-                    onChange={imageHandler}
-                    ref={imageRef}
-                  />
+                <div className={styles.Form__Input_Container}>
+                  <div className={styles.Form__Input_Box_File}>
+                    <label htmlFor="imageFile">Image: </label> <br></br>
+                    <input
+                      className={styles.Form__Input_File}
+                      name="Image"
+                      type="file"
+                      id="imageFile"
+                      onChange={imageHandler}
+                      ref={imageRef}
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className={styles.Form__Btn_Container}>
-                <button
-                  className={styles.Form__Clear_Btn}
-                  type="button"
-                  onClick={() => {
-                    console.log(initialValues);
-                  }}
-                >
-                  Clear
-                </button>
-                <button type="submit" className={styles.Form__Submit_Btn}>
-                  Submit
-                </button>
-              </div>
-            </Form>
-          </Formik>
-        </div>
-        <div className={styles.Table__Container}>
-          <AdminExpensesTable expensesData={expensesData} />
+                <div className={styles.Form__Btn_Container}>
+                  <button
+                    className={styles.Form__Clear_Btn}
+                    type="button"
+                    onClick={() => {
+                      console.log(initialValues);
+                    }}
+                  >
+                    Clear
+                  </button>
+                  <button type="submit" className={styles.Form__Submit_Btn}>
+                    Submit
+                  </button>
+                </div>
+              </Form>
+            </Formik>
+          </div>
+          <div className={styles.Table__Container}>
+            <AdminExpensesTable expensesData={expensesData} />
+          </div>
         </div>
         <ToastContainer />
       </div>
