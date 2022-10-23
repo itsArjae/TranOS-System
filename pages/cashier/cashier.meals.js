@@ -78,7 +78,7 @@ export default function CashierMenu() {
     .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((meals) => {
       return (
-        <div className={styles.mainContainer}>
+        <div className={styles.mainContainer} key={meals.id}>
           <div className={styles.itemContainer}>
             <div className={styles.imgContainer}>
               <img

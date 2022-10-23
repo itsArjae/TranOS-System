@@ -78,7 +78,7 @@ export default function CashierDrinks() {
     .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((drinks) => {
       return (
-        <div className={styles.mainContainer}>
+        <div className={styles.mainContainer} key={drinks.id}>
           <div className={styles.itemContainer}>
             <div className={styles.imgContainer}>
               <img
