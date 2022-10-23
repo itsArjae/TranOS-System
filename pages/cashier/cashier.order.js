@@ -25,23 +25,36 @@ import "react-toastify/dist/ReactToastify.css";
 const headers = [
   {
     id: 1,
-    header: <input type="checkbox" onClick={() => {}}></input>,
-  },
-  {
-    id: 2,
     header: "Name",
   },
   {
-    id: 3,
+    id: 2,
     header: "Price",
   },
   {
-    id: 4,
+    id: 3,
     header: "Quantity",
   },
   {
-    id: 5,
+    id: 4,
     header: "Sub-total",
+  },
+];
+const headersCheck = [
+  {
+    id: 1,
+    header: <input type="checkbox" onClick={() => {}}></input>,
+  },
+];
+
+const miscHeader = [
+  {
+    id: 1,
+    header: "Description",
+  },
+  {
+    id: 2,
+    header: "Amount",
   },
 ];
 
@@ -56,7 +69,9 @@ export default function CashierOrder() {
     });
   const router = useRouter();
   const tid = router.query.tid;
+  const cat = router.query.tCat;
   const [orderData, setOrderData] = useState([]);
+  const [orderCat, setOrderCat] = useState("");
   const db = getFirestore(app);
 
   const [pageNumber, setPageNumber] = useState(0);
@@ -138,7 +153,7 @@ export default function CashierOrder() {
       };
       return (
         <div className={styles.Table__Data} key={data.id}>
-          <div className={styles.Table__Data__Box}>
+          <div className={styles.Table__Data__Box1}>
             <input
               type="checkbox"
               onClick={() => {
@@ -171,25 +186,50 @@ export default function CashierOrder() {
     );
   });
 
+  const HeaderCheck = headersCheck.map((heads) => {
+    return (
+      <div className={styles.Table__Heads_Data1} key={heads.id}>
+        {heads.header}
+      </div>
+    );
+  });
+
   return (
     <div className={styles.container}>
       <div className={styles.inner__container}>
         <div className={styles.table__header}>
-          <img
-            src="/assets/cashier-assets/pictures/order-list.png"
-            height={35}
-            width={35}
-            alt="Order Icon"
-          />
-          <h2>Orders of Table No. {tid} </h2>
-          <div className={styles.Btn__Box}>
-            <button onClick={back}>❌</button>
+          <div className={styles.table__header1}>
+            <div className={styles.Btn__Text1}>
+              <img
+                src="/assets/cashier-assets/svg/orderList.icon.svg"
+                height={35}
+                width={35}
+                alt="Order Icon"
+              />
+              <h2>Order List</h2>
+            </div>
+
+            <div className={styles.Btn__Text}>
+              <h2>
+                {cat} {tid}
+              </h2>
+            </div>
+
+            <div className={styles.Btn__Box}>
+              <button className={styles.Exit__Button} onClick={back}>
+                ❌
+              </button>
+            </div>
           </div>
         </div>
         <div className={styles.order__box}>
           <div className={styles.table__container}>
             <div className={styles.Table__Box}>
-              <div className={styles.Table__Head}>{Header}</div>
+              <div className={styles.Data}>
+                <div className={styles.Table__Head1}>{HeaderCheck}</div>
+                <div className={styles.Table__Head}>{Header}</div>
+              </div>
+
               <div className={styles.Table__Data_Container}>{DisplayItems}</div>
             </div>
             <div>
@@ -209,7 +249,7 @@ export default function CashierOrder() {
           </div>
           <div className={styles.other__container}>
             <div className={styles.other__box}>
-              <div className={styles.Form__Input_Container}>
+              {/* <div className={styles.Form__Input_Container}>
                 <div className={styles.Form__Input_Box1}>
                   <label htmlFor="miscFee">Miscellaneous Fee:</label>
                   <input
@@ -246,7 +286,7 @@ export default function CashierOrder() {
                     Confirm Payment
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

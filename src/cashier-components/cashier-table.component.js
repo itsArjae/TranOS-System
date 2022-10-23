@@ -15,9 +15,9 @@ export default function CashierTableComponent(props) {
   const nodeRef = useRef(null);
   const router = useRouter();
   const tableRef = useRef(null);
-  const { table, coordinates, handleMessageVisible,notify } = props;
+  const { table, coordinates, handleMessageVisible, notify } = props;
 
-  const handleView = (id, Status) => {
+  const handleView = (id, Status, category) => {
     if (Status == true) {
       handleMessageVisible(true, "No Order/s Available");
       return;
@@ -25,7 +25,7 @@ export default function CashierTableComponent(props) {
     router.push(
       {
         pathname: `/cashier/cashier.order`,
-        query: { tid: id },
+        query: { tid: id, tCat: category },
       },
       "/cashier/cashier.order"
     );
@@ -59,7 +59,7 @@ export default function CashierTableComponent(props) {
             <button
               className={styles.Table__Button}
               onClick={() => {
-                handleView(table.id, table.Status);
+                handleView(table.id, table.Status, table.Category);
               }}
             >
               View
