@@ -7,6 +7,8 @@
   padding: 1rem;
   background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #9bcdee);
   padding-top: 80px;
+  background-attachment: fixed;
+  overflow: auto;
 }
 
 .Employees__Form{

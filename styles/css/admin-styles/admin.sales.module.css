@@ -8,6 +8,8 @@
   padding-top: 600px;
   overflow: auto;
   background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #9bcdee);
+  background-attachment: fixed;
+
 }
 .Ave__Box {
   display: flex;

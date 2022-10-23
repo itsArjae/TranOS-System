@@ -1,6 +1,3 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Crete+Round&family=Lobster&display=swap');
-
 .container{
   width: 100vw;
   height: 100vh;
@@ -9,6 +6,8 @@
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #9bcdee);
+  background-attachment: fixed;
+  overflow: auto;
 }
 
 .inner__container{
