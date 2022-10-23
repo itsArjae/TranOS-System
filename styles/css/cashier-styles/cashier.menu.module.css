@@ -97,7 +97,12 @@
   text-align: left;
   font-weight: 450;
   font-size: 22px;
-  line-height: .4;
+  font-family: 'Raleway', sans-serif;
+}
+.lineHeight{
+  text-align: left;
+  font-weight: 450;
+  font-size: 22px;
   font-family: 'Raleway', sans-serif;
 }
 .Data_Info h2{

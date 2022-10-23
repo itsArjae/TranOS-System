@@ -10,6 +10,15 @@
   overflow: auto;
 }
 
+.expenses__Container1{
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding-top: 75px;
+}
+
 .expenses__Form{
   height: 500px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

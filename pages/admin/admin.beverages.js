@@ -182,135 +182,134 @@ export default function AdminBeverages() {
   return isLoading ? (
     <IdleTimerContainer>
       <div className={styles.Beverages__Container}>
-        <div className={styles.Beverages__Container1}>
-          <div className={styles.Form__Container}>
-            <Formik
-              initialValues={initialValues}
-              onSubmit={onSubmit}
-              validationSchema={validationSchema}
-            >
-              <Form autoComplete="off" className={styles.Beverages__Form}>
-                <div className={styles.Form__Header}>
-                  <div className={styles.Header__Top1}>ADD BEVERAGES</div>
-                  <div className={styles.Header__Top2}>
-                    <Image
-                      src="/assets/admin-assets/svg/beverage.logo.svg"
-                      height={30}
-                      width={30}
-                      alt="beverages Icon"
-                    />
-                  </div>
-                  <div className={styles.Header__Top3}>{date}</div>
+        <div className={styles.Form__Container}>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            validationSchema={validationSchema}
+          >
+            <Form autoComplete="off" className={styles.Beverages__Form}>
+              <div className={styles.Form__Header}>
+                <div className={styles.Header__Top1}>ADD BEVERAGES</div>
+                <div className={styles.Header__Top2}>
+                  <Image
+                    src="/assets/admin-assets/svg/beverage.logo.svg"
+                    height={30}
+                    width={30}
+                    alt="beverages Icon"
+                  />
+                </div>
+                <div className={styles.Header__Top3}>{date}</div>
+              </div>
+
+              <div className={styles.Form__Input_Container}>
+                <div className={styles.Form__Input_Box}>
+                  <Field
+                    className={styles.Form__Input}
+                    name="BeverageName"
+                    placeholder=" Beverage Name"
+                    required={true}
+                  />
                 </div>
 
-                <div className={styles.Form__Input_Container}>
-                  <div className={styles.Form__Input_Box}>
-                    <Field
-                      className={styles.Form__Input}
-                      name="BeverageName"
-                      placeholder=" Beverage Name"
-                      required={true}
-                    />
-                  </div>
+                <div className={styles.Form__Input_Box}>
+                  <Field
+                    className={styles.Form__Input}
+                    name="Price"
+                    placeholder="Price per piece"
+                    type="number"
+                    required={true}
+                  />
+                </div>
+              </div>
 
-                  <div className={styles.Form__Input_Box}>
-                    <Field
-                      className={styles.Form__Input}
-                      name="Price"
-                      placeholder="Price per piece"
-                      type="number"
-                      required={true}
-                    />
-                  </div>
+              <div className={styles.Form__Input_Container}>
+                <div className={styles.Form__Input_Box}>
+                  <Field
+                    className={styles.Form__Input}
+                    name="Quantity"
+                    placeholder="Quantity per piece"
+                    type="number"
+                    required={true}
+                  />
                 </div>
 
-                <div className={styles.Form__Input_Container}>
-                  <div className={styles.Form__Input_Box}>
-                    <Field
-                      className={styles.Form__Input}
-                      name="Quantity"
-                      placeholder="Quantity per piece"
-                      type="number"
-                      required={true}
-                    />
-                  </div>
-
-                  <div className={styles.Form__Input_Box}>
-                    <select
-                      name="Weight"
-                      id="Weight"
-                      required={true}
-                      onChange={(e) => setBucket(e.target.value)}
-                    >
-                      <option selected disabled hidden value="">
-                        Select Category
-                      </option>
-                      <option value="bucket">Bucket</option>
-                      <option value="solo">Solo</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className={styles.Form__Input_Container}>
-                  <div className={styles.Form__Input_Box}>
-                    <Field
-                      className={styles.Form__Input}
-                      name="Size"
-                      placeholder="Size"
-                      type="number"
-                    />
-                  </div>
-
-                  <div className={styles.Form__Input_Box}>
-                    <select
-                      name="Weight"
-                      id="Weight"
-                      onChange={(e) => setSize(e.target.value)}
-                    >
-                      <option value="">None</option>
-                      <option value="ml">millimeter</option>
-                      <option value="L">liter</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className={styles.Form__Input_Container}>
-                  <div className={styles.Form__Input_Box_File}>
-                    <label htmlFor="imageFile">Image: </label>
-                    <input
-                      className={styles.Form__Input_File}
-                      name="Image"
-                      type="file"
-                      id="imageFile"
-                      onChange={imageHandler}
-                      ref={imageRef}
-                    />
-                  </div>
-                </div>
-                <div className={styles.Form__Btn_Container}>
-                  <button
-                    className={styles.Form__Clear_Btn}
-                    type="reset"
-                    onClick={() => {}}
+                <div className={styles.Form__Input_Box}>
+                  <select
+                    name="Weight"
+                    id="Weight"
+                    required={true}
+                    onChange={(e) => setBucket(e.target.value)}
                   >
-                    Clear
-                  </button>
-                  <button type="submit" className={styles.Form__Submit_Btn}>
-                    Submit
-                  </button>
+                    <option selected disabled hidden value="">
+                      Select Category
+                    </option>
+                    <option value="bucket">Bucket</option>
+                    <option value="solo">Solo</option>
+                  </select>
                 </div>
-              </Form>
-            </Formik>
-          </div>
-          <div className={styles.Table__Container}>
-            <AdminTablesBeverages
-              beverageData={beverageData}
-              updateData={updateData}
-              Loading={Loading}
-              notifyUD={notifyUD}
-            />
-          </div>
+              </div>
+
+              <div className={styles.Form__Input_Container}>
+                <div className={styles.Form__Input_Box}>
+                  <Field
+                    className={styles.Form__Input}
+                    name="Size"
+                    placeholder="Size"
+                    type="number"
+                  />
+                </div>
+
+                <div className={styles.Form__Input_Box}>
+                  <select
+                    name="Weight"
+                    id="Weight"
+                    onChange={(e) => setSize(e.target.value)}
+                  >
+                    <option value="">None</option>
+                    <option value="ml">millimeter</option>
+                    <option value="L">liter</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className={styles.Form__Input_Container}>
+                <div className={styles.Form__Input_Box_File}>
+                  <label htmlFor="imageFile">Image: </label>
+                  <input
+                    className={styles.Form__Input_File}
+                    name="Image"
+                    type="file"
+                    id="imageFile"
+                    onChange={imageHandler}
+                    ref={imageRef}
+                  />
+                </div>
+              </div>
+              <div className={styles.Form__Btn_Container}>
+                <button
+                  className={styles.Form__Clear_Btn}
+                  type="reset"
+                  onClick={() => {}}
+                >
+                  Clear
+                </button>
+                <button type="submit" className={styles.Form__Submit_Btn}>
+                  Submit
+                </button>
+              </div>
+            </Form>
+          </Formik>
         </div>
+        <div className={styles.Table__Container}>
+          <AdminTablesBeverages
+            beverageData={beverageData}
+            updateData={updateData}
+            Loading={Loading}
+            notifyUD={notifyUD}
+          />
+        </div>
+
         <ToastContainer />
       </div>
     </IdleTimerContainer>
