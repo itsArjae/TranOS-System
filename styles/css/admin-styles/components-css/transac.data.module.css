@@ -7,6 +7,8 @@
   justify-content: center;
   padding: 10px;
   background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #55a3d6);
+  background-attachment: fixed;
+  overflow: auto;
 }
 
 .Data__Box{

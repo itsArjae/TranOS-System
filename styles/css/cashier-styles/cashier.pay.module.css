@@ -5,7 +5,9 @@
   height: 100vh;
   align-items: center;
   justify-content: center;
-  background-color: white;
+  background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #55a3d6);
+  background-attachment: fixed;
+  overflow: auto
 }
 
 .inner__container{
