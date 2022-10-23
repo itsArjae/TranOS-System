@@ -166,6 +166,7 @@ export default function AdminLayout({ children }) {
         sx={{
           padding: "5px",
           height: "70px",
+          position: "fixed",
           background: "rgb(255,255,255)",
           background:
             "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 3%, rgba(0,212,255,1) 45%)",
