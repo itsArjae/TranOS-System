@@ -164,98 +164,97 @@ export default function AdminMenu() {
   return isLoading ? (
     <IdleTimerContainer>
       <div className={styles.Menu__Container}>
-        <div className={styles.Menu__Container1}>
-          <div className={styles.Form__Container}>
-            <Formik
-              initialValues={initialValues}
-              onSubmit={onSubmit}
-              validationSchema={validationSchema}
-            >
-              <Form autoComplete="off" className={styles.Menu__Form}>
-                <div className={styles.Form__Header}>
-                  <div className={styles.Header__Top1}>ADD MEALS</div>
-                  <div className={styles.Header__Top2}>
-                    <Image
-                      src="/assets/cashier-assets/svg/cashier.menu.icon.svg"
-                      height={30}
-                      width={30}
-                      alt="User Icon"
-                    />
-                  </div>
-                  <div className={styles.Header__Top3}>{date}</div>
+        <div className={styles.Form__Container}>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            validationSchema={validationSchema}
+          >
+            <Form autoComplete="off" className={styles.Menu__Form}>
+              <div className={styles.Form__Header}>
+                <div className={styles.Header__Top1}>ADD MEALS</div>
+                <div className={styles.Header__Top2}>
+                  <Image
+                    src="/assets/cashier-assets/svg/cashier.menu.icon.svg"
+                    height={30}
+                    width={30}
+                    alt="User Icon"
+                  />
                 </div>
-                <div className={styles.Form__Input_Container}>
-                  <div className={styles.Form__Input_Box}>
-                    <Field
-                      className={styles.Form__Input}
-                      name="MealName"
-                      placeholder=" Meal Name"
-                      required={true}
-                    />
-                  </div>
+                <div className={styles.Header__Top3}>{date}</div>
+              </div>
+              <div className={styles.Form__Input_Container}>
+                <div className={styles.Form__Input_Box}>
+                  <Field
+                    className={styles.Form__Input}
+                    name="MealName"
+                    placeholder=" Meal Name"
+                    required={true}
+                  />
                 </div>
-                <div className={styles.Form__Input_Container}>
-                  <div className={styles.Form__Input_Box}>
-                    <Field
-                      className={styles.Form__Input}
-                      name="Price"
-                      placeholder="Price"
-                      type="number"
-                      required={true}
-                    />
-                  </div>
+              </div>
+              <div className={styles.Form__Input_Container}>
+                <div className={styles.Form__Input_Box}>
+                  <Field
+                    className={styles.Form__Input}
+                    name="Price"
+                    placeholder="Price"
+                    type="number"
+                    required={true}
+                  />
                 </div>
+              </div>
 
-                <div className={styles.Form__Input_Container}>
-                  <div className={styles.Form__Input_Box}>
-                    <Field
-                      className={styles.Form__Input}
-                      name="Serving"
-                      placeholder="Estimated Servings"
-                      type="number"
-                    />
-                  </div>
+              <div className={styles.Form__Input_Container}>
+                <div className={styles.Form__Input_Box}>
+                  <Field
+                    className={styles.Form__Input}
+                    name="Serving"
+                    placeholder="Estimated Servings"
+                    type="number"
+                  />
                 </div>
+              </div>
 
-                <div className={styles.Form__Input_Container}>
-                  <div className={styles.Form__Input_Box_File}>
-                    <label htmlFor="imageFile">Image: </label>
-                    <input
-                      className={styles.Form__Input_File}
-                      name="Image"
-                      type="file"
-                      id="imageFile"
-                      onChange={imageHandler}
-                      ref={imageRef}
-                    />
-                  </div>
+              <div className={styles.Form__Input_Container}>
+                <div className={styles.Form__Input_Box_File}>
+                  <label htmlFor="imageFile">Image: </label>
+                  <input
+                    className={styles.Form__Input_File}
+                    name="Image"
+                    type="file"
+                    id="imageFile"
+                    onChange={imageHandler}
+                    ref={imageRef}
+                  />
                 </div>
-                <div className={styles.Form__Btn_Container}>
-                  <button
-                    className={styles.Form__Clear_Btn}
-                    type="reset"
-                    onClick={() => {
-                      console.log(initialValues);
-                    }}
-                  >
-                    Clear
-                  </button>
-                  <button type="submit" className={styles.Form__Submit_Btn}>
-                    Submit
-                  </button>
-                </div>
-              </Form>
-            </Formik>
-          </div>
-          <div className={styles.Table__Container}>
-            <AdminTablesMenu
-              menuData={menuData}
-              updateData={updateData}
-              Loading={Loading}
-              notifyUD={notifyUD}
-            />
-          </div>
+              </div>
+              <div className={styles.Form__Btn_Container}>
+                <button
+                  className={styles.Form__Clear_Btn}
+                  type="reset"
+                  onClick={() => {
+                    console.log(initialValues);
+                  }}
+                >
+                  Clear
+                </button>
+                <button type="submit" className={styles.Form__Submit_Btn}>
+                  Submit
+                </button>
+              </div>
+            </Form>
+          </Formik>
         </div>
+        <div className={styles.Table__Container}>
+          <AdminTablesMenu
+            menuData={menuData}
+            updateData={updateData}
+            Loading={Loading}
+            notifyUD={notifyUD}
+          />
+        </div>
+
         <ToastContainer />
       </div>
     </IdleTimerContainer>
