@@ -25,19 +25,23 @@ import "react-toastify/dist/ReactToastify.css";
 const headers = [
   {
     id: 1,
-    header: "Name",
+    header: <input type="checkbox" onClick={() => {}}></input>,
   },
   {
     id: 2,
-    header: "Price",
+    header: "Name",
   },
   {
     id: 3,
-    header: "Quantity",
+    header: "Price",
   },
   {
     id: 4,
-    header: "Sub-Total",
+    header: "Quantity",
+  },
+  {
+    id: 5,
+    header: "Sub-total",
   },
 ];
 
@@ -129,8 +133,19 @@ export default function CashierOrder() {
   const DisplayItems = orderData
     .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((data) => {
+      const tryLang = (id) => {
+        console.log(id);
+      };
       return (
         <div className={styles.Table__Data} key={data.id}>
+          <div className={styles.Table__Data__Box}>
+            <input
+              type="checkbox"
+              onClick={() => {
+                tryLang(data.itemName);
+              }}
+            ></input>
+          </div>
           <div className={styles.Table__Data__Box}> {data.itemName}</div>
           <div className={styles.Table__Data__Box}>
             {Number(data.price).toFixed(2)}

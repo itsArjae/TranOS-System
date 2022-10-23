@@ -1,6 +1,6 @@
 import React from "react";
 import AdminLayout from "../../../src/admin-components/adminLayout";
-import styles from "../../../styles/css/admin-styles/components-css/beverages.data.module.css";
+import styles from "../../../styles/css/admin-styles/components-css/transac.data.module.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -28,6 +28,7 @@ import {
 } from "firebase/firestore";
 const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Drinks.png";
 import { deleteData } from "../../../src/utility/admin-utils/beverages.firebase";
+import AdminTablesTransac from "../../../src/admin-components/admin.tables.transaction-details";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -48,7 +49,9 @@ export default function AdminTransacData() {
   const router = useRouter();
   const db = getFirestore(app);
   const id = router.query.TransacID;
+  const tableID = router.query.TableNum;
   const [transacData, setTransacData] = useState([]);
+  const [transacDate, setTransacDate] = useState("");
   const [visible, setVisible] = useState(false);
 
   function setEditDataVisible() {
@@ -60,7 +63,7 @@ export default function AdminTransacData() {
 
     console.log(id);
 
-    const q = query(bevRef, where("transacID", "==", id));
+    const q = query(bevRef, where("transacID", "==", Number(id)));
 
     onSnapshot(q, (snapshot) => {
       let bev = [];
@@ -69,6 +72,9 @@ export default function AdminTransacData() {
       });
       console.log("read");
       console.log(bev);
+      bev.map((data) => {
+        setTransacDate(data.dateBought);
+      });
       setTransacData(bev);
     });
   };
@@ -105,92 +111,66 @@ export default function AdminTransacData() {
     }, 3000);
   };
 
+  const getTotal = () => {
+    let sum = 0;
+    transacData.map((data) => {
+      sum = sum + data.total;
+    });
+    return sum;
+  };
+
   return (
     <div className={styles.Data__Container}>
-      {transacData.map((data) => {
-        return (
-          <div className={styles.Data__Box} key={data.id}>
-            <div className={styles.Data__Box1}>
-              <div className={styles.Btn__Box}>
-                <button className={styles.Exit__Button} onClick={goBack}>
-                  ❌
-                </button>
-              </div>
-              {/* <div className={styles.Data__First}>
-                <div className={styles.Data__Picture}>
-                  <img src={data.ImageUrl ? data.ImageUrl : DefaultPic} />
-                </div>
-                <div>
-                  <button
-                    className={styles.Edit__Btn}
-                    onClick={() => {
-                      setVisible(!visible);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  &nbsp;
-                  <button
-                    className={styles.Delete__Btn}
-                    onClick={() => {
-                      deleteBev(data.BeverageName);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div> */}
-            </div>
-            <div className={styles.Data__Box2}>
-              <div className={styles.Box2__Container}>
-                <div className={styles.Data__Box2_Info1}>
-                  <div>
-                    <h1>{`${data.transacID}`}</h1>
-                    <Divider />
-                    {/* <p>
-                      Details:
-                      <b>
-                        {data.Size ? data.Size : " N/A"}
-                        {data.Details ? data.Details : ""}
-                      </b>
-                    </p>
-                    <p>
-                      ID: <b>{data.id}</b>
-                    </p>
-                    <p>
-                      Status:&nbsp;
-                      <b>
-                        {data.Status == true ? "Available" : "Not Available"}
-                      </b>
-                    </p>
-                    <p>
-                      Price: <b>{Number(data.Price).toFixed(2)}</b>
-                    </p>
-                    <p>
-                      Stocks: <b>{data.Quantity}</b>
-                    </p>
-                    <p>
-                      Category: <b>{data.Bucket == true ? "Bucket" : "Solo"}</b>
-                    </p> */}
-                  </div>
-                </div>
-              </div>
+      <div className={styles.Data__Box}>
+        <div className={styles.Data__Box1}>
+          <div className={styles.Btn__Box}>
+            <button className={styles.Exit__Button} onClick={goBack}>
+              ⇦
+            </button>
+          </div>
+          <div className={styles.Data__First}>
+            <h1>Order History</h1>
+            <p>
+              <b>Transaction ID:</b>
+              <br></br> &emsp;{id}
+            </p>
+            <p>
+              <b>Table No. :</b> {tableID}
+            </p>
+            <p>
+              <b>Date:</b>
+              <br></br> &emsp; {transacDate}
+            </p>
+            <h2>
+              Total:
+              <br></br> &emsp; ₱ &nbsp;
+              {getTotal()
+                .toFixed(2)
+                .toString()
+                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+            </h2>
+          </div>
+          <div className={styles.Picture}>
+            <img
+              src="/assets/admin-assets/pictures/logo.png"
+              width={105}
+              height={105}
+              alt="Blue Restobar Logo"
+            />
+          </div>
+        </div>
+        <div className={styles.Data__Box2}>
+          <div className={styles.Box2__Container}>
+            <div className={styles.Table__Container}>
+              <AdminTablesTransac
+                transacData={transacData}
+                tableID={tableID}
+                id={id}
+              />
             </div>
           </div>
-        );
-      })}
-      {/* {visible === true && (
-        <OuterBox>
-          <InnerBox>
-            <EditData
-              setEditDataVisible={setEditDataVisible}
-              id={id}
-              beverageData={beverageData}
-              notify={notify}
-            />
-          </InnerBox>
-        </OuterBox>
-      )} */}
+        </div>
+      </div>
       <ToastContainer />
     </div>
   );
@@ -199,17 +179,3 @@ export default function AdminTransacData() {
 AdminTransacData.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
-
-const OuterBox = styled.div`
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  backdrop-filter: blur(10px);
-  display: flex;
-  alignitems: center;
-  justifycontent: center;
-`;
-
-const InnerBox = styled.div`
-  margin: auto;
-`;

@@ -46,7 +46,7 @@ export default function CashierMenu() {
   const [pageNumber, setPageNumber] = useState(0);
   let pageCountFixed = () => {
     if (searchTerm == "") {
-      return 6;
+      return 5;
     } else {
       return menuData.length;
     }
@@ -78,18 +78,22 @@ export default function CashierMenu() {
     .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((meals) => {
       return (
-        <div key={meals.id} className={styles.Data__Container}>
-          <div className={styles.Data_Image}>
-            <img
-              src={meals.ImageUrl ? meals.ImageUrl : DefaultPicMenu}
-              alt={meals.MealName}
-              height={120}
-            />
-          </div>
-          <div className={styles.Data_Info}>
-            <h2>{meals.MealName}</h2>
-
-            <p>₱{Number(meals.Price).toFixed(2)}</p>
+        <div className={styles.mainContainer}>
+          <div className={styles.itemContainer}>
+            <div className={styles.imgContainer}>
+              <img
+                src={meals.ImageUrl ? meals.ImageUrl : DefaultPicMenu}
+                alt={meals.MealName}
+                height={130}
+              />
+            </div>
+            <div className={styles.contentContainer}>
+              <div className={styles.Data_Info}>
+                <h2>{meals.MealName}</h2>
+                <p>₱ {Number(meals.Price).toFixed(2)}</p>
+                <p>Servings: {meals.Serving >= 0 ? meals.Serving : 0}</p>
+              </div>
+            </div>
           </div>
         </div>
       );
@@ -97,24 +101,18 @@ export default function CashierMenu() {
 
   return (
     <div className={styles.Cashier__Container}>
-      {/*<div className={styles.Head__Container}>*/}
-      <div className={styles.Cashier__Header}>
-        <img
-          src="/assets/cashier-assets/svg/cashier.menu.icon.svg"
-          width={50}
-          height={50}
-          alt="Menu Icon"
-        />
-        <p className={styles.Cashier_Header_Text}>MEALS</p>
-      </div>
-      <div className={styles.Table__Search_Form}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
+      <div className={styles.Head__Container}>
+        <div className={styles.Cashier__Header}>
+          <img
+            src="/assets/cashier-assets/svg/meals.icon.svg"
+            height={60}
+            width={60}
+            alt="Drinks Icon"
+          />
+          <h1>&nbsp;Meals&nbsp;</h1>
+        </div>
+
+        <div className={styles.Table__Search_Form}>
           <input
             autoComplete="off"
             name="search"
@@ -126,7 +124,6 @@ export default function CashierMenu() {
           />
         </div>
       </div>
-      {/* </div>*/}
 
       <Divider />
       <div className={styles.Cashier__Tab__Container}>

@@ -46,7 +46,7 @@ export default function CashierDrinks() {
   const [pageNumber, setPageNumber] = useState(0);
   let pageCountFixed = () => {
     if (searchTerm == "") {
-      return 6;
+      return 5;
     } else {
       return drinksData.length;
     }
@@ -78,21 +78,32 @@ export default function CashierDrinks() {
     .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((drinks) => {
       return (
-        <div key={drinks.id} className={styles.Data__Container}>
-          <div className={styles.Data_Image}>
-            <img
-              src={drinks.ImageUrl ? drinks.ImageUrl : DefaultPicMenu}
-              alt={drinks.BeverageName}
-              height={120}
-            />
-          </div>
-          <div className={styles.Data_Info}>
-            <h2>
-              {drinks.BeverageName} {drinks.Size ? drinks.Size : ""}
-              {drinks.Details ? drinks.Details : ""}
-            </h2>
-            <p>Stock/s: {drinks.Quantity}</p>
-            <p>₱{Number(drinks.Price).toFixed(2)}</p>
+        <div className={styles.mainContainer}>
+          <div className={styles.itemContainer}>
+            <div className={styles.imgContainer}>
+              <img
+                src={drinks.ImageUrl ? drinks.ImageUrl : DefaultPicMenu}
+                alt={drinks.BeverageName}
+                height={130}
+              />
+            </div>
+            <div className={styles.contentContainer}>
+              <div className={styles.Data_Info}>
+                <h2>
+                  {drinks.BeverageName} {drinks.Size}
+                  {drinks.Details}
+                </h2>
+                <p>₱ {Number(drinks.Price).toFixed(2)}</p>
+                <p>Available: {drinks.Quantity}</p>
+                <p>
+                  {drinks.Bucket == true
+                    ? drinks.Quantity > 7
+                      ? "Bucket: Available"
+                      : "Bucket: Not Available"
+                    : ""}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       );
@@ -100,36 +111,36 @@ export default function CashierDrinks() {
 
   return (
     <div className={styles.Cashier__Container}>
-      {/*<div className={styles.Head__Container}>*/}
-      <div className={styles.Cashier__Header}>
-        <img
-          src="/assets/admin-assets/svg/beverage.logo.svg"
-          width={50}
-          height={50}
-          alt="Beverage Icon"
-        />
-        <p className={styles.Cashier_Header_Text}>DRINKS &amp; BEVERAGES</p>
-      </div>
-      <div className={styles.Table__Search_Form}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <input
-            autoComplete="off"
-            name="search"
-            className={styles.Table_Search_Input}
-            placeholder="Search Beverage Name"
-            onChange={(event) => {
-              setSearchTerm(event.target.value);
-            }}
+      <div className={styles.Head__Container}>
+        <div className={styles.Cashier__Header}>
+          <img
+            src="/assets/cashier-assets/svg/beverage.icon.svg"
+            width={60}
+            height={60}
+            alt="Beverage Icon"
           />
+          <h1>&nbsp;Beverages&nbsp;</h1>
+        </div>
+        <div className={styles.Table__Search_Form}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <input
+              autoComplete="off"
+              name="search"
+              className={styles.Table_Search_Input}
+              placeholder="Search Beverage Name"
+              onChange={(event) => {
+                setSearchTerm(event.target.value);
+              }}
+            />
+          </div>
         </div>
       </div>
-      {/* </div>*/}
 
       <Divider />
       <div className={styles.Cashier__Tab__Container}>

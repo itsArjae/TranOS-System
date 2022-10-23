@@ -228,6 +228,11 @@ export default function AdminEmployees() {
   return isLoading ? (
     <IdleTimerContainer>
       <div className={styles.Employees__Container}>
+        <div className={styles.Ave__Box}>
+          <div className={styles.Daily__Box}></div>
+          <div className={styles.Monthly__Box}></div>
+          <div className={styles.Yearly__Box}></div>
+        </div>
         <div className={styles.Table__Container}>
           <AdminTablesEmp empData={empData} />
         </div>

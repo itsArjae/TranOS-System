@@ -12,38 +12,30 @@ const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Menu.png";
 const headers = [
   {
     id: 1,
-    header: "Transaction ID",
+    header: "Description",
   },
   {
     id: 2,
-    header: "Table Number",
+    header: "Price",
   },
   {
     id: 3,
-    header: "Amount",
+    header: "Quantity",
   },
   {
     id: 4,
-    header: "Date",
-  },
-  {
-    id: 5,
-    header: "Cashier",
-  },
-  {
-    id: 6,
-    header: "Waiter",
+    header: "Sub-total",
   },
 ];
 
-export default function AdminTables(props) {
+export default function AdminTablesTransac(props) {
   const router = useRouter();
-  const { transacData, updateData, Loading } = props;
+  const { transacData, tableID, id } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   let pageCountFixed = () => {
     if (searchTerm === "") {
-      return 7;
+      return 6;
     } else {
       return transacData.length;
     }
@@ -59,39 +51,18 @@ export default function AdminTables(props) {
   const pagesVisited = pageVisitedFixed();
 
   const DisplayItems = transacData
-    .filter((val) => {
-      if (searchTerm == "") {
-        return val;
-      } else if (
-        val.dateCreated.toLowerCase().includes(searchTerm.toLowerCase())
-      ) {
-        return val;
-      }
-    })
+
     .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((data) => {
       return (
         <div className={styles.Table__Data} key={data.id}>
-          <div className={styles.Table__Image_Box}>
-            <div> {data.transacID}</div>
-            <div
-              className={styles.overlay}
-              onClick={() => {
-                viewData(data.transacID, data.tableNum);
-              }}
-            >
-              <div className={styles.text}>View Details</div>
-            </div>
-          </div>
-
-          <div className={styles.Table__Data__Box}> {data.tableNum}</div>
+          <div className={styles.Table__Data__Box}> {data.description}</div>
           <div className={styles.Table__Data__Box}>
-            {Number(data.totalAmount).toFixed(2)}
+            {Number(data.price).toFixed(2)}
           </div>
-          <div className={styles.Table__Data__Box}> {data.dateCreated}</div>
-          <div className={styles.Table__Data__Box}> {data.cashierName}</div>
+          <div className={styles.Table__Data__Box}> {data.quantity}</div>
           <div className={styles.Table__Data__Box}>
-            {data.waiterName ? data.waiterName : "N/A"}
+            {Number(data.total).toFixed(2)}
           </div>
         </div>
       );
@@ -102,24 +73,11 @@ export default function AdminTables(props) {
     setPageNumber(selected);
   };
 
-  const getID = (MenuId, Status) => {
-    console.log("clicked");
-    if (Status == true) {
-      updateMenu(MenuId, false);
-      updateData();
-      Loading();
-    } else {
-      updateMenu(MenuId, true);
-      updateData();
-      Loading();
-    }
-  };
-
-  const viewData = (id, tableID) => {
+  const viewData = (id) => {
     router.push(
       {
         pathname: `../admin/transactions/transaction`,
-        query: { TransacID: id, TableNum: tableID },
+        query: { TransacID: id },
       },
       "../admin/transactions/transaction"
     );
@@ -150,27 +108,6 @@ export default function AdminTables(props) {
 
   return (
     <div className={styles.Table__Container}>
-      <div className={styles.Table__Search_Box}>
-        <div className={styles.Table__Search_Form}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <input
-              autoComplete="off"
-              name="search"
-              className={styles.Table_Search_Input}
-              placeholder="Search Date"
-              onChange={(event) => {
-                setSearchTerm(event.target.value);
-              }}
-            />
-          </div>
-        </div>
-      </div>
       <div className={styles.Table__Box}>
         <div className={styles.Table__Head}>{Header}</div>
         <div className={styles.Table__Data_Container}>{DisplayItems}</div>
