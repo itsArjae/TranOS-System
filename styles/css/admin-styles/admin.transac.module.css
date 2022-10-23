@@ -8,6 +8,7 @@
   padding: 1rem;
   background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #55a3d6);
   background-attachment: fixed;
+  overflow: auto;
 }
 
 .transac__Container1{
@@ -20,7 +21,7 @@
   padding: 1rem;
   margin-top: 4%;
   margin-top: 75px;
-  border: 5px solid black;
+  background-attachment: fixed;
 }
 
 .header{
