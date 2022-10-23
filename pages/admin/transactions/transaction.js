@@ -138,11 +138,11 @@ export default function AdminTransacData() {
               <b>Table No. :</b> {tableID}
             </p>
             <p>
-              <b>Date:</b>
+              <b>Date & Time:</b>
               <br></br> &emsp; {transacDate}
             </p>
             <h2>
-              Total:
+              Amount:
               <br></br> &emsp; ₱ &nbsp;
               {getTotal()
                 .toFixed(2)

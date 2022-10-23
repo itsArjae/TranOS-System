@@ -48,7 +48,7 @@ export default function CashierMenu() {
     if (searchTerm == "") {
       return 5;
     } else {
-      return menuData.length;
+      return 5;
     }
   };
   let pageVisitedFixed = () => {

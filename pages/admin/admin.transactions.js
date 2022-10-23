@@ -101,21 +101,23 @@ export default function AdminMenu() {
   return isLoading ? (
     <IdleTimerContainer>
       <div className={styles.transac__Container}>
-        <div className={styles.header}>
-          <Image
-            src="/assets/admin-assets/svg/admin.transaction.icon.svg"
-            width={50}
-            height={50}
-            alt="transactions icon"
-          />
-          <p>Transactions</p>
-        </div>
-        <div className={styles.Table__Container}>
-          <AdminTablesTransaction
-            transacData={transacData}
-            updateData={updateData}
-            Loading={Loading}
-          />
+        <div className={styles.transac__Container1}>
+          <div className={styles.header}>
+            <Image
+              src="/assets/admin-assets/svg/admin.transaction.icon.svg"
+              width={50}
+              height={50}
+              alt="transactions icon"
+            />
+            <p>Transactions</p>
+          </div>
+          <div className={styles.Table__Container}>
+            <AdminTablesTransaction
+              transacData={transacData}
+              updateData={updateData}
+              Loading={Loading}
+            />
+          </div>
         </div>
       </div>
     </IdleTimerContainer>

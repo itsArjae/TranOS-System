@@ -48,7 +48,7 @@ export default function CashierDrinks() {
     if (searchTerm == "") {
       return 5;
     } else {
-      return drinksData.length;
+      return 5;
     }
   };
   let pageVisitedFixed = () => {
