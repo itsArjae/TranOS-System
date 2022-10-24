@@ -1,4 +1,198 @@
 .container{
   width: 100vw;
   height: 100vh;
+  background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #9bcdee);
+  display: flex;
+  padding: 20px;
+  padding-top: 100px;
+  flex-direction: column;
+  background-size: cover;
+  
+}
+
+.table__list{
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  overflow: auto;
+}
+
+.q__box{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  height: 425px;
+  width: 250px;
+  margin: .5rem 1rem;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+/* .box{
+  width: 200px;
+  height: 100px;
+  border: 1px solid red;
+  margin: 1rem 1rem;
+} */
+
+.q__header{
+  font-weight: bold;
+  border-bottom: 1px solid gray;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 5px;
+}
+
+.q__order{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height:300px;
+  overflow: auto;
+  border-bottom: 1px solid gray;
+}
+
+.q__btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  border-top: 1px solid gray;
+}
+.q__btn button{
+  background-color: white;
+  border: 1px solid gray;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin: 0 .5rem;
+  height: 50px;
+}
+
+.q__btn button:hover{
+  background-color: rgb(196, 176, 176);
+}
+
+
+.Pagination__Container{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 1px solid black;
+}
+.Pagination__Prev,
+.Pagination__Next{
+  padding: .3rem;
+  border-radius: 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+.Pagination__Prev:hover,
+.Pagination__Next:hover,
+.Pagination__Container a:hover{
+  background-color: #61A4BC;
+}
+.Pagination__Container a{
+  padding: .5rem;
+  border-radius: 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+.paginationActive a{
+  padding: .5rem;
+  border-radius: 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: #61A4BC;
+}
+
+.order__box{
+  border-bottom: 1px solid rgb(176, 153, 153);
+  margin: .5rem 0;
+  display: flex;
+  flex-direction: row;
+  padding: 0 .5rem;
+}
+.order__det{
+  flex-grow: 1;
+}
+
+.itemname{
+  font-weight: bold;
+
+}
+
+.itemqty{
+  font-weight: bold;
+  color: rgb(169, 147, 147);
+  font-size: 12px;
+}
+
+.orderbtn button{
+  background-color: white;
+  border: 1px solid gray;
+  cursor: pointer;
+}
+.orderbtn button:hover{
+  background-color: rgb(219, 195, 195);
+}
+.q__order::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+.q__order::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+.q__order::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.q__order::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.stat__cook{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.stat__cook div{
+  width: 100%;
+  display: flex;
+align-items: center;
+justify-content: center;
+}
+.stat__cook1{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.stat__cook1 div{
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
 }
