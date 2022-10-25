@@ -13,6 +13,7 @@ import {app} from '../../src/utility/firebase'
 import { Divider } from "@mui/material";
 import ReactPaginate from "react-paginate";
 import KitchenNav from "../kitchen.nav";
+import { deleteQueue } from "../../src/utility/kitchen-utils/kitchen.firebase";
 
 export default function KitchenServing() {
   const [orderQueue, setOrderQueue] = useState([]);
@@ -101,7 +102,7 @@ const OrderBox = (props) => {
   const [doneCooking,setDoneCooking] = useState(false);
 
   const handleCook = () => {
-    setDoneCooking(true);
+    deleteQueue(data.id);
   }
   return(
     <div className={styles.q__box} >
