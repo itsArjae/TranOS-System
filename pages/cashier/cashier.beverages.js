@@ -144,7 +144,15 @@ export default function CashierDrinks() {
 
       <Divider />
       <div className={styles.Cashier__Tab__Container}>
-        <div className={styles.Container}> {DisplayItems}</div>
+        <div className={styles.Container}>
+          {drinksData.length > 0 ? (
+            DisplayItems
+          ) : (
+            <div className={styles.NoData}>
+              <p>No Data Available</p>
+            </div>
+          )}
+        </div>
       </div>
 
       <div>

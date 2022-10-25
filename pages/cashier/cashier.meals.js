@@ -127,7 +127,15 @@ export default function CashierMenu() {
 
       <Divider />
       <div className={styles.Cashier__Tab__Container}>
-        <div className={styles.Container}> {DisplayItems}</div>
+        <div className={styles.Container}>
+          {menuData.length > 0 ? (
+            DisplayItems
+          ) : (
+            <div className={styles.NoData}>
+              <p>No Data Available</p>
+            </div>
+          )}
+        </div>
       </div>
 
       <div>

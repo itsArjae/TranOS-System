@@ -248,3 +248,13 @@
 .Table__Data_notAvailable_Btn:hover{
   background-color:  rgb(220, 31, 31);
 }
+
+.NoData{
+  align-items: center;
+  justify-content: center;
+}
+
+.NoData p{
+  font-size: medium;
+  color: rgb(147, 147, 147);
+}

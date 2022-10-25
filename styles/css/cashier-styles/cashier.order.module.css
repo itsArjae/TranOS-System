@@ -321,3 +321,13 @@
   font-size: 20px;
   line-height: .4;
 }
+
+.NoData{
+  align-items: center;
+  justify-content: center;
+}
+
+.NoData p{
+  font-size: medium;
+  color: rgb(147, 147, 147);
+}

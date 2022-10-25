@@ -209,7 +209,15 @@ export default function AdminTables(props) {
       </div>
       <div className={styles.Table__Box}>
         <div className={styles.Table__Head}>{Header}</div>
-        <div className={styles.Table__Data_Container}>{DisplayItems}</div>
+        <div className={styles.Table__Data_Container}>
+          {beverageData.length > 0 ? (
+            DisplayItems
+          ) : (
+            <div className={styles.NoData}>
+              <p>No Data Available</p>
+            </div>
+          )}
+        </div>
       </div>
       <div>
         <ReactPaginate

@@ -364,7 +364,13 @@ export default function CashierOrder() {
                 </div>
 
                 <div className={styles.Table__Data_Container}>
-                  {DisplayItems}
+                  {orderData.length > 0 ? (
+                    DisplayItems
+                  ) : (
+                    <div className={styles.NoData}>
+                      <p>No Data Available</p>
+                    </div>
+                  )}
                 </div>
               </div>
               {/* <div>
@@ -389,7 +395,13 @@ export default function CashierOrder() {
                   <div className={styles.Table__Head}>{otherFee}</div>
                 </div>
                 <div className={styles.Table__Data_Container}>
-                  {DisplayMisc ? DisplayMisc : "No data"}
+                  {miscData.length > 0 ? (
+                    DisplayMisc
+                  ) : (
+                    <div className={styles.NoData}>
+                      <p>No Data Available</p>
+                    </div>
+                  )}
                 </div>
               </div>
               {/* <div>
