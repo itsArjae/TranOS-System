@@ -78,9 +78,9 @@ export default function AdminEmployees() {
       dpassword = `TAdmin2022`;
     }
     if (pos === "Chef") {
-      password = null;
-      username = null;
-      dpassword = null;
+      password = `TChef2022`;
+      username = `TChef`;
+      dpassword = `TChef2022`;
     }
     if (pos === "Cashier") {
       password = `TCashier2022`;

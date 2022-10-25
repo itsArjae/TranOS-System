@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import {app} from '../../src/utility/firebase'
 import { data } from "autoprefixer";
+import KitchenNav from "../kitchen.nav";
 export default function KitchenOrderStatus() {
   const [preparing,setPreparing] = useState([]);
   const [cooking,setCooking] = useState([]);
@@ -20,7 +21,7 @@ export default function KitchenOrderStatus() {
   const getPreparingQueue = () => {
     const orderRef = collection(db, "orderQueue");
     console.log("read queue");
-    const q = query(orderRef,where("status","==","preparing"),orderBy("timeStamp","asc"));
+    const q = query(orderRef,where("status","==","preparing"));
     onSnapshot(q, (snapshot) => {
       let order = [];
       snapshot.docs.forEach((doc) => {
@@ -32,9 +33,40 @@ export default function KitchenOrderStatus() {
     //  setDailySales(sale);
     });
   };
+  const getCookingQueue = () => {
+    const orderRef = collection(db, "orderQueue");
+    console.log("read queue");
+    const q = query(orderRef,where("status","==","cooking"));
+    onSnapshot(q, (snapshot) => {
+      let order = [];
+      snapshot.docs.forEach((doc) => {
+        order.push({ ...doc.data(), id: doc.id });
+      });
+      console.log(order);
 
+      setCooking(order);
+    //  setDailySales(sale);
+    });
+  };
+  const getServingQueue = () => {
+    const orderRef = collection(db, "orderQueue");
+    console.log("read queue");
+    const q = query(orderRef,where("status","==","serving"));
+    onSnapshot(q, (snapshot) => {
+      let order = [];
+      snapshot.docs.forEach((doc) => {
+        order.push({ ...doc.data(), id: doc.id });
+      });
+      console.log(order);
+
+      setCooking(order);
+    //  setDailySales(sale);
+    });
+  };
   useEffect(()=>{
     getPreparingQueue();
+    getCookingQueue();
+    getServingQueue();
   },[]);
 
   
@@ -42,6 +74,9 @@ export default function KitchenOrderStatus() {
 
   return (
     <div className={styles.container}>
+      <div>
+        <KitchenNav/>
+      </div>
       <div className={styles.content}>
         <div className={styles.status__box}>
           <div className={styles.status__header}>
@@ -67,10 +102,38 @@ export default function KitchenOrderStatus() {
           <div className={styles.status__header1}>
           <h2>COOKING</h2>
           </div>
+          <div className={styles.list__box} >
+            
+            {
+              cooking.map((data)=>{
+                return(
+                  <div key={data.id} >
+                        <TableInfo data={data}/>
+                    </div>
+                )
+              })
+            }
+           
+
+          </div>
         </div>
         <div className={styles.status__box}>
           <div  className={styles.status__header2}>
           <h2>SERVING</h2>
+          </div>
+          <div className={styles.list__box} >
+            
+            {
+              serving.map((data)=>{
+                return(
+                  <div key={data.id} >
+                        <TableInfo data={data}/>
+                    </div>
+                )
+              })
+            }
+           
+
           </div>
         </div>
       </div>

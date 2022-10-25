@@ -14,13 +14,13 @@ import { Divider } from "@mui/material";
 import ReactPaginate from "react-paginate";
 import KitchenNav from "../kitchen.nav";
 
-export default function KitchenHome() {
+export default function KitchenServing() {
   const [orderQueue, setOrderQueue] = useState([]);
   const db = getFirestore(app)
   const getOrderQueue= () => {
     const orderRef = collection(db, "orderQueue");
     console.log("read queue");
-    const q = query(orderRef, orderBy("timeStamp","asc"));
+    const q = query(orderRef, where("status","==","serving"));
     onSnapshot(q, (snapshot) => {
       let order = [];
       snapshot.docs.forEach((doc) => {
@@ -42,7 +42,7 @@ export default function KitchenHome() {
       <div>
         <KitchenNav/>
       </div>
-      <h1>ORDERS</h1>
+      <h1>SERVING</h1>
       <div className={styles.table__list}>
 
           {
@@ -148,5 +148,3 @@ const OrderDetails = (props) => {
     </div>
   );
 }
-
-
