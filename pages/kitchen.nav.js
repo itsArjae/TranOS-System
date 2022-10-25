@@ -20,7 +20,7 @@ export default function KitchenNav() {
                 <div className={styles.navi} ref={navRef}>
                     <div className={styles.home}><Link href="/kitchen/kitchen.home"><a>ORDERS</a></Link></div>
                     <div className={styles.scholarship}><Link href="/kitchen/kitchen.serving"><a>SERVING</a></Link></div>
-                    <div className={styles.scholarship}><Link href="/kitchen/kitchen.orderstatus"><a>ORDER STATUS</a></Link></div>
+                    <div className={styles.scholarship_1}><Link href="/kitchen/kitchen.orderstatus"><a>ORDER STATUS</a></Link></div>
                     <div className={styles.login}><Link href="/"><a>Log Out</a></Link></div>
 
                     <button className={styles.nav_close_btn} onClick={showNavbar}>

@@ -145,5 +145,9 @@
     .navi a{
       color: black;
     }
+
+    .scholarship_1{
+      display: none;
+    }
 }
 

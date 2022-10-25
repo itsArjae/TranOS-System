@@ -112,10 +112,10 @@ const OrderBox = (props) => {
           {displayItems}
         </div>
         <div className={styles.q__btn} >
-          {
-            doneCooking? <div className={styles.stat__cook} ><div>COOKING</div> <button >SERVE</button> </div>: 
-            <div className={styles.stat__cook1} ><button onClick={handleCook} >COOKING</button> <div>SERVE</div> </div>
-          }
+          
+           
+            <div className={styles.stat__cook1} ><button onClick={handleCook} >SERVED</button>  </div>
+          
           {/* <button  >COOKING</button>
           <button >SERVE</button> */}
       

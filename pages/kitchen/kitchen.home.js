@@ -13,6 +13,7 @@ import {app} from '../../src/utility/firebase'
 import { Divider } from "@mui/material";
 import ReactPaginate from "react-paginate";
 import KitchenNav from "../kitchen.nav";
+import { orderStatusChange, orderStatusChangeServe } from "../../src/utility/kitchen-utils/kitchen.firebase";
 
 export default function KitchenHome() {
   const [orderQueue, setOrderQueue] = useState([]);
@@ -20,14 +21,13 @@ export default function KitchenHome() {
   const getOrderQueue= () => {
     const orderRef = collection(db, "orderQueue");
     console.log("read queue");
-    const q = query(orderRef, orderBy("timeStamp","asc"));
+    const q = query(orderRef,orderBy("timeStamp"));
     onSnapshot(q, (snapshot) => {
       let order = [];
       snapshot.docs.forEach((doc) => {
         order.push({ ...doc.data(), id: doc.id });
       });
       console.log(order);
-
       setOrderQueue(order);
     //  setDailySales(sale);
     });
@@ -46,7 +46,12 @@ export default function KitchenHome() {
       <div className={styles.table__list}>
 
           {
-            orderQueue.map((data)=>{
+            orderQueue.filter((val)=>{
+              if(!val.status.includes("serving")){
+                return val;
+              }
+            })
+            .map((data)=>{
               return(
                 <div key={data.id} >
                       <OrderBox data={data}  />
@@ -102,6 +107,12 @@ const OrderBox = (props) => {
 
   const handleCook = () => {
     setDoneCooking(true);
+    orderStatusChange(data.id,"cooking")
+  }
+  const handleServe = () => {
+    setDoneCooking(true);
+     
+    orderStatusChangeServe(data.id,"serving")
   }
   return(
     <div className={styles.q__box} >
@@ -113,7 +124,7 @@ const OrderBox = (props) => {
         </div>
         <div className={styles.q__btn} >
           {
-            doneCooking? <div className={styles.stat__cook} ><div>COOKING</div> <button >SERVE</button> </div>: 
+            doneCooking? <div className={styles.stat__cook} ><div>COOKING</div> <button onClick={handleServe} >SERVE</button> </div>: 
             <div className={styles.stat__cook1} ><button onClick={handleCook} >COOKING</button> <div>SERVE</div> </div>
           }
           {/* <button  >COOKING</button>

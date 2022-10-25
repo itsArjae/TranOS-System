@@ -27,7 +27,7 @@ export default function KitchenOrderStatus() {
       snapshot.docs.forEach((doc) => {
         order.push({ ...doc.data(), id: doc.id });
       });
-      console.log(order);
+   //   console.log(order);
 
       setPreparing(order);
     //  setDailySales(sale);
@@ -42,7 +42,7 @@ export default function KitchenOrderStatus() {
       snapshot.docs.forEach((doc) => {
         order.push({ ...doc.data(), id: doc.id });
       });
-      console.log(order);
+   //   console.log(order);
 
       setCooking(order);
     //  setDailySales(sale);
@@ -59,7 +59,7 @@ export default function KitchenOrderStatus() {
       });
       console.log(order);
 
-      setCooking(order);
+      setServing(order);
     //  setDailySales(sale);
     });
   };
