@@ -97,7 +97,7 @@ export default function CashierDrinks() {
                 <p>Available: {drinks.Quantity}</p>
                 <p>
                   {drinks.Bucket == true
-                    ? drinks.Quantity > 7
+                    ? drinks.Quantity >= 6
                       ? "Bucket: Available"
                       : "Bucket: Not Available"
                     : ""}

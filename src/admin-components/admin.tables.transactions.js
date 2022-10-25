@@ -30,10 +30,6 @@ const headers = [
     id: 5,
     header: "Cashier",
   },
-  {
-    id: 6,
-    header: "Waiter",
-  },
 ];
 
 export default function AdminTables(props) {
@@ -86,13 +82,13 @@ export default function AdminTables(props) {
 
           <div className={styles.Table__Data__Box}> {data.tableNum}</div>
           <div className={styles.Table__Data__Box}>
-            {Number(data.totalAmount).toFixed(2)}
+            {Number(data.totalAmount)
+              .toFixed(2)
+              .toString()
+              .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
           </div>
           <div className={styles.Table__Data__Box}> {data.dateCreated}</div>
           <div className={styles.Table__Data__Box}> {data.cashierName}</div>
-          <div className={styles.Table__Data__Box}>
-            {data.waiterName ? data.waiterName : "N/A"}
-          </div>
         </div>
       );
     });

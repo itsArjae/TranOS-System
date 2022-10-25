@@ -29,6 +29,7 @@ import {
 const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Drinks.png";
 import { deleteData } from "../../../src/utility/admin-utils/beverages.firebase";
 import AdminTablesTransac from "../../../src/admin-components/admin.tables.transaction-details";
+import AdminTablesTransacOther from "../../../src/admin-components/admin.tables.transaction-others";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -51,6 +52,8 @@ export default function AdminTransacData() {
   const id = router.query.TransacID;
   const tableID = router.query.TableNum;
   const [transacData, setTransacData] = useState([]);
+  const [salesData, setSalesData] = useState([]);
+  const [chargeData, setChargeData] = useState([]);
   const [transacDate, setTransacDate] = useState("");
   const [visible, setVisible] = useState(false);
 
@@ -63,7 +66,11 @@ export default function AdminTransacData() {
 
     console.log(id);
 
-    const q = query(bevRef, where("transacID", "==", Number(id)));
+    const q = query(
+      bevRef,
+      where("transacID", "==", Number(id)),
+      where("category", "==", "order")
+    );
 
     onSnapshot(q, (snapshot) => {
       let bev = [];
@@ -78,8 +85,55 @@ export default function AdminTransacData() {
       setTransacData(bev);
     });
   };
+
+  const getMiscData = () => {
+    const bevRef = collection(db, "salesDetails");
+
+    console.log(id);
+
+    const q = query(
+      bevRef,
+      where("transacID", "==", Number(id)),
+      where("category", "==", "misc")
+    );
+
+    onSnapshot(q, (snapshot) => {
+      let bev = [];
+      snapshot.docs.forEach((doc) => {
+        bev.push({ ...doc.data(), id: doc.id });
+      });
+      console.log("read");
+      console.log(bev);
+      bev.map((data) => {
+        setTransacDate(data.dateBought);
+      });
+      setChargeData(bev);
+    });
+  };
+
+  const getSalesData = () => {
+    const bevRef = collection(db, "salesDetails");
+
+    console.log(id);
+
+    const q = query(bevRef, where("transacID", "==", Number(id)));
+
+    onSnapshot(q, (snapshot) => {
+      let bev = [];
+      snapshot.docs.forEach((doc) => {
+        bev.push({ ...doc.data(), id: doc.id });
+      });
+      console.log("read");
+      console.log(bev);
+
+      setSalesData(bev);
+    });
+  };
+
   useEffect(() => {
     getTransacData();
+    getMiscData();
+    getSalesData();
   }, []);
 
   const goBack = () => {
@@ -113,7 +167,7 @@ export default function AdminTransacData() {
 
   const getTotal = () => {
     let sum = 0;
-    transacData.map((data) => {
+    salesData.map((data) => {
       sum = sum + data.total;
     });
     return sum;
@@ -167,6 +221,34 @@ export default function AdminTransacData() {
                 tableID={tableID}
                 id={id}
               />
+            </div>
+          </div>
+        </div>
+        <div className={styles.Data__Box3}>
+          <div className={styles.Misc__Container}>
+            <div className={styles.Misc__Inner}>
+              <h3>Other Fees</h3>
+              {chargeData.map((data) => {
+                return (
+                  <table>
+                    <tr>
+                      <td>{data.description}</td>
+                      <td>&emsp;</td>
+                      <td>
+                        {data.total
+                          .toFixed(2)
+                          .toString()
+                          .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colSpan={3}>
+                        <Divider sx={{ border: "1px solid black" }} />
+                      </td>
+                    </tr>
+                  </table>
+                );
+              })}
             </div>
           </div>
         </div>

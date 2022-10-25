@@ -6,57 +6,30 @@ import ReactPaginate from "react-paginate";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-const DefaultPic = "/assets/admin-assets/pictures/expenses.png";
+import { updateMenu } from "../../src/utility/admin-utils/menu.firebase";
+const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Menu.png";
 
 const headers = [
   {
     id: 1,
-    header: "Picture",
+    header: "Description",
   },
   {
     id: 2,
-    header: "Remarks",
-  },
-  {
-    id: 3,
     header: "Amount",
-  },
-  {
-    id: 4,
-    header: "Date",
-  },
-];
-const sampleData = [
-  {
-    id: 1,
-    Name: "A",
-    Address: "hh",
-    Number: 1,
-  },
-  {
-    id: 2,
-    Name: "A2",
-    Address: "hh",
-    Number: 1,
-  },
-  {
-    id: 3,
-    Name: "A3",
-    Address: "hh",
-    Number: 1,
   },
 ];
 
-export default function AdminTables(props) {
+export default function AdminTablesTransacOther(props) {
   const router = useRouter();
-  const { expensesData, id } = props;
+  const { chargeData, tableID, id } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   let pageCountFixed = () => {
     if (searchTerm === "") {
-      return 4;
+      return 6;
     } else {
-      return expensesData.length;
+      return chargeData.length;
     }
   };
   let pageVisitedFixed = () => {
@@ -69,41 +42,22 @@ export default function AdminTables(props) {
   const itemsPerPage = pageCountFixed();
   const pagesVisited = pageVisitedFixed();
 
-  const DisplayItems = expensesData
-    .filter((val) => {
-      if (searchTerm == "") {
-        return val;
-      } else if (val.date.includes(searchTerm)) {
-        return val;
-      }
-    })
+  const DisplayItems = chargeData
     .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((data) => {
       return (
         <div className={styles.Table__Data} key={data.id}>
-          <div className={styles.Table__Image_Box}>
-            <img
-              src={data.ImageUrl ? data.ImageUrl : DefaultPic}
-              alt="Image"
-              className={styles.Table__Image}
-            />
-          </div>
+          <div className={styles.Table__Data__Box}> {data.description}</div>
           <div className={styles.Table__Data__Box}>
-            {data.remarks ? data.remarks : "N/A"}
-          </div>
-          <div className={styles.Table__Data__Box}>
-            {Number(data.amount)
+            {Number(data.total)
               .toFixed(2)
               .toString()
               .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
           </div>
-          <div className={styles.Table__Data__Box}>
-            {data.date + " " + data.time}
-          </div>
         </div>
       );
     });
-  const pageCount = Math.ceil(expensesData.length / itemsPerPage);
+  const pageCount = Math.ceil(chargeData.length / itemsPerPage);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
@@ -112,12 +66,13 @@ export default function AdminTables(props) {
   const viewData = (id) => {
     router.push(
       {
-        pathname: `../admin/Raw_Goods/raw_goods`,
-        query: { RawGoodsID: id },
+        pathname: `../admin/transactions/transaction`,
+        query: { TransacID: id },
       },
-      "../admin/Raw_Goods/raw_goods"
+      "../admin/transactions/transaction"
     );
   };
+
   const Header = headers.map((heads) => {
     return (
       <div className={styles.Table__Heads_Data} key={heads.id}>
@@ -142,29 +97,7 @@ export default function AdminTables(props) {
   };
 
   return (
-    <div className={styles.Table__Container1}>
-      <div className={styles.Table__Search_Box}>
-        <div className={styles.Table__Search_Form}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <input
-              autoComplete="off"
-              name="search"
-              className={styles.Table_Search_Input}
-              placeholder="Search Date"
-              onChange={(event) => {
-                setSearchTerm(event.target.value);
-              }}
-            />
-          </div>
-        </div>
-      </div>
-
+    <div className={styles.Table__Container}>
       <div className={styles.Table__Box}>
         <div className={styles.Table__Head}>{Header}</div>
         <div className={styles.Table__Data_Container}>{DisplayItems}</div>

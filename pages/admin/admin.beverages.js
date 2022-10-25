@@ -101,6 +101,8 @@ export default function AdminBeverages() {
     resetForm();
     imageRef.current.value = "";
     setPicItem(null);
+    setBucket("");
+    setSize("");
     const { id, BeverageName, Price, Quantity, Size, Image } = data;
 
     const interval = setInterval(() => {

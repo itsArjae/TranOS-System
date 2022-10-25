@@ -52,7 +52,7 @@ export default function CashierTableComponent(props) {
             console.log(tableRef.current.offsetLeft);
           }}
         >
-          {table?.id}
+          {table?.id == 0 ? "" : table?.id}
         </div>
         <div className={styles.Table__Button_Box}>
           {table?.id === 0 ? null : (

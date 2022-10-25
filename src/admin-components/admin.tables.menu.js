@@ -85,7 +85,10 @@ export default function AdminTables(props) {
           </div>
           <div className={styles.Table__Data__Box}> {data.MealName}</div>
           <div className={styles.Table__Data__Box}>
-            {Number(data.Price).toFixed(2)}
+            {Number(data.Price)
+              .toFixed(2)
+              .toString()
+              .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
           </div>
           <div className={styles.Table__Data__Box}>
             {data.Serving ? data.Serving : 0}

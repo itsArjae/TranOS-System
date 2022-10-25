@@ -38,6 +38,14 @@ export default function CashierPay(props) {
     getTotalFixed2,
     successPayment,
     failPayment,
+    cat,
+    getGrandTotal,
+    getGTotalFixed2,
+    miscData,
+    charges,
+    getTotalMisc,
+    getTotalFixedMisc,
+    getTotalFixedMisc2,
   } = props;
 
   const db = getFirestore(app);
@@ -74,7 +82,7 @@ export default function CashierPay(props) {
       .toString()
       .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     let change = 0;
-    change = Number(val) - Number(getSubTotal());
+    change = Number(val) - Number(getGrandTotal());
     if (change < 0) {
       return;
     }
@@ -164,30 +172,30 @@ export default function CashierPay(props) {
   }, []);
 
   const confirmPayment = () => {
-    if (payment < getSubTotal()) {
+    if (payment < getGrandTotal()) {
       console.log("Kulang"); //MAY LALABAS
       failPayment();
       return;
     }
     if (!dSales) {
-      saveDaily(getSubTotal(), year, month, day);
+      saveDaily(getGrandTotal(), year, month, day);
     } else {
       let sum = 0;
-      sum = Number(dSales) + Number(getSubTotal());
+      sum = Number(dSales) + Number(getGrandTotal());
       updateDaily(dSalesID, sum);
     }
     if (!mSales) {
-      saveMonthly(getSubTotal(), year, month);
+      saveMonthly(getGrandTotal(), year, month);
     } else {
       let sum = 0;
-      sum = Number(mSales) + Number(getSubTotal());
+      sum = Number(mSales) + Number(getGrandTotal());
       updateMonthly(mSalesID, sum);
     }
     if (!ySales) {
-      saveYearly(getSubTotal(), year);
+      saveYearly(getGrandTotal(), year);
     } else {
       let sum = 0;
-      sum = Number(ySales) + Number(getSubTotal());
+      sum = Number(ySales) + Number(getGrandTotal());
       updateYearly(ySalesID, sum);
     }
     successPayment();
@@ -195,15 +203,15 @@ export default function CashierPay(props) {
       trID,
       d,
       currentUser.email,
-      getSubTotal(),
+      getGrandTotal(),
       tid,
       day,
       month,
       year
     );
-    saveItems(trID, orderData, dateTime);
-    //deleteData(orderData);
-    //updateTable(tid);
+    saveItems(trID, orderData, miscData, dateTime);
+    deleteData(orderData);
+    updateTable(tid);
     let needRender = true;
     const interval = setInterval(() => {
       if (needRender === true) {
@@ -218,15 +226,31 @@ export default function CashierPay(props) {
     <div className={styles.container}>
       <div className={styles.inner__container}>
         <div className={styles.table__header}>
-          <img
-            src="/assets/cashier-assets/svg/cashier.pay.icon.svg"
-            height={35}
-            width={35}
-            alt="Order Icon"
-          />
-          <h2>&nbsp;Table No. {tid} Payment </h2>
-          <div className={styles.Btn__Box}>
-            <button onClick={setEditDataVisible}>❌</button>
+          <div className={styles.table__header1}>
+            <div className={styles.Btn__Text1}>
+              <img
+                src="/assets/cashier-assets/svg/cashier.pay.icon.svg"
+                height={35}
+                width={35}
+                alt="Pay Icon"
+              />
+              <h2>&nbsp;Payment</h2>
+            </div>
+
+            <div className={styles.Btn__Text}>
+              <h2>
+                {cat} {tid}
+              </h2>
+            </div>
+
+            <div className={styles.Btn__Box}>
+              <button
+                className={styles.Exit__Button}
+                onClick={setEditDataVisible}
+              >
+                ❌
+              </button>
+            </div>
           </div>
         </div>
         <div className={styles.order__box}>
@@ -239,7 +263,7 @@ export default function CashierPay(props) {
                     className={styles.Form__Input}
                     type="text"
                     id="total"
-                    value={total ? getTotalFixed() : getTotalFixed2()}
+                    value={getGTotalFixed2()}
                     readOnly={true}
                   ></input>
                 </div>
@@ -293,6 +317,14 @@ export default function CashierPay(props) {
               trID={trID}
               getTotalFixed={getTotalFixed}
               getTotalFixed2={getTotalFixed2}
+              getGrandTotal={getGrandTotal}
+              getGTotalFixed2={getGTotalFixed2}
+              miscData={miscData}
+              cat={cat}
+              charges={charges}
+              getTotalMisc={getTotalMisc}
+              getTotalFixedMisc={getTotalFixedMisc}
+              getTotalFixedMisc2={getTotalFixedMisc2}
             />
           </div>
         </div>

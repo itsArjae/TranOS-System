@@ -266,6 +266,7 @@ export default function EditEmployee(props) {
                   name="Position"
                   id="position"
                   disabled={true}
+                  value={type}
                   /*onChange={(event) => {
                       setPos(event.target.value);
                     }}*/

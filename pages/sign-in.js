@@ -29,37 +29,36 @@ export default function SignIn() {
 
   const [step, setStep] = useState(1);
 
-
   const onSubmit = async (password) => {
-    try{
-      await loginUser(userInfo.Email,password);
-    }catch(err){
+    try {
+      await loginUser(userInfo.Email, password);
+    } catch (err) {
       handleErrorMessage("Wrong Password");
       return;
     }
-  if(userInfo.Position == "Admin"){
-    sessionStorage.setItem("Position","Admin");
-    router.push("/admin/Admin.Dashboard");
-    return;
-  }
-  if(userInfo.Position == "Cashier"){
-    sessionStorage.setItem("Position","Cashier");
-    router.push("/cashier/cashier.meals");
-    return;
-  }
-  if(userInfo.Position == "SuperAdmin"){
-    sessionStorage.setItem("Position","SuperAdmin");
-    router.push("/super-admin/super.dashboard");
-    return;
-  }
+    if (userInfo.Position == "Admin") {
+      sessionStorage.setItem("Position", "Admin");
+      router.push("/admin/Admin.Dashboard");
+      return;
+    }
+    if (userInfo.Position == "Cashier") {
+      sessionStorage.setItem("Position", "Cashier");
+      router.push("/cashier/cashier.table");
+      return;
+    }
+    if (userInfo.Position == "SuperAdmin") {
+      sessionStorage.setItem("Position", "SuperAdmin");
+      router.push("/super-admin/super.dashboard");
+      return;
+    }
   };
 
   const [userInfo, setUserInfo] = useState([]);
   const [hasLoaded, setHasLoaded] = useState(true);
   const [emailExist, setEmailExist] = useState(true);
   const [email, setEmail] = useState("");
-  const [errorMes,setErrorMes] = useState('');
-  const [hasError,setHasError] = useState(false);
+  const [errorMes, setErrorMes] = useState("");
+  const [hasError, setHasError] = useState(false);
 
   const getUserInfo = async (temp) => {
     setHasLoaded(false);
@@ -97,11 +96,11 @@ export default function SignIn() {
       setHasError(false);
     }
   }, [userInfo]);
-  
+
   const handleErrorMessage = (message) => {
     setErrorMes(message);
     setHasError(true);
-  }
+  };
 
   const InputEmail = (props) => {
     const [temp, setTemp] = useState("");
@@ -122,7 +121,7 @@ export default function SignIn() {
                 handleErrorMessage("Please input an email");
                 return;
               }
-             getUserInfo(temp);
+              getUserInfo(temp);
             }}
           >
             Next
@@ -137,41 +136,45 @@ export default function SignIn() {
   const back = () => {
     setStep(1);
     setUserInfo([]);
-  }
+  };
 
   const InputPassword = () => {
     const [temp, setTemp] = useState("");
     return hasLoaded ? (
       <div className={styles.Input_Pass__Box}>
         <div className={styles.Button__Box2}>
-          <button onClick={back} >Back</button>
+          <button onClick={back}>Back</button>
         </div>
         <div className={styles.Input_Pass_Content}>
           <div className={styles.Input_Pass__Credentials}>
-            <b>Log in as: </b>{userInfo.Email}
-            <br/>
-            <b>Position: </b>{userInfo.Position}
+            <b>Log in as: </b>
+            {userInfo.Email}
+            <br />
+            <b>Position: </b>
+            {userInfo.Position}
           </div>
-          <div className={styles.Input1__Pass} >
-                <input type="password" placeholder="Enter Password" onChange={(event) => {
-              setTemp(event.target.value);
-            }}/>
+          <div className={styles.Input1__Pass}>
+            <input
+              type="password"
+              placeholder="Enter Password"
+              onChange={(event) => {
+                setTemp(event.target.value);
+              }}
+            />
           </div>
           <div className={styles.Button__Box}>
-          <button
-            onClick={() => {
-              if (!temp) {
-                handleErrorMessage("Please Input a password");
-                return;
-              }
-              onSubmit(temp);
-              
-            }}
-          >
-            Login
-          </button>
-        </div>
-          
+            <button
+              onClick={() => {
+                if (!temp) {
+                  handleErrorMessage("Please Input a password");
+                  return;
+                }
+                onSubmit(temp);
+              }}
+            >
+              Login
+            </button>
+          </div>
         </div>
       </div>
     ) : (
@@ -211,13 +214,7 @@ export default function SignIn() {
               <Loading />
             )}
           </div>
-          {
-            hasError? (
-              <div style={{color:"red"}} >
-                {errorMes}
-                </div>
-            ): null
-          }
+          {hasError ? <div style={{ color: "red" }}>{errorMes}</div> : null}
         </div>
         <div className={styles.logo}>
           <img src="/assets/admin-assets/pictures/logo.png" alt="logo" />

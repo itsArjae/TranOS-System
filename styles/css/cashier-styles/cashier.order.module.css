@@ -19,7 +19,6 @@
   height: 100vh;
   align-items: center;
   justify-content: center;
-  padding-top: 2%;
   background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #9bcdee);
   background-attachment: fixed;
   overflow: auto;
@@ -32,6 +31,7 @@
   justify-content: center;
   width: 70%;
   height: 600px;
+  margin-top: 30px;
   background-color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -103,15 +103,9 @@
   margin-left: auto;
 
 }
-.table__container{
-  display: flex;
-  flex-direction: column;
-  width: 60%;
-}
 .other__container{
-  width: 40%;
+  width: 25%;
   height: 100%;
-  border: 2px solid black;
 }
 .other__box{
   display: flex;
@@ -120,14 +114,12 @@
   padding: 15px;
 }
 .btn__pay{
-  width: 200px;
+  width: 100%;
   height: 45px;
   border: none;
   color: white;
   background-color: #11468F;
   border-radius: 5px;
-  margin: auto;
-  margin-top: 40px;
   cursor: pointer;
   font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
@@ -136,7 +128,6 @@
 .btn__pay:hover{
   background-color: white;
   color: black;
-  border: 2px solid #11468F;
 }
 .Table__Box{
   display: flex;
@@ -276,4 +267,57 @@
 .Form__Input_Box1 label{
   font-size: 25px;
   font-weight: bold;
+}
+.Table__Heads_Data2{
+  width: 100%;
+  background-color: #85C88A;
+  text-align: center;
+  border: 1px solid black;
+  padding: .5rem;
+  font-weight: bold;
+  font-size: 15px;
+ }
+
+ .Table__Box1{
+  display: flex;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  flex-grow: 1;
+  height: 350px;
+  margin: 0 1rem;
+  flex-direction: column;
+  padding: 1rem 1rem;
+  border: 1px solid grey;
+  overflow: auto;
+}
+
+.table{
+  display: flex;
+  height: 100%;
+  width: 75%;
+  flex-direction: row;
+  padding-bottom: 10px;
+}
+.table__container{
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  height: 100%;
+}
+.table__container1{
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 100%;
+}
+.table__container p{
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  line-height: .4;
+  }
+.table__container1 p{
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  line-height: .4;
 }
