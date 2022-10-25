@@ -44,7 +44,7 @@ export default function KitchenHome() {
           {
             orderQueue.map((data)=>{
               return(
-                <div className={data.id} >
+                <div key={data.id} >
                       <OrderBox data={data}  />
                </div>
               )
