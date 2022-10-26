@@ -49,6 +49,13 @@ const SampleData = [
 ];
 
 export default function AdminSales() {
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if (position != "Admin") {
+      router.push("/sign-in");
+    }
+  }, []);
+
   const router = useRouter();
 
   const [dataSet, setDataSet] = useState({

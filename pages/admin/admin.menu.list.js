@@ -8,6 +8,13 @@ import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
 import { useRouter } from "next/router";
 
 export default function AdminMenus() {
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if (position != "Admin") {
+      router.push("/sign-in");
+    }
+  }, []);
+
   const router = useRouter();
   const [open, setopen] = useState(false);
 

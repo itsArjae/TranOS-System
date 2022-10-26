@@ -30,6 +30,13 @@ import { UserDocument } from "../../src/misc/userdata";
 import AdminTablesEmp from "../../src/admin-components/admin.tables-emp";
 
 export default function AdminEmployees() {
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if (position != "Admin") {
+      router.push("/sign-in");
+    }
+  }, []);
+
   const currentUser = useAuth();
   const [messageVisible, setMessageVisible] = useState(false);
   const [message, setMessage] = useState("");
@@ -83,7 +90,12 @@ export default function AdminEmployees() {
     if (pos === "Cashier") {
       password = `TCashier2022`;
       username = `TCashier`;
-      dpassword = `TCashier$2022`;
+      dpassword = `TCashier2022`;
+    }
+    if (pos === "Waiter") {
+      password = `TWaiter2022`;
+      username = `TWaiter`;
+      dpassword = `TWaiter2022`;
     }
 
     try {

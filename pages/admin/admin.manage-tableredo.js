@@ -21,6 +21,13 @@ import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
 import { useRouter } from "next/router";
 
 export default function AdminManageTableredo() {
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if (position != "Admin") {
+      router.push("/sign-in");
+    }
+  }, []);
+
   const router = useRouter();
 
   const [hasloaded, setHasLoaded] = useState(false);
@@ -173,7 +180,7 @@ export default function AdminManageTableredo() {
       : 0;
   };
   const getOffsetTop = () => {
-    return containerRef.current.offsetTop? containerRef.current.offsetTop: 0;
+    return containerRef.current.offsetTop ? containerRef.current.offsetTop : 0;
   };
 
   return hasloaded ? (

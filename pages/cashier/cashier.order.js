@@ -59,6 +59,13 @@ const miscHeader = [
 ];
 
 export default function CashierOrder() {
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if (position != "Cashier") {
+      router.push("/sign-in");
+    }
+  }, []);
+
   const successPayment = () =>
     toast.success("SUCCESSFULLY PAID", {
       icon: "✔️",

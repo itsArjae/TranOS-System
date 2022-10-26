@@ -30,6 +30,13 @@ import {
 } from "firebase/firestore";
 
 export default function AdminMenu() {
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if (position != "Admin") {
+      router.push("/sign-in");
+    }
+  }, []);
+
   const router = useRouter();
   const db = getFirestore(app);
 

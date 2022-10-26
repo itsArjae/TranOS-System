@@ -76,13 +76,12 @@ const SampleData = [
 ];
 
 const Dashboard = () => {
-  // ==> etooooo
-  //   useEffect(()=>{
-  //     const position = sessionStorage.getItem("Position");
-  //     if(position != "Admin"){
-  //       router.push('/sign-in');
-  //     }
-  // },[]);
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if (position != "Admin") {
+      router.push("/sign-in");
+    }
+  }, []);
 
   const [dataSet, setDataSet] = useState({
     labels: SampleData.map((data) => data.year),
@@ -456,8 +455,8 @@ const Dashboard = () => {
                     <div style={{ display: "flex" }}>
                       <p>
                         {data.Quantity == 0
-                          ? `${data.BeverageName} out of Stocks!`
-                          : `${data.BeverageName} running out of Stocks!`}
+                          ? `${data.BeverageName} ${data.Size}${data.Details} out of Stocks!`
+                          : `${data.BeverageName} ${data.Size}${data.Details} running out of Stocks!`}
                       </p>
                     </div>
                   </div>
