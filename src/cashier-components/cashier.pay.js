@@ -216,6 +216,7 @@ export default function CashierPay(props) {
     const interval = setInterval(() => {
       if (needRender === true) {
         successPayment();
+        setEditDataVisible();
         router.push("/cashier/cashier.table");
         needRender = false;
       }
