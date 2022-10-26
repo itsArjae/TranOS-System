@@ -227,9 +227,9 @@ export default function AdminEmployees() {
 
   useEffect(() => {
     try {
-      getEmpData();
       getActiveEmpData();
       getInactiveEmpData();
+      getEmpData();
     } catch (err) {}
   }, []);
   //
@@ -307,7 +307,7 @@ export default function AdminEmployees() {
           <div className={styles.Sales__Container2}>
             <div className={styles.Sales}>
               <div className={styles.TxtSales}>
-                <h2 className={styles.Sales_Text}>Active Users</h2>
+                <h2 className={styles.Sales_Text}>Active Employees</h2>
               </div>
 
               <div className={styles.TxtSales_Price}>
@@ -327,7 +327,7 @@ export default function AdminEmployees() {
           <div className={styles.Sales__Container3}>
             <div className={styles.Sales}>
               <div className={styles.TxtSales}>
-                <h2 className={styles.Sales_Text}>Inactive Users</h2>
+                <h2 className={styles.Sales_Text}>Inactive Employees</h2>
               </div>
 
               <div className={styles.TxtSales_Price}>
