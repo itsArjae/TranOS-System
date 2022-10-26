@@ -230,7 +230,7 @@ export default function AdminTransacData() {
               <h3>Other Fees</h3>
               {chargeData.map((data) => {
                 return (
-                  <table>
+                  <table key={data.id}>
                     <tr>
                       <td>{data.description}</td>
                       <td>&emsp;</td>
