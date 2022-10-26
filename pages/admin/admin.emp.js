@@ -171,18 +171,27 @@ export default function AdminEmployees() {
 
   const getActiveEmpData = async () => {
     const saleRef = collection(db, "employees");
-    console.log("read");
+    console.log("read active");
     const q = query(
       saleRef,
-      where("Status", "==", true),
-      where("Position", "not-in", ["SuperAdmin", "Admin"])
+      where("Position", "not-in", ["SuperAdmin", "Admin"]),
     );
     onSnapshot(q, (snapshot) => {
       let sale = [];
       snapshot.docs.forEach((doc) => {
         sale.push({ ...doc.data(), id: doc.id });
       });
+      console.log(sale)
 
+        sale.map((data)=>{
+          if(data.Status === false){
+            setInactiveData([...empInactive, data]);
+           
+          }
+          else{
+            setActiveData([...empActive, data]);
+          }
+        })
       setActiveData(sale);
     });
     setLoading(true);
@@ -190,7 +199,7 @@ export default function AdminEmployees() {
 
   const getInactiveEmpData = async () => {
     const saleRef = collection(db, "employees");
-    console.log("read");
+    console.log("read inactive");
     const q = query(
       saleRef,
       where("Status", "==", false),
@@ -228,7 +237,7 @@ export default function AdminEmployees() {
   useEffect(() => {
     try {
       getActiveEmpData();
-      getInactiveEmpData();
+      // getInactiveEmpData();
       getEmpData();
     } catch (err) {}
   }, []);
@@ -311,7 +320,7 @@ export default function AdminEmployees() {
               </div>
 
               <div className={styles.TxtSales_Price}>
-                <h1 className={styles.Price_Text}>{empActive.length}</h1>
+                <h1 className={styles.Price_Text}>{empActive.length - empInactive.length}</h1>
               </div>
             </div>
             <div className={styles.MSales__Container}>
