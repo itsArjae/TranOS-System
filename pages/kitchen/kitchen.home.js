@@ -16,6 +16,15 @@ import KitchenNav from "../kitchen.nav";
 import { orderStatusChange, orderStatusChangeServe } from "../../src/utility/kitchen-utils/kitchen.firebase";
 
 export default function KitchenHome() {
+
+  
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if(position != "Chef"){
+      router.push('/sign-in');
+    }
+  }, []);
+
   const [orderQueue, setOrderQueue] = useState([]);
   const db = getFirestore(app)
   const getOrderQueue= () => {

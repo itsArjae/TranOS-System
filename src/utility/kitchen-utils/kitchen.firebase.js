@@ -6,7 +6,7 @@ import {
   getFirestore,
   setDoc,
   doc,
-  deleteDoc
+  deleteDoc,
 } from "firebase/firestore";
 const db = getFirestore(app);
 
@@ -38,12 +38,12 @@ export function orderStatusChangeServe(orderId, stat) {
     });
 }
 
-export async function deleteQueue(orderId){
-  console.log("deleteing")
-  try{
-  await deleteDoc(doc(db, "orderQueue", orderId));
-  console.log("Document deleted");
-} catch (e) {
-  console.error("Error deleting document: ", e);
-}
+export async function deleteQueue(orderId) {
+  console.log("deleting");
+  try {
+    await deleteDoc(doc(db, "orderQueue", orderId));
+    console.log("Document deleted");
+  } catch (e) {
+    console.error("Error deleting document: ", e);
+  }
 }

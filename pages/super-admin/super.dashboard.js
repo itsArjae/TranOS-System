@@ -130,7 +130,7 @@ export default function SuperDashboard() {
     <div className={styles.dash__container} >
       <div className={styles.sales__box} >
       <div className={styles.dash__today} >
-        <h2>TODAY SALES: Php. {dailySales}</h2>
+        <h2>TODAY SALES: Php. {dailySales? dailySales : '0'}</h2>
       <SuperTodaySales/>
       </div>
       <div className={styles.dash__today} >

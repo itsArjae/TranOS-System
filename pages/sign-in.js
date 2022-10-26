@@ -52,6 +52,11 @@ export default function SignIn() {
     router.push("/super-admin/super.dashboard");
     return;
   }
+  if(userInfo.Position == "Chef"){
+    sessionStorage.setItem("Position","Chef");
+    router.push("/kitchen/kitchen.home");
+    return;
+  }
   };
 
   const [userInfo, setUserInfo] = useState([]);

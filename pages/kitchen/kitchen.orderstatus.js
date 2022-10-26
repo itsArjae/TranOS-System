@@ -13,6 +13,14 @@ import {app} from '../../src/utility/firebase'
 import { data } from "autoprefixer";
 import KitchenNav from "../kitchen.nav";
 export default function KitchenOrderStatus() {
+
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if(position != "Chef"){
+      router.push('/sign-in');
+    }
+  }, []);
+
   const [preparing,setPreparing] = useState([]);
   const [cooking,setCooking] = useState([]);
   const [serving,setServing] = useState([]);

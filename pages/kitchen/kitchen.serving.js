@@ -16,6 +16,15 @@ import KitchenNav from "../kitchen.nav";
 import { deleteQueue } from "../../src/utility/kitchen-utils/kitchen.firebase";
 
 export default function KitchenServing() {
+
+
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if(position != "Chef"){
+      router.push('/sign-in');
+    }
+  }, []);
+
   const [orderQueue, setOrderQueue] = useState([]);
   const db = getFirestore(app)
   const getOrderQueue= () => {
