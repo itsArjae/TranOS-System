@@ -123,6 +123,7 @@ export default function ChangePass() {
                   required={true}
                 />
               </div>
+
               <button className={styles.submit} type="submit">
                 LOGIN
               </button>

@@ -116,6 +116,7 @@ export default function SignIn() {
         </div>
         <div className={styles.Button__Box}>
           <button
+            className={styles.submit1}
             onClick={() => {
               if (!temp) {
                 handleErrorMessage("Please input an email");
@@ -143,7 +144,9 @@ export default function SignIn() {
     return hasLoaded ? (
       <div className={styles.Input_Pass__Box}>
         <div className={styles.Button__Box2}>
-          <button onClick={back}>Back</button>
+          <button className={styles.submit1} onClick={back}>
+            Back
+          </button>
         </div>
         <div className={styles.Input_Pass_Content}>
           <div className={styles.Input_Pass__Credentials}>
@@ -164,6 +167,7 @@ export default function SignIn() {
           </div>
           <div className={styles.Button__Box}>
             <button
+              className={styles.submit1}
               onClick={() => {
                 if (!temp) {
                   handleErrorMessage("Please Input a password");

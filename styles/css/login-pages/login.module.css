@@ -72,7 +72,38 @@
   border-bottom: 1px solid black;
   
 }
-
+.submit{
+  margin-top: 20px;
+  width: 50%;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-size: large;
+  font-weight:normal;
+  background-color: dodgerblue;
+}
+.submit1{
+  margin-top: 20px;
+  width: 30%;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-size: large;
+  font-weight:normal;
+  background-color: dodgerblue;
+}
+.submit:hover{
+  color: dodgerblue;
+  background-color: white;
+  border: 2px solid dodgerblue;
+}
+.submit1:hover{
+  color: dodgerblue;
+  background-color: white;
+  border: 2px solid dodgerblue;
+}
 .Button__Box{
   display: flex;
 }
@@ -81,8 +112,6 @@
   margin-left: auto;
   padding: 10px;
   cursor: pointer;
-  background-color: transparent;
-  border: 1px solid black;
  
 }
 .Input_Pass__Box{
