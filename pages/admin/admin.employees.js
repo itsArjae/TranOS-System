@@ -32,6 +32,12 @@ export default function AdminEmployees() {
       //icon: "❌",
     });
 
+    const notifyError = (name) =>
+    toast.error(`${name}`, {
+      // icon: "✔️",
+      icon: "❌",
+    });
+
   const currentUser = useAuth();
   const [messageVisible, setMessageVisible] = useState(false);
   const [message, setMessage] = useState("");
@@ -63,6 +69,11 @@ export default function AdminEmployees() {
 
   //backend
   const onSubmit = async (data, { resetForm }) => {
+    if(data.Number.length != 11){
+      notifyError("Invalid Number! It must be 11 digits long.");
+      return;
+    }
+
     let needRender = true;
     let password = null;
     let username = null;
@@ -214,7 +225,7 @@ export default function AdminEmployees() {
     Age: Yup.number().required("Invalid"),
     Email: Yup.string().required("Invalid"),
     Address: Yup.string().required("Invalid"),
-    Number: Yup.string().min(11).max(11).required("Invalid"),
+    Number: Yup.string().required("Invalid"),
   });
 
   //
