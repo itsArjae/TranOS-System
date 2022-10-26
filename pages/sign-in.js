@@ -18,6 +18,11 @@ import { TailSpin } from "react-loader-spinner";
 import { UserDocument } from "../src/misc/userdata";
 
 export default function SignIn() {
+
+  useEffect(()=>{
+    sessionStorage.removeItem("Position");
+  },[])
+
   const router = useRouter();
   const [pos, setPos] = useState("Admin");
   const currentUser = useAuth();
