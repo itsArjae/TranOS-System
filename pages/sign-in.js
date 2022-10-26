@@ -35,10 +35,12 @@ export default function SignIn() {
   const [step, setStep] = useState(1);
 
   const onSubmit = async (password) => {
+    setIsLogging(true);
     try {
       await loginUser(userInfo.Email, password);
     } catch (err) {
       handleErrorMessage("Wrong Password");
+      setIsLogging(false);
       return;
     }
   if(userInfo.Position == "Admin"){
@@ -69,6 +71,7 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [errorMes, setErrorMes] = useState("");
   const [hasError, setHasError] = useState(false);
+  const [isLogging,setIsLogging] = useState(false)
 
   const getUserInfo = async (temp) => {
     setHasLoaded(false);
@@ -186,7 +189,9 @@ export default function SignIn() {
                 onSubmit(temp);
               }}
             >
-              Login
+              {
+                isLogging? 'Logging In' : 'Log In'
+              }
             </button>
           </div>
         </div>
