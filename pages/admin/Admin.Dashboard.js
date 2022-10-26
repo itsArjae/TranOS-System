@@ -455,8 +455,14 @@ const Dashboard = () => {
                     <div style={{ display: "flex" }}>
                       <p>
                         {data.Quantity == 0
-                          ? `${data.BeverageName} ${data.Size}${data.Details} out of Stocks!`
-                          : `${data.BeverageName} ${data.Size}${data.Details} running out of Stocks!`}
+                          ? `${data.BeverageName} ${
+                              data.Size ? data.Size : ""
+                            }${data.Details ? data.Details : ""} out of Stocks!`
+                          : `${data.BeverageName} ${
+                              data.Size ? data.Size : ""
+                            }${
+                              data.Details ? data.Details : ""
+                            } running out of Stocks!`}
                       </p>
                     </div>
                   </div>
