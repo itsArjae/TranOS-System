@@ -35,7 +35,7 @@ export default function EditEmployee(props) {
   const [resItem, setResItem] = useState(); // for resume
   const imageRef = useRef(null);
   const resumeRef = useRef(null);
-  const [pos, setPos] = useState("Cashier");
+  const [pos, setPos] = useState("");
   const [gen, setGen] = useState("Male");
   const [update, forceUpdate] = useState(0);
   const imageHandler = (event) => {
@@ -94,6 +94,7 @@ export default function EditEmployee(props) {
         EmpAdd.current.value = data.Address;
         setCurPass(data.DefaultPass);
         setType(data.Position);
+        setPos(data.Position);
       });
     }
   }, []);
@@ -109,6 +110,7 @@ export default function EditEmployee(props) {
         EmpContact.current.value = data.Number;
         //EmpType.current.value = data.Position;
         EmpAdd.current.value = data.Address;
+        setPos(data.Position);
       });
       setChange(true);
     }
@@ -134,7 +136,8 @@ export default function EditEmployee(props) {
       EmpAge.current.value,
       EmpEmail.current.value,
       EmpContact.current.value,
-      EmpAdd.current.value
+      EmpAdd.current.value,
+      pos
     );
     notify();
     clear();
@@ -264,13 +267,16 @@ export default function EditEmployee(props) {
                 <select
                   name="Position"
                   id="position"
-                  /*onChange={(event) => {
-                      setPos(event.target.value);
-                    }}*/
+                  value={pos}
+                  onChange={(event) => {
+                    setPos(event.target.value);
+                    setChange(false);
+                  }}
                 >
                   <option value="Cashier">Cashier</option>
                   <option value="Waiter">Waiter</option>
                   <option value="Chef">Chef</option>
+                  <option value="Admin">Admin</option>
                 </select>
               </div>
 

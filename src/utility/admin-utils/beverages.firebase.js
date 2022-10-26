@@ -122,6 +122,7 @@ export async function saveBeveragesData(
       return data.Size;
     }
   };
+  const pCode = Date.now();
   try {
     const docRef = await addDoc(collection(db, "beverages"), {
       BeverageName: data.BeverageName,
@@ -132,6 +133,7 @@ export async function saveBeveragesData(
       Status: true,
       Bucket: bucket,
       ImageUrl: pictureUrl,
+      ItemCode: `B${pCode}`,
     });
     console.log("Document written with ID: ", docRef.id);
     saveNotifData(

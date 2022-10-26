@@ -18,6 +18,13 @@ const DefaultPicMenu =
   "/assets/cashier-assets/pictures/Cashier-Def-Pic-Drinks.png";
 
 export default function CashierDrinks() {
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if (position != "Cashier") {
+      router.push("/sign-in");
+    }
+  }, []);
+
   const router = useRouter();
   const db = getFirestore(app);
 
@@ -97,7 +104,7 @@ export default function CashierDrinks() {
                 <p>Available: {drinks.Quantity}</p>
                 <p>
                   {drinks.Bucket == true
-                    ? drinks.Quantity > 7
+                    ? drinks.Quantity >= 6
                       ? "Bucket: Available"
                       : "Bucket: Not Available"
                     : ""}
@@ -144,7 +151,15 @@ export default function CashierDrinks() {
 
       <Divider />
       <div className={styles.Cashier__Tab__Container}>
-        <div className={styles.Container}> {DisplayItems}</div>
+        <div className={styles.Container}>
+          {drinksData.length > 0 ? (
+            DisplayItems
+          ) : (
+            <div className={styles.NoData}>
+              <p>No Data Available</p>
+            </div>
+          )}
+        </div>
       </div>
 
       <div>

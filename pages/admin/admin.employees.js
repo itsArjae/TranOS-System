@@ -87,6 +87,11 @@ export default function AdminEmployees() {
       username = `TCashier`;
       dpassword = `TCashier2022`;
     }
+    if (pos === "Waiter") {
+      password = `TWaiter2022`;
+      username = `TWaiter`;
+      dpassword = `TWaiter2022`;
+    }
 
     try {
       await addUser(data.Email, password, pos);
@@ -117,8 +122,8 @@ export default function AdminEmployees() {
     resetForm();
     imageRef.current.value = "";
     resumeRef.current.value = "";
-    setPos("Cashier");
-    setGen("Male");
+    setPos("");
+    setGen("");
     setPicItem(null);
     setResItem(null);
 
@@ -288,7 +293,7 @@ export default function AdminEmployees() {
                     }}
                   >
                     <option selected disabled hidden value="">
-                      Select Category
+                      Select Gender
                     </option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -325,7 +330,7 @@ export default function AdminEmployees() {
                   <Field
                     className={styles.Form__Input_Email}
                     name="Number"
-                    placeholder="Contact No.(ex. 09983511675)"
+                    placeholder="Contact No.(ex. 0912 345 6789)"
                     required={true}
                   />
                 </div>

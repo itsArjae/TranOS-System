@@ -1,3 +1,16 @@
+@font-face {
+  font-family: 'Island Moments';
+  src: url('../../../public/assets/fonts/Island_Moments/IslandMoments-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Raleway';
+    src: url('../../../public/assets/fonts/raleway/Raleway-SemiBold.ttf');
+    font-weight: 500;
+    font-style: normal;
+    }
 .container{
   display: flex;
   flex-direction: column;
@@ -7,9 +20,20 @@
   justify-content: center;
   background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #55a3d6);
   background-attachment: fixed;
-  overflow: auto
-}
 
+}
+.table__header1{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-image: linear-gradient(to bottom right, #002B5B, #2B4865, #256D85, #8FE3CF);
+
+}
 .inner__container{
   display: flex;
   flex-direction: column;
@@ -18,6 +42,7 @@
   height: 550px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  background-color: white;
 }
 .order__box{
   display: flex;
@@ -31,23 +56,44 @@
   display: flex;
   align-items: center;
   width: 100%;
-  height: 50px;
-  padding: 10px;
+  height: 70px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: #42C2FF;
 }
 .Exit__Button{
   cursor: pointer;
-  background-color: white;
+  background: none;
   border: none;
   border-radius: 5px;
+  font-size: 20px;
 }
 .Btn__Box{
   margin-left: auto;
+
 }
-.Exit__Button:hover{
-  border: 1px solid black;
+.Btn__Text{
+  text-align: center;
+}
+
+.Btn__Text h2{
+  font-size: 30px;
+  font-family: 'Raleway', sans-serif;
+  color: white;
+  font-weight: bolder;
+  letter-spacing: 2px;
+}
+.Btn__Text1{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 45%;
+  text-align: center;
+}
+.Btn__Text1 h2{
+  font-family: 'Island Moments', cursive;
+  font-size: 50px;
+  color: white;
+  font-weight: lighter;
 }
 .table__container{
   display: flex;

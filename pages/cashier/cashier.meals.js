@@ -18,6 +18,13 @@ const DefaultPicMenu =
   "/assets/cashier-assets/pictures/Cashier-Def-Pic-Menu.png";
 
 export default function CashierMenu() {
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if (position != "Cashier") {
+      router.push("/sign-in");
+    }
+  }, []);
+
   const router = useRouter();
   const db = getFirestore(app);
 
@@ -127,7 +134,15 @@ export default function CashierMenu() {
 
       <Divider />
       <div className={styles.Cashier__Tab__Container}>
-        <div className={styles.Container}> {DisplayItems}</div>
+        <div className={styles.Container}>
+          {menuData.length > 0 ? (
+            DisplayItems
+          ) : (
+            <div className={styles.NoData}>
+              <p>No Data Available</p>
+            </div>
+          )}
+        </div>
       </div>
 
       <div>

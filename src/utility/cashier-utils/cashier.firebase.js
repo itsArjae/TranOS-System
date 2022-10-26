@@ -51,7 +51,7 @@ export async function saveTransaction(
   }
 }
 
-export async function saveItems(id, orderData, date) {
+export async function saveItems(id, orderData, miscData, date) {
   orderData.map(async (val) => {
     try {
       const docRef = await addDoc(collection(db, "salesDetails"), {
@@ -62,6 +62,26 @@ export async function saveItems(id, orderData, date) {
         quantity: val.quantity,
         total: val.subTotal,
         dateBought: date,
+        category: "order",
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  });
+  saveMiscItems(id, miscData, date);
+}
+
+export async function saveMiscItems(id, miscData, date) {
+  miscData.map(async (val) => {
+    try {
+      const docRef = await addDoc(collection(db, "salesDetails"), {
+        transacID: id,
+        orderID: val.id,
+        description: val.itemName,
+        total: val.subTotal,
+        dateBought: date,
+        category: "misc",
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {

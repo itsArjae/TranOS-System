@@ -16,6 +16,14 @@ export default function CashierReceipt(props) {
     trID,
     getTotalFixed,
     getTotalFixed2,
+    getGrandTotal,
+    getGTotalFixed2,
+    miscData,
+    cat,
+    charges,
+    getTotalMisc,
+    getTotalFixedMisc,
+    getTotalFixedMisc2,
   } = props;
 
   return (
@@ -39,7 +47,10 @@ export default function CashierReceipt(props) {
         <table>
           <tbody>
             <tr>
-              <td>Table: </td>
+              <td colSpan={2}>===================================</td>
+            </tr>
+            <tr>
+              <td>{cat}: </td>
               <td>{tid}</td>
             </tr>
             <tr>
@@ -47,14 +58,15 @@ export default function CashierReceipt(props) {
               <td>{trID}</td>
             </tr>
             <tr>
-              <td>Date: </td>
+              <td>Date & Time: </td>
               <td>{dateTime}</td>
+            </tr>
+            <tr>
+              <td colSpan={2}>===================================</td>
             </tr>
           </tbody>
         </table>
       </div>
-
-      <Divider sx={{ marginBottom: "10px", marginTop: "10px" }} />
 
       <div className={styles.order__list}>
         <table>
@@ -91,13 +103,35 @@ export default function CashierReceipt(props) {
       <div className={styles.table__container}>
         <table>
           <tbody>
+            <ListBody>
+              {miscData.map((record) => {
+                return (
+                  <List key={record.id}>
+                    <OrderReceipt>{record.itemName}</OrderReceipt>
+                    <OrderReceipt>
+                      {Number(record.subTotal)
+                        .toFixed(2)
+                        .toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                    </OrderReceipt>
+                  </List>
+                );
+              })}
+            </ListBody>
+            <Divider />
+            <tr>
+              <td colSpan={2}>===================================</td>
+            </tr>
             <tr>
               <td>
-                <i>Miscellaneous Fee:</i>
+                <i>Charges:</i>
               </td>
               <td>
                 <i>
-                  {Number(misce).toFixed(2) ? Number(misce).toFixed(2) : ""}
+                  {Number(getTotalMisc())
+                    .toFixed(2)
+                    .toString()
+                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
                 </i>
               </td>
             </tr>
@@ -125,7 +159,7 @@ export default function CashierReceipt(props) {
           <tbody>
             <tr>
               <td>Total:</td>
-              <td>{total ? getTotalFixed() : getTotalFixed2()}</td>
+              <td>{getGTotalFixed2()}</td>
             </tr>
             <tr>
               <td>Cash:</td>

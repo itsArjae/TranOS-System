@@ -30,10 +30,6 @@ const headers = [
     id: 5,
     header: "Cashier",
   },
-  {
-    id: 6,
-    header: "Waiter",
-  },
 ];
 
 export default function AdminTables(props) {
@@ -86,13 +82,13 @@ export default function AdminTables(props) {
 
           <div className={styles.Table__Data__Box}> {data.tableNum}</div>
           <div className={styles.Table__Data__Box}>
-            {Number(data.totalAmount).toFixed(2)}
+            {Number(data.totalAmount)
+              .toFixed(2)
+              .toString()
+              .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
           </div>
           <div className={styles.Table__Data__Box}> {data.dateCreated}</div>
           <div className={styles.Table__Data__Box}> {data.cashierName}</div>
-          <div className={styles.Table__Data__Box}>
-            {data.waiterName ? data.waiterName : "N/A"}
-          </div>
         </div>
       );
     });
@@ -173,7 +169,15 @@ export default function AdminTables(props) {
       </div>
       <div className={styles.Table__Box}>
         <div className={styles.Table__Head}>{Header}</div>
-        <div className={styles.Table__Data_Container}>{DisplayItems}</div>
+        <div className={styles.Table__Data_Container}>
+          {transacData.length > 0 ? (
+            DisplayItems
+          ) : (
+            <div className={styles.NoData}>
+              <p>No Data Available</p>
+            </div>
+          )}
+        </div>
       </div>
       <div>
         <ReactPaginate

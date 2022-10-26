@@ -26,6 +26,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function CashierManageTableredo() {
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if (position != "Cashier") {
+      router.push("/sign-in");
+    }
+  }, []);
+
   const notify = () =>
     toast.error("No order/s available!", {
       //icon: "✔️",

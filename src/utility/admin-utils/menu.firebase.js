@@ -46,6 +46,7 @@ export async function saveMenuData(data, menuId, pictureUrl, date) {
       return data.Serving;
     }
   };
+  const pCode = Date.now();
   try {
     const docRef = await addDoc(collection(db, "meals"), {
       MealName: data.MealName,
@@ -53,6 +54,7 @@ export async function saveMenuData(data, menuId, pictureUrl, date) {
       Serving: noServing(),
       Status: true,
       ImageUrl: pictureUrl,
+      ItemCode: `M${pCode}`,
     });
     console.log("Document written with ID: ", docRef.id);
     saveNotifData(

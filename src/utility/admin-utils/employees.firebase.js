@@ -220,7 +220,8 @@ export function updateEmployee(
   empAge,
   empEmail,
   empContact,
-  empAdd
+  empAdd,
+  pos
 ) {
   const docRef = doc(db, "employees", id);
   const data = {
@@ -231,6 +232,7 @@ export function updateEmployee(
     Email: empEmail,
     Number: empContact,
     Address: empAdd,
+    Position: pos,
   };
   setDoc(docRef, data, { merge: true })
     .then((docRef) => {
@@ -256,9 +258,6 @@ export async function addEmployeesData(
   resumeUrl,
   pictureUrl
 ) {
- 
- 
-  
   try {
     const docRef = await addDoc(collection(db, "employees"), {
       Surname: data.Surname,
@@ -273,12 +272,11 @@ export async function addEmployeesData(
       ImageUrl: pictureUrl,
       ResumeUrl: resumeUrl,
       Password: Password,
-      Username:Username,
+      Username: Username,
       Number: data.Number,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
   }
-  
 }

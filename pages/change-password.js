@@ -97,7 +97,7 @@ export default function ChangePass() {
     <div className={styles.container}>
       <div className={styles.Login__Box}>
         <div className={styles.Login__Form}>
-          <h1>Change Password</h1>
+          <h1>Update Password</h1>
 
           <Formik
             initialValues={initialValues}
@@ -105,33 +105,25 @@ export default function ChangePass() {
             onSubmit={onSubmit}
           >
             <Form autoComplete="off" className={styles.form}>
-              <div className={styles.input__box}>
-                <Field
-                  name="oldPass"
-                  type="password"
-                  placeholder="Old Password"
-                  className={styles.input}
-                />
-                <ErrorMessage component="span" name="oldPass" />
-              </div>
-              <div className={styles.input__box}>
+              <div className={styles.Input1__Pass}>
                 <Field
                   name="newPass"
                   type="password"
                   placeholder="New Password"
                   className={styles.input}
+                  required={true}
                 />
-                <ErrorMessage component="span" name="newPass" />
               </div>
-              <div className={styles.input__box}>
+              <div className={styles.Input1__Pass}>
                 <Field
                   name="confirmPass"
                   type="password"
                   placeholder="Confirm Password"
                   className={styles.input}
+                  required={true}
                 />
-                <ErrorMessage component="span" name="confirmPass" />
               </div>
+
               <button className={styles.submit} type="submit">
                 LOGIN
               </button>

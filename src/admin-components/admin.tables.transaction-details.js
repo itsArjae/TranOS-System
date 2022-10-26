@@ -35,9 +35,9 @@ export default function AdminTablesTransac(props) {
   const [pageNumber, setPageNumber] = useState(0);
   let pageCountFixed = () => {
     if (searchTerm === "") {
-      return 6;
+      return 5;
     } else {
-      return transacData.length;
+      return 5;
     }
   };
   let pageVisitedFixed = () => {
@@ -58,11 +58,17 @@ export default function AdminTablesTransac(props) {
         <div className={styles.Table__Data} key={data.id}>
           <div className={styles.Table__Data__Box}> {data.description}</div>
           <div className={styles.Table__Data__Box}>
-            {Number(data.price).toFixed(2)}
+            {Number(data.price)
+              .toFixed(2)
+              .toString()
+              .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
           </div>
           <div className={styles.Table__Data__Box}> {data.quantity}</div>
           <div className={styles.Table__Data__Box}>
-            {Number(data.total).toFixed(2)}
+            {Number(data.total)
+              .toFixed(2)
+              .toString()
+              .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
           </div>
         </div>
       );
@@ -110,7 +116,15 @@ export default function AdminTablesTransac(props) {
     <div className={styles.Table__Container}>
       <div className={styles.Table__Box}>
         <div className={styles.Table__Head}>{Header}</div>
-        <div className={styles.Table__Data_Container}>{DisplayItems}</div>
+        <div className={styles.Table__Data_Container}>
+          {transacData.length > 0 ? (
+            DisplayItems
+          ) : (
+            <div className={styles.NoData}>
+              <p>No Data Available</p>
+            </div>
+          )}
+        </div>
       </div>
       <div>
         <ReactPaginate

@@ -30,6 +30,13 @@ import { UserDocument } from "../../src/misc/userdata";
 import AdminTablesEmp from "../../src/admin-components/admin.tables-emp";
 
 export default function AdminEmployees() {
+  useEffect(() => {
+    const position = sessionStorage.getItem("Position");
+    if (position != "Admin") {
+      router.push("/sign-in");
+    }
+  }, []);
+
   const currentUser = useAuth();
   const [messageVisible, setMessageVisible] = useState(false);
   const [message, setMessage] = useState("");
@@ -83,7 +90,12 @@ export default function AdminEmployees() {
     if (pos === "Cashier") {
       password = `TCashier2022`;
       username = `TCashier`;
-      dpassword = `TCashier$2022`;
+      dpassword = `TCashier2022`;
+    }
+    if (pos === "Waiter") {
+      password = `TWaiter2022`;
+      username = `TWaiter`;
+      dpassword = `TWaiter2022`;
     }
 
     try {
@@ -136,6 +148,9 @@ export default function AdminEmployees() {
   };
 
   const [empData, setEmpData] = useState([]);
+  const [empActive, setActiveData] = useState([]);
+  const [empInactive, setInactiveData] = useState([]);
+
   const getEmpData = async () => {
     const saleRef = collection(db, "employees");
     console.log("read");
@@ -150,6 +165,44 @@ export default function AdminEmployees() {
       });
 
       setEmpData(sale);
+    });
+    setLoading(true);
+  };
+
+  const getActiveEmpData = async () => {
+    const saleRef = collection(db, "employees");
+    console.log("read");
+    const q = query(
+      saleRef,
+      where("Status", "==", true),
+      where("Position", "not-in", ["SuperAdmin", "Admin"])
+    );
+    onSnapshot(q, (snapshot) => {
+      let sale = [];
+      snapshot.docs.forEach((doc) => {
+        sale.push({ ...doc.data(), id: doc.id });
+      });
+
+      setActiveData(sale);
+    });
+    setLoading(true);
+  };
+
+  const getInactiveEmpData = async () => {
+    const saleRef = collection(db, "employees");
+    console.log("read");
+    const q = query(
+      saleRef,
+      where("Status", "==", false),
+      where("Position", "not-in", ["SuperAdmin", "Admin"])
+    );
+    onSnapshot(q, (snapshot) => {
+      let sale = [];
+      snapshot.docs.forEach((doc) => {
+        sale.push({ ...doc.data(), id: doc.id });
+      });
+
+      setInactiveData(sale);
     });
     setLoading(true);
   };
@@ -175,6 +228,8 @@ export default function AdminEmployees() {
   useEffect(() => {
     try {
       getEmpData();
+      getActiveEmpData();
+      getInactiveEmpData();
     } catch (err) {}
   }, []);
   //
@@ -227,11 +282,67 @@ export default function AdminEmployees() {
 
   return isLoading ? (
     <IdleTimerContainer>
-      <div className={styles.Employees__Container}>
+      <div className={styles.Employees__Container1}>
         <div className={styles.Ave__Box}>
-          <div className={styles.Daily__Box}></div>
-          <div className={styles.Monthly__Box}></div>
-          <div className={styles.Yearly__Box}></div>
+          <div className={styles.Sales__Container1}>
+            <div className={styles.Sales}>
+              <div className={styles.TxtSales}>
+                <h2 className={styles.Sales_Text}>Total Employees</h2>
+              </div>
+
+              <div className={styles.TxtSales_Price}>
+                <h1 className={styles.Price_Text}>{empData.length}</h1>
+              </div>
+            </div>
+            <div className={styles.MSales__Container}>
+              <img
+                src="/assets/admin-assets/svg/usersemp.icon.svg"
+                width={50}
+                height={50}
+                alt="Employee Icon"
+              />
+            </div>
+          </div>
+
+          <div className={styles.Sales__Container2}>
+            <div className={styles.Sales}>
+              <div className={styles.TxtSales}>
+                <h2 className={styles.Sales_Text}>Active Users</h2>
+              </div>
+
+              <div className={styles.TxtSales_Price}>
+                <h1 className={styles.Price_Text}>{empActive.length}</h1>
+              </div>
+            </div>
+            <div className={styles.MSales__Container}>
+              <img
+                src="/assets/admin-assets/svg/activeusers.icon.svg"
+                width={50}
+                height={50}
+                alt="Active Users Icon"
+              />
+            </div>
+          </div>
+
+          <div className={styles.Sales__Container3}>
+            <div className={styles.Sales}>
+              <div className={styles.TxtSales}>
+                <h2 className={styles.Sales_Text}>Inactive Users</h2>
+              </div>
+
+              <div className={styles.TxtSales_Price}>
+                <h1 className={styles.Price_Text}>{empInactive.length}</h1>
+              </div>
+            </div>
+            <div className={styles.MSales__Container}>
+              <img
+                src="/assets/admin-assets/svg/inactiveusers.icon.svg"
+                width={50}
+                height={50}
+                alt="Inactive Users Icon"
+              />
+            </div>
+          </div>
         </div>
         <div className={styles.Table__Container}>
           <AdminTablesEmp empData={empData} />

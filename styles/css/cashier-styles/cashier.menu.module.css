@@ -96,6 +96,7 @@
 .Data_Info p{
   text-align: left;
   font-weight: 450;
+  line-height: .4;
   font-size: 22px;
   font-family: 'Raleway', sans-serif;
 }
@@ -218,7 +219,7 @@
 .imgContainer img{
   flex-shrink: 0;
   min-width: 100%;
-  min-height: 100%
+  min-height: 100%;
 }
 .contentContainer{
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -12px inset, rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
@@ -231,4 +232,14 @@
   margin-top: 75px;
   display: flex;
   padding: 20px;
+}
+
+.NoData{
+  align-items: center;
+  justify-content: center;
+}
+
+.NoData p{
+  font-size: medium;
+  color: rgb(147, 147, 147);
 }
