@@ -14,9 +14,10 @@ import { Divider } from "@mui/material";
 import ReactPaginate from "react-paginate";
 import KitchenNav from "../kitchen.nav";
 import { orderStatusChange, orderStatusChangeServe } from "../../src/utility/kitchen-utils/kitchen.firebase";
+import { useRouter } from "next/router";
 
 export default function KitchenHome() {
-
+const router = useRouter();
   
   useEffect(() => {
     const position = sessionStorage.getItem("Position");
@@ -30,13 +31,16 @@ export default function KitchenHome() {
   const getOrderQueue= () => {
     const orderRef = collection(db, "orderQueue");
     console.log("read queue");
-    const q = query(orderRef,orderBy("timeStamp"));
+    const q = query(orderRef,orderBy("status"));
     onSnapshot(q, (snapshot) => {
       let order = [];
       snapshot.docs.forEach((doc) => {
         order.push({ ...doc.data(), id: doc.id });
       });
-      console.log(order);
+     // console.log(order.sort(compareAge));
+     order.map((data)=>{
+      console.log(data.timeStamp)
+     });
       setOrderQueue(order);
     //  setDailySales(sale);
     });
@@ -45,6 +49,11 @@ export default function KitchenHome() {
   useEffect(()=>{
     getOrderQueue();
   },[]);
+  
+  function compareAge(a, b) {
+
+    return a.timeStamp - b.timeStamp;
+}
 
   return (
     <div className={styles.container}>
