@@ -69,6 +69,7 @@ export default function CashierPay(props) {
   var dateTime = d + " " + t + " " + curMeridiem;
 
   const changeRef = new useRef(null);
+  const cashRef = new useRef(null);
   const [payment, setPayment] = useState(0);
   const [change, setChange] = useState(0);
   const [cashier, setCashier] = useState("");
@@ -104,6 +105,7 @@ export default function CashierPay(props) {
   const [dSalesID, setDSalesID] = useState();
   const [mSalesID, setMSalesID] = useState();
   const [ySalesID, setYSalesID] = useState();
+  const [isPaying, setIsPaying] = useState(false);
 
   const getDailySales = () => {
     const saleRef = collection(db, "dailySales");
@@ -212,6 +214,9 @@ export default function CashierPay(props) {
     saveItems(trID, orderData, miscData, dateTime);
     deleteData(orderData);
     updateTable(tid);
+    setIsPaying(true);
+    cashRef.current.value = 0.0;
+    changeRef.current.value = 0.0;
     let needRender = true;
     const interval = setInterval(() => {
       if (needRender === true) {
@@ -263,7 +268,7 @@ export default function CashierPay(props) {
                     className={styles.Form__Input}
                     type="text"
                     id="total"
-                    value={getGTotalFixed2()}
+                    value={isPaying ? 0 : getGTotalFixed2()}
                     readOnly={true}
                   ></input>
                 </div>
@@ -276,6 +281,7 @@ export default function CashierPay(props) {
                     type="number"
                     id="cash"
                     placeholder="0.00"
+                    ref={cashRef}
                     onChange={(e) => {
                       pay(e.target.value);
                     }}
