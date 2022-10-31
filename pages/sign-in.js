@@ -21,7 +21,9 @@ export default function SignIn() {
 
   useEffect(()=>{
     sessionStorage.removeItem("Position");
-  },[])
+  },[]);
+
+  
 
   const router = useRouter();
   const [pos, setPos] = useState("Admin");
@@ -71,7 +73,7 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [errorMes, setErrorMes] = useState("");
   const [hasError, setHasError] = useState(false);
-  const [isLogging,setIsLogging] = useState(false)
+  const [isLogging,setIsLogging] = useState(false);
 
   const getUserInfo = async (temp) => {
     setHasLoaded(false);
@@ -117,6 +119,8 @@ export default function SignIn() {
 
   const InputEmail = (props) => {
     const [temp, setTemp] = useState("");
+
+ 
     return hasLoaded ? (
       <div>
         <div className={styles.Input__Box}>
@@ -146,6 +150,8 @@ export default function SignIn() {
       <Loading />
     );
   };
+
+ 
 
   const back = () => {
     setStep(1);
