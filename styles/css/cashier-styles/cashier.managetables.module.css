@@ -1,61 +1,104 @@
-.Container{
+.Container {
   height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
 }
-.Table__Container{
+.Table__Container {
   margin-top: 100px;
   height: 100%;
   width: 100%;
- background-image: url(/assets/admin-assets/pictures/table-background.jpg);
-  border: 1px solid black;
+  /* background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #9bcdee); */
+  background-image: url(/assets/admin-assets/pictures/bg3.jpg);
+  background-size: 100vw;
+  background-repeat: no-repeat;
   overflow: auto;
 }
-.Table{
-  height: 90px;
-  width: 90px;
+.Table {
+  height: 200px;
+  width: 200px;
   padding: 10px;
-  border: 2px solid black;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  color: white;
-}
-.Table_Handle{
-  text-align: center;
-  cursor:move;
-  color: white;
-}
-.Table__Button{
-  width:60px;
-  margin: 0 2px;
-  background-color: transparent;
-  color: white;
-  border-color: white;
+  border-radius: 10px;
+  font-weight: bold;
   cursor: pointer;
 }
-.Table__Button:hover{
+
+
+.table__title{
+  font-size: 30px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7),
+  rgba(255, 255, 255, 0.7));
+  padding: 0 5px;
+  border: 1px solid white;
+  color: rgb(0, 0, 0);
+  margin-top: 53px;
+  border-radius: 20px;
+}
+
+
+.table__icon {
+  position: absolute;
+  z-index: -1;
+  height: 120px;
+  transition: .5s;
+}
+
+.table__icon:hover{
+  transition: .5s;
+  position: absolute;
+  height: 150px;
+  width: 150px;
+
+}
+.table__box {
+  text-align: center;
+  font-weight: bolder;
+  color: rgb(252, 239, 239);
+}
+
+.Table_Handle {
+  text-align: center;
+  cursor: move;
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  z-index: 0;
+}
+.Table__Button {
+  width: 30px;
+  margin: 0 2px;
+  background-color: transparent;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5),
+                       rgba(0, 0, 0, 0.5));
+  color: rgb(241, 241, 241);
+  cursor: pointer;
+  border: 1px solid white;
+  margin-top:25px;
+
+}
+
+.Table__Button:hover {
   background-color: rgb(12, 51, 51);
 }
-.Table__Button_Box{
+.Table__Button_Box {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.Table__Manage_Btn{
-  margin: 0 .2rem;
+.Table__Manage_Btn {
+  margin: 0 0.2rem;
   background-color: white;
   border: 1px solid gray;
   cursor: pointer;
 }
 
-.Table__Manage_Btn:hover{
+.Table__Manage_Btn:hover {
   background-color: aqua;
-
 }
 
-.Table__ButtonBox{
+.Table__ButtonBox {
   height: 40px;
 }

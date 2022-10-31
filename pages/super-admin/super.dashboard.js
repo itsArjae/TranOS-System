@@ -57,6 +57,7 @@ export default function SuperDashboard() {
      
     });
   };
+  
 
   const getMonthlySales = () => {
     const saleRef = collection(db, "monthlySales");
