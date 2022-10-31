@@ -32,7 +32,7 @@ export default function AdminEmployees() {
       //icon: "❌",
     });
 
-    const notifyError = (name) =>
+  const notifyError = (name) =>
     toast.error(`${name}`, {
       // icon: "✔️",
       icon: "❌",
@@ -69,7 +69,7 @@ export default function AdminEmployees() {
 
   //backend
   const onSubmit = async (data, { resetForm }) => {
-    if(data.Number.length != 11){
+    if (data.Number.length != 11) {
       notifyError("Invalid Number! It must be 11 digits long.");
       return;
     }
@@ -246,7 +246,7 @@ export default function AdminEmployees() {
           >
             <Form autoComplete="off" className={styles.Employees__Form}>
               <div className={styles.Form__Header}>
-                <div className={styles.Header__Top1}>ADD EMPLOYEES</div>
+                <div className={styles.Header__Top1}>ADD USERS</div>
                 <div className={styles.Header__Top2}>
                   {" "}
                   <Image

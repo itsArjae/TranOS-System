@@ -315,7 +315,7 @@ export default function AdminLayout({ children }) {
                     fontWeight: "bold",
                   }}
                 >
-                  Employees
+                  Users
                 </Typography>
               </ListItemText>
             </ListItem>
@@ -360,28 +360,6 @@ export default function AdminLayout({ children }) {
                   }}
                 >
                   Tables
-                </Typography>
-              </ListItemText>
-            </ListItem>
-
-            <ListItem button onClick={goExpenses}>
-              <ListItemIcon>
-                <Image
-                  src="/assets/admin-assets/svg/admin.expenses.icon.svg"
-                  alt="Raw Goods Icon"
-                  width={25}
-                  height={25}
-                />
-              </ListItemIcon>
-              <ListItemText sx={{}}>
-                <Typography
-                  variant="h2"
-                  sx={{
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Expenses
                 </Typography>
               </ListItemText>
             </ListItem>

@@ -273,3 +273,10 @@ border-radius: 10px;
   height: 90px;
   width: 300px;
 }
+
+.users{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}

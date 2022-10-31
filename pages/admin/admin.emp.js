@@ -29,6 +29,9 @@ import MessageBox from "../../src/misc/messagebox";
 import { UserDocument } from "../../src/misc/userdata";
 import AdminTablesEmp from "../../src/admin-components/admin.tables-emp";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function AdminEmployees() {
   useEffect(() => {
     const position = sessionStorage.getItem("Position");
@@ -36,6 +39,18 @@ export default function AdminEmployees() {
       router.push("/sign-in");
     }
   }, []);
+
+  const notify = (name) =>
+    toast.success(`${name} successfully created!`, {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
+  const notifyError = (name) =>
+    toast.error(`${name}`, {
+      // icon: "✔️",
+      icon: "❌",
+    });
 
   const currentUser = useAuth();
   const [messageVisible, setMessageVisible] = useState(false);
@@ -68,6 +83,12 @@ export default function AdminEmployees() {
 
   //backend
   const onSubmit = async (data, { resetForm }) => {
+    if (data.Number.length != 11) {
+      notifyError("Invalid Number! It must be 11 digits long.");
+      return;
+    }
+    console.log(data.Number);
+
     let needRender = true;
     let password = null;
     let username = null;
@@ -127,14 +148,16 @@ export default function AdminEmployees() {
     resetForm();
     imageRef.current.value = "";
     resumeRef.current.value = "";
-    setPos("Cashier");
-    setGen("Male");
+    setPos("");
+    setGen("");
     setPicItem(null);
     setResItem(null);
 
     const interval = setInterval(() => {
       if (needRender === true) {
+        notify(data.Email);
         renderEmp();
+        needRender = false;
       }
     }, 5000);
   };
@@ -174,24 +197,22 @@ export default function AdminEmployees() {
     console.log("read active");
     const q = query(
       saleRef,
-      where("Position", "not-in", ["SuperAdmin", "Admin"]),
+      where("Position", "not-in", ["SuperAdmin", "Admin"])
     );
     onSnapshot(q, (snapshot) => {
       let sale = [];
       snapshot.docs.forEach((doc) => {
         sale.push({ ...doc.data(), id: doc.id });
       });
-      console.log(sale)
+      console.log(sale);
 
-        sale.map((data)=>{
-          if(data.Status === false){
-            setInactiveData([...empInactive, data]);
-           
-          }
-          else{
-            setActiveData([...empActive, data]);
-          }
-        })
+      sale.map((data) => {
+        if (data.Status === false) {
+          setInactiveData([...empInactive, data]);
+        } else {
+          setActiveData([...empActive, data]);
+        }
+      });
       setActiveData(sale);
     });
     setLoading(true);
@@ -261,8 +282,8 @@ export default function AdminEmployees() {
     FirstName: "",
     MiddleName: "",
     Age: "",
-    Position: "Cashier",
-    Gender: "Male",
+    Position: "",
+    Gender: "",
     Email: "",
     Active: true,
     Address: "",
@@ -279,7 +300,7 @@ export default function AdminEmployees() {
     Age: Yup.number().required("Invalid"),
     Email: Yup.string().required("Invalid"),
     Address: Yup.string().required("Invalid"),
-    Number: Yup.string().min(11).max(11).required("Invalid"),
+    Number: Yup.string().required("Invalid"),
   });
 
   //
@@ -296,7 +317,7 @@ export default function AdminEmployees() {
           <div className={styles.Sales__Container1}>
             <div className={styles.Sales}>
               <div className={styles.TxtSales}>
-                <h2 className={styles.Sales_Text}>Total Employees</h2>
+                <h2 className={styles.Sales_Text}>Total Users</h2>
               </div>
 
               <div className={styles.TxtSales_Price}>
@@ -308,7 +329,7 @@ export default function AdminEmployees() {
                 src="/assets/admin-assets/svg/usersemp.icon.svg"
                 width={50}
                 height={50}
-                alt="Employee Icon"
+                alt="Users Icon"
               />
             </div>
           </div>
@@ -316,11 +337,13 @@ export default function AdminEmployees() {
           <div className={styles.Sales__Container2}>
             <div className={styles.Sales}>
               <div className={styles.TxtSales}>
-                <h2 className={styles.Sales_Text}>Active Employees</h2>
+                <h2 className={styles.Sales_Text}>Active Users</h2>
               </div>
 
               <div className={styles.TxtSales_Price}>
-                <h1 className={styles.Price_Text}>{empActive.length - empInactive.length}</h1>
+                <h1 className={styles.Price_Text}>
+                  {empActive.length - empInactive.length}
+                </h1>
               </div>
             </div>
             <div className={styles.MSales__Container}>
@@ -336,7 +359,7 @@ export default function AdminEmployees() {
           <div className={styles.Sales__Container3}>
             <div className={styles.Sales}>
               <div className={styles.TxtSales}>
-                <h2 className={styles.Sales_Text}>Inactive Employees</h2>
+                <h2 className={styles.Sales_Text}>Inactive Users</h2>
               </div>
 
               <div className={styles.TxtSales_Price}>
@@ -353,8 +376,168 @@ export default function AdminEmployees() {
             </div>
           </div>
         </div>
-        <div className={styles.Table__Container}>
-          <AdminTablesEmp empData={empData} />
+        <div className={styles.users}>
+          <div className={styles.Form__Container}>
+            <Formik
+              initialValues={initialValues}
+              onSubmit={onSubmit}
+              validationSchema={validationSchema}
+            >
+              <Form autoComplete="off" className={styles.Employees__Form}>
+                <div className={styles.Form__Header}>
+                  <div className={styles.Header__Top1}>ADD USERS</div>
+                  <div className={styles.Header__Top2}>
+                    <Image
+                      src="/assets/admin-assets/svg/user.icon.svg"
+                      height={30}
+                      width={30}
+                      alt="User Icon"
+                    />
+                  </div>
+                  <div className={styles.Header__Top3}>{date}</div>
+                </div>
+                <div className={styles.Form__Input_Container}>
+                  <div className={styles.Form__Input_Box}>
+                    <Field
+                      className={styles.Form__Input}
+                      name="Surname"
+                      placeholder="Surname"
+                      required={true}
+                    />
+                  </div>
+                  <div className={styles.Form__Input_Box}>
+                    <Field
+                      className={styles.Form__Input}
+                      name="FirstName"
+                      placeholder="FirstName"
+                      required={true}
+                    />
+                  </div>
+                  <div className={styles.Form__Input_Box}>
+                    <Field
+                      className={styles.Form__Input}
+                      name="MiddleName"
+                      placeholder="MiddleName"
+                      required={true}
+                    />
+                  </div>
+                </div>
+                <div className={styles.Form__Input_Container}>
+                  <div className={styles.Form__Input_Box}>
+                    <Field
+                      className={styles.Form__Input}
+                      name="Age"
+                      placeholder="Age"
+                      type="number"
+                      required={true}
+                    />
+                  </div>
+                  <div className={styles.Form__Input_Box}>
+                    <select
+                      name="Gender"
+                      id="Gender"
+                      required={true}
+                      onChange={(event) => {
+                        setGen(event.target.value);
+                      }}
+                    >
+                      <option selected disabled hidden value="">
+                        Select Gender
+                      </option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                  </div>
+                  <div className={styles.Form__Input_Box}>
+                    <select
+                      name="Position"
+                      id="Position"
+                      required={true}
+                      onChange={(event) => {
+                        setPos(event.target.value);
+                      }}
+                    >
+                      <option selected disabled hidden value="">
+                        Select Position
+                      </option>
+                      <option value="Cashier">Cashier</option>
+                      <option value="Waiter">Waiter</option>
+                      <option value="Chef">Chef</option>
+                    </select>
+                  </div>
+                </div>
+                <div className={styles.Form__Input_Container}>
+                  <div className={styles.Form__Input_Box}>
+                    <Field
+                      className={styles.Form__Input_Email}
+                      name="Email"
+                      placeholder="Email"
+                      type="email"
+                      required={true}
+                    />
+                    <Field
+                      className={styles.Form__Input_Email}
+                      name="Number"
+                      placeholder="Contact No.(ex. 0912 345 6789)"
+                      required={true}
+                    />
+                  </div>
+                </div>
+                <div className={styles.Form__Input_Container}>
+                  <div className={styles.Form__Input_Box}>
+                    <Field
+                      className={styles.Form__Input_Add}
+                      name="Address"
+                      placeholder="Address"
+                      type="Address"
+                      required={true}
+                    />
+                  </div>
+                </div>
+                <div className={styles.Form__Input_Container}>
+                  <div className={styles.Form__Input_Box_File}>
+                    <label htmlFor="imageFile">Image: </label>
+                    <input
+                      className={styles.Form__Input_File}
+                      name="Image"
+                      type="file"
+                      id="imageFile"
+                      onChange={imageHandler}
+                      ref={imageRef}
+                    />
+                  </div>
+                  <div className={styles.Form__Input_Box_File}>
+                    <label htmlFor="imageFile">Resume: </label>
+                    <input
+                      className={styles.Form__Input_File}
+                      name="Resume"
+                      type="file"
+                      id="resumeFile"
+                      onChange={resumeHandler}
+                      ref={resumeRef}
+                    />
+                  </div>
+                </div>
+                <div className={styles.Form__Btn_Container}>
+                  <button
+                    className={styles.Form__Clear_Btn}
+                    type="reset"
+                    onClick={() => {
+                      console.log(initialValues);
+                    }}
+                  >
+                    Clear
+                  </button>
+                  <button type="submit" className={styles.Form__Submit_Btn}>
+                    Submit
+                  </button>
+                </div>
+              </Form>
+            </Formik>
+          </div>
+          <div className={styles.Table__Container}>
+            <AdminTablesEmp empData={empData} />
+          </div>
         </div>
         {messageVisible == true && (
           <OuterBox>
@@ -363,6 +546,7 @@ export default function AdminEmployees() {
             </InnerBox>
           </OuterBox>
         )}
+        <ToastContainer />
       </div>
     </IdleTimerContainer>
   ) : (

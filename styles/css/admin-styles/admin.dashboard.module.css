@@ -104,12 +104,12 @@ margin-bottom:50px;
 /* dasboard page======================================== */
 
 .btnDashboard{
-  height: 160px;
+  height: 330px;
   width: 220px;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  background-image: linear-gradient(to bottom right, #e782f0, #670054);
+  background-image: linear-gradient(to bottom right, rgb(242, 66, 66), rgb(89, 0, 0));
   outline: none;
   border-radius: 30px;
   border: none;
@@ -118,7 +118,7 @@ margin-bottom:50px;
   margin-right: 10px;
 }
 .btnDashboard:hover{
-  border: 5px solid #de65e9 ;
+  border: 5px solid rgb(255, 108, 108);
 }
 
 .btnEmployees{
@@ -181,7 +181,7 @@ margin-bottom:50px;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  background-image: linear-gradient(to bottom right, rgb(242, 66, 66), rgb(89, 0, 0));
+  background-image: linear-gradient(to bottom right, #e782f0, #670054);
   outline: none;
   border-radius: 30px;
   border: none;
@@ -190,7 +190,7 @@ margin-bottom:50px;
   margin-right: 10px;
 }
 .btnBeverages:hover{
-  border: 5px solid rgb(255, 108, 108) ;
+  border: 5px solid #de65e9;
 }
 
 .btnTables{

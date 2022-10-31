@@ -336,44 +336,30 @@ const Dashboard = () => {
 
           <div className={styles.Icons__Container2}>
             <div className={styles.Icons__Container2_1}>
-              <button
-                className={styles.btnDashboard}
-                style={{ marginBottom: "10px" }}
-                onClick={goDash}
-              >
+              <button className={styles.btnDashboard} onClick={goDash}>
                 <Image
                   src="/assets/admin-assets/svg/db.dashboard.icon.svg"
                   width={50}
                   height={50}
-                  alt="raw goods icon"
+                  alt="dashboard icon"
                 />
                 <p className={styles.Icons__Text}>DASHBOARD</p>
               </button>
+            </div>
 
-              <button className={styles.btnEmployees} onClick={goEmp}>
+            <div className={styles.Icons__Container2_1}>
+              <button
+                className={styles.btnEmployees}
+                style={{ marginBottom: "10px" }}
+                onClick={goEmp}
+              >
                 <Image
                   src="/assets/admin-assets/svg/db.users.icon.svg"
                   width={50}
                   height={50}
                   alt="users icon"
                 />
-                <p className={styles.Icons__Text}>EMPLOYEES</p>
-              </button>
-            </div>
-
-            <div className={styles.Icons__Container2_1}>
-              <button
-                className={styles.btnBeverages}
-                style={{ marginBottom: "10px" }}
-                onClick={goExpenses}
-              >
-                <Image
-                  src="/assets/admin-assets/svg/db.expenses.icon.svg"
-                  width={50}
-                  height={50}
-                  alt="beverages icon"
-                />
-                <p className={styles.Icons__Text}>EXPENSES</p>
+                <p className={styles.Icons__Text}>USERS</p>
               </button>
 
               <button className={styles.btnTables} onClick={goTables}>

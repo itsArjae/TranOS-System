@@ -106,7 +106,7 @@ export default function AdminEmployeeData() {
                 <Divider />
                 <div>
                   <p>
-                    EmpID: <b>{data.id.substring(1, 10)}...</b>
+                    UserID: <b>{data.id.substring(1, 10)}...</b>
                   </p>
                   <p>
                     Position: <b>{data.Position}</b>
