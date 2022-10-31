@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react'
 import { useRef } from "react";
@@ -12,6 +13,11 @@ export default function KitchenNav() {
 
         return (
             <div className={styles.all}>
+                <Head>
+        <title>TRANOS | KITCHEN</title>
+        <link rel="icon" href="/assets/misc/tranos.icon.png" />
+      </Head>
+      
             <div className={styles.Header}>
                 {/* <div className={styles.sims}>
                 <img src='/pictures/sims.png' className={styles.logo_png}/>

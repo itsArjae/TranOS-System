@@ -1,4 +1,5 @@
 import { Divider } from '@mui/material';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
@@ -49,6 +50,10 @@ export default function SuperLayout({children}) {
 
   return (
     <div className={styles.layout__container} >
+      <Head>
+        <title>TRANOS | SUPER ADMIN</title>
+        <link rel="icon" href="/assets/misc/tranos.icon.png" />
+      </Head>
       <div className={styles.layout__box} >
           <div className={styles.layout__header} >
             <img src='/assets/admin-assets/pictures/logo.png'/>
