@@ -70,8 +70,8 @@ export default function AdminEmployees() {
   const [resItem, setResItem] = useState(); // for resume
   const imageRef = useRef(null);
   const resumeRef = useRef(null);
-  const [pos, setPos] = useState("Cashier");
-  const [gen, setGen] = useState("Male");
+  const [pos, setPos] = useState("");
+  const [gen, setGen] = useState("");
   const imageHandler = (event) => {
     setPicItem(event.target.files[0]);
   };
@@ -80,6 +80,11 @@ export default function AdminEmployees() {
   };
 
   //sign in validation
+
+  const resetData = () => {
+    setPos("");
+    setGen("");
+  };
 
   //backend
   const onSubmit = async (data, { resetForm }) => {
@@ -437,6 +442,7 @@ export default function AdminEmployees() {
                       name="Gender"
                       id="Gender"
                       required={true}
+                      value={gen}
                       onChange={(event) => {
                         setGen(event.target.value);
                       }}
@@ -453,6 +459,7 @@ export default function AdminEmployees() {
                       name="Position"
                       id="Position"
                       required={true}
+                      value={pos}
                       onChange={(event) => {
                         setPos(event.target.value);
                       }}
@@ -523,6 +530,7 @@ export default function AdminEmployees() {
                     className={styles.Form__Clear_Btn}
                     type="reset"
                     onClick={() => {
+                      resetData();
                       console.log(initialValues);
                     }}
                   >

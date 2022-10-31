@@ -53,6 +53,32 @@
   color: blue;
 }
 
+.download{
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: larger;
+  background-color: dodgerblue;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  /*border: 3px solid dodgerblue;*/
+}
+
+.download button{
+  font-size: 15px;
+  color: white;
+  background-color: dodgerblue;
+  border: none;
+  /*border: 3px solid dodgerblue;*/
+  cursor: pointer;
+}
+
+.download img{
+  width: 50px;
+}
 
 .Form__Box{
   width: 300px;
@@ -155,11 +181,37 @@
   background-color: #EEF1FF;
   flex-direction: column;
   width: 100%;
+  margin-top: 20px;
 }
 .logo img{
   width: 100px;
 }
 .logo h4{
   font-size: 12px;
+}
+
+.download{
+  height: 40px;
+  border-radius: 10px;
+  font-size: larger;
+  background-color: dodgerblue;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  margin-bottom: 20px;
+  /*border: 3px solid dodgerblue;*/
+}
+.download button{
+  font-size: 15px;
+  color: white;
+  background-color: dodgerblue;
+  border: none;
+  /*border: 3px solid dodgerblue;*/
+  cursor: pointer;
+}
+.download img{
+  width: 50px;
 }
 }

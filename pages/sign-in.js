@@ -18,10 +18,9 @@ import { TailSpin } from "react-loader-spinner";
 import { UserDocument } from "../src/misc/userdata";
 
 export default function SignIn() {
-
-  useEffect(()=>{
+  useEffect(() => {
     sessionStorage.removeItem("Position");
-  },[])
+  }, []);
 
   const router = useRouter();
   const [pos, setPos] = useState("Admin");
@@ -43,26 +42,26 @@ export default function SignIn() {
       setIsLogging(false);
       return;
     }
-  if(userInfo.Position == "Admin"){
-    sessionStorage.setItem("Position","Admin");
-    router.push("/admin/Admin.Dashboard");
-    return;
-  }
-  if(userInfo.Position == "Cashier"){
-    sessionStorage.setItem("Position","Cashier");
-    router.push("/cashier/cashier.table");
-    return;
-  }
-  if(userInfo.Position == "SuperAdmin"){
-    sessionStorage.setItem("Position","SuperAdmin");
-    router.push("/super-admin/super.dashboard");
-    return;
-  }
-  if(userInfo.Position == "Chef"){
-    sessionStorage.setItem("Position","Chef");
-    router.push("/kitchen/kitchen.home");
-    return;
-  }
+    if (userInfo.Position == "Admin") {
+      sessionStorage.setItem("Position", "Admin");
+      router.push("/admin/Admin.Dashboard");
+      return;
+    }
+    if (userInfo.Position == "Cashier") {
+      sessionStorage.setItem("Position", "Cashier");
+      router.push("/cashier/cashier.table");
+      return;
+    }
+    if (userInfo.Position == "SuperAdmin") {
+      sessionStorage.setItem("Position", "SuperAdmin");
+      router.push("/super-admin/super.dashboard");
+      return;
+    }
+    if (userInfo.Position == "Chef") {
+      sessionStorage.setItem("Position", "Chef");
+      router.push("/kitchen/kitchen.home");
+      return;
+    }
   };
 
   const [userInfo, setUserInfo] = useState([]);
@@ -71,7 +70,7 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [errorMes, setErrorMes] = useState("");
   const [hasError, setHasError] = useState(false);
-  const [isLogging,setIsLogging] = useState(false)
+  const [isLogging, setIsLogging] = useState(false);
 
   const getUserInfo = async (temp) => {
     setHasLoaded(false);
@@ -189,9 +188,7 @@ export default function SignIn() {
                 onSubmit(temp);
               }}
             >
-              {
-                isLogging? 'Logging In' : 'Log In'
-              }
+              {isLogging ? "Logging In" : "Log In"}
             </button>
           </div>
         </div>
@@ -242,6 +239,14 @@ export default function SignIn() {
               Good Times, Chill Sounds, <br></br>
               Big Waves, GooZy Friends
             </h4>
+          </div>
+          <div className={styles.download}>
+            <img
+              src="/assets/admin-assets/svg/download.icon.svg"
+              width={30}
+              height={30}
+            />
+            <button>Download App Here</button>
           </div>
         </div>
       </div>
