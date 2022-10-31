@@ -18,6 +18,13 @@ import {
   Firestore,
 } from "firebase/firestore";
 
+ const hutOrder = "/assets/cashier-assets/svg/hut.icon.svg";
+ const tableOrder = "/assets/cashier-assets/svg/table.icon.svg";
+ const table1 = "/assets/cashier-assets/svg/table1.icon.svg";
+ const hut = "/assets/cashier-assets/svg/hut1.icon.svg";
+ const door = "/assets/cashier-assets/svg/door.svg";
+//  /assets/cashier-assets/svg/table.icon.svg
+// /assets/cashier-assets/svg/hut.icon.svg
 export default function TableComponent(props) {
   
   const nodeRef = useRef(null);
@@ -36,8 +43,8 @@ export default function TableComponent(props) {
       setError(true);
     }*/
     setEnable(false);
-    let temp = data.y - getOffsetTop() - 85;
-    setNewPosition({x:data.x - 45 ,y:temp});
+    let temp = data.y - getOffsetTop() - 153;
+    setNewPosition({x:data.x - 100 ,y:temp});
   }
   const onDrag = () => {
 setPosition(null);
@@ -61,6 +68,9 @@ setPosition(null);
   }
 
 
+  const tryy = () => {
+    console.log(containerRef.current.offsetTop)
+  }
 
 
 
@@ -72,15 +82,23 @@ setPosition(null);
     onMouseDown={()=>{setPosition(null)}}
     handle="#handle"
     >  
-    <div className={styles.Table} style={{backgroundColor:table?.Color,position:'absolute'}} ref={nodeRef}>
-      {table?.Category}
+    <div className={styles.Table} style={{position:'absolute'}} ref={nodeRef}>
+    <div className={styles.table__title} ref={containerRef} >{table?.id}</div>
       <div ref={tableRef}  className={styles.Table_Handle} id="handle" onClick={()=>{console.log(tableRef.current.offsetLeft)}}  >
-        {table?.id}
+        *
       </div>
       <div className={styles.Table__Button_Box} >
       <button className={styles.Table__Button} onClick={handleSavePosition} >✔</button>
-      <button className={styles.Table__Button}  onClick={handleDelete} >✘</button>
+      <button className={styles.Table__Button}  onClick={tryy} >✘</button>
+      
       </div>
+      {
+        table?.Category == "Door" ? <img src={`${door}`} className={styles.table__icon} /> :
+        table?.Category == "Table"  && table?.Status == true ? <img src={`${table1}`} className={styles.table__icon} /> :
+        table?.Category == "Table"  && table?.Status == false ? <img src={`${tableOrder}`} className={styles.table__icon} /> :
+        table?.Category == "Hut"  && table?.Status == true ? <img src={`${hut}`} className={styles.table__icon} /> :
+        <img src={`${hutOrder}`} className={styles.table__icon} />
+      }
    </div>
 </Draggable>
   )
