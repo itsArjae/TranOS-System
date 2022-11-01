@@ -166,7 +166,7 @@ export default function EditEmployee(props) {
         <div className={styles.Form__Container}>
           <div className={styles.Employees__Form}>
             <div className={styles.Form__Header}>
-              <div className={styles.Header__Top1}>UPDATE EMPLOYEE DETAILS</div>
+              <div className={styles.Header__Top1}>UPDATE USER DETAILS</div>
               <div className={styles.Header__Top2}>
                 {type} {id.substring(1, 6)}...
               </div>

@@ -9,9 +9,12 @@
   height: 100%;
   width: 100%;
   /* background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #9bcdee); */
-  background-image: url(/assets/admin-assets/pictures/bg3.jpg);
-  background-size: 100vw;
+  background-image: url(/assets/admin-assets/pictures/bg4.jpg);
+  background-size: contain;
+  background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
+  /* // border: 1px solid black; */
   overflow: auto;
 }
 .Table {
