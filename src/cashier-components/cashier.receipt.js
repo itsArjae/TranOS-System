@@ -2,7 +2,8 @@ import React from "react";
 import styles from "../../styles/css/cashier-styles/components-css/cashier.receipt.module.css";
 import styled from "@emotion/styled";
 import { Divider } from "@mui/material";
-
+import { useReactToPrint } from "react-to-print";
+import { useRef } from "react";
 export default function CashierReceipt(props) {
   const {
     orderData,
@@ -26,8 +27,18 @@ export default function CashierReceipt(props) {
     getTotalFixedMisc2,
   } = props;
 
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content:()=>componentRef.current,
+    documentTitle:'Result',
+    // onAfterPrint:()=>alert('success')
+  });
+  
   return (
-    <div className={styles.container}>
+    <>
+   <div className={styles.receipt__box} >
+   <button onClick={handlePrint} className={styles.print__btn}>Print</button>
+   <div ref={componentRef}  className={styles.container}>
       <div className={styles.image__container}>
         <img
           src="/assets/admin-assets/pictures/logo.png"
@@ -201,6 +212,10 @@ export default function CashierReceipt(props) {
         </table>
       </div>
     </div>
+    
+   </div>
+    
+    </>
   );
 }
 

@@ -23,7 +23,7 @@ import {
 } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { logoutUser, useAuth } from "../utility/firebase";
-
+import { useReactToPrint } from "react-to-print";
 export default function CashierPay(props) {
   const router = useRouter();
   const currentUser = useAuth();
@@ -227,6 +227,13 @@ export default function CashierPay(props) {
     }, 3000);
   };
 
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content:()=>componentRef.current,
+    documentTitle:'Result',
+    // onAfterPrint:()=>alert('success')
+  });
+
   return (
     <div className={styles.container}>
       <div className={styles.inner__container}>
@@ -310,7 +317,8 @@ export default function CashierPay(props) {
               </div>
             </div>
           </div>
-          <div className={styles.other__container}>
+         
+          <div red={componentRef} className={styles.other__container}>
             <Receipt
               orderData={orderData}
               tid={tid}
@@ -331,8 +339,11 @@ export default function CashierPay(props) {
               getTotalMisc={getTotalMisc}
               getTotalFixedMisc={getTotalFixedMisc}
               getTotalFixedMisc2={getTotalFixedMisc2}
+
             />
           </div>
+        
+        
         </div>
       </div>
     </div>

@@ -274,7 +274,7 @@ export default function AdminSales() {
              <h2>Ave. Monthly Sales: {monthlySales.length > 0? getMsales(1) : 'Loading'}</h2>         
              </div>
              <div className={styles.sales__box} >
-                This Month's Sales: {monthlySales.length > 0? getMsales(2) : 'Loading'}
+                This Months Sales: {monthlySales.length > 0? getMsales(2) : 'Loading'}
              </div> 
             </div>
 
@@ -284,7 +284,7 @@ export default function AdminSales() {
              <h2>Ave. Yearly Sales: {yearlySales.length > 0? getYsales(1) : 'Loading'}</h2>         
              </div>
              <div className={styles.sales__box} >
-                This Year's Sales: {yearlySales.length > 0? getYsales(2) : 'Loading'}
+                This Years Sales: {yearlySales.length > 0? getYsales(2) : 'Loading'}
              </div> 
             </div>
           </div>

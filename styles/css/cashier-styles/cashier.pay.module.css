@@ -20,6 +20,7 @@
   justify-content: center;
   background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #55a3d6);
   background-attachment: fixed;
+  
 
 }
 .table__header1{
@@ -51,6 +52,7 @@
   justify-content: center;
   width: 100%;
   padding: 20px;
+
 }
 .table__header{
   display: flex;
@@ -106,9 +108,9 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
   width: 50%;
   height: 100%;
+  /* margin-top: 300px; */
 }
 .calcu__container{
   display: flex;
