@@ -20,7 +20,7 @@ import { useRouter } from "next/router";
 import { logoutUser, useAuth } from "../utility/firebase";
 
 export default function SuperAdminLayout({ children }) {
-  const userss = 'arjae';
+  const userss = "arjae";
   const currentUser = useAuth();
   const dateRef = useRef(null);
   const [dateNow, setDateNow] = useState("");
@@ -282,12 +282,11 @@ export default function SuperAdminLayout({ children }) {
                     fontWeight: "bold",
                   }}
                 >
-                  Employees
+                  Users
                 </Typography>
               </ListItemText>
             </ListItem>
 
-           
             <ListItem button onClick={goSignout}>
               <ListItemIcon>
                 <Image

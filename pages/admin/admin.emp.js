@@ -157,10 +157,9 @@ export default function AdminEmployees() {
     setGen("");
     setPicItem(null);
     setResItem(null);
-
+    notify(data.Email);
     const interval = setInterval(() => {
       if (needRender === true) {
-        notify(data.Email);
         renderEmp();
         needRender = false;
       }

@@ -274,6 +274,7 @@ export async function addEmployeesData(
       Password: Password,
       Username: Username,
       Number: data.Number,
+      IsFirstLogin: true,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
