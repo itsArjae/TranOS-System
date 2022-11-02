@@ -154,7 +154,7 @@ const TableInfo = (props) => {
   return(
     <div className={styles.info__box} >
         Table
-        <div>{data.TableId}</div>
+        <div>{data.tableId}</div>
         </div>
   )
 }
