@@ -80,7 +80,8 @@ export function updateBeverage(
   bevsize,
   bevdetail,
   date,
-  bucket
+  bucket,
+  message
 ) {
   const docRef = doc(db, "beverages", drinksId);
   const data = {
@@ -97,7 +98,7 @@ export function updateBeverage(
       saveNotifDataUpd(
         data,
         date,
-        `${data.BeverageName} data successfully updated!`,
+        `${bevname} [${message}] data successfully updated!`,
         "beverages",
         drinksId
       );

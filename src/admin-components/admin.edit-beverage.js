@@ -73,6 +73,7 @@ export default function EditBeverage(props) {
   const Bevprice = useRef(null);
   const Bevsize = useRef(null);
   const Bevnewqty = useRef(null);
+  const [changes,setChanges] = useState([]);
 
   useEffect(() => {
     {
@@ -93,6 +94,9 @@ export default function EditBeverage(props) {
   }, []);
 
   const reset = () => {
+
+    // addedddddddddddddddddddddddddddd
+    changesClear();
     {
       beverageData.map((data) => {
         Bevname.current.value = data.BeverageName;
@@ -118,7 +122,9 @@ export default function EditBeverage(props) {
     }
   });
 
+  //addeddddddddddddddddddddddddddddddd
   const clear = () => {
+
     Bevname.current.value = null;
     Bevqty.current.value = null;
     Bevprice.current.value = null;
@@ -135,6 +141,33 @@ export default function EditBeverage(props) {
   };
 
   const updateBeverageData = () => {
+
+//addeddddddddddddd
+    let message1 = "";
+
+    for(var i=0; i<changes.length; i++){
+      if(changes[i].value == 1){
+        message1 = `${message1}, Name:${Bevname.current.value}`
+      }
+      if(changes[i].value == 2){
+        message1 = `${message1}, Price:${Bevprice.current.value}`
+      }
+      if(changes[i].value == 3){
+        message1 = `${message1}, Quantity:+${Bevnewqty.current.value}`
+      } 
+      if(changes[i].value == 4){
+        message1 = `${message1}, Size:${Bevsize.current.value}`
+      } 
+      if(changes[i].value == 5){
+        message1 = `${message1}, Detail:${bevDetail}`
+      }
+      if(changes[i].value == 5){
+        message1 = `${message1}, Category:${bevCategory}`
+      } 
+    }
+
+  //addeddd
+
     if (Bevsize.current.value == "" && Bevnewqty == "") {
       updateBeverage(
         id,
@@ -144,7 +177,8 @@ export default function EditBeverage(props) {
         Bevsize.current.value,
         bev,
         date,
-        bucketData()
+        bucketData(),
+        message1
         //Bevdetail.current.value
       );
       notify();
@@ -160,13 +194,34 @@ export default function EditBeverage(props) {
         Bevsize.current.value,
         bevDetail,
         date,
-        bucketData()
+        bucketData(),
+        message1
         //Bevdetail.current.value
       );
       notify();
       clear();
     }
   };
+
+  const handleChanges = (temp) => {
+    let found =  false;
+
+    changes.map((data)=>{
+      if(data.value == temp){
+        found = true
+      }
+    });
+
+    let newTemp = {value:temp};
+
+    if(found ==  false){
+      setChanges([...changes,newTemp]);
+    }
+  }
+
+  const changesClear = () => {
+    setChanges();
+  }
 
   return (
     <div className={styles.Outside__Container}>
@@ -197,6 +252,7 @@ export default function EditBeverage(props) {
                   onChange={(event) => {
                     setName(event.target.value);
                     setChange(false);
+                    handleChanges(1);
                   }}
                 ></input>
               </div>
@@ -211,6 +267,8 @@ export default function EditBeverage(props) {
                   onChange={(event) => {
                     setPrice(event.target.value);
                     setChange(false);
+                    handleChanges(2);
+
                   }}
                 ></input>
               </div>
@@ -238,6 +296,7 @@ export default function EditBeverage(props) {
                   onChange={(event) => {
                     setQty(event.target.value);
                     setChange(false);
+                    handleChanges(3);
                   }}
                 ></input>
               </div>
@@ -254,6 +313,7 @@ export default function EditBeverage(props) {
                   onChange={(event) => {
                     setSize(event.target.value);
                     setChange(false);
+                    handleChanges(4);
                     setDetailDisable(false);
                   }}
                 ></input>
@@ -269,9 +329,10 @@ export default function EditBeverage(props) {
                   onChange={(event) => {
                     setDetail(event.target.value);
                     setChange(false);
+                    handleChanges(5);
                   }}
                 >
-                  <option value="N/A">None</option>
+                  <option value="N/A">None</option> 
                   <option value="ml">millimeter</option>
                   <option value="L">liter</option>
                 </select>
@@ -286,6 +347,7 @@ export default function EditBeverage(props) {
                   onChange={(event) => {
                     setCategory(event.target.value);
                     setChange(false);
+                    handleChanges(6);
                   }}
                 >
                   <option value="true">Bucket</option>
