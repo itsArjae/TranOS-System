@@ -116,7 +116,7 @@ const OrderBox = (props) => {
   return(
     <div className={styles.q__box} >
         <div className={styles.q__header} >
-            Table {data.TableId}
+            Table {data.tableId}
         </div>
         <div className={styles.q__order} >
           {displayItems}
