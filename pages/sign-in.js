@@ -93,7 +93,11 @@ export default function SignIn() {
           return;
         }
         sale.map((data) => {
-          setUserInfo({ Email: data.Email, Position: data.Position });
+          setUserInfo({
+            Email: data.Email,
+            Position: data.Position,
+            FirtsLog: data.IsFirstLogin,
+          });
         });
         setHasLoaded(true);
       });

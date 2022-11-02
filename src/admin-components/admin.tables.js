@@ -72,14 +72,18 @@ export default function AdminTables(props) {
               alt="Image"
               className={styles.Table__Image}
             />
-            <div
-              className={styles.overlay}
-              onClick={() => {
-                viewData(data.id);
-              }}
-            >
-              <div className={styles.text}>Click to view</div>
-            </div>
+            {data.Position == "SuperAdmin" ? (
+              ""
+            ) : (
+              <div
+                className={styles.overlay}
+                onClick={() => {
+                  viewData(data.id);
+                }}
+              >
+                <div className={styles.text}>Click to view</div>
+              </div>
+            )}
           </div>
           <div className={styles.Table__Data__Box}> {data.Surname}</div>
           <div className={styles.Table__Data__Box}> {data.FirstName}</div>
