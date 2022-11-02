@@ -19,8 +19,9 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { updateBeverage } from "../utility/admin-utils/beverages.firebase";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
-
+import {useAuth} from '../utility/firebase'
 export default function EditBeverage(props) {
+  const currentUser = useAuth();
   const router = useRouter();
   const db = getFirestore(app);
 
@@ -178,7 +179,8 @@ export default function EditBeverage(props) {
         bev,
         date,
         bucketData(),
-        message1
+        message1,
+        currentUser.email
         //Bevdetail.current.value
       );
       notify();
@@ -195,7 +197,8 @@ export default function EditBeverage(props) {
         bevDetail,
         date,
         bucketData(),
-        message1
+        message1,
+        currentUser.email
         //Bevdetail.current.value
       );
       notify();
@@ -243,6 +246,7 @@ export default function EditBeverage(props) {
 
             <div className={styles.Form__Input_Container}>
               <div className={styles.Form__Input_Box1}>
+              
                 <label htmlFor="beveragename">Beverage Name:</label>
                 <input
                   className={styles.Form__Input}

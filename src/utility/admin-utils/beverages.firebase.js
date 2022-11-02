@@ -81,7 +81,8 @@ export function updateBeverage(
   bevdetail,
   date,
   bucket,
-  message
+  message,
+  email
 ) {
   const docRef = doc(db, "beverages", drinksId);
   const data = {
@@ -100,7 +101,8 @@ export function updateBeverage(
         date,
         `${bevname} [${message}] data successfully updated!`,
         "beverages",
-        drinksId
+        drinksId,
+        email
       );
     })
     .catch((error) => {
@@ -198,7 +200,7 @@ export async function saveNotifDataDel(date, details, tblName, id) {
   }
 }
 
-export async function saveNotifDataUpd(data, date, details, tblName, id) {
+export async function saveNotifDataUpd(data, date, details, tblName, id,email) {
   const dt = new Date();
   let year = dt.getFullYear();
   try {
@@ -209,6 +211,7 @@ export async function saveNotifDataUpd(data, date, details, tblName, id) {
       itemID: id,
       tableName: tblName,
       timeStamp: Number(`${year}${Date.now()}`),
+      email:email
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
