@@ -33,6 +33,12 @@ export default function AdminEmployeeData() {
       //icon: "❌",
     });
 
+  const notifySent = (name) =>
+    toast.success(`Change password email sent to ${name}`, {
+      icon: "✔️",
+      //icon: "❌",
+    });
+
   const notifyUD = (name) =>
     toast.success(`${name} status successfully changed!`, {
       icon: "✔️",
@@ -106,7 +112,7 @@ export default function AdminEmployeeData() {
                 <Divider />
                 <div>
                   <p>
-                    UserID: <b>{data.id.substring(1, 10)}...</b>
+                    UserID: <b>{data.UserCode}</b>
                   </p>
                   <p>
                     Position: <b>{data.Position}</b>
@@ -186,6 +192,7 @@ export default function AdminEmployeeData() {
               id={id}
               empData={empData}
               notify={notify}
+              notifySent={notifySent}
             />
           </InnerBox>
         </OuterBox>

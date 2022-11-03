@@ -221,7 +221,10 @@ export function updateEmployee(
   empEmail,
   empContact,
   empAdd,
-  pos
+  pos,
+  message,
+  email,
+  date
 ) {
   const docRef = doc(db, "employees", id);
   const data = {
@@ -237,6 +240,14 @@ export function updateEmployee(
   setDoc(docRef, data, { merge: true })
     .then((docRef) => {
       console.log("Entire Document has been updated successfully");
+      saveNotifDataUpd(
+        data,
+        date,
+        `${lname}, ${fname} ${mname}. [${message}] data successfully updated!`,
+        "employees",
+        id,
+        email
+      );
     })
     .catch((error) => {
       console.log(error);
@@ -258,6 +269,8 @@ export async function addEmployeesData(
   resumeUrl,
   pictureUrl
 ) {
+  const dt = new Date();
+  let year = dt.getFullYear();
   try {
     const docRef = await addDoc(collection(db, "employees"), {
       Surname: data.Surname,
@@ -275,6 +288,32 @@ export async function addEmployeesData(
       Username: Username,
       Number: data.Number,
       IsFirstLogin: true,
+      UserCode: `${year}${Date.now()}`,
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+
+export async function saveNotifDataUpd(
+  data,
+  date,
+  details,
+  tblName,
+  id,
+  email
+) {
+  const dt = new Date();
+  let year = dt.getFullYear();
+  try {
+    const docRef = await addDoc(collection(db, "actionNotifications"), {
+      date: date,
+      details: details,
+      empID: id,
+      tableName: tblName,
+      timeStamp: Number(`${year}${Date.now()}`),
+      email: email,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {

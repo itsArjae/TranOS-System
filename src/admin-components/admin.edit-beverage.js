@@ -19,7 +19,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { updateBeverage } from "../utility/admin-utils/beverages.firebase";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
-import {useAuth} from '../utility/firebase'
+import { useAuth } from "../utility/firebase";
 export default function EditBeverage(props) {
   const currentUser = useAuth();
   const router = useRouter();
@@ -63,6 +63,7 @@ export default function EditBeverage(props) {
   const [bevDetail, setDetail] = useState("");
   const [bevCategory, setCategory] = useState("");
   const [bev, setBev] = useState("");
+  const [code, setCode] = useState("");
 
   const [change, setChange] = useState(true);
   const [enable, setEnable] = useState(false);
@@ -74,7 +75,7 @@ export default function EditBeverage(props) {
   const Bevprice = useRef(null);
   const Bevsize = useRef(null);
   const Bevnewqty = useRef(null);
-  const [changes,setChanges] = useState([]);
+  const [changes, setChanges] = useState([]);
 
   useEffect(() => {
     {
@@ -85,6 +86,7 @@ export default function EditBeverage(props) {
         Bevsize.current.value = data.Size;
         setDetail(data.Details);
         setCategory(data.Bucket);
+        setCode(data.ItemCode);
         //Bevdetail.current.value = data.Details;
       });
 
@@ -95,7 +97,6 @@ export default function EditBeverage(props) {
   }, []);
 
   const reset = () => {
-
     // addedddddddddddddddddddddddddddd
     changesClear();
     {
@@ -125,7 +126,7 @@ export default function EditBeverage(props) {
 
   //addeddddddddddddddddddddddddddddddd
   const clear = () => {
-
+    changesClear();
     Bevname.current.value = null;
     Bevqty.current.value = null;
     Bevprice.current.value = null;
@@ -142,32 +143,31 @@ export default function EditBeverage(props) {
   };
 
   const updateBeverageData = () => {
-
-//addeddddddddddddd
+    //addeddddddddddddd
     let message1 = "";
 
-    for(var i=0; i<changes.length; i++){
-      if(changes[i].value == 1){
-        message1 = `${message1}, Name:${Bevname.current.value}`
+    for (var i = 0; i < changes.length; i++) {
+      if (changes[i].value == 1) {
+        message1 = `${message1}~ Name: ${Bevname.current.value}`;
       }
-      if(changes[i].value == 2){
-        message1 = `${message1}, Price:${Bevprice.current.value}`
+      if (changes[i].value == 2) {
+        message1 = `${message1}~ Price: ${Bevprice.current.value}`;
       }
-      if(changes[i].value == 3){
-        message1 = `${message1}, Quantity:+${Bevnewqty.current.value}`
-      } 
-      if(changes[i].value == 4){
-        message1 = `${message1}, Size:${Bevsize.current.value}`
-      } 
-      if(changes[i].value == 5){
-        message1 = `${message1}, Detail:${bevDetail}`
+      if (changes[i].value == 3) {
+        message1 = `${message1}~ Quantity: +${Bevnewqty.current.value}`;
       }
-      if(changes[i].value == 5){
-        message1 = `${message1}, Category:${bevCategory}`
-      } 
+      if (changes[i].value == 4) {
+        message1 = `${message1}~ Size: ${Bevsize.current.value}`;
+      }
+      if (changes[i].value == 5) {
+        message1 = `${message1}~ Detail: ${bevDetail}`;
+      }
+      if (changes[i].value == 6) {
+        message1 = `${message1}~ Category: ${bevCategory}`;
+      }
     }
 
-  //addeddd
+    //addeddd
 
     if (Bevsize.current.value == "" && Bevnewqty == "") {
       updateBeverage(
@@ -207,24 +207,24 @@ export default function EditBeverage(props) {
   };
 
   const handleChanges = (temp) => {
-    let found =  false;
+    let found = false;
 
-    changes.map((data)=>{
-      if(data.value == temp){
-        found = true
+    changes.map((data) => {
+      if (data.value == temp) {
+        found = true;
       }
     });
 
-    let newTemp = {value:temp};
+    let newTemp = { value: temp };
 
-    if(found ==  false){
-      setChanges([...changes,newTemp]);
+    if (found == false) {
+      setChanges([...changes, newTemp]);
     }
-  }
+  };
 
   const changesClear = () => {
     setChanges();
-  }
+  };
 
   return (
     <div className={styles.Outside__Container}>
@@ -240,13 +240,12 @@ export default function EditBeverage(props) {
             <div className={styles.Form__Header}>
               <div className={styles.Header__Top1}>UPDATE BEVERAGE DETAILS</div>
               <div className={styles.Header__Top2}>
-                Beverage {id.substring(1, 6)}...
+                Beverage {code?.substring(0, 6)}...
               </div>
             </div>
 
             <div className={styles.Form__Input_Container}>
               <div className={styles.Form__Input_Box1}>
-              
                 <label htmlFor="beveragename">Beverage Name:</label>
                 <input
                   className={styles.Form__Input}
@@ -272,7 +271,6 @@ export default function EditBeverage(props) {
                     setPrice(event.target.value);
                     setChange(false);
                     handleChanges(2);
-
                   }}
                 ></input>
               </div>
@@ -336,7 +334,7 @@ export default function EditBeverage(props) {
                     handleChanges(5);
                   }}
                 >
-                  <option value="N/A">None</option> 
+                  <option value="N/A">None</option>
                   <option value="ml">millimeter</option>
                   <option value="L">liter</option>
                 </select>

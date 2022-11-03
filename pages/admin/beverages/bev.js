@@ -11,6 +11,7 @@ import {
   get,
   equalTo,
   orderByChild,
+  connectDatabaseEmulator,
 } from "firebase/database";
 import { Divider } from "@mui/material";
 import EditData from "../../../src/admin-components/admin.edit-beverage";
@@ -67,6 +68,7 @@ export default function AdminBeverageData() {
       snapshot.docs.forEach((doc) => {
         bev.push({ ...doc.data(), id: doc.id });
       });
+
       console.log("read");
       setBeverageData(bev);
     });
@@ -154,7 +156,7 @@ export default function AdminBeverageData() {
                       </b>
                     </p>
                     <p>
-                      ID: <b>{data.id}</b>
+                      ID: <b>{data.ItemCode}</b>
                     </p>
                     <p>
                       Status:&nbsp;

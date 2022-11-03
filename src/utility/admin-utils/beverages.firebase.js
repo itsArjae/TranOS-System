@@ -200,18 +200,24 @@ export async function saveNotifDataDel(date, details, tblName, id) {
   }
 }
 
-export async function saveNotifDataUpd(data, date, details, tblName, id,email) {
+export async function saveNotifDataUpd(
+  data,
+  date,
+  details,
+  tblName,
+  id,
+  email
+) {
   const dt = new Date();
   let year = dt.getFullYear();
   try {
     const docRef = await addDoc(collection(db, "actionNotifications"), {
-      data: data,
       date: date,
       details: details,
       itemID: id,
       tableName: tblName,
       timeStamp: Number(`${year}${Date.now()}`),
-      email:email
+      email: email,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
