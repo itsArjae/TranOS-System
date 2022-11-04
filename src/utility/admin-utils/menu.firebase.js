@@ -89,7 +89,15 @@ function uploadMenuPicture(data, menuId, pictureFile, date) {
   );
 }
 
-export function updateMeal(id, mealname, mealprice, serving, date) {
+export function updateMeal(
+  id,
+  mealname,
+  mealprice,
+  serving,
+  date,
+  message,
+  email
+) {
   const docRef = doc(db, "meals", id);
   const data = {
     MealName: mealname,
@@ -101,9 +109,10 @@ export function updateMeal(id, mealname, mealprice, serving, date) {
       console.log("Entire Document has been updated successfully");
       saveNotifDataUpd(
         date,
-        `${data.MealName} data successfully updated!`,
+        `${mealname} [${message}] data successfully updated!`,
         "MealName",
-        id
+        id,
+        email
       );
     })
     .catch((error) => {
@@ -160,7 +169,7 @@ export async function saveNotifDataDel(date, details, tblName, id) {
   }
 }
 
-export async function saveNotifDataUpd(date, details, tblName, id) {
+export async function saveNotifDataUpd(date, details, tblName, id, email) {
   const dt = new Date();
   let year = dt.getFullYear();
   try {
@@ -170,6 +179,7 @@ export async function saveNotifDataUpd(date, details, tblName, id) {
       itemID: id,
       tableName: tblName,
       timeStamp: Number(`${year}${Date.now()}`),
+      email: email,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {

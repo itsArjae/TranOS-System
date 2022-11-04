@@ -23,12 +23,13 @@ import {
 } from "../utility/admin-utils/employees.firebase";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import bcrypt from "bcryptjs";
-
+import { useAuth } from "../utility/firebase";
 export default function EditEmployee(props) {
+  const currentUser = useAuth();
   const router = useRouter();
   const db = getFirestore(app);
 
-  const { setEditDataVisible, id, empData, notify } = props;
+  const { setEditDataVisible, id, empData, notify, notifySent } = props;
   const [isLoading, setLoading] = useState(false);
   // data container
   const [picItem, setPicItem] = useState(); // for image
@@ -68,6 +69,7 @@ export default function EditEmployee(props) {
   const [type, setType] = useState("");
   const [add, setAdd] = useState("");
   const [curPass, setCurPass] = useState("");
+  const [code, setCode] = useState("");
 
   const [change, setChange] = useState(true);
   const [enable, setEnable] = useState(false);
@@ -80,6 +82,7 @@ export default function EditEmployee(props) {
   const EmpContact = useRef(null);
   const EmpType = useRef(null);
   const EmpAdd = useRef(null);
+  const [changes, setChanges] = useState([]);
 
   useEffect(() => {
     {
@@ -95,11 +98,13 @@ export default function EditEmployee(props) {
         setCurPass(data.DefaultPass);
         setType(data.Position);
         setPos(data.Position);
+        setCode(data.UserCode);
       });
     }
   }, []);
 
   const reset = () => {
+    changesClear();
     {
       empData.map((data) => {
         Sname.current.value = data.Surname;
@@ -117,6 +122,7 @@ export default function EditEmployee(props) {
   };
 
   const clear = () => {
+    changesClear();
     Sname.current.value = null;
     Fname.current.value = null;
     Mname.current.value = null;
@@ -128,6 +134,47 @@ export default function EditEmployee(props) {
   };
 
   const updateEmployeeData = () => {
+    var dt = new Date();
+    let day = dt.getDate();
+    let month = dt.getMonth() + 1;
+    let monthFixed = () => {
+      if (month.toString.length === 1) {
+        return `0${month}`;
+      } else {
+        return month;
+      }
+    };
+    let year = dt.getFullYear();
+    let date = `${month}/${day}/${year}`;
+
+    let message1 = "";
+
+    for (var i = 0; i < changes.length; i++) {
+      if (changes[i].value == 1) {
+        message1 = `${message1}~ Surname: ${Sname.current.value}`;
+      }
+      if (changes[i].value == 2) {
+        message1 = `${message1}~ First Name: ${Fname.current.value}`;
+      }
+      if (changes[i].value == 3) {
+        message1 = `${message1}~ Middle Name: ${Mname.current.value}`;
+      }
+      if (changes[i].value == 4) {
+        message1 = `${message1}~ Age: ${EmpAge.current.value}`;
+      }
+      if (changes[i].value == 5) {
+        message1 = `${message1}~ Email: ${EmpEmail.current.value}`;
+      }
+      if (changes[i].value == 6) {
+        message1 = `${message1}~ Contact No.: ${EmpContact.current.value}`;
+      }
+      if (changes[i].value == 7) {
+        message1 = `${message1}~ Position: ${pos}`;
+      }
+      if (changes[i].value == 8) {
+        message1 = `${message1}~ Address: ${EmpAdd.current.value}`;
+      }
+    }
     updateEmployee(
       id,
       Sname.current.value,
@@ -137,7 +184,10 @@ export default function EditEmployee(props) {
       EmpEmail.current.value,
       EmpContact.current.value,
       EmpAdd.current.value,
-      pos
+      pos,
+      message1,
+      currentUser.email,
+      date
     );
     notify();
     clear();
@@ -146,10 +196,31 @@ export default function EditEmployee(props) {
   const resetPass = async () => {
     try {
       await resetUserPassword(EmpEmail.current.value);
+      notifySent(EmpEmail.current.value);
       console.log("semt");
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleChanges = (temp) => {
+    let found = false;
+
+    changes.map((data) => {
+      if (data.value == temp) {
+        found = true;
+      }
+    });
+
+    let newTemp = { value: temp };
+
+    if (found == false) {
+      setChanges([...changes, newTemp]);
+    }
+  };
+
+  const changesClear = () => {
+    setChanges();
   };
 
   return (
@@ -168,7 +239,7 @@ export default function EditEmployee(props) {
             <div className={styles.Form__Header}>
               <div className={styles.Header__Top1}>UPDATE USER DETAILS</div>
               <div className={styles.Header__Top2}>
-                {type} {id.substring(1, 6)}...
+                {type} {code?.substring(0, 6)}...
               </div>
             </div>
             <div className={styles.Form__Input_Container}>
@@ -182,6 +253,7 @@ export default function EditEmployee(props) {
                   onChange={(event) => {
                     setSurname(event.target.value);
                     setChange(false);
+                    handleChanges(1);
                   }}
                 ></input>
               </div>
@@ -197,6 +269,7 @@ export default function EditEmployee(props) {
                     onChange={(event) => {
                       setFirstname(event.target.value);
                       setChange(false);
+                      handleChanges(2);
                     }}
                   ></input>
                 </div>
@@ -212,6 +285,7 @@ export default function EditEmployee(props) {
                   onChange={(event) => {
                     setMiddlename(event.target.value);
                     setChange(false);
+                    handleChanges(3);
                   }}
                 ></input>
               </div>
@@ -228,6 +302,7 @@ export default function EditEmployee(props) {
                   onChange={(event) => {
                     setAge(event.target.value);
                     setChange(false);
+                    handleChanges(4);
                   }}
                 ></input>
               </div>
@@ -242,6 +317,7 @@ export default function EditEmployee(props) {
                   onChange={(event) => {
                     setEmail(event.target.value);
                     setChange(false);
+                    handleChanges(5);
                   }}
                 ></input>
               </div>
@@ -256,6 +332,7 @@ export default function EditEmployee(props) {
                   onChange={(event) => {
                     setContact(event.target.value);
                     setChange(false);
+                    handleChanges(6);
                   }}
                 ></input>
               </div>
@@ -271,6 +348,7 @@ export default function EditEmployee(props) {
                   onChange={(event) => {
                     setPos(event.target.value);
                     setChange(false);
+                    handleChanges(7);
                   }}
                 >
                   <option value="Cashier">Cashier</option>
@@ -289,6 +367,7 @@ export default function EditEmployee(props) {
                   onChange={(event) => {
                     setAdd(event.target.value);
                     setChange(false);
+                    handleChanges(8);
                   }}
                 ></input>
               </div>

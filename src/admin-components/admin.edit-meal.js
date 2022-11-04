@@ -19,8 +19,9 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { updateMeal } from "../utility/admin-utils/menu.firebase";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
-
+import { useAuth } from "../utility/firebase";
 export default function EditMeal(props) {
+  const currentUser = useAuth();
   const router = useRouter();
   const db = getFirestore(app);
 
@@ -66,6 +67,8 @@ export default function EditMeal(props) {
   const Mealprice = useRef(null);
   const Mealserving = useRef(null);
   const newMealserving = useRef(null);
+  const [changes, setChanges] = useState([]);
+  const [code, setCode] = useState("");
 
   useEffect(() => {
     {
@@ -73,11 +76,13 @@ export default function EditMeal(props) {
         Mealname.current.value = data.MealName;
         Mealprice.current.value = data.Price;
         Mealserving.current.value = data.Serving;
+        setCode(data.ItemCode);
       });
     }
   }, []);
 
   const reset = () => {
+    changesClear();
     {
       mealsData.map((data) => {
         Mealname.current.value = data.MealName;
@@ -89,19 +94,36 @@ export default function EditMeal(props) {
   };
 
   const clear = () => {
+    changesClear();
     Mealname.current.value = null;
     Mealprice.current.value = null;
     Mealserving.current.value = null;
   };
 
   const updateMealData = () => {
+    let message1 = "";
+
+    for (var i = 0; i < changes.length; i++) {
+      if (changes[i].value == 1) {
+        message1 = `${message1}~ Name: ${Mealname.current.value}`;
+      }
+      if (changes[i].value == 2) {
+        message1 = `${message1}~ Price: ${Mealprice.current.value}`;
+      }
+      if (changes[i].value == 3) {
+        message1 = `${message1}~ Quantity: +${Mealserving.current.value}`;
+      }
+    }
+
     if (newMealserving == "") {
       updateMeal(
         id,
         Mealname.current.value,
         Number(Mealprice.current.value),
         Number(Mealserving.current.value),
-        date
+        date,
+        message1,
+        currentUser.email
       );
       notify();
     } else {
@@ -112,12 +134,34 @@ export default function EditMeal(props) {
         Mealname.current.value,
         Number(Mealprice.current.value),
         Number(qty),
-        date
+        date,
+        message1,
+        currentUser.email
       );
       notify();
     }
 
     clear();
+  };
+
+  const handleChanges = (temp) => {
+    let found = false;
+
+    changes.map((data) => {
+      if (data.value == temp) {
+        found = true;
+      }
+    });
+
+    let newTemp = { value: temp };
+
+    if (found == false) {
+      setChanges([...changes, newTemp]);
+    }
+  };
+
+  const changesClear = () => {
+    setChanges();
   };
 
   return (
@@ -134,7 +178,7 @@ export default function EditMeal(props) {
             <div className={styles.Form__Header}>
               <div className={styles.Header__Top1}>UPDATE MEAL DETAILS</div>
               <div className={styles.Header__Top2}>
-                Meal {id.substring(1, 6)}...
+                Meal {code?.substring(0, 6)}...
               </div>
             </div>
 
@@ -149,6 +193,7 @@ export default function EditMeal(props) {
                   onChange={(event) => {
                     setName(event.target.value);
                     setChange(false);
+                    handleChanges(1);
                   }}
                 ></input>
               </div>
@@ -163,6 +208,7 @@ export default function EditMeal(props) {
                   onChange={(event) => {
                     setPrice(event.target.value);
                     setChange(false);
+                    handleChanges(2);
                   }}
                 ></input>
               </div>
@@ -190,6 +236,7 @@ export default function EditMeal(props) {
                   onChange={(event) => {
                     setServing(event.target.value);
                     setChange(false);
+                    handleChanges(3);
                   }}
                 ></input>
               </div>

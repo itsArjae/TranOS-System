@@ -147,7 +147,7 @@ export default function AdminMenuData() {
                     <h1>{`${data.MealName}`}</h1>
                     <Divider />
                     <p>
-                      Meal ID: <b>{data.id}</b>
+                      Meal ID: <b>{data.ItemCode}</b>
                     </p>
                     <p>
                       Status:&nbsp;
