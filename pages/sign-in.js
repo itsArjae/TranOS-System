@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "../styles/css/login-pages/login.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { app, loginUser, useAuth } from "../src/utility/firebase";
+import { app, loginUser, resetUserPassword, useAuth } from "../src/utility/firebase";
 import { useRouter } from "next/router";
 import {
   collection,
@@ -33,7 +33,20 @@ export default function SignIn() {
 
   const [step, setStep] = useState(1);
 
+  const resetPass = async (email) => {
+    try {
+      await resetUserPassword(EmpEmail.current.value);
+      console.log("semt");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+
   const onSubmit = async (password) => {
+
+  
+
     setIsLogging(true);
     try {
       await loginUser(userInfo.Email, password);
@@ -92,11 +105,38 @@ export default function SignIn() {
           setHasLoaded(true);
           return;
         }
-        sale.map((data) => {
+        sale.map(async(data) => {
+
+        
+          
+
+          if(data.IsFirstLogin == true){
+            let pass = "";
+
+            if(data.Position === "Admin"){
+              pass = "TAdmin2022"
+            }
+            if(data.Position === "Cashier"){
+              pass = "TCashier2022"
+            }
+            if(data.Position === "Chef"){
+              pass = "TChef2022"
+            }
+           
+           
+          
+            router.push({
+              pathname:"/reset-password",
+              query:{id:data.id,email:data.Email,password:data.Position}
+            },"/reset-password");
+            return;
+          }
+
           setUserInfo({
             Email: data.Email,
             Position: data.Position,
-            FirtsLog: data.IsFirstLogin,
+            FirstLog: data.IsFirstLogin,
+            id:data.id
           });
         });
         setHasLoaded(true);
