@@ -126,11 +126,7 @@ export default function EditBeverage(props) {
 
   //addeddddddddddddddddddddddddddddddd
   const clear = () => {
-<<<<<<< HEAD
-    
-=======
     changesClear();
->>>>>>> 4c67d37bb1e049781f8b2600af2969608d233961
     Bevname.current.value = null;
     Bevqty.current.value = null;
     Bevprice.current.value = null;
@@ -227,13 +223,8 @@ export default function EditBeverage(props) {
   };
 
   const changesClear = () => {
-<<<<<<< HEAD
-    setChanges([]);
-  }
-=======
     setChanges();
   };
->>>>>>> 4c67d37bb1e049781f8b2600af2969608d233961
 
   return (
     <div className={styles.Outside__Container}>
