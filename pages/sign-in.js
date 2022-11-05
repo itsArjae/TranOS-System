@@ -285,17 +285,20 @@ export default function SignIn() {
               Big Waves, GooZy Friends
             </h4>
           </div>
-          <div className={styles.download}>
+          <div className={styles.download}  >
             <img
               src="/assets/admin-assets/svg/download.icon.svg"
               width={30}
               height={30}
             />
-            <a href="/app/Tranos_version1.0.apk"  download>
+            <a href="/app/Tranos_version1.0.1.apk"  download>
             <button>Download App Here</button>
+            
             </a>
+            
            
           </div>
+          Tranos v1.0.1
         </div>
       </div>
     </div>
