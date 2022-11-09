@@ -80,6 +80,7 @@ export default function CashierOrder() {
   const [orderData, setOrderData] = useState([]);
   const [miscData, setMiscData] = useState([]);
   const [orderCat, setOrderCat] = useState("");
+  const [disable, setDisable] = useState(false);
   const db = getFirestore(app);
 
   const [pageNumber, setPageNumber] = useState(0);
@@ -138,9 +139,34 @@ export default function CashierOrder() {
     });
     setCharges(getTotalMisc());
   };
+
+  const getOrderQueueData = () => {
+    const empRef = collection(db, "orderQueue");
+
+    if (!tid) {
+      setDisable(true);
+      return;
+    }
+    console.log("read");
+    // const q = query(
+    //   empRef,
+    //   where("tableId", "==", Number(tid)),
+    //   where("category", "==", "misc")
+    // );
+    // onSnapshot(q, (snapshot) => {
+    //   let emp = [];
+    //   snapshot.docs.forEach((doc) => {
+    //     emp.push({ ...doc.data(), id: doc.id });
+    //   });
+    //   setMiscData(emp);
+    // });
+    // setCharges(getTotalMisc());
+  };
+
   useEffect(() => {
     getTableData();
     getMiscData();
+    getOrderQueueData();
   }, []);
 
   const [total, setTotal] = useState(0);
@@ -469,6 +495,7 @@ export default function CashierOrder() {
                 <div className={styles.Form__Input_Box1}>
                   <button
                     className={styles.btn__pay}
+                    disabled={disable}
                     onClick={() => {
                       setVisible(!visible);
                     }}

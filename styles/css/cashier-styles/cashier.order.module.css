@@ -128,6 +128,7 @@
 .btn__pay:hover{
   background-color: white;
   color: black;
+  border: 2px solid #11468F;
 }
 .Table__Box{
   display: flex;

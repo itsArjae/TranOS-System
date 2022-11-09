@@ -73,6 +73,7 @@ export default function CashierPay(props) {
   const [payment, setPayment] = useState(0);
   const [change, setChange] = useState(0);
   const [cashier, setCashier] = useState("");
+  const [btnDisable, setBtnDisable] = useState(false);
 
   const trID = Date.now();
 
@@ -174,6 +175,7 @@ export default function CashierPay(props) {
   }, []);
 
   const confirmPayment = () => {
+    setBtnDisable(true);
     if (payment < getGrandTotal()) {
       console.log("Kulang"); //MAY LALABAS
       failPayment();
@@ -200,7 +202,6 @@ export default function CashierPay(props) {
       sum = Number(ySales) + Number(getGrandTotal());
       updateYearly(ySalesID, sum);
     }
-    successPayment();
     saveTransaction(
       trID,
       d,
@@ -212,25 +213,23 @@ export default function CashierPay(props) {
       year
     );
     saveItems(trID, orderData, miscData, dateTime);
-    deleteData(orderData);
+
     updateTable(tid);
     setIsPaying(true);
-    cashRef.current.value = 0.0;
-    changeRef.current.value = 0.0;
-    let needRender = true;
-    const interval = setInterval(() => {
-      if (needRender === true) {
-        successPayment();
-        router.push("/cashier/cashier.table");
-        needRender = false;
-      }
-    }, 3000);
+    cashRef.current.value = Number(0).toFixed(2);
+    changeRef.current.value = Number(0).toFixed(2);
+    successPayment();
+  };
+
+  const proceed = () => {
+    deleteData(orderData);
+    router.push("/cashier/cashier.table");
   };
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
-    content:()=>componentRef.current,
-    documentTitle:'Result',
+    content: () => componentRef.current,
+    documentTitle: "Result",
     // onAfterPrint:()=>alert('success')
   });
 
@@ -259,6 +258,7 @@ export default function CashierPay(props) {
               <button
                 className={styles.Exit__Button}
                 onClick={setEditDataVisible}
+                disabled={btnDisable}
               >
                 ❌
               </button>
@@ -275,8 +275,9 @@ export default function CashierPay(props) {
                     className={styles.Form__Input}
                     type="text"
                     id="total"
-                    value={isPaying ? 0 : getGTotalFixed2()}
+                    value={isPaying ? Number(0).toFixed(2) : getGTotalFixed2()}
                     readOnly={true}
+                    disabled={btnDisable}
                   ></input>
                 </div>
               </div>
@@ -289,6 +290,7 @@ export default function CashierPay(props) {
                     id="cash"
                     placeholder="0.00"
                     ref={cashRef}
+                    disabled={btnDisable}
                     onChange={(e) => {
                       pay(e.target.value);
                     }}
@@ -305,45 +307,56 @@ export default function CashierPay(props) {
                     placeholder="0.00"
                     ref={changeRef}
                     readOnly={true}
+                    disabled={btnDisable}
                   ></input>
                 </div>
               </div>
               <div className={styles.Form__Input_Container}>
                 <div className={styles.Form__Input_Box1}>
-                  <button className={styles.btn__pay} onClick={confirmPayment}>
-                    PAY
-                  </button>
+                  {btnDisable ? (
+                    <button className={styles.btn__pay1} onClick={proceed}>
+                      PROCEED
+                    </button>
+                  ) : (
+                    <button
+                      className={styles.btn__pay}
+                      onClick={confirmPayment}
+                    >
+                      PAY
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
           </div>
-         
-          <div red={componentRef} className={styles.other__container}>
-            <Receipt
-              orderData={orderData}
-              tid={tid}
-              total={total}
-              dateTime={dateTime}
-              misce={misce}
-              getTotal={getTotal}
-              change={change}
-              payment={payment}
-              trID={trID}
-              getTotalFixed={getTotalFixed}
-              getTotalFixed2={getTotalFixed2}
-              getGrandTotal={getGrandTotal}
-              getGTotalFixed2={getGTotalFixed2}
-              miscData={miscData}
-              cat={cat}
-              charges={charges}
-              getTotalMisc={getTotalMisc}
-              getTotalFixedMisc={getTotalFixedMisc}
-              getTotalFixedMisc2={getTotalFixedMisc2}
 
-            />
+          <div red={componentRef} className={styles.other__container}>
+            {btnDisable ? (
+              <Receipt
+                orderData={orderData}
+                tid={tid}
+                total={total}
+                dateTime={dateTime}
+                misce={misce}
+                getTotal={getTotal}
+                change={change}
+                payment={payment}
+                trID={trID}
+                getTotalFixed={getTotalFixed}
+                getTotalFixed2={getTotalFixed2}
+                getGrandTotal={getGrandTotal}
+                getGTotalFixed2={getGTotalFixed2}
+                miscData={miscData}
+                cat={cat}
+                charges={charges}
+                getTotalMisc={getTotalMisc}
+                getTotalFixedMisc={getTotalFixedMisc}
+                getTotalFixedMisc2={getTotalFixedMisc2}
+              />
+            ) : (
+              "Tranos"
+            )}
           </div>
-        
-        
         </div>
       </div>
     </div>

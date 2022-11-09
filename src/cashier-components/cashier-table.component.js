@@ -37,19 +37,31 @@ export default function CashierTableComponent(props) {
 
   return (
     <Draggable
-    defaultPosition={{ x: table?.x, y: table?.y }}
-    position={{ x: table?.x, y: table?.y }}
-    handle="#handle"
-    >  
-    <div className={styles.Table}   onClick={() => {
-                handleView(table.id, table.Status, table.Category);
-              }} style={{position:'absolute'}} ref={nodeRef}>
-    <div className={styles.table__title}  >{table?.id}</div>
-      <div ref={tableRef}  className={styles.Table_Handle} id="handle" onClick={()=>{console.log(tableRef.current.offsetLeft)}}  >
-        *
-      </div>
-      <div className={styles.Table__Button_Box} >
-      {/* {table?.id === 0 ? null : (
+      defaultPosition={{ x: table?.x, y: table?.y }}
+      position={{ x: table?.x, y: table?.y }}
+      handle="#handle"
+    >
+      <div
+        className={styles.Table}
+        onClick={() => {
+          handleView(table.id, table.Status, table.Category);
+        }}
+        style={{ position: "absolute" }}
+        ref={nodeRef}
+      >
+        <div className={styles.table__title}>{table?.id}</div>
+        <div
+          ref={tableRef}
+          className={styles.Table_Handle}
+          id="handle"
+          onClick={() => {
+            console.log(tableRef.current.offsetLeft);
+          }}
+        >
+          *
+        </div>
+        <div className={styles.Table__Button_Box}>
+          {/* {table?.id === 0 ? null : (
             <button
               className={styles.Table__Button}
               onClick={() => {
@@ -59,15 +71,19 @@ export default function CashierTableComponent(props) {
               View
             </button>
           )} */}
+        </div>
+        {table?.Category == "Door" ? (
+          <img src={`${door}`} className={styles.table__icon} />
+        ) : table?.Category == "Table" && table?.Status == true ? (
+          <img src={`${table1}`} className={styles.table__icon} />
+        ) : table?.Category == "Table" && table?.Status == false ? (
+          <img src={`${tableOrder}`} className={styles.table__icon} />
+        ) : table?.Category == "Hut" && table?.Status == true ? (
+          <img src={`${hut}`} className={styles.table__icon} />
+        ) : (
+          <img src={`${hutOrder}`} className={styles.table__icon} />
+        )}
       </div>
-      {
-        table?.Category == "Door" ? <img src={`${door}`} className={styles.table__icon} /> :
-        table?.Category == "Table"  && table?.Status == true ? <img src={`${table1}`} className={styles.table__icon} /> :
-        table?.Category == "Table"  && table?.Status == false ? <img src={`${tableOrder}`} className={styles.table__icon} /> :
-        table?.Category == "Hut"  && table?.Status == true ? <img src={`${hut}`} className={styles.table__icon} /> :
-        <img src={`${hutOrder}`} className={styles.table__icon} />
-      }
-   </div>
-</Draggable>
+    </Draggable>
   );
 }
