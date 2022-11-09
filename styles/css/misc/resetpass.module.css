@@ -1,0 +1,19 @@
+.reset__container{
+  height: 100vh;
+  width: 100vw;
+  background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #55a3d6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.image img{
+  height: 200px;
+  width: 200px;
+}
+
+.reset__container button{
+  cursor: pointer;
+}

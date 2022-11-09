@@ -320,3 +320,17 @@ export async function saveNotifDataUpd(
     console.error("Error adding document: ", e);
   }
 }
+
+export function statusLoginChange(empId) {
+  const docRef = doc(db, "employees", empId);
+  const data = {
+    IsFirstLogin: false,
+  };
+  setDoc(docRef, data, { merge: true })
+    .then((docRef) => {
+      console.log("Entire Document has been updated successfully");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
