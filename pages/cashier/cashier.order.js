@@ -140,33 +140,9 @@ export default function CashierOrder() {
     setCharges(getTotalMisc());
   };
 
-  const getOrderQueueData = () => {
-    const empRef = collection(db, "orderQueue");
-
-    if (!tid) {
-      setDisable(true);
-      return;
-    }
-    console.log("read");
-    // const q = query(
-    //   empRef,
-    //   where("tableId", "==", Number(tid)),
-    //   where("category", "==", "misc")
-    // );
-    // onSnapshot(q, (snapshot) => {
-    //   let emp = [];
-    //   snapshot.docs.forEach((doc) => {
-    //     emp.push({ ...doc.data(), id: doc.id });
-    //   });
-    //   setMiscData(emp);
-    // });
-    // setCharges(getTotalMisc());
-  };
-
   useEffect(() => {
     getTableData();
     getMiscData();
-    getOrderQueueData();
   }, []);
 
   const [total, setTotal] = useState(0);

@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" fill="green" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<svg version="1.1" fill="url(#grad2)" filter="url(#f1)" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 522 522" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+
+	 <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:rgb(15,218,0);stop-opacity:1" />
+      <stop offset="70%" style="stop-color:rgb(15,114,8);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(0,84,0);stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <defs>
+    <filter id="f1" x="0" y="0" width="200%" height="200%">
+      <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
+      <feGaussianBlur result="blurOut" in="offOut" stdDeviation="1" />
+      <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+    </filter>
+  </defs>
 <g>
 	<g>
 		<polygon points="48.784,284.404 30.188,138.436 0,142.282 20.167,300.585 20.167,439.605 50.599,439.605 50.599,395.219 

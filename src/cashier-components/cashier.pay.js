@@ -175,12 +175,12 @@ export default function CashierPay(props) {
   }, []);
 
   const confirmPayment = () => {
-    setBtnDisable(true);
     if (payment < getGrandTotal()) {
       console.log("Kulang"); //MAY LALABAS
       failPayment();
       return;
     }
+    setBtnDisable(true);
     if (!dSales) {
       saveDaily(getGrandTotal(), year, month, day);
     } else {
@@ -354,7 +354,14 @@ export default function CashierPay(props) {
                 getTotalFixedMisc2={getTotalFixedMisc2}
               />
             ) : (
-              "Tranos"
+              <div className={styles.ImageCon}>
+                <img
+                  src="/assets/admin-assets/pictures/logo.png"
+                  height={200}
+                  width={200}
+                  alt="beverages Icon"
+                />
+              </div>
             )}
           </div>
         </div>

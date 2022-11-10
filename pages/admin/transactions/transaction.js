@@ -228,27 +228,29 @@ export default function AdminTransacData() {
           <div className={styles.Misc__Container}>
             <div className={styles.Misc__Inner}>
               <h3>Other Fees</h3>
-              {chargeData.map((data) => {
-                return (
-                  <table key={data.id}>
-                    <tr>
-                      <td>{data.description}</td>
-                      <td>&emsp;</td>
-                      <td>
-                        {data.total
-                          .toFixed(2)
-                          .toString()
-                          .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colSpan={3}>
-                        <Divider sx={{ border: "1px solid black" }} />
-                      </td>
-                    </tr>
-                  </table>
-                );
-              })}
+              {chargeData.length == 0
+                ? "No Additional Charges"
+                : chargeData.map((data) => {
+                    return (
+                      <table key={data.id}>
+                        <tr>
+                          <td>{data.description}</td>
+                          <td>&emsp;</td>
+                          <td>
+                            {data.total
+                              .toFixed(2)
+                              .toString()
+                              .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan={3}>
+                            <Divider sx={{ border: "1px solid black" }} />
+                          </td>
+                        </tr>
+                      </table>
+                    );
+                  })}
             </div>
           </div>
         </div>
