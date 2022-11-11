@@ -5,16 +5,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { app } from "../../src/utility/firebase";
 import * as Yup from "yup";
 import Image from "next/image";
-import {
-  getDatabase,
-  ref,
-  set,
-  child,
-  get,
-  query,
-  equalTo,
-  orderByChild,
-} from "firebase/database";
 import AdminTablesBeverages from "../../src/admin-components/admin.tables.beverages";
 import {
   saveMiddleware2,
@@ -29,6 +19,7 @@ import { collection, getDocs, getFirestore } from "firebase/firestore";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 
 export default function AdminBeverages() {
   useEffect(() => {

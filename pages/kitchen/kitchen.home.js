@@ -69,6 +69,7 @@ const router = useRouter();
                 return val;
               }
             })
+            
             .map((data)=>{
               return(
                 <div key={data.id} >
@@ -105,7 +106,7 @@ const OrderBox = (props) => {
   const getOrder = () => {
     const orderRef = collection(db, "orders");
     console.log("read queue");
-    const q = query(orderRef,where("queueID","==",data.id));
+    const q = query(orderRef,where("queueID","==",data.id),where("category","!=","misc"));
     onSnapshot(q, (snapshot) => {
       let order = [];
       snapshot.docs.forEach((doc) => {

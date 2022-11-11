@@ -206,16 +206,3 @@ AdminEmployeeData.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
 
-const OuterBox = styled.div`
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  backdrop-filter: blur(10px);
-  display: flex;
-  alignitems: center;
-  justifycontent: center;
-`;
-
-const InnerBox = styled.div`
-  margin: auto;
-`;
