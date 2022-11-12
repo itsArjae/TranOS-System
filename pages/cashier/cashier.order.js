@@ -67,11 +67,15 @@ export default function CashierOrder() {
   }, []);
 
   const successPayment = () =>
-    toast.success("SUCCESSFULLY PAID", {
+    toast.success("Payment Success!", {
       icon: "✔️",
     });
   const failPayment = () =>
-    toast.error("NOT ENOUGH MONEY! ", {
+    toast.error("Not enough money! ", {
+      icon: "❌",
+    });
+  const failConfirmPayment = () =>
+    toast.error("The food is not yet serve!", {
       icon: "❌",
     });
   const router = useRouter();
@@ -79,6 +83,7 @@ export default function CashierOrder() {
   const cat = router.query.tCat;
   const [orderData, setOrderData] = useState([]);
   const [miscData, setMiscData] = useState([]);
+  const [orderQData, setOrderQData] = useState([]);
   const [orderCat, setOrderCat] = useState("");
   const [disable, setDisable] = useState(false);
   const db = getFirestore(app);
@@ -140,9 +145,35 @@ export default function CashierOrder() {
     setCharges(getTotalMisc());
   };
 
+  const getOrderQueueData = () => {
+    const empRef = collection(db, "orderQueue");
+
+    if (!tid) {
+      router.push("./cashier.table");
+      return;
+    }
+    console.log("read");
+    const q = query(empRef, where("tableId", "==", Number(tid)));
+    onSnapshot(q, (snapshot) => {
+      let emp = [];
+      snapshot.docs.forEach((doc) => {
+        emp.push({ ...doc.data(), id: doc.id });
+      });
+      setOrderQData(emp);
+      emp.map((data) => {
+        if (data.tableId == tid) {
+          console.log("SAME SILA");
+          setDisable(true);
+        }
+      });
+    });
+  };
+
   useEffect(() => {
+    setDisable(false);
     getTableData();
     getMiscData();
+    getOrderQueueData();
   }, []);
 
   const [total, setTotal] = useState(0);
@@ -471,9 +502,11 @@ export default function CashierOrder() {
                 <div className={styles.Form__Input_Box1}>
                   <button
                     className={styles.btn__pay}
-                    disabled={disable}
+                    //disabled={disable}
                     onClick={() => {
-                      setVisible(!visible);
+                      {
+                        disable ? failConfirmPayment() : setVisible(!visible);
+                      }
                     }}
                   >
                     Confirm Payment

@@ -90,8 +90,16 @@ export async function saveMiscItems(id, miscData, date) {
   });
 }
 
-export async function deleteData(orderData) {
+export async function deleteData(orderData, miscData) {
   orderData.map(async (val) => {
+    try {
+      await deleteDoc(doc(db, "orders", val.id));
+      console.log("Document deleted");
+    } catch (e) {
+      console.error("Error deleting document: ", e);
+    }
+  });
+  miscData.map(async (val) => {
     try {
       await deleteDoc(doc(db, "orders", val.id));
       console.log("Document deleted");
