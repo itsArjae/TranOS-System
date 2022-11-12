@@ -212,8 +212,7 @@ export default function CashierPay(props) {
       month,
       year
     );
-    saveItems(trID, orderData, miscData, dateTime);
-    updateTable(tid);
+    saveItems(trID, orderData, miscData, dateTime, day, month, year);
     setIsPaying(true);
     cashRef.current.value = Number(0).toFixed(2);
     changeRef.current.value = Number(0).toFixed(2);
@@ -222,6 +221,7 @@ export default function CashierPay(props) {
 
   const proceed = () => {
     deleteData(orderData, miscData);
+    updateTable(tid);
     router.push("/cashier/cashier.table");
   };
 

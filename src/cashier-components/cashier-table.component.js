@@ -73,7 +73,7 @@ export default function CashierTableComponent(props) {
           )} */}
         </div>
         {table?.Category == "Door" ? (
-          <img src={`${door}`} className={styles.table__icon} />
+          <img src={`${door}`} className={styles.table__icon1} />
         ) : table?.Category == "Table" && table?.Status == true ? (
           <img src={`${table1}`} className={styles.table__icon} />
         ) : table?.Category == "Table" && table?.Status == false ? (

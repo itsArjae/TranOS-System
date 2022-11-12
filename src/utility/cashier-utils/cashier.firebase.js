@@ -51,7 +51,15 @@ export async function saveTransaction(
   }
 }
 
-export async function saveItems(id, orderData, miscData, date) {
+export async function saveItems(
+  id,
+  orderData,
+  miscData,
+  date,
+  day,
+  month,
+  year
+) {
   orderData.map(async (val) => {
     try {
       const docRef = await addDoc(collection(db, "salesDetails"), {
@@ -63,6 +71,9 @@ export async function saveItems(id, orderData, miscData, date) {
         total: val.subTotal,
         dateBought: date,
         category: "order",
+        day: day,
+        month: month,
+        year: year,
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {

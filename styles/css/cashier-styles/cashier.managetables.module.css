@@ -49,6 +49,12 @@
   height: 120px;
   transition: .5s;
 }
+.table__icon1 {
+  position: absolute;
+  z-index: -1;
+  height: 120px;
+  transition: .5s;
+}
 
 .table__icon:hover{
   transition: .5s;
