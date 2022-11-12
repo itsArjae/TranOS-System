@@ -10,16 +10,9 @@ import { statusChange } from "../../../src/utility/admin-utils/employees.firebas
 import EditData from "../../../src/admin-components/admin.edit-employee-admin";
 import styled from "@emotion/styled";
 import {
-  query,
-  where,
-  orderBy,
-  limit,
-  getFirestore,
-  collection,
-  onSnapshot,
-  FieldPath,
-  Firestore,
+  query, where, getFirestore, collection, onSnapshot,
 } from "firebase/firestore";
+
 import { Field } from "formik";
 const DefaultPic = "/assets/admin-assets/pictures/default-profile.jpg";
 
@@ -30,19 +23,16 @@ export default function AdminEmployeeData() {
   const notify = () =>
     toast.success("Data updated successfully!", {
       icon: "✔️",
-      //icon: "❌",
     });
 
   const notifySent = (name) =>
     toast.success(`Change password email sent to ${name}`, {
       icon: "✔️",
-      //icon: "❌",
     });
 
   const notifyUD = (name) =>
     toast.success(`${name} status successfully changed!`, {
       icon: "✔️",
-      //icon: "❌",
     });
   const db = getFirestore(app);
   const router = useRouter();
@@ -201,6 +191,7 @@ export default function AdminEmployeeData() {
     </div>
   );
 }
+
 const OuterBox = styled.div`
   width: 100vw;
   height: 100vh;
@@ -214,7 +205,6 @@ const OuterBox = styled.div`
 const InnerBox = styled.div`
   margin: auto;
 `;
-
 
 AdminEmployeeData.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;

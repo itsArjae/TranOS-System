@@ -19,6 +19,7 @@ import {
 } from "firebase/database";
 import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
 import { useRouter } from "next/router";
+import styled from "@emotion/styled";
 
 export default function AdminManageTableredo() {
   useEffect(() => {
@@ -171,7 +172,9 @@ export default function AdminManageTableredo() {
   };
 
   const resetTables = () => {
+    
     clearTables();
+    setEditDataVisible();
   };
 
   const getOffsetLeft = () => {
@@ -182,6 +185,12 @@ export default function AdminManageTableredo() {
   const getOffsetTop = () => {
     return containerRef.current.offsetTop ? containerRef.current.offsetTop : 0;
   };
+
+  const [visible, setVisible] = useState(false);
+
+  function setEditDataVisible() {
+    setVisible(!visible);
+  }
 
   return hasloaded ? (
     <IdleTimerContainer>
@@ -197,7 +206,7 @@ export default function AdminManageTableredo() {
             <button className={styles.Table__Manage_Btn} onClick={handleAddHut}>
               +HUT
             </button>
-            <button className={styles.Table__Manage_Btn} onClick={resetTables}>
+            <button className={styles.Table__Manage_Btn} onClick={setEditDataVisible}>
               ↻
             </button>
           </div>
@@ -213,11 +222,49 @@ export default function AdminManageTableredo() {
             );
           })}
         </div>
+        {visible === true && (
+        <OuterBox>
+          <InnerBox>
+            <Confirmation
+              setEditDataVisible={setEditDataVisible}
+              resetTables={resetTables}
+            />
+          </InnerBox>
+        </OuterBox>
+      )}
       </div>
     </IdleTimerContainer>
   ) : null;
 }
 
+const Confirmation = (props) => {
+  const {setEditDataVisible,resetTables} = props;
+  return(
+    <div className={styles.confirm} >
+      <h3>Are you sure you want to reset all the table?</h3>
+      <div className={styles.btn_choices} > 
+      <button onClick={setEditDataVisible} >No</button>
+      <button onClick={resetTables} >Yes</button>
+       </div>
+    </div>
+  )
+}
+
+
+
+const OuterBox = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  backdrop-filter: blur(10px);
+  display: flex;
+  alignitems: center;
+  justifycontent: center;
+`;
+
+const InnerBox = styled.div`
+  margin: auto;
+`;
 AdminManageTableredo.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
