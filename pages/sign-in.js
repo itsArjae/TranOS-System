@@ -300,7 +300,7 @@ export default function SignIn() {
               <button>Download App Here</button>
             </a>
           </div>
-          Tranos v1.0.1
+          Tranos v1.0.2
         </div>
       </div>
     </div>
