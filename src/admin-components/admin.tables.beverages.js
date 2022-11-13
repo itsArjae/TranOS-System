@@ -7,8 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { updateBeverageStatus } from "../utility/admin-utils/beverages.firebase";
-import { CSVLink ,CSVDownload } from "react-csv";
-
+import { CSVLink, CSVDownload } from "react-csv";
 
 const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Drinks.png";
 
@@ -191,9 +190,9 @@ export default function AdminTables(props) {
   };
 
   const CsvHeader = [
-    {label: "Beverage Name",key:"BeverageName"},
-    {label: "Quantity",key:"Quantity"},
-  ]
+    { label: "Beverage Name", key: "BeverageName" },
+    { label: "Quantity", key: "Quantity" },
+  ];
   return (
     <div className={styles.Table__Container1}>
       <div className={styles.Table__Search_Box}>
@@ -230,7 +229,6 @@ export default function AdminTables(props) {
         </div>
       </div>
       <div>
-     
         <ReactPaginate
           nextLabel={"Next"}
           previousLabel={"Prev"}
@@ -243,18 +241,13 @@ export default function AdminTables(props) {
           disabledClassName={styles.paginationDisabled}
           activeClassName={styles.paginationActive}
         />
-        <div>
+        {/* <div>
         <CSVLink data={beverageData} headers={CsvHeader} filename={`BeverageReport.csv`} style={{border:"1px solid black",padding:"3px"}} >EXPORT AS CSV</CSVLink>
         <button style={{border:"1px solid black",padding:"5px",margin:"0 1rem",cursor:"pointer"}} onClick={
           ()=>{router.push('/admin/print.beverage')}
         } >PRINT</button>
-        </div>
-         
+        </div> */}
       </div>
-
-     
     </div>
   );
 }
-
-
