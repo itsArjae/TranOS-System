@@ -17,6 +17,7 @@ import {
   FieldPath,
   Firestore,
 } from "firebase/firestore";
+import styled from "@emotion/styled";
 
  const hutOrder = "/assets/cashier-assets/svg/hut.icon.svg";
  const tableOrder = "/assets/cashier-assets/svg/table.icon.svg";
@@ -73,7 +74,11 @@ setPosition(null);
   }
 
 
+  const [visible, setVisible] = useState(false);
 
+  function setEditDataVisible() {
+    setVisible(!visible);
+  }
   return (
     <Draggable
     defaultPosition={{x:table?.x  ,y:table?.y}}
@@ -89,7 +94,7 @@ setPosition(null);
       </div>
       <div className={styles.Table__Button_Box} >
       <button className={styles.Table__Button} onClick={handleSavePosition} >✔</button>
-      <button className={styles.Table__Button}  onClick={tryy} >✘</button>
+      <button className={styles.Table__Button}  onClick={setEditDataVisible} >✘</button>
       
       </div>
       {
@@ -99,7 +104,46 @@ setPosition(null);
         table?.Category == "Hut"  && table?.Status == true ? <img src={`${hut}`} className={styles.table__icon} /> :
         <img src={`${hutOrder}`} className={styles.table__icon} />
       }
+       {visible === true && (
+        <OuterBox>
+          <InnerBox>
+            <Confirmation
+              setEditDataVisible={setEditDataVisible}
+             
+              handleDelete={handleDelete}
+            />
+          </InnerBox>
+        </OuterBox>
+      )}
+      
    </div>
+   
 </Draggable>
   )
 }
+
+const Confirmation = (props) => {
+  const {setEditDataVisible,handleDelete} = props;
+  return(
+    <div className={styles.confirm} >
+      <h3>Are you sure you want to delete this item?</h3>
+      <div className={styles.btn_choices} > 
+      <button onClick={setEditDataVisible} >No</button>
+      <button onClick={handleDelete} >Yes</button>
+       </div>
+    </div>
+  )
+}
+const OuterBox = styled.div`
+  width: 500px;
+  height: 200px;
+  position: absolute;
+  backdrop-filter: blur(10px);
+  display: flex;
+  alignitems: center;
+  justifycontent: center;
+`;
+
+const InnerBox = styled.div`
+  margin: auto;
+`;

@@ -119,8 +119,33 @@ const OrderBox = (props) => {
     });
   };
 
+  const [stats,setStats] = useState()
+  const [orderQ,setOrderQ] = useState([]);
+  const getOrderQueue = () => {
+    const orderRef = collection(db, "orderQueue");
+    console.log("read queue");
+    const q = query(
+      orderRef,
+      where("__name__", "==", data.id),
+    );
+    onSnapshot(q, (snapshot) => {
+      let order = [];
+      snapshot.docs.forEach((doc) => {
+        order.push({ ...doc.data(), id: doc.id });
+      });
+      //console.log(order);
+      setOrderQ(order);
+     // console.log(order,"orders")
+      //setDailySales(sale);
+      order.map((data)=>{
+        setStats(data.status);
+      })
+    });
+  };
+
   useEffect(() => {
     getOrder();
+    getOrderQueue();
   }, []);
   const pageCount = Math.ceil(order.length / itemsPerPage);
   const [doneCooking, setDoneCooking] = useState(false);
@@ -139,7 +164,8 @@ const OrderBox = (props) => {
       <div className={styles.q__header}>Table {data.tableId}</div>
       <div className={styles.q__order}>{displayItems}</div>
       <div className={styles.q__btn}>
-        {doneCooking ? (
+        
+        {stats == "cooking" ? (
           <div className={styles.stat__cook}>
             <div>COOKING</div> <button onClick={handleServe}>SERVE</button>{" "}
           </div>

@@ -93,3 +93,28 @@
 .Table__ButtonBox {
   height: 40px;
 }
+
+
+.confirm{
+  height: 100px;
+  width: 400px;
+  background-color: white;
+  font-family: 'Times New Roman', Times, serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+}
+
+.btn_choices{
+  width: 300px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn_choices button{
+  width: 80px;
+  font-weight: bold;
+  cursor: pointer;
+}
