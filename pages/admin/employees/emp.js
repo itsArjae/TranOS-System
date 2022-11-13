@@ -1,5 +1,5 @@
 import React from "react";
-import AdminLayout from "../../../src/admin-components/adminLayout";
+import SuperAdminLayout from "../../src/super-admin-components/superAdminLayout";
 import styles from "../../../styles/css/admin-styles/components-css/employees.data.module.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -197,7 +197,6 @@ export default function AdminEmployeeData() {
                 >
                   Edit
                 </button>
-                <button>Delete</button>
               </div>
             </div>
           </div>
@@ -222,7 +221,7 @@ export default function AdminEmployeeData() {
 }
 
 AdminEmployeeData.getLayout = function getLayout(page) {
-  return <AdminLayout>{page}</AdminLayout>;
+  return <SuperAdminLayout>{page}</SuperAdminLayout>;
 };
 
 const OuterBox = styled.div`

@@ -18,6 +18,8 @@ import SuperMonthlySales from "../../src/super-admin-components/supermonthlysale
 import SuperAdminLayout from "../../src/super-admin-components/superAdminLayout";
 import { useRouter } from "next/router";
 import SuperYearlySales from "../../src/super-admin-components/superyearsales";
+import Head from "next/head";
+
 export default function SuperDashboard() {
   const router = useRouter();
   var dt = new Date();

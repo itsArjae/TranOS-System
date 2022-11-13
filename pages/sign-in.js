@@ -263,6 +263,10 @@ export default function SignIn() {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>TRANOS | SIGN IN</title>
+        <link rel="icon" href="/logo.ico" />
+      </Head>
       <div className={styles.Login__Box}>
         <div className={styles.Login__Form}>
           <h2>Welcome to TranOS</h2>

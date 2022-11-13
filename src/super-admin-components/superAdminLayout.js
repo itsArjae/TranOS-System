@@ -127,7 +127,10 @@ export default function SuperAdminLayout({ children }) {
   return (
     // full screen
     <Box>
-      <Head></Head>
+      <Head>
+        <title>TRANOS | SUPER ADMIN</title>
+        <link rel="icon" href="/logo.ico" />
+      </Head>
 
       {/* APP BAR */}
       <AppBar

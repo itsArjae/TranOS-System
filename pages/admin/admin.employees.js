@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import styles from "../../styles/css/admin-styles/admin.employees.module.css";
-import AdminLayout from "../../src/admin-components/adminLayout";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import {
   addUser,
@@ -21,7 +20,7 @@ import { collection, getDocs, getFirestore } from "firebase/firestore";
 import MessageBox from "../../src/misc/messagebox";
 import { UserDocument } from "../../src/misc/userdata";
 import SuperAdminLayout from "../../src/super-admin-components/superAdminLayout";
-
+import Head from "next/head";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -240,6 +239,10 @@ export default function AdminEmployees() {
 
   return isLoading ? (
     <IdleTimerContainer>
+      <Head>
+        <title>TRANOS | SUPER ADMIN</title>
+        <link rel="icon" href="/logo.ico" />
+      </Head>
       <div className={styles.Employees__Container}>
         <div className={styles.Form__Container}>
           <Formik
