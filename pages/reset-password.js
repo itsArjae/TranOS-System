@@ -37,15 +37,19 @@ export default function ResetPassword() {
       <div className={styles.image}>
         <img src="/assets/admin-assets/pictures/logo.png" />
       </div>
-      <h1>THANK YOU! THE RESET PASSWORD LINK HAS BEEN SENT TO YOUR EMAIL</h1>
+      <h1>
+        Thank You! Since it&lsquo;s your first time log in, a reset password
+        link has been sent to your email.
+      </h1>
       <p>
-        IF BY CHANCE THAT YOU DIDN&lsquo;T RECEIVE THE EMAIL KINDLY REPORT TO
-        THE ADMIN
+        If by chance that you didn&lsquo;t received the email, kindly report it
+        to the admin. Thank You!
       </p>
       <button
         onClick={() => {
           router.push("/");
         }}
+        className={styles.backbtn}
       >
         GO BACK LOGIN
       </button>

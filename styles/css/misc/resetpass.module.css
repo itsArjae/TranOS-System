@@ -17,3 +17,19 @@
 .reset__container button{
   cursor: pointer;
 }
+
+.backbtn{
+  border-radius: 10px;
+  height: 40px;
+  background-color: dodgerblue;
+  color: white;
+  font-weight: bold;
+  border: 2px solid dodgerblue;
+}
+
+.backbtn:hover{
+  background-color: rgb(255, 255, 255);
+  color: dodgerblue;
+  font-weight: bold;
+  border: 2px solid dodgerblue;
+}
