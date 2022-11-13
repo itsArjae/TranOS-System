@@ -4,7 +4,6 @@ import React from "react";
 import { useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import styles from "../styles/css/kitchen-styles/kitchennav.module.css";
-import Head from "next/head";
 
 export default function KitchenNav() {
   const navRef = useRef();
