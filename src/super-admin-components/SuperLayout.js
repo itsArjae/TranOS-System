@@ -51,7 +51,7 @@ export default function SuperLayout({ children }) {
     <div className={styles.layout__container}>
       <Head>
         <title>TRANOS | SUPER ADMIN</title>
-        <link rel="icon" href="/assets/misc/tranos.icon.png" />
+        <link rel="icon" href="/logo.ico" />
       </Head>
       <div className={styles.layout__box}>
         <div className={styles.layout__header}>

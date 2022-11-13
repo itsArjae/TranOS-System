@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/css/login-pages/login.module.css";
-import { app, loginUser, resetUserPassword, useAuth } from "../src/utility/firebase";
+import {
+  app,
+  loginUser,
+  resetUserPassword,
+  useAuth,
+} from "../src/utility/firebase";
 import { useRouter } from "next/router";
 import {
   collection,
@@ -10,7 +15,7 @@ import {
   where,
 } from "firebase/firestore";
 import { TailSpin } from "react-loader-spinner";
-
+import Head from "next/head";
 
 export default function SignIn() {
   useEffect(() => {
@@ -36,12 +41,8 @@ export default function SignIn() {
       console.log(err);
     }
   };
-  
 
   const onSubmit = async (password) => {
-
-  
-
     setIsLogging(true);
     try {
       await loginUser(userInfo.Email, password);
@@ -100,30 +101,31 @@ export default function SignIn() {
           setHasLoaded(true);
           return;
         }
-        sale.map(async(data) => {
-
-        
-          
-
-          if(data.IsFirstLogin == true){
+        sale.map(async (data) => {
+          if (data.IsFirstLogin == true) {
             let pass = "";
 
-            if(data.Position === "Admin"){
-              pass = "TAdmin2022"
+            if (data.Position === "Admin") {
+              pass = "TAdmin2022";
             }
-            if(data.Position === "Cashier"){
-              pass = "TCashier2022"
+            if (data.Position === "Cashier") {
+              pass = "TCashier2022";
             }
-            if(data.Position === "Chef"){
-              pass = "TChef2022"
+            if (data.Position === "Chef") {
+              pass = "TChef2022";
             }
-           
-           
-          
-            router.push({
-              pathname:"/reset-password",
-              query:{id:data.id,email:data.Email,password:data.Position}
-            },"/reset-password");
+
+            router.push(
+              {
+                pathname: "/reset-password",
+                query: {
+                  id: data.id,
+                  email: data.Email,
+                  password: data.Position,
+                },
+              },
+              "/reset-password"
+            );
             return;
           }
 
@@ -131,7 +133,7 @@ export default function SignIn() {
             Email: data.Email,
             Position: data.Position,
             FirstLog: data.IsFirstLogin,
-            id:data.id
+            id: data.id,
           });
         });
         setHasLoaded(true);
@@ -158,6 +160,10 @@ export default function SignIn() {
 
     return hasLoaded ? (
       <div>
+        <Head>
+          <title>TRANOS | SIGN IN</title>
+          <link rel="icon" href="/logo.ico" />
+        </Head>
         <div className={styles.Input__Box}>
           <input
             placeholder="Enter Email"
@@ -280,18 +286,15 @@ export default function SignIn() {
               Big Waves, GooZy Friends
             </h4>
           </div>
-          <div className={styles.download}  >
+          <div className={styles.download}>
             <img
               src="/assets/admin-assets/svg/download.icon.svg"
               width={30}
               height={30}
             />
-            <a href="/app/Tranos_version1.0.1.apk"  download>
-            <button>Download App Here</button>
-            
+            <a href="/app/Tranos_version1.0.1.apk" download>
+              <button>Download App Here</button>
             </a>
-            
-           
           </div>
           Tranos v1.0.1
         </div>

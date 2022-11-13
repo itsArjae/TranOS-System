@@ -161,7 +161,7 @@ export default function AdminLayout({ children }) {
     <Box>
       <Head>
         <title>TRANOS | ADMIN</title>
-        <link rel="icon" href="/assets/misc/tranos.icon.png" />
+        <link rel="icon" href="/logo.ico" />
       </Head>
 
       {/* APP BAR */}

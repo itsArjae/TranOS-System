@@ -128,7 +128,7 @@ export default function CashierLayout({ children }) {
     <Box>
       <Head>
         <title>TRANOS | CASHIER</title>
-        <link rel="icon" href="/assets/misc/tranos.icon.png" />
+        <link rel="icon" href="/logo.ico" />
       </Head>
 
       {/* APP BAR */}
