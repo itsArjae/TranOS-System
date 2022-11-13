@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import styles from "../../styles/css/admin-styles/components-css/tables.components.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -8,6 +8,15 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { updateMenu } from "../../src/utility/admin-utils/menu.firebase";
 const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Menu.png";
+import { useReactToPrint } from "react-to-print";
+import styled from "@emotion/styled";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
 const headers = [
   {
@@ -34,7 +43,7 @@ const headers = [
 
 export default function AdminTables(props) {
   const router = useRouter();
-  const { menuData, updateData, Loading, notifyUD } = props;
+  const { menuData, updateData, Loading, notifyUD,setEditDataVisible } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   let pageCountFixed = () => {
@@ -179,17 +188,12 @@ export default function AdminTables(props) {
     console.log(data);
   };
 
+
   return (
     <div className={styles.Table__Container1}>
       <div className={styles.Table__Search_Box}>
         <div className={styles.Table__Search_Form}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
+        
             <input
               autoComplete="off"
               name="search"
@@ -199,7 +203,8 @@ export default function AdminTables(props) {
                 setSearchTerm(event.target.value);
               }}
             />
-          </div>
+            <button onClick={setEditDataVisible}  >Print</button>
+         
         </div>
       </div>
       <div className={styles.Table__Box}>
@@ -228,6 +233,9 @@ export default function AdminTables(props) {
           activeClassName={styles.paginationActive}
         />
       </div>
+     
     </div>
   );
 }
+
+

@@ -5,16 +5,14 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { app } from "../../src/utility/firebase";
 import * as Yup from "yup";
 import Image from "next/image";
+import { useReactToPrint } from "react-to-print";
 import {
-  getDatabase,
-  ref,
-  set,
-  child,
-  get,
-  query,
-  equalTo,
-  orderByChild,
-} from "firebase/database";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import AdminTablesMenu from "../../src/admin-components/admin.tables.menu";
 import { saveMiddleware2 } from "../../src/utility/admin-utils/menu.firebase";
 import styled from "@emotion/styled";
@@ -167,6 +165,12 @@ export default function AdminMenu() {
     MealName: Yup.string().required("Incomplete Details!"),
     Price: Yup.string().required("Incomplete Details!"),
   });
+  const [visible, setVisible] = useState(false);
+
+  function setEditDataVisible() {
+    setVisible(!visible);
+  }
+  
 
   return isLoading ? (
     <IdleTimerContainer>
@@ -259,8 +263,20 @@ export default function AdminMenu() {
             updateData={updateData}
             Loading={Loading}
             notifyUD={notifyUD}
+            setEditDataVisible={setEditDataVisible}
           />
         </div>
+        {visible === true && (
+        <OuterBox>
+          <InnerBox>
+            <PrintBox
+              setEditDataVisible={setEditDataVisible}
+              printItems={menuData}
+             
+            />
+          </InnerBox>
+        </OuterBox>
+      )}
 
         <ToastContainer />
       </div>
@@ -274,19 +290,101 @@ export default function AdminMenu() {
     </OuterBox>
   );
 }
+
 const OuterBox = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   position: absolute;
-  backdrop-filter: blur(10px);
   display: flex;
   alignitems: center;
   justifycontent: center;
+  backdrop-filter: blur(10px);
 `;
 
 const InnerBox = styled.div`
   margin: auto;
+  margin-top: 70px;
 `;
+
+const PrintBox = (props) => {
+  const { setEditDataVisible, printItems,day,year,month } = props;
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Result",
+    // onAfterPrint:()=>alert('success')
+  });
+
+  return (
+    <div className={styles.print_cont}>
+      <div className={styles.btn}>
+        <button onClick={setEditDataVisible} className={styles.print__btn}>
+          BACK
+        </button>
+        <button onClick={handlePrint} className={styles.print__btn}>
+          Print
+        </button>
+      </div>
+      <div className={styles.print_box} ref={componentRef}>
+        <div className={styles.headers}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "center",
+              marginRight: "50px",
+            }}
+          >
+            <b>
+              <div style={{ fontSize: "30px" }}>TRANOS </div>
+              <div style={{ fontSize: "20px" }}>Meals Summary Report</div>
+             
+            </b>
+          </div>
+          <img src="/assets/admin-assets/pictures/logo.png" />
+        </div>
+
+        <div>
+          <Table>
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  <b>Meal Name</b>
+                </TableCell>
+                <TableCell>
+                  <b>Servings</b>
+                </TableCell>
+                <TableCell>
+                  {" "}
+                  <b>Price</b>{" "}
+                </TableCell>
+              </TableRow>
+              {printItems.map((data) => {
+                return (
+                  <TableRow key={data.id}>
+                    <TableCell> {data.MealName} </TableCell>
+                    <TableCell> {data.Serving} </TableCell>
+                    <TableCell>
+                      {" "}
+                      Php.{Number(data.Price)
+                        .toFixed(2)
+                        .toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                    </TableCell>
+                    <TableCell> {data.dateCreated} </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
 
 AdminMenu.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;

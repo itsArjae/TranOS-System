@@ -239,7 +239,7 @@ export default function AdminTables(props) {
     console.log(data);
   };
 
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   function setEditDataVisible() {
     setVisible(!visible);
@@ -367,6 +367,9 @@ const OuterBox = styled.div`
   display: flex;
   alignitems: center;
   justifycontent: center;
+  backdrop-filter: blur(10px);
+  margin-left:-100px;
+ 
 `;
 
 const InnerBox = styled.div`
