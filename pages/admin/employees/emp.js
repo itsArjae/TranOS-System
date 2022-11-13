@@ -1,5 +1,5 @@
 import React from "react";
-import SuperAdminLayout from "../../src/super-admin-components/superAdminLayout";
+import SuperAdminLayout from "../../../src/super-admin-components/superAdminLayout";
 import styles from "../../../styles/css/admin-styles/components-css/employees.data.module.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
