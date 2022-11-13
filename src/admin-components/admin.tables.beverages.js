@@ -241,12 +241,12 @@ export default function AdminTables(props) {
           disabledClassName={styles.paginationDisabled}
           activeClassName={styles.paginationActive}
         />
-        {/* <div>
+        <div>
         <CSVLink data={beverageData} headers={CsvHeader} filename={`BeverageReport.csv`} style={{border:"1px solid black",padding:"3px"}} >EXPORT AS CSV</CSVLink>
         <button style={{border:"1px solid black",padding:"5px",margin:"0 1rem",cursor:"pointer"}} onClick={
           ()=>{router.push('/admin/print.beverage')}
         } >PRINT</button>
-        </div> */}
+        </div>
       </div>
     </div>
   );

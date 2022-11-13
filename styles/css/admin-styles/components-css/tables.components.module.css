@@ -1,6 +1,7 @@
 .Table__Container {
   margin: 1rem 1rem;
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   height: 500px;
   display: flex;
   justify-content: center;
@@ -12,7 +13,8 @@
 }
 .Table__Container1 {
   margin: 1rem 1rem;
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   height: 500px;
   display: flex;
   justify-content: center;
@@ -21,7 +23,7 @@
   background-color: white;
   border-top-right-radius: 30px;
 }
-.Table__Search_Box{
+.Table__Search_Box {
   margin: auto;
   height: 70px;
   /*added*/
@@ -45,14 +47,14 @@
   border-radius: 5px;
   cursor: pointer;
 }
-.Table_Search_Submit:hover{
-  transition: .5s;
+.Table_Search_Submit:hover {
+  transition: 0.5s;
   background-color: rgb(161, 161, 185);
 }
-.Table__Search_Error{
+.Table__Search_Error {
   color: red;
 }
-.Table__Box{
+.Table__Box {
   display: flex;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   flex-grow: 1;
@@ -63,57 +65,57 @@
   border: 1px solid grey;
   overflow: auto;
 }
-.Table__Head{
+.Table__Head {
   display: flex;
   flex-direction: row;
 }
-.Table__Heads_Data{
+.Table__Heads_Data {
   width: 100%;
- background-color: #C1EFFF;
- text-align: center;
- border: 1px solid black;
- font-weight: bold;
- padding: .5rem;
+  background-color: #c1efff;
+  text-align: center;
+  border: 1px solid black;
+  font-weight: bold;
+  padding: 0.5rem;
 }
-.Table__Data_Container{
+.Table__Data_Container {
   display: flex;
   flex-direction: column;
   /*added*/
-
 }
-.Table__Data{
+.Table__Data {
   display: flex;
   flex-direction: row;
 }
-.Table__Data__Box{
+.Table__Data__Box {
   width: 100%;
   text-align: center;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
-  padding: .5rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+    rgb(209, 213, 219) 0px 0px 0px 1px inset;
+  padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.Table__Data_Delete_Btn{
-  width:45%;
+.Table__Data_Delete_Btn {
+  width: 45%;
   background-color: rgb(207, 122, 122);
   border: 1px solid grey;
   cursor: pointer;
 }
-.Table__Data_Delete_Btn:hover{
+.Table__Data_Delete_Btn:hover {
   background-color: rgb(220, 31, 31);
 }
-.Table__Data_Edit_Btn{
-  width:45%;
+.Table__Data_Edit_Btn {
+  width: 45%;
   background-color: aliceblue;
   border: 1px solid grey;
   cursor: pointer;
 }
-.Table__Data_Edit_Btn:hover{
+.Table__Data_Edit_Btn:hover {
   background-color: aqua;
 }
 
-.Hover{
+.Hover {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -122,29 +124,29 @@
   height: 100%;
   width: 100%;
   opacity: 0;
-  transition: .5s ease;
-  background-color: #008CBA;
+  transition: 0.5s ease;
+  background-color: #008cba;
 }
-.Table__Image_Box img{
+.Table__Image_Box img {
   height: 50px;
   cursor: pointer;
 }
-.Hover p{
+.Hover p {
   position: absolute;
   text-align: center;
   border: 1px solid black;
   cursor: pointer;
 }
-.Table__Image_Box .Hover{
+.Table__Image_Box .Hover {
   opacity: 1;
 }
 
-
-.Table__Image_Box{
+.Table__Image_Box {
   width: 100%;
   text-align: center;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
-  padding: .5rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+    rgb(209, 213, 219) 0px 0px 0px 1px inset;
+  padding: 0.5rem;
   position: relative;
 }
 
@@ -164,8 +166,8 @@
   height: 100%;
   width: 100%;
   opacity: 0;
-  transition: .5s ease;
-  background-color: #008CBA;
+  transition: 0.5s ease;
+  background-color: #008cba;
   cursor: pointer;
 }
 
@@ -186,75 +188,115 @@
 }
 /*Pagination*/
 
-.Pagination__Container{
+.Pagination__Container {
   list-style: none;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .Pagination__Prev,
-.Pagination__Next{
-  padding: .3rem;
-  margin: .5rem;
+.Pagination__Next {
+  padding: 0.3rem;
+  margin: 0.5rem;
   border-radius: 5px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   cursor: pointer;
   font-size: 15px;
   font-weight: 600;
 }
 .Pagination__Prev:hover,
 .Pagination__Next:hover,
-.Pagination__Container a:hover{
-  background-color: #61A4BC;
+.Pagination__Container a:hover {
+  background-color: #61a4bc;
 }
-.Pagination__Container a{
-  padding: .5rem;
-  margin: .3rem;
+.Pagination__Container a {
+  padding: 0.5rem;
+  margin: 0.3rem;
   border-radius: 5px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   cursor: pointer;
   font-size: 15px;
   font-weight: 600;
 }
-.paginationActive a{
-  padding: .5rem;
-  margin: .3rem;
+.paginationActive a {
+  padding: 0.5rem;
+  margin: 0.3rem;
   border-radius: 5px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   cursor: pointer;
   font-size: 15px;
   font-weight: 600;
-  background-color: #61A4BC;
+  background-color: #61a4bc;
 }
 
 /*added*/
-.Table__Data_Available_Btn{
-  width:45%;
-  height:70%;
+.Table__Data_Available_Btn {
+  width: 45%;
+  height: 70%;
   background-color: rgb(255, 255, 255);
   border: 1px solid grey;
   cursor: pointer;
 }
-.Table__Data_Available_Btn:hover{
+.Table__Data_Available_Btn:hover {
   background-color: rgb(60, 129, 224);
 }
-.Table__Data_notAvailable_Btn{
-  width:45%;
-  height:70%;
-  background-color:  rgb(207, 122, 122);
+.Table__Data_notAvailable_Btn {
+  width: 45%;
+  height: 70%;
+  background-color: rgb(207, 122, 122);
   border: 1px solid grey;
   cursor: pointer;
 }
-.Table__Data_notAvailable_Btn:hover{
-  background-color:  rgb(220, 31, 31);
+.Table__Data_notAvailable_Btn:hover {
+  background-color: rgb(220, 31, 31);
 }
 
-.NoData{
+.NoData {
   align-items: center;
   justify-content: center;
 }
 
-.NoData p{
+.NoData p {
   font-size: medium;
   color: rgb(147, 147, 147);
+}
+
+.print_cont {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  width: 900px;
+  min-height: 900px;
+  padding: 10px;
+}
+
+.btn button {
+  cursor: pointer;
+}
+
+.headers img {
+  width: 100px;
+  height: 100px;
+  margin-left: 50px;
+}
+
+.headers {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.Table__Search_Form select{
+  margin: 0 1rem;
+}
+
+.Table__Search_Form button{
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
 }
