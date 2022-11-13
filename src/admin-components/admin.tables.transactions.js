@@ -32,7 +32,33 @@ const headers = [
   },
 ];
 
+const dayArr = [
+  {id:1,day:1},{id:2,day:2},{id:3,day:3},{id:4,day:4},{id:5,day:5},{id:6,day:6},{id:7,day:7},{id:8,day:8},{id:9,day:9},{id:10,day:10},
+  {id:11,day:11},{id:12,day:12},{id:13,day:13},{id:14,day:14},{id:15,day:15},{id:16,day:16},{id:17,day:17},{id:18,day:18},{id:19,day:19},{id:20,day:20},
+  {id:21,day:21},{id:22,day:22},{id:23,day:23},{id:24,day:24},{id:25,day:25},{id:26,day:26},{id:27,day:27},{id:28,day:28},{id:29,day:29},{id:30,day:30},{id:31,day:31},
+];
+
 export default function AdminTables(props) {
+
+  const [yearArr,setYearArr] = useState([]);
+
+
+  const dt = new Date();
+    let cyear = dt.getFullYear();
+  const getYear = () => {
+  
+    for(var i=0; i<5; i++){
+      let temp = cyear - i;
+      let newdata = {id:i, year:temp}
+      setYearArr([...yearArr,newdata])
+      console.log(newdata)
+    }
+  }
+
+  useEffect(()=>{
+ 
+  },[])
+
   const router = useRouter();
   const { transacData, updateData, Loading } = props;
   const [searchTerm, setSearchTerm] = useState("");
@@ -53,13 +79,34 @@ export default function AdminTables(props) {
   };
   const itemsPerPage = pageCountFixed();
   const pagesVisited = pageVisitedFixed();
+  const [day,setDay] = useState('');
+  const [month,setMonth] = useState('');
+  const [year,setYear] = useState('');
 
   const DisplayItems = transacData
     .filter((val) => {
-      if (searchTerm == "") {
+      if (month == "") {
         return val;
       } else if (
-        val.dateCreated.toLowerCase().includes(searchTerm.toLowerCase())
+        val.month == Number(month)
+      ) {
+        return val;
+      }
+    })
+    .filter((val) => {
+      if (day == "") {
+        return val;
+      } else if (
+        val.day == Number(day)
+      ) {
+        return val;
+      }
+    })
+    .filter((val) => {
+      if (year == "") {
+        return val;
+      } else if (
+        val.year == Number(year)
       ) {
         return val;
       }
@@ -144,27 +191,81 @@ export default function AdminTables(props) {
     console.log(data);
   };
 
+ 
   return (
     <div className={styles.Table__Container}>
       <div className={styles.Table__Search_Box}>
         <div className={styles.Table__Search_Form}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <input
-              autoComplete="off"
+         
+            <select
+         
               name="search"
               className={styles.Table_Search_Input}
               placeholder="Search Date"
               onChange={(event) => {
-                setSearchTerm(event.target.value);
+                setMonth(event.target.value);
               }}
-            />
-          </div>
+              >
+                <option selected diasbled hidden  value="">Month</option>
+                <option value="">ALL</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+             <select
+             
+             
+              className={styles.Table_Search_Input}
+              placeholder="Search Date"
+              onChange={(event) => {
+                setDay(event.target.value);
+              }}
+               >
+                <option value="" selected disbaled hidden  >Day</option>
+                <option value="" >ALL</option>
+                {
+                  dayArr.map((data)=>{
+                    return(
+                      <option key={data.id} value={data.day} >
+                        {data.day}
+                    </option>
+                    )
+                  })
+                }
+
+               </select>
+             <select
+            
+              name="search"
+              className={styles.Table_Search_Input}
+              placeholder="Search Date"
+              onChange={(event) => {
+                setYear(event.target.value);
+              }}
+              >
+                  <option value="" selected disbaled hidden  >Year</option>
+                <option value="" >ALL</option>
+ {
+                  dayArr.map((data)=>{
+                    return(
+                      <option key={cyear} value={cyear} >
+                        {cyear--}
+                    </option>
+                    )
+                  })
+                }
+              </select>
+            <button>Print</button>
+         
         </div>
       </div>
       <div className={styles.Table__Box}>
@@ -185,7 +286,8 @@ export default function AdminTables(props) {
           previousLabel={"Prev"}
           pageCount={pageCount}
           onPageChange={changePage}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={2}
+          breakLabel="..."
           containerClassName={styles.Pagination__Container}
           previousLinkClassName={styles.Pagination__Prev}
           nextLinkClassName={styles.Pagination__Next}
