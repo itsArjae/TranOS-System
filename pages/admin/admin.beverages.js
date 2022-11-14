@@ -393,7 +393,7 @@ const PrintBox = (props) => {
           >
             <b>
               <div style={{ fontSize: "30px" }}>TRANOS </div>
-              <div style={{ fontSize: "20px" }}>Meals Summary Report</div>
+              <div style={{ fontSize: "20px" }}>Beverages Summary Report</div>
              
             </b>
           </div>
