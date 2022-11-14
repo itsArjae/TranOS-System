@@ -16,10 +16,16 @@ import LoadingScreen from "../loading-screen";
 import IdleTimerContainer from "../../src/misc/IdleTimerContainer";
 import { useRouter } from "next/router";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
-
+import { useReactToPrint } from "react-to-print";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 export default function AdminBeverages() {
   useEffect(() => {
     const position = sessionStorage.getItem("Position");
@@ -178,6 +184,13 @@ export default function AdminBeverages() {
     Quantity: Yup.string().required("Incomplete Details!"),
   });
 
+  const [visible, setVisible] = useState(true);
+
+  function setEditDataVisible() {
+    setVisible(!visible);
+  }
+  
+
   return isLoading ? (
     <IdleTimerContainer>
       <div className={styles.Beverages__Container}>
@@ -306,8 +319,21 @@ export default function AdminBeverages() {
             updateData={updateData}
             Loading={Loading}
             notifyUD={notifyUD}
+            setEditDataVisible={setEditDataVisible}
           />
         </div>
+
+        {visible === true && (
+        <OuterBox>
+          <InnerBox>
+            <PrintBox
+              setEditDataVisible={setEditDataVisible}
+              printItems={beverageData}
+             
+            />
+          </InnerBox>
+        </OuterBox>
+      )}
 
         <ToastContainer />
       </div>
@@ -334,6 +360,92 @@ const OuterBox = styled.div`
 const InnerBox = styled.div`
   margin: auto;
 `;
+
+const PrintBox = (props) => {
+  const { setEditDataVisible, printItems,day,year,month } = props;
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Result",
+    // onAfterPrint:()=>alert('success')
+  });
+
+  return (
+    <div className={styles.print_cont}>
+      <div className={styles.btn}>
+        <button onClick={setEditDataVisible} className={styles.print__btn}>
+          BACK
+        </button>
+        <button onClick={handlePrint} className={styles.print__btn}>
+          Print
+        </button>
+      </div>
+      <div className={styles.print_box} ref={componentRef}>
+        <div className={styles.headers}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              textAlign: "center",
+              marginRight: "50px",
+            }}
+          >
+            <b>
+              <div style={{ fontSize: "30px" }}>TRANOS </div>
+              <div style={{ fontSize: "20px" }}>Meals Summary Report</div>
+             
+            </b>
+          </div>
+          <img src="/assets/admin-assets/pictures/logo.png" />
+        </div>
+
+        <div>
+          <Table>
+            <TableBody>
+              <TableRow>
+                <TableCell>
+                  <b>Beverage Name</b>
+                </TableCell>
+                <TableCell>
+                  <b>Quantity</b>
+                </TableCell>
+                <TableCell>
+                  {" "}
+                  <b>Price</b>{" "}
+                </TableCell>
+              </TableRow>
+              {printItems.map((data) => {
+                return (
+                  <TableRow key={data.id}>
+                      <TableCell sx={{ display: "flex", flexDirection: "row" }}>
+                        {data.BeverageName} &nbsp;{" "}
+                        {data.Size ? (
+                          <div>
+                            {data.Size}
+                            {data.Details}
+                          </div>
+                        ) : null}
+                      </TableCell>
+                    <TableCell> {data.Quantity} </TableCell>
+                    <TableCell>
+                      {" "}
+                      Php.{Number(data.Price)
+                        .toFixed(2)
+                        .toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                    </TableCell>
+                    <TableCell> {data.dateCreated} </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 AdminBeverages.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
