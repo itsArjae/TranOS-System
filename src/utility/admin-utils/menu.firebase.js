@@ -43,14 +43,14 @@ export async function saveMenuData(data, menuId, pictureUrl, date) {
     if (data.Serving == "") {
       return serve;
     } else {
-      return data.Serving;
+      return Number(data.Serving);
     }
   };
   const pCode = Date.now();
   try {
     const docRef = await addDoc(collection(db, "meals"), {
       MealName: data.MealName,
-      Price: data.Price,
+      Price: Number(data.Price),
       Serving: noServing(),
       Status: true,
       ImageUrl: pictureUrl,
@@ -101,8 +101,8 @@ export function updateMeal(
   const docRef = doc(db, "meals", id);
   const data = {
     MealName: mealname,
-    Price: mealprice,
-    Serving: serving,
+    Price: Number(mealprice),
+    Serving: Number(serving),
   };
   setDoc(docRef, data, { merge: true })
     .then((docRef) => {

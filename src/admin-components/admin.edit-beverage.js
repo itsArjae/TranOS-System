@@ -173,7 +173,7 @@ export default function EditBeverage(props) {
       updateBeverage(
         id,
         Bevname.current.value,
-        Bevqty.current.value,
+        Number(Bevqty.current.value),
         Number(Bevprice.current.value),
         Number(Bevsize.current.value),
         bev,

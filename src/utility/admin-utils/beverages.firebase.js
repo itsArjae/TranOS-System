@@ -87,9 +87,9 @@ export function updateBeverage(
   const docRef = doc(db, "beverages", drinksId);
   const data = {
     BeverageName: bevname,
-    Quantity: bevqty,
-    Price: bevprice,
-    Size: bevsize,
+    Quantity: Number(bevqty),
+    Price: Number(bevprice),
+    Size: Number(bevsize),
     Details: bevdetail,
     Bucket: bucket,
   };
@@ -122,15 +122,15 @@ export async function saveBeveragesData(
     if (data.Size == "") {
       return (data.Size = null);
     } else {
-      return data.Size;
+      return Number(data.Size);
     }
   };
   const pCode = Date.now();
   try {
     const docRef = await addDoc(collection(db, "beverages"), {
       BeverageName: data.BeverageName,
-      Price: data.Price,
-      Quantity: data.Quantity,
+      Price: Number(data.Price),
+      Quantity: Number(data.Quantity),
       Size: sizeData(),
       Details: bevSize,
       Status: true,
