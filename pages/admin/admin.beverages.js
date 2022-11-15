@@ -376,7 +376,7 @@ const PrintBox = (props) => {
           BACK
         </button>
         <button onClick={handlePrint} className={styles.print__btn}>
-          Print
+          PRINT
         </button>
       </div>
       <div className={styles.print_box} ref={componentRef}>
