@@ -1,4 +1,4 @@
-import React, { useState,useRef } from "react";
+import React, { useState, useRef } from "react";
 import styles from "../../styles/css/admin-styles/components-css/tables.components.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -43,7 +43,7 @@ const headers = [
 
 export default function AdminTables(props) {
   const router = useRouter();
-  const { menuData, updateData, Loading, notifyUD,setEditDataVisible } = props;
+  const { menuData, updateData, Loading, notifyUD, setEditDataVisible } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [pageNumber, setPageNumber] = useState(0);
   let pageCountFixed = () => {
@@ -188,23 +188,30 @@ export default function AdminTables(props) {
     console.log(data);
   };
 
-
   return (
     <div className={styles.Table__Container1}>
       <div className={styles.Table__Search_Box}>
         <div className={styles.Table__Search_Form}>
-        
-            <input
-              autoComplete="off"
-              name="search"
-              className={styles.Table_Search_Input}
-              placeholder="Search Meal Name"
-              onChange={(event) => {
-                setSearchTerm(event.target.value);
-              }}
-            />
-            <button onClick={setEditDataVisible}  >Print</button>
-         
+          <input
+            autoComplete="off"
+            name="search"
+            className={styles.Table_Search_Input}
+            placeholder="Search Meal Name"
+            onChange={(event) => {
+              setSearchTerm(event.target.value);
+            }}
+          />
+          <button
+            style={{
+              border: "1px solid black",
+              padding: "5px",
+              margin: "0 1rem",
+              cursor: "pointer",
+            }}
+            onClick={setEditDataVisible}
+          >
+            Print
+          </button>
         </div>
       </div>
       <div className={styles.Table__Box}>
@@ -233,9 +240,6 @@ export default function AdminTables(props) {
           activeClassName={styles.paginationActive}
         />
       </div>
-     
     </div>
   );
 }
-
-

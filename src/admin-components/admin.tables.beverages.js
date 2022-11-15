@@ -37,7 +37,8 @@ const headers = [
 export default function AdminTables(props) {
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
-  const { beverageData, updateData, Loading, notifyUD,setEditDataVisible } = props;
+  const { beverageData, updateData, Loading, notifyUD, setEditDataVisible } =
+    props;
   const [pageNumber, setPageNumber] = useState(0);
   const [disableBtn, setDisable] = useState(false);
   let pageCountFixed = () => {
@@ -212,9 +213,18 @@ export default function AdminTables(props) {
               onChange={(event) => {
                 setSearchTerm(event.target.value);
               }}
-              
             />
-              <button style={{border:"1px solid black",padding:"5px",margin:"0 1rem",cursor:"pointer"}} onClick={setEditDataVisible} >PRINT</button>
+            <button
+              style={{
+                border: "1px solid black",
+                padding: "5px",
+                margin: "0 1rem",
+                cursor: "pointer",
+              }}
+              onClick={setEditDataVisible}
+            >
+              PRINT
+            </button>
           </div>
         </div>
       </div>
@@ -244,8 +254,7 @@ export default function AdminTables(props) {
           activeClassName={styles.paginationActive}
         />
         <div>
-        {/* <CSVLink data={beverageData} headers={CsvHeader} filename={`BeverageReport.csv`} style={{border:"1px solid black",padding:"3px"}} >EXPORT AS CSV</CSVLink> */}
-      
+          {/* <CSVLink data={beverageData} headers={CsvHeader} filename={`BeverageReport.csv`} style={{border:"1px solid black",padding:"3px"}} >EXPORT AS CSV</CSVLink> */}
         </div>
       </div>
     </div>

@@ -170,7 +170,6 @@ export default function AdminMenu() {
   function setEditDataVisible() {
     setVisible(!visible);
   }
-  
 
   return isLoading ? (
     <IdleTimerContainer>
@@ -267,16 +266,15 @@ export default function AdminMenu() {
           />
         </div>
         {visible === true && (
-        <OuterBox>
-          <InnerBox>
-            <PrintBox
-              setEditDataVisible={setEditDataVisible}
-              printItems={menuData}
-             
-            />
-          </InnerBox>
-        </OuterBox>
-      )}
+          <OuterBox>
+            <InnerBox>
+              <PrintBox
+                setEditDataVisible={setEditDataVisible}
+                printItems={menuData}
+              />
+            </InnerBox>
+          </OuterBox>
+        )}
 
         <ToastContainer />
       </div>
@@ -307,7 +305,7 @@ const InnerBox = styled.div`
 `;
 
 const PrintBox = (props) => {
-  const { setEditDataVisible, printItems,day,year,month } = props;
+  const { setEditDataVisible, printItems, day, year, month } = props;
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -339,7 +337,6 @@ const PrintBox = (props) => {
             <b>
               <div style={{ fontSize: "30px" }}>TRANOS </div>
               <div style={{ fontSize: "20px" }}>Meals Summary Report</div>
-             
             </b>
           </div>
           <img src="/assets/admin-assets/pictures/logo.png" />
@@ -367,7 +364,8 @@ const PrintBox = (props) => {
                     <TableCell> {data.Serving} </TableCell>
                     <TableCell>
                       {" "}
-                      Php.{Number(data.Price)
+                      Php.
+                      {Number(data.Price)
                         .toFixed(2)
                         .toString()
                         .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
@@ -383,8 +381,6 @@ const PrintBox = (props) => {
     </div>
   );
 };
-
-
 
 AdminMenu.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;

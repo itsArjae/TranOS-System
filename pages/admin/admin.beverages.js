@@ -184,12 +184,11 @@ export default function AdminBeverages() {
     Quantity: Yup.string().required("Incomplete Details!"),
   });
 
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   function setEditDataVisible() {
     setVisible(!visible);
   }
-  
 
   return isLoading ? (
     <IdleTimerContainer>
@@ -324,16 +323,15 @@ export default function AdminBeverages() {
         </div>
 
         {visible === true && (
-        <OuterBox>
-          <InnerBox>
-            <PrintBox
-              setEditDataVisible={setEditDataVisible}
-              printItems={beverageData}
-             
-            />
-          </InnerBox>
-        </OuterBox>
-      )}
+          <OuterBox>
+            <InnerBox>
+              <PrintBox
+                setEditDataVisible={setEditDataVisible}
+                printItems={beverageData}
+              />
+            </InnerBox>
+          </OuterBox>
+        )}
 
         <ToastContainer />
       </div>
@@ -362,7 +360,7 @@ const InnerBox = styled.div`
 `;
 
 const PrintBox = (props) => {
-  const { setEditDataVisible, printItems,day,year,month } = props;
+  const { setEditDataVisible, printItems, day, year, month } = props;
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -394,7 +392,6 @@ const PrintBox = (props) => {
             <b>
               <div style={{ fontSize: "30px" }}>TRANOS </div>
               <div style={{ fontSize: "20px" }}>Beverages Summary Report</div>
-             
             </b>
           </div>
           <img src="/assets/admin-assets/pictures/logo.png" />
@@ -418,19 +415,20 @@ const PrintBox = (props) => {
               {printItems.map((data) => {
                 return (
                   <TableRow key={data.id}>
-                      <TableCell sx={{ display: "flex", flexDirection: "row" }}>
-                        {data.BeverageName} &nbsp;{" "}
-                        {data.Size ? (
-                          <div>
-                            {data.Size}
-                            {data.Details}
-                          </div>
-                        ) : null}
-                      </TableCell>
+                    <TableCell sx={{ display: "flex", flexDirection: "row" }}>
+                      {data.BeverageName} &nbsp;{" "}
+                      {data.Size ? (
+                        <div>
+                          {data.Size}
+                          {data.Details}
+                        </div>
+                      ) : null}
+                    </TableCell>
                     <TableCell> {data.Quantity} </TableCell>
                     <TableCell>
                       {" "}
-                      Php.{Number(data.Price)
+                      Php.
+                      {Number(data.Price)
                         .toFixed(2)
                         .toString()
                         .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
