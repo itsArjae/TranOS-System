@@ -386,6 +386,17 @@ const PrintBox = (props) => {
     documentTitle: "Result",
     // onAfterPrint:()=>alert('success')
   });
+  const getSum = () =>{
+
+    let sum  = 0;
+    printItems.map((data)=>{
+      sum  = sum  + Number(data.totalAmount)
+    })
+    return Number(sum)
+    .toFixed(2)
+    .toString()
+    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  }
 
   return (
     <div className={styles.print_cont}>
@@ -411,7 +422,7 @@ const PrintBox = (props) => {
               <div style={{ fontSize: "30px" }}>TRANOS </div>
               <div style={{ fontSize: "20px" }}>Transaction Summary Report</div>
               <div>Month-Year-Day</div>
-                <div>{month? month+'-': 'none-'}{day? day+'-': 'none-'}{year? year:'none'}</div>
+                <div>{month? month+'-': '{Month}-'}{day? day+'-': '{Day}-'}{year? year:'{Year}'}</div>
             </b>
           </div>
           <img src="/assets/admin-assets/pictures/logo.png" />
@@ -454,6 +465,7 @@ const PrintBox = (props) => {
               })}
             </TableBody>
           </Table>
+          <div className={styles.total_price} > Total:  Php.{getSum()} </div>
         </div>
       </div>
     </div>

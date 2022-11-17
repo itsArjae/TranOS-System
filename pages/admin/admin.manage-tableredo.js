@@ -192,15 +192,23 @@ export default function AdminManageTableredo() {
     setVisible(!visible);
   }
 
+  const [editOn,setEditOn] = useState(false);
+  const handleEditOn = () => {
+    setEditOn(!editOn);
+  }
   return hasloaded ? (
     <IdleTimerContainer>
       <div className={styles.Container}>
         <div className={styles.Table__Container} ref={containerRef}>
           <div className={styles.Table__ButtonBox}>
+          <button className={styles.Table__Manage_Btn} onClick={handleEditOn}>
+              {editOn? 'Edit Mode':'View Mode'}
+            </button>
             <button
               className={styles.Table__Manage_Btn}
               onClick={handleAddTable}
             >
+              
               +TABLE
             </button>
             <button className={styles.Table__Manage_Btn} onClick={handleAddHut}>
@@ -217,6 +225,7 @@ export default function AdminManageTableredo() {
                   table={table}
                   getOffsetLeft={getOffsetLeft}
                   getOffsetTop={getOffsetTop}
+                  editOn={editOn}
                 />
               </>
             );

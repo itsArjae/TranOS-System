@@ -31,7 +31,7 @@ export default function TableComponent(props) {
   const nodeRef = useRef(null);
   const containerRef = useRef(null);
   const tableRef = useRef(null);
-  const {table,getOffsetLeft,getOffsetTop} = props;
+  const {table,getOffsetLeft,getOffsetTop,editOn} = props;
   const [error,setError] = useState(false);
   const [position,setPosition] = useState(null);
   const [enable,setEnable] = useState(true);
@@ -83,7 +83,7 @@ setPosition(null);
     <Draggable
     defaultPosition={{x:table?.x  ,y:table?.y}}
     onStop={onStop}
-    position={position}
+    position={editOn? position :{x:table?.x  ,y:table?.y} }
     onMouseDown={()=>{setPosition(null)}}
     handle="#handle"
     >  
@@ -93,8 +93,10 @@ setPosition(null);
         *
       </div>
       <div className={styles.Table__Button_Box} >
-      <button className={styles.Table__Button} onClick={handleSavePosition} >✔</button>
-      <button className={styles.Table__Button}  onClick={setEditDataVisible} >✘</button>
+      {
+        editOn? <div> <button className={styles.Table__Button} onClick={handleSavePosition} >✔</button>
+        <button className={styles.Table__Button}  onClick={setEditDataVisible} >✘</button></div> : <div style={{height:"51px"}} > </div>
+      }
       
       </div>
       {

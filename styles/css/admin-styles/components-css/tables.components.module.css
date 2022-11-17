@@ -300,3 +300,12 @@
   height: 30px;
   cursor: pointer;
 }
+
+.total_price{
+  text-align: center;
+  margin: 2rem 1rem;
+  padding: 20px;
+  background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #9bcdee);
+  border: 1px solid blue;
+  font-weight: bold;
+}

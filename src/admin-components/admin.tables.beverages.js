@@ -26,7 +26,7 @@ const headers = [
   },
   {
     id: 4,
-    header: "Quantity",
+    header: "Available",
   },
   {
     id: 5,
