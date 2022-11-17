@@ -421,8 +421,7 @@ const PrintBox = (props) => {
             <b>
               <div style={{ fontSize: "30px" }}>TRANOS </div>
               <div style={{ fontSize: "20px" }}>Transaction Summary Report</div>
-              <div>Month-Year-Day</div>
-                <div>{month? month+'-': '{Month}-'}{day? day+'-': '{Day}-'}{year? year:'{Year}'}</div>
+                <div>{month? month+'-': 'mm/'}{day? day+'-': 'dd/'}{year? year:'yyyy'}</div>
             </b>
           </div>
           <img src="/assets/admin-assets/pictures/logo.png" />

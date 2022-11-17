@@ -202,7 +202,7 @@ export default function AdminManageTableredo() {
         <div className={styles.Table__Container} ref={containerRef}>
           <div className={styles.Table__ButtonBox}>
           <button className={styles.Table__Manage_Btn} onClick={handleEditOn}>
-              {editOn? 'Edit Mode':'View Mode'}
+              {editOn? 'VIEW MODE':'EDIT MODE'}
             </button>
             <button
               className={styles.Table__Manage_Btn}
