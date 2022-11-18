@@ -296,11 +296,11 @@ export default function SignIn() {
               width={30}
               height={30}
             />
-            <a href="/app/Tranos_version1.0.2.apk" download>
+            <a href="/app/Tranos_version1.0.5.apk" download>
               <button>Download App Here</button>
             </a>
           </div>
-          Tranos v1.0.2
+          Tranos v1.0.5
         </div>
       </div>
     </div>
