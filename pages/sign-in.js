@@ -44,6 +44,11 @@ export default function SignIn() {
 
   const onSubmit = async (password) => {
     setIsLogging(true);
+    if(userInfo.Status == false){
+      handleErrorMessage("This Account is not Active");
+      setIsLogging(false);
+      return;
+    }
     try {
       await loginUser(userInfo.Email, password);
     } catch (err) {
@@ -134,6 +139,7 @@ export default function SignIn() {
             Position: data.Position,
             FirstLog: data.IsFirstLogin,
             id: data.id,
+            Status: data.Status
           });
         });
         setHasLoaded(true);
