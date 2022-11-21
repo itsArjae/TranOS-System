@@ -1,29 +1,34 @@
+
+
 .container{
   display: flex;
   width: 100vw;
   height: 100vh;
   align-items: center;
   justify-content: center;
-  background-image: url(/assets/admin-assets/pictures/bg6.jpg);
+  /* background-image: url(/assets/admin-assets/pictures/bg6.jpg); */
    /* background-image:
-    linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)),
-    url('images/background.jpg'); */
+    linear-gradient(to bottom, rgba(42, 43, 42, 0.52), rgba(38, 40, 39, 0.73)),
+    url('/assets/misc/loginbg1.jpg'); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  background-image: url(/assets/admin-assets/pictures/bg6.jpg);
 }
 
 .Login__Box{
   width: 800px;
   height: 500px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
   display: flex;
   flex-direction: row;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   border-radius: 20px;
-  background-color: white;
+  /* background-color: white; */
   margin: 0 1rem;
+  border-radius: 0;
 }
 
 .logo{
@@ -32,11 +37,58 @@
   align-items: center;
   justify-content: center;
   width: 300px;
-  background-color: #EEF1FF;
+  /* background-color: #EEF1FF; */
   flex-direction: column;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+  /* background-image: linear-gradient(180deg, #53C7F0, #87E0FF, #63c48d, #21a741); */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* background-image: url(/assets/admin-assets/pictures/bg6.jpg); */
+  border-radius: 0;
 }
+
+.box{
+  flex-grow: 1;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+}
+.box__title{
+  margin-right: auto;
+  margin-left: 10px;
+  color: rgb(113, 98, 98);
+  
+}
+
+.title__box{
+  margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.title__box img{
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+}
+
+.submit2{
+  color: #82CD47;
+  background-color: transparent;
+  border: none;
+  font-weight:bold ;
+  font-size: 25px;
+}
+
+.submit2:hover{
+  color: #379237;
+}
+
 .logo img{
   width: 150px;
 }
@@ -56,33 +108,37 @@
 .Login__Form h2{
   font-size: 20px;
   font-weight: bold;
-}
+  
+} 
+
 
 .logo h4{
   color: blue;
 }
 
 .download{
-  width: 200px;
+  width: 220px;
   height: 40px;
   border-radius: 10px;
   font-size: larger;
-  background-color: dodgerblue;
+  background-color: #82CD47;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   border: none;
+  font-weight: bold;
   /*border: 3px solid dodgerblue;*/
 }
 
 .download button{
   font-size: 15px;
   color: white;
-  background-color: dodgerblue;
+  background-color: #82CD47;
   border: none;
   /*border: 3px solid dodgerblue;*/
   cursor: pointer;
+  font-weight: bold;
 }
 
 .download img{
@@ -127,17 +183,17 @@
   color: rgb(255, 255, 255);
   font-size: large;
   font-weight:normal;
-  background-color: dodgerblue;
+  background-color: #82CD47;
 }
 .submit:hover{
   color: dodgerblue;
   background-color: white;
-  border: 2px solid dodgerblue;
+  border: 2px solid #379237;
 }
 .submit1:hover{
-  color: dodgerblue;
+  color: #82CD47;
   background-color: white;
-  border: 2px solid dodgerblue;
+  border: 2px solid #379237;
 }
 .Button__Box{
   display: flex;
@@ -181,7 +237,7 @@
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
   border-radius: 0;
-  height: 600px;
+  height:700px;
 }
 .logo{
   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
@@ -192,8 +248,9 @@
   background-color: #EEF1FF;
   flex-direction: column;
   width: 100%;
-  margin-top: 20px;
   border-radius: 0;
+  padding: 10px;
+  background-color: transparent;
 }
 .logo img{
   width: 100px;
@@ -206,7 +263,7 @@
   height: 40px;
   border-radius: 10px;
   font-size: larger;
-  background-color: dodgerblue;
+  background-color: #82CD47;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -215,10 +272,15 @@
   margin-bottom: 20px;
   /*border: 3px solid dodgerblue;*/
 }
+.download a{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .download button{
   font-size: 15px;
   color: white;
-  background-color: dodgerblue;
+  background-color: #82CD47;
   border: none;
   /*border: 3px solid dodgerblue;*/
   cursor: pointer;
@@ -226,4 +288,12 @@
 .download img{
   width: 50px;
 }
+}
+
+
+.download_btn{
+  display: flex;
+ flex-direction: row;
+ align-items: center;
+ justify-content: center;
 }

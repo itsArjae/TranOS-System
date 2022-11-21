@@ -208,8 +208,8 @@ export default function SignIn() {
     return hasLoaded ? (
       <div className={styles.Input_Pass__Box}>
         <div className={styles.Button__Box2}>
-          <button className={styles.submit1} onClick={back}>
-            Back
+          <button className={styles.submit2} onClick={back}>
+          🡰
           </button>
         </div>
         <div className={styles.Input_Pass_Content}>
@@ -274,9 +274,13 @@ export default function SignIn() {
         <link rel="icon" href="/logo.ico" />
       </Head>
       <div className={styles.Login__Box}>
+        <div className={styles.box} >
+        <div className={styles.title__box} >
+          <img src="/assets/misc/tranos.icon.png" />
+          <h2 className={styles.box__title} >TRANOS</h2></div>
         <div className={styles.Login__Form}>
-          <h2>Welcome to TranOS</h2>
-          <h3>Login</h3>
+        
+          <h1>Login to your account</h1>
           <div className={styles.Form__Box}>
             {step == 1 && hasLoaded ? (
               <InputEmail />
@@ -288,6 +292,7 @@ export default function SignIn() {
           </div>
           {hasError ? <div style={{ color: "red" }}>{errorMes}</div> : null}
         </div>
+        </div>
         <div className={styles.logo}>
           <img src="/assets/admin-assets/pictures/logo.png" alt="logo" />
           <div>
@@ -297,13 +302,13 @@ export default function SignIn() {
             </h4>
           </div>
           <div className={styles.download}>
-            <img
+            
+            <a href="/app/Tranos_version1.0.8.apk" download>
+              <button className={styles.download_btn} > <img
               src="/assets/admin-assets/svg/download.icon.svg"
               width={30}
               height={30}
-            />
-            <a href="/app/Tranos_version1.0.8.apk" download>
-              <button>Download App Here</button>
+            /><div>Download App Here</div></button>
             </a>
           </div>
           Tranos v1.0.8
