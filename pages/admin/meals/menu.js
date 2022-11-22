@@ -96,7 +96,7 @@ export default function AdminMenuData() {
 
   const deleteBev = (mealName) => {
     let needRender = true;
-    deleteData(id, mealName, date, currentUser);
+    deleteData(id, mealName, date, currentUser.email);
     notifyDel();
     const interval = setInterval(() => {
       if (needRender == true) {

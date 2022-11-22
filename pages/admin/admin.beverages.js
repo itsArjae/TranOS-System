@@ -103,7 +103,7 @@ export default function AdminBeverages() {
       picItem,
       date,
       bucketData(),
-      currentUser
+      currentUser.email
     );
     resetForm();
     imageRef.current.value = "";

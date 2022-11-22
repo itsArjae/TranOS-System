@@ -122,9 +122,9 @@ export function updateMeal(
 }
 
 export async function deleteData(mealID, mealName, date, email) {
+  console.log(email);
   try {
     await deleteDoc(doc(db, "meals", mealID));
-    console.log("Document deleted");
     saveNotifDataDel(
       date,
       `${mealName} successfully deleted!`,

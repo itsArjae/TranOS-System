@@ -98,7 +98,7 @@ export default function AdminBeverageData() {
 
   const deleteBev = (bevName) => {
     let needRender = true;
-    deleteData(id, bevName, date, currentUser);
+    deleteData(id, bevName, date, currentUser.email);
     notifyDel();
     const interval = setInterval(() => {
       if (needRender == true) {

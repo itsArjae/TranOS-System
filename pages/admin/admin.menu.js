@@ -90,7 +90,7 @@ export default function AdminMenu() {
   const onSubmit = (data, { resetForm }) => {
     let needRender = true;
     setLoading(null);
-    saveMiddleware2(data, menuData.length, picItem, date, currentUser);
+    saveMiddleware2(data, menuData.length, picItem, date, currentUser.email);
     resetForm();
     imageRef.current.value = "";
     setPicItem(null);
