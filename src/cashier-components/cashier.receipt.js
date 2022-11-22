@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { Divider } from "@mui/material";
 import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
+import { useEffect } from "react";
 export default function CashierReceipt(props) {
   const {
     orderData,
@@ -34,6 +35,9 @@ export default function CashierReceipt(props) {
     // onAfterPrint:()=>alert('success')
   });
 
+  useEffect(()=>{
+    handlePrint();
+  },[])
   return (
     <>
       <div className={styles.receipt__box}>

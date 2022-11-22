@@ -44,7 +44,12 @@ export const useAuth = () =>{
 export function loginUser(email,password){
   return signInWithEmailAndPassword(auth,email,password);
 };
-
+export function loginUser2(email,password){
+  return signInWithEmailAndPassword(auth2,email,password).then(()=>{
+    console.log('verified')
+    signOut(auth2);
+  });
+};
 export function logoutUser(){
   return signOut(auth);
 };

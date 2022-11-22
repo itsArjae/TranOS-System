@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import styles from "../../styles/css/cashier-styles/cashier.order.module.css";
 import ReactPaginate from "react-paginate";
 import { useState } from "react";
-import { app } from "../../src/utility/firebase";
+import { app, loginUser2 } from "../../src/utility/firebase";
 import {
   query,
   where,
@@ -21,6 +21,7 @@ import Pay from "../../src/cashier-components/cashier.pay";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { voidData } from "../../src/utility/cashier-utils/cashier.firebase";
 
 const headers = [
   {
@@ -38,6 +39,10 @@ const headers = [
   {
     id: 4,
     header: "Sub-total",
+  },
+  {
+    id: 5,
+    header: "Action",
   },
 ];
 const headersCheck = [
@@ -86,6 +91,7 @@ export default function CashierOrder() {
   const [orderQData, setOrderQData] = useState([]);
   const [orderCat, setOrderCat] = useState("");
   const [disable, setDisable] = useState(false);
+  const [qID, setQID] = useState("");
   const db = getFirestore(app);
 
   const [pageNumber, setPageNumber] = useState(0);
@@ -97,6 +103,14 @@ export default function CashierOrder() {
 
   function setEditDataVisible() {
     setVisible(!visible);
+  }
+  const [confVisible, setConfVisible] = useState(false);
+  const [voidData,setVoidData] = useState([]);
+
+  function handleConfVisible(data) {
+    console.log(data)
+    setVoidData(data);
+    setConfVisible(!confVisible);
   }
 
   const getTableData = () => {
@@ -286,30 +300,8 @@ export default function CashierOrder() {
   const DisplayItems = orderData
     .slice(pagesVisited, pagesVisited + itemsPerPage)
     .map((data) => {
-      // let isCheck = false;
-      // return (
-      //   <div key={data.id}>
-      //     <OrderItem data={data} tryLang={tryLang} tryLang1={tryLang1} />
-      //   </div>
-      // );
       return (
         <div className={styles.Table__Data} key={data.id}>
-          {/* <div className={styles.Table__Data__Box1}>
-            <input
-              type="checkbox"
-              onChange={(e) => {
-                setIsSelected(!isSelected);
-                if (!isSelected) {
-                  console.log("true");
-                  tryLang(data.itemName, data.id, data.subTotal);
-                }
-                if (isSelected) {
-                  console.log("false");
-                  tryLang1(data.itemName, data.id, data.subTotal);
-                }
-              }}
-            ></input>
-          </div> */}
           <div className={styles.Table__Data__Box}> {data.itemName}</div>
           <div className={styles.Table__Data__Box}>
             {Number(data.price).toFixed(2)}
@@ -317,6 +309,12 @@ export default function CashierOrder() {
           <div className={styles.Table__Data__Box}> {data.quantity}</div>
           <div className={styles.Table__Data__Box}>
             {Number(data.subTotal).toFixed(2)}
+          </div>
+          <div className={styles.Table__Data__Box}>
+            {" "}
+            <button onClick={()=>{
+              handleConfVisible(data);
+            }} >VOID</button>{" "}
           </div>
         </div>
       );
@@ -413,20 +411,6 @@ export default function CashierOrder() {
                   )}
                 </div>
               </div>
-              {/* <div>
-                <ReactPaginate
-                  nextLabel={"Next"}
-                  previousLabel={"Prev"}
-                  pageCount={pageCount}
-                  onPageChange={changePage}
-                  pageRangeDisplayed={5}
-                  containerClassName={styles.Pagination__Container}
-                  previousLinkClassName={styles.Pagination__Prev}
-                  nextLinkClassName={styles.Pagination__Next}
-                  disabledClassName={styles.paginationDisabled}
-                  activeClassName={styles.paginationActive}
-                />
-              </div> */}
             </div>
             <div className={styles.table__container1}>
               <p>Additional Charges</p>
@@ -444,20 +428,6 @@ export default function CashierOrder() {
                   )}
                 </div>
               </div>
-              {/* <div>
-                <ReactPaginate
-                  nextLabel={"Next"}
-                  previousLabel={"Prev"}
-                  pageCount={pageCount}
-                  onPageChange={changePage}
-                  pageRangeDisplayed={5}
-                  containerClassName={styles.Pagination__Container}
-                  previousLinkClassName={styles.Pagination__Prev}
-                  nextLinkClassName={styles.Pagination__Next}
-                  disabledClassName={styles.paginationDisabled}
-                  activeClassName={styles.paginationActive}
-                />
-              </div> */}
             </div>
           </div>
           <div className={styles.other__container}>
@@ -552,47 +522,19 @@ export default function CashierOrder() {
           </InnerBox>
         </OuterBox>
       )}
+      {confVisible === true && (
+        <OuterBox>
+          <InnerBox>
+            <Confirmation 
+            handleConfVisible={handleConfVisible}
+            data={voidData}
+            />
+          </InnerBox>
+        </OuterBox>
+      )}
     </div>
   );
 }
-
-CashierOrder.getLayout = function getLayout(page) {
-  return <CashierLayout>{page}</CashierLayout>;
-};
-
-// const OrderItem = (props) => {
-//   const { data, tryLang, tryLang1 } = props;
-//   const [isSelected, setIsSelected] = useState(false);
-
-//   return (
-//     <div className={styles.Table__Data}>
-//       <div className={styles.Table__Data__Box1}>
-//         <input
-//           type="checkbox"
-//           onChange={(e) => {
-//             setIsSelected(!isSelected);
-//             if (!isSelected) {
-//               console.log("true");
-//               tryLang(data.itemName, data.id, data.subTotal);
-//             }
-//             if (isSelected) {
-//               console.log("false");
-//               tryLang1(data.itemName, data.id, data.subTotal);
-//             }
-//           }}
-//         ></input>
-//       </div>
-//       <div className={styles.Table__Data__Box}> {data.itemName}</div>
-//       <div className={styles.Table__Data__Box}>
-//         {Number(data.price).toFixed(2)}
-//       </div>
-//       <div className={styles.Table__Data__Box}> {data.quantity}</div>
-//       <div className={styles.Table__Data__Box}>
-//         {Number(data.subTotal).toFixed(2)}
-//       </div>
-//     </div>
-//   );
-// };
 
 const OuterBox = styled.div`
   width: 100vw;
@@ -607,3 +549,92 @@ const OuterBox = styled.div`
 const InnerBox = styled.div`
   margin: auto;
 `;
+
+const Confirmation = (props) => {
+
+  const {data,handleConfVisible} = props;
+
+  const db = getFirestore(app);
+
+  const [empData, setEmpData] = useState([]);
+
+  const getEmpData = async () => {
+    const saleRef = collection(db, "employees");
+    console.log("read");
+    const q = query(saleRef, where("Position", "==", "Admin"));
+    onSnapshot(q, (snapshot) => {
+      let sale = [];
+      snapshot.docs.forEach((doc) => {
+        sale.push({ ...doc.data(), id: doc.id });
+      });
+
+      setEmpData(sale);
+    });
+  };
+
+  useEffect(() => {
+    getEmpData();
+  }, []);
+
+  const [adEmail, setAdEmail] = useState("");
+  const [adPass, setAdPass] = useState("");
+  const [errMessage,setErrMessage] = useState('');
+  const onSubmit = async() => {
+    console.log(adEmail,adPass)
+    try {
+      await loginUser2(adEmail, adPass);
+      voidData(data.id)
+      handleConfVisible();
+    } catch (err) {
+      setErrMessage("Wrong Password");
+     
+      return;
+    }
+  }
+
+  return (
+    <div className={styles.conf_container}>
+      <h2>Do you confirm to void this product? <br/> Item: {data?.itemName} </h2>
+      
+      <div
+        className={styles.admin__email}
+        onChange={(e) => {
+          setAdEmail(e.target.value);
+        }}
+      >
+        <select>
+          <option value="" selected disabled hidden>
+            Admin Email
+          </option>
+          {empData.map((data) => {
+            return (
+              <option key={data.id} value={data.Email}>
+                {data.Email}
+                
+              </option>
+            );
+          })}
+        </select>
+      </div>
+
+
+      <div className={styles.admin_pass}>
+        <input
+          type="password"
+          placeholder="Admin Password"
+          value={adPass}
+          onChange={(e) => {
+            setAdPass(e.target.value);
+          }}
+        />
+        {errMessage}
+      </div>
+      
+
+      <div className={styles.conf__btn}>
+        <button onClick={handleConfVisible} >Cancel</button>
+        <button onClick={onSubmit} >Confirm</button>
+      </div>
+    </div>
+  );
+};

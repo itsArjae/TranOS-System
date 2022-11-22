@@ -211,3 +211,13 @@ export function updateYearly(yearlyID, total) {
       console.log(error);
     });
 }
+
+export async function voidData(orderID) {
+  try {
+    await deleteDoc(doc(db, "orders", orderID));
+    console.log("Document deleted");
+  
+  } catch (e) {
+    console.error("Error deleting document: ", e);
+  }
+}

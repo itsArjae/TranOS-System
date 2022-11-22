@@ -9,6 +9,15 @@ import {
   orderBy,
   limitToLast,
 } from "firebase/firestore";
+import {
+  getDatabase,
+  ref,
+  get,
+  query as realQ,
+  equalTo,
+  orderByChild,
+} from "firebase/database";
+
 import { app } from "../../src/utility/firebase";
 import { data } from "autoprefixer";
 import KitchenNav from "../kitchen.nav";
@@ -131,9 +140,37 @@ export default function KitchenOrderStatus() {
 
 const TableInfo = (props) => {
   const { data } = props;
+
+  const [record,setTableRecord] = useState([]);
+  const [category,setCategory] = useState("");
+  function getTableData() {
+    // setRecord(null);
+
+    const db = getDatabase(app);
+    const empRef = query(ref(db, "Dine/Tables"), orderByChild("id"),equalTo(data.tableId));
+    
+    get(empRef).then((snapshot) => {
+      var employees = [];
+
+      snapshot.forEach((childSnapshot) => {
+        employees.push(childSnapshot.val());
+      });
+   //   console.log(employees,"record")
+   employees.map((data)=>{
+    setCategory(data.Category)
+   })
+      setTableRecord(employees);
+    });
+  }
+
+  useEffect(()=>{
+    getTableData();
+  },[])
+
+  
   return (
     <div className={styles.info__box}>
-      Table
+      {category}
       <div>{data.tableId}</div>
     </div>
   );
