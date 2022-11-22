@@ -36,6 +36,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import SuperTodaySales from "../../src/super-admin-components/supertodaysales";
+const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Drinks.png";
 
 const SampleData = [
   {
@@ -438,8 +439,17 @@ const Dashboard = () => {
               {beverageData.map((data) => {
                 return (
                   <div key={data.id} className={styles.Notifications__Content}>
+                    <div className={styles.NotifImg}>
+                      <img
+                        src={data.ImageUrl ? data.ImageUrl : DefaultPic}
+                        width={45}
+                        height={45}
+                        alt="beverage icon"
+                      />
+                    </div>
                     <div style={{ display: "flex" }}>
                       <p>
+                        &emsp;
                         {data.Quantity == 0
                           ? `${data.BeverageName} ${
                               data.Size ? data.Size : ""
@@ -457,13 +467,13 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className={styles.Calendar__Container}>
+          {/* <div className={styles.Calendar__Container}>
             <Calendar
               className={styles.Calendar}
               onChange={onChange}
               value={value}
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </IdleTimerContainer>
