@@ -116,7 +116,7 @@ export default function AdminEmployeeData() {
                 <div className={styles.Data__Picture}>
                   <img src={data.ImageUrl ? data.ImageUrl : DefaultPic} />
                 </div>
-                <Divider />
+                <Divider/>
                 <div>
                   <p>
                     EmpID: <b>{data.UserCode}</b>{" "}
@@ -219,6 +219,8 @@ export default function AdminEmployeeData() {
     </div>
   );
 }
+
+
 
 AdminEmployeeData.getLayout = function getLayout(page) {
   return <SuperAdminLayout>{page}</SuperAdminLayout>;

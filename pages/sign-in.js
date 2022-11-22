@@ -209,7 +209,7 @@ export default function SignIn() {
       <div className={styles.Input_Pass__Box}>
         <div className={styles.Button__Box2}>
           <button className={styles.submit2} onClick={back}>
-          🡰
+          ⬅
           </button>
         </div>
         <div className={styles.Input_Pass_Content}>
@@ -276,7 +276,7 @@ export default function SignIn() {
       <div className={styles.Login__Box}>
         <div className={styles.box} >
         <div className={styles.title__box} >
-          <img src="/assets/misc/tranos.icon.png" />
+          {/* <img src="/assets/misc/tranos.icon.png" /> */}
           <h2 className={styles.box__title} >TRANOS</h2></div>
         <div className={styles.Login__Form}>
         
