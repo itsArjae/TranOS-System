@@ -38,7 +38,7 @@ export default function ResetPassword() {
         <img src="/assets/admin-assets/pictures/logo.png" />
       </div>
       <h1>
-        Thank You! Since it&lsquo;s your first time log in, a reset password
+        Thank You! Since it&lsquo;s your first log in, a reset password
         link has been sent to your email.
       </h1>
       <p>

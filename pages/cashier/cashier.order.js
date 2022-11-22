@@ -586,8 +586,7 @@ const Confirmation = (props) => {
       voidData(data.id)
       handleConfVisible();
     } catch (err) {
-      setErrMessage("Wrong Password");
-     
+      setErrMessage("Wrong Password");   
       return;
     }
   }
@@ -630,6 +629,7 @@ const Confirmation = (props) => {
         {errMessage}
       </div>
       
+
 
       <div className={styles.conf__btn}>
         <button onClick={handleConfVisible} >Cancel</button>
