@@ -151,7 +151,6 @@ export default function SuperDashboard() {
             </div>
           );
         })}
-
         <button onClick={getNotif}>LOAD MORE</button>
       </div>
     </div>

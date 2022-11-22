@@ -299,6 +299,7 @@ const OuterBox = styled.div`
   display: flex;
   alignitems: center;
   justifycontent: center;
+  background-color:white;
   backdrop-filter: blur(10px);
 `;
 

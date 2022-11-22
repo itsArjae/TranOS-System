@@ -353,6 +353,7 @@ const OuterBox = styled.div`
   width: 100vw;
   height: 100vh;
   position: absolute;
+  background-color:white;
   backdrop-filter: blur(10px);
   display: flex;
   alignitems: center;

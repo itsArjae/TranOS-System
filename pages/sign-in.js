@@ -49,6 +49,11 @@ export default function SignIn() {
       setIsLogging(false);
       return;
     }
+
+    if (userInfo.Position == "Waiter") {
+      handleErrorMessage("This is a waiter account");
+      return;
+    }
     try {
       await loginUser(userInfo.Email, password);
     } catch (err) {
@@ -276,7 +281,7 @@ export default function SignIn() {
       <div className={styles.Login__Box}>
         <div className={styles.box} >
         <div className={styles.title__box} >
-          {/* <img src="/assets/misc/tranos.icon.png" /> */}
+          <img src="/assets/misc/tranos-logo.png"  />
           <h2 className={styles.box__title} >TRANOS</h2></div>
         <div className={styles.Login__Form}>
         
