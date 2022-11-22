@@ -368,8 +368,7 @@ const OuterBox = styled.div`
   alignitems: center;
   justifycontent: center;
   backdrop-filter: blur(10px);
-  margin-left:-100px;
- 
+  margin-left: -100px;
 `;
 
 const InnerBox = styled.div`
@@ -378,7 +377,7 @@ const InnerBox = styled.div`
 `;
 
 const PrintBox = (props) => {
-  const { setEditDataVisible, printItems,day,year,month } = props;
+  const { setEditDataVisible, printItems, day, year, month } = props;
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -386,17 +385,16 @@ const PrintBox = (props) => {
     documentTitle: "Result",
     // onAfterPrint:()=>alert('success')
   });
-  const getSum = () =>{
-
-    let sum  = 0;
-    printItems.map((data)=>{
-      sum  = sum  + Number(data.totalAmount)
-    })
+  const getSum = () => {
+    let sum = 0;
+    printItems.map((data) => {
+      sum = sum + Number(data.totalAmount);
+    });
     return Number(sum)
-    .toFixed(2)
-    .toString()
-    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  }
+      .toFixed(2)
+      .toString()
+      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   return (
     <div className={styles.print_cont}>
@@ -405,7 +403,7 @@ const PrintBox = (props) => {
           BACK
         </button>
         <button onClick={handlePrint} className={styles.print__btn}>
-          Print
+          PRINT
         </button>
       </div>
       <div className={styles.print_box} ref={componentRef}>
@@ -421,7 +419,11 @@ const PrintBox = (props) => {
             <b>
               <div style={{ fontSize: "30px" }}>TRANOS </div>
               <div style={{ fontSize: "20px" }}>Transaction Summary Report</div>
-                <div>{month? month+'-': 'mm/'}{day? day+'-': 'dd/'}{year? year:'yyyy'}</div>
+              <div>
+                {month ? month + "-" : "mm/"}
+                {day ? day + "-" : "dd/"}
+                {year ? year : "yyyy"}
+              </div>
             </b>
           </div>
           <img src="/assets/admin-assets/pictures/logo.png" />
@@ -453,7 +455,8 @@ const PrintBox = (props) => {
                     <TableCell> {data.tableNum} </TableCell>
                     <TableCell>
                       {" "}
-                      Php.{Number(data.totalAmount)
+                      Php.
+                      {Number(data.totalAmount)
                         .toFixed(2)
                         .toString()
                         .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}{" "}
@@ -464,7 +467,7 @@ const PrintBox = (props) => {
               })}
             </TableBody>
           </Table>
-          <div className={styles.total_price} > Total:  Php.{getSum()} </div>
+          <div className={styles.total_price}> Total: Php.{getSum()} </div>
         </div>
       </div>
     </div>

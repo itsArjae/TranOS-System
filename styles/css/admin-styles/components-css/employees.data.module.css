@@ -67,12 +67,8 @@
 
 .Resume__Btn{
   background-color: white;
-  border: 1px solid blue;
   padding: 5px;
   cursor: pointer;
-}
-.Resume__Btn:hover{
-  background-color: aqua;
 }
 
 .Box2__Container{
