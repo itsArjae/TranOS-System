@@ -10,7 +10,11 @@ import { statusChange } from "../../../src/utility/admin-utils/employees.firebas
 import EditData from "../../../src/admin-components/admin.edit-employee-admin";
 import styled from "@emotion/styled";
 import {
-  query, where, getFirestore, collection, onSnapshot,
+  query,
+  where,
+  getFirestore,
+  collection,
+  onSnapshot,
 } from "firebase/firestore";
 
 import { Field } from "formik";
@@ -209,4 +213,3 @@ const InnerBox = styled.div`
 AdminEmployeeData.getLayout = function getLayout(page) {
   return <AdminLayout>{page}</AdminLayout>;
 };
-
