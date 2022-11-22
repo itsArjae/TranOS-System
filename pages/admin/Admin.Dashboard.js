@@ -436,34 +436,41 @@ const Dashboard = () => {
               <p>Notifications</p>
             </div>
             <div className={styles.Notifications}>
-              {beverageData.map((data) => {
-                return (
-                  <div key={data.id} className={styles.Notifications__Content}>
-                    <div className={styles.NotifImg}>
-                      <img
-                        src={data.ImageUrl ? data.ImageUrl : DefaultPic}
-                        width={45}
-                        height={45}
-                        alt="beverage icon"
-                      />
-                    </div>
-                    <div style={{ display: "flex" }}>
-                      <p>
-                        &emsp;
-                        {data.Quantity == 0
-                          ? `${data.BeverageName} ${
-                              data.Size ? data.Size : ""
-                            }${data.Details ? data.Details : ""} out of Stocks!`
-                          : `${data.BeverageName} ${
-                              data.Size ? data.Size : ""
-                            }${
-                              data.Details ? data.Details : ""
-                            } running out of Stocks!`}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
+              {beverageData.length > 0
+                ? beverageData.map((data) => {
+                    return (
+                      <div
+                        key={data.id}
+                        className={styles.Notifications__Content}
+                      >
+                        <div className={styles.NotifImg}>
+                          <img
+                            src={data.ImageUrl ? data.ImageUrl : DefaultPic}
+                            width={45}
+                            height={45}
+                            alt="beverage icon"
+                          />
+                        </div>
+                        <div style={{ display: "flex" }}>
+                          <p>
+                            &emsp;
+                            {data.Quantity == 0
+                              ? `${data.BeverageName} ${
+                                  data.Size ? data.Size : ""
+                                }${
+                                  data.Details ? data.Details : ""
+                                } out of Stocks!`
+                              : `${data.BeverageName} ${
+                                  data.Size ? data.Size : ""
+                                }${
+                                  data.Details ? data.Details : ""
+                                } running out of Stocks!`}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })
+                : "No Data Found"}
             </div>
           </div>
 
