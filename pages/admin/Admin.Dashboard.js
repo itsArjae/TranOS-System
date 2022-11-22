@@ -436,41 +436,53 @@ const Dashboard = () => {
               <p>Notifications</p>
             </div>
             <div className={styles.Notifications}>
-              {beverageData.length > 0
-                ? beverageData.map((data) => {
-                    return (
-                      <div
-                        key={data.id}
-                        className={styles.Notifications__Content}
-                      >
-                        <div className={styles.NotifImg}>
-                          <img
-                            src={data.ImageUrl ? data.ImageUrl : DefaultPic}
-                            width={45}
-                            height={45}
-                            alt="beverage icon"
-                          />
-                        </div>
-                        <div style={{ display: "flex" }}>
-                          <p>
-                            &emsp;
-                            {data.Quantity == 0
-                              ? `${data.BeverageName} ${
-                                  data.Size ? data.Size : ""
-                                }${
-                                  data.Details ? data.Details : ""
-                                } out of Stocks!`
-                              : `${data.BeverageName} ${
-                                  data.Size ? data.Size : ""
-                                }${
-                                  data.Details ? data.Details : ""
-                                } running out of Stocks!`}
-                          </p>
-                        </div>
+              {beverageData.length > 0 ? (
+                beverageData.map((data) => {
+                  return (
+                    <div
+                      key={data.id}
+                      className={styles.Notifications__Content}
+                    >
+                      <div className={styles.NotifImg}>
+                        <img
+                          src={data.ImageUrl ? data.ImageUrl : DefaultPic}
+                          width={45}
+                          height={45}
+                          alt="beverage icon"
+                        />
                       </div>
-                    );
-                  })
-                : "No Data Found"}
+                      <div style={{ display: "flex" }}>
+                        <p>
+                          {data.Quantity == 0
+                            ? `${data.BeverageName} ${
+                                data.Size ? data.Size : ""
+                              }${
+                                data.Details ? data.Details : ""
+                              } out of Stocks!`
+                            : `${data.BeverageName} ${
+                                data.Size ? data.Size : ""
+                              }${
+                                data.Details ? data.Details : ""
+                              } running out of Stocks!`}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <div
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                    color: "gray",
+                  }}
+                >
+                  No Data Found
+                </div>
+              )}
             </div>
           </div>
 
