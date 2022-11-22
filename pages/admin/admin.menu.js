@@ -30,7 +30,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { useAuth } from "../utility/firebase";
+import { useAuth } from "../../src/utility/firebase";
 
 export default function AdminMenu() {
   const currentUser = useAuth();

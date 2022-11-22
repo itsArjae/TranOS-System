@@ -26,7 +26,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { useAuth } from "../utility/firebase";
+import { useAuth } from "../../src/utility/firebase";
 
 export default function AdminBeverages() {
   const currentUser = useAuth();

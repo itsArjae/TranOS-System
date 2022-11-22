@@ -28,7 +28,7 @@ import {
 } from "firebase/firestore";
 const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Menu.png";
 import { deleteData } from "../../../src/utility/admin-utils/menu.firebase";
-import { useAuth } from "../utility/firebase";
+import { useAuth } from "../../../src/utility/firebase";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
