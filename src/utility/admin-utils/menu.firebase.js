@@ -19,8 +19,8 @@ const db = getFirestore(app);
 var ImageUrl;
 var ResumeUrl;
 
-export function saveMiddleware2(data, menuId, pictureFile, date) {
-  uploadMenuPicture(data, menuId, pictureFile, date);
+export function saveMiddleware2(data, menuId, pictureFile, date, email) {
+  uploadMenuPicture(data, menuId, pictureFile, date, email);
 }
 
 export function updateMenu(mealID, stat) {
@@ -37,7 +37,7 @@ export function updateMenu(mealID, stat) {
     });
 }
 
-export async function saveMenuData(data, menuId, pictureUrl, date) {
+export async function saveMenuData(data, menuId, pictureUrl, date, email) {
   const noServing = () => {
     let serve = 0;
     if (data.Serving == "") {
@@ -62,16 +62,17 @@ export async function saveMenuData(data, menuId, pictureUrl, date) {
       date,
       `${data.MealName} successfully added!`,
       "meals",
-      docRef.id
+      docRef.id,
+      email
     );
   } catch (e) {
     console.error("Error adding document: ", e);
   }
 }
 
-function uploadMenuPicture(data, menuId, pictureFile, date) {
+function uploadMenuPicture(data, menuId, pictureFile, date, email) {
   if (!pictureFile) {
-    return saveMenuData(data, menuId, null, date);
+    return saveMenuData(data, menuId, null, date, email);
   }
 
   const storageRef = sref(storage, "MenuFiles/" + pictureFile.name);
@@ -83,7 +84,7 @@ function uploadMenuPicture(data, menuId, pictureFile, date) {
     (err) => console.log(err),
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((pictureUrl) => {
-        saveMenuData(data, menuId, pictureUrl, date);
+        saveMenuData(data, menuId, pictureUrl, date, email);
       });
     }
   );
@@ -120,7 +121,7 @@ export function updateMeal(
     });
 }
 
-export async function deleteData(mealID, mealName, date) {
+export async function deleteData(mealID, mealName, date, email) {
   try {
     await deleteDoc(doc(db, "meals", mealID));
     console.log("Document deleted");
@@ -128,14 +129,15 @@ export async function deleteData(mealID, mealName, date) {
       date,
       `${mealName} successfully deleted!`,
       "meals",
-      mealID
+      mealID,
+      email
     );
   } catch (e) {
     console.error("Error deleting document: ", e);
   }
 }
 
-export async function saveNotifData(data, date, details, tblName, id) {
+export async function saveNotifData(data, date, details, tblName, id, email) {
   const dt = new Date();
   let year = dt.getFullYear();
   try {
@@ -145,6 +147,7 @@ export async function saveNotifData(data, date, details, tblName, id) {
       itemID: id,
       tableName: tblName,
       timeStamp: Number(`${year}${Date.now()}`),
+      email: email,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
@@ -152,7 +155,7 @@ export async function saveNotifData(data, date, details, tblName, id) {
   }
 }
 
-export async function saveNotifDataDel(date, details, tblName, id) {
+export async function saveNotifDataDel(date, details, tblName, id, email) {
   const dt = new Date();
   let year = dt.getFullYear();
   try {
@@ -162,6 +165,7 @@ export async function saveNotifDataDel(date, details, tblName, id) {
       itemID: id,
       tableName: tblName,
       timeStamp: Number(`${year}${Date.now()}`),
+      email,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {

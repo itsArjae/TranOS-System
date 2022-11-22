@@ -26,9 +26,18 @@ export function saveMiddleware2(
   bevSize,
   pictureFile,
   date,
-  bucket
+  bucket,
+  email
 ) {
-  uploadBeveragesPicture(data, bevId, bevSize, pictureFile, date, bucket);
+  uploadBeveragesPicture(
+    data,
+    bevId,
+    bevSize,
+    pictureFile,
+    date,
+    bucket,
+    email
+  );
 }
 
 export function updateBeverageStatus(beverageID, stat) {
@@ -51,10 +60,11 @@ function uploadBeveragesPicture(
   bevSize,
   pictureFile,
   date,
-  bucket
+  bucket,
+  email
 ) {
   if (!pictureFile) {
-    return saveBeveragesData(data, bevId, bevSize, null, date, bucket);
+    return saveBeveragesData(data, bevId, bevSize, null, date, bucket, email);
   }
 
   const storageRef = sref(storage, "BeveragesFiles/" + pictureFile.name);
@@ -66,7 +76,15 @@ function uploadBeveragesPicture(
     (err) => console.log(err),
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((pictureUrl) => {
-        saveBeveragesData(data, bevId, bevSize, pictureUrl, date, bucket);
+        saveBeveragesData(
+          data,
+          bevId,
+          bevSize,
+          pictureUrl,
+          date,
+          bucket,
+          email
+        );
       });
     }
   );
@@ -116,7 +134,8 @@ export async function saveBeveragesData(
   bevSize,
   pictureUrl,
   date,
-  bucket
+  bucket,
+  email
 ) {
   const sizeData = () => {
     if (data.Size == "") {
@@ -144,14 +163,15 @@ export async function saveBeveragesData(
       date,
       `${data.BeverageName} successfully added!`,
       "beverages",
-      docRef.id
+      docRef.id,
+      email
     );
   } catch (e) {
     console.error("Error adding document: ", e);
   }
 }
 
-export async function deleteData(bevID, bevName, date) {
+export async function deleteData(bevID, bevName, date, email) {
   try {
     await deleteDoc(doc(db, "beverages", bevID));
     console.log("Document deleted");
@@ -159,14 +179,15 @@ export async function deleteData(bevID, bevName, date) {
       date,
       `${bevName} successfully deleted!`,
       "beverages",
-      bevID
+      bevID,
+      email
     );
   } catch (e) {
     console.error("Error deleting document: ", e);
   }
 }
 
-export async function saveNotifData(data, date, details, tblName, id) {
+export async function saveNotifData(data, date, details, tblName, id, email) {
   const dt = new Date();
   let year = dt.getFullYear();
   try {
@@ -176,6 +197,7 @@ export async function saveNotifData(data, date, details, tblName, id) {
       itemID: id,
       tableName: tblName,
       timeStamp: Number(`${year}${Date.now()}`),
+      email: email,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
@@ -183,7 +205,7 @@ export async function saveNotifData(data, date, details, tblName, id) {
   }
 }
 
-export async function saveNotifDataDel(date, details, tblName, id) {
+export async function saveNotifDataDel(date, details, tblName, id, email) {
   const dt = new Date();
   let year = dt.getFullYear();
   try {
@@ -193,6 +215,7 @@ export async function saveNotifDataDel(date, details, tblName, id) {
       itemID: id,
       tableName: tblName,
       timeStamp: Number(`${year}${Date.now()}`),
+      email,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {

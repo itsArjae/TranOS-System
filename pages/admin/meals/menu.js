@@ -28,11 +28,13 @@ import {
 } from "firebase/firestore";
 const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Menu.png";
 import { deleteData } from "../../../src/utility/admin-utils/menu.firebase";
+import { useAuth } from "../utility/firebase";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function AdminMenuData() {
+  const currentUser = useAuth();
   const notify = () =>
     toast.success("Data updated successfully!", {
       icon: "✔️",
@@ -94,7 +96,7 @@ export default function AdminMenuData() {
 
   const deleteBev = (mealName) => {
     let needRender = true;
-    deleteData(id, mealName, date);
+    deleteData(id, mealName, date, currentUser);
     notifyDel();
     const interval = setInterval(() => {
       if (needRender == true) {

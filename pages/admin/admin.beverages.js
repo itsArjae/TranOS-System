@@ -26,7 +26,10 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { useAuth } from "../utility/firebase";
+
 export default function AdminBeverages() {
+  const currentUser = useAuth();
   useEffect(() => {
     const position = sessionStorage.getItem("Position");
     if (position != "Admin") {
@@ -99,7 +102,8 @@ export default function AdminBeverages() {
       bevSize,
       picItem,
       date,
-      bucketData()
+      bucketData(),
+      currentUser
     );
     resetForm();
     imageRef.current.value = "";

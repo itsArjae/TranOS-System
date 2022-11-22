@@ -30,7 +30,10 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { useAuth } from "../utility/firebase";
+
 export default function AdminMenu() {
+  const currentUser = useAuth();
   useEffect(() => {
     const position = sessionStorage.getItem("Position");
     if (position != "Admin") {
@@ -87,7 +90,7 @@ export default function AdminMenu() {
   const onSubmit = (data, { resetForm }) => {
     let needRender = true;
     setLoading(null);
-    saveMiddleware2(data, menuData.length, picItem, date);
+    saveMiddleware2(data, menuData.length, picItem, date, currentUser);
     resetForm();
     imageRef.current.value = "";
     setPicItem(null);
