@@ -247,3 +247,28 @@ export async function saveNotifDataUpd(
     console.error("Error adding document: ", e);
   }
 }
+
+
+export function updateDiscount(
+  value,disId
+) {
+  const docRef = doc(db, "discount", disId);
+  const data = {
+    value:value
+  };
+  setDoc(docRef, data, { merge: true })
+    .then((docRef) => {
+      console.log("Entire Document has been updated successfully");
+      // saveNotifDataUpd(
+      //   data,
+      //   date,
+      //   `${bevname} [${message}] data successfully updated!`,
+      //   "beverages",
+      //   drinksId,
+      //   email
+      // );
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

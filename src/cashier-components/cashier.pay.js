@@ -20,6 +20,7 @@ import {
   query,
   onSnapshot,
   where,
+  getDocs,
 } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { logoutUser, useAuth } from "../utility/firebase";
@@ -39,7 +40,7 @@ export default function CashierPay(props) {
     successPayment,
     failPayment,
     cat,
-    getGrandTotal,
+    getGrandTotal1,
     getGTotalFixed2,
     miscData,
     charges,
@@ -47,6 +48,40 @@ export default function CashierPay(props) {
     getTotalFixedMisc,
     getTotalFixedMisc2,
   } = props;
+
+
+  const [disData, setDisData] = useState('');
+  const [disValue,setDisValue] = useState(0);
+  const getDiscount = async () => {
+    
+    const querySnapshot = await getDocs(collection(db, "discount"));
+    let emp = [];
+    querySnapshot.forEach((doc) => {
+      emp.push({ ...doc.data(), id: doc.id });
+    });
+    console.log("read");
+    emp.map((data)=>{
+      setDisValue(data.value);
+      setDisData(data.id);
+    })
+  };
+
+  const getGrandTotal = () =>{
+    if(isDiscount == true){
+      return Number(getGrandTotal1()) - ( Number(getGrandTotal1()) * (Number(disValue) / 100));
+    }
+    else{
+      Number(getGrandTotal1())
+    }
+  }
+
+  const getDiscountValue = () => {
+    return Number(getGrandTotal1()) - ( Number(getGrandTotal1()) * (Number(disValue) / 100));
+  }
+
+  const noDiscountValue = () => {
+    return Number(getGrandTotal1());
+  }
 
   const db = getFirestore(app);
 
@@ -97,7 +132,13 @@ export default function CashierPay(props) {
 
   const getSubTotal = () => {
     let subtotal = getTotal() + misce;
-    return subtotal;
+    if(isDiscount){
+      return subtotal / 100;
+    }
+    else{
+      return subtotal;
+    }
+    
   };
 
   const [dSales, setDSales] = useState();
@@ -172,6 +213,7 @@ export default function CashierPay(props) {
     getDailySales();
     getMonthlySales();
     getYearlySales();
+    getDiscount();
   }, []);
 
   const confirmPayment = () => {
@@ -232,6 +274,12 @@ export default function CashierPay(props) {
     // onAfterPrint:()=>alert('success')
   });
 
+  const [isDiscount,setIsDiscount] = useState(false);
+  const handleDisc = () => {
+    setIsDiscount(!isDiscount);
+    console.log(isDiscount)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.inner__container}>
@@ -274,7 +322,7 @@ export default function CashierPay(props) {
                     className={styles.Form__Input}
                     type="text"
                     id="total"
-                    value={isPaying ? Number(0).toFixed(2) : getGTotalFixed2()}
+                    value={isPaying ? Number(0).toFixed(2) : isDiscount? Number(getGrandTotal()).toFixed(2): getGTotalFixed2()}
                     readOnly={true}
                     disabled={btnDisable}
                   ></input>
@@ -311,6 +359,11 @@ export default function CashierPay(props) {
                 </div>
               </div>
               <div className={styles.Form__Input_Container}>
+                <div style={{display:"flex",flexDirection:"row"}} >
+                  
+                <input type="checkbox" onChange={handleDisc} /> <div>Discount</div> 
+                 
+                </div>
                 <div className={styles.Form__Input_Box1}>
                   {btnDisable ? (
                     <button className={styles.btn__pay1} onClick={proceed}>
@@ -337,7 +390,7 @@ export default function CashierPay(props) {
                 total={total}
                 dateTime={dateTime}
                 misce={misce}
-                getTotal={getTotal}
+                getTotal={ isDiscount? getDiscountValue :  getTotal}
                 change={change}
                 payment={payment}
                 trID={trID}
@@ -351,6 +404,10 @@ export default function CashierPay(props) {
                 getTotalMisc={getTotalMisc}
                 getTotalFixedMisc={getTotalFixedMisc}
                 getTotalFixedMisc2={getTotalFixedMisc2}
+                disValue={disValue}
+                isDiscount={isDiscount}
+                noDiscountValue={noDiscountValue}
+                
               />
             ) : (
               <div className={styles.ImageCon}>

@@ -10,6 +10,8 @@ import { updateMenu } from "../../src/utility/admin-utils/menu.firebase";
 import styled from "@emotion/styled";
 const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Menu.png";
 import { useReactToPrint } from "react-to-print";
+import { collection, getDocs, getFirestore } from "firebase/firestore";
+import {app} from '../../src/utility/firestore'
 import {
   Table,
   TableBody,
@@ -17,6 +19,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { updateDiscount } from "../utility/admin-utils/beverages.firebase";
 const headers = [
   {
     id: 1,
@@ -75,6 +78,7 @@ const dayArr = [
 ];
 
 export default function AdminTables(props) {
+  const db = getFirestore(app);
   const [yearArr, setYearArr] = useState([]);
 
   const dt = new Date();
@@ -88,7 +92,9 @@ export default function AdminTables(props) {
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getDiscount();
+  }, []);
 
   const router = useRouter();
   const { transacData, updateData, Loading } = props;
@@ -245,6 +251,27 @@ export default function AdminTables(props) {
     setVisible(!visible);
   }
 
+  const [disData, setDisData] = useState('');
+  const [disValue,setDisValue] = useState(0);
+  const getDiscount = async () => {
+    
+    const querySnapshot = await getDocs(collection(db, "discount"));
+    let emp = [];
+    querySnapshot.forEach((doc) => {
+      emp.push({ ...doc.data(), id: doc.id });
+    });
+    console.log("read");
+    emp.map((data)=>{
+      setDisValue(data.value);
+      setDisData(data.id);
+    })
+  };
+
+
+  const updateDisc = () =>{
+    updateDiscount(disValue,disData);
+  }
+
   return (
     <div className={styles.Table__Container}>
       <div className={styles.Table__Search_Box}>
@@ -328,7 +355,13 @@ export default function AdminTables(props) {
           )}
         </div>
       </div>
-      <div>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}} >
+        <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}} >
+          <div>Discount (%)</div>
+          <div><input placeholder="discount" value={disValue} style={{textAlign:"center"}} onChange={(e)=>{
+            setDisValue(e.target.value);
+          }} /><button onClick={updateDisc} >Save</button></div>
+        </div>
         <ReactPaginate
           nextLabel={"Next"}
           previousLabel={"Prev"}

@@ -511,7 +511,7 @@ export default function CashierOrder() {
               successPayment={successPayment}
               failPayment={failPayment}
               cat={cat}
-              getGrandTotal={getGrandTotal}
+              getGrandTotal1={getGrandTotal}
               getGTotalFixed2={getGTotalFixed2}
               miscData={miscData}
               charges={charges}

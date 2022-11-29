@@ -26,6 +26,9 @@ export default function CashierReceipt(props) {
     getTotalMisc,
     getTotalFixedMisc,
     getTotalFixedMisc2,
+    disValue,
+    isDiscount,
+    noDiscountValue
   } = props;
 
   const componentRef = useRef();
@@ -36,8 +39,17 @@ export default function CashierReceipt(props) {
   });
 
   useEffect(()=>{
-    handlePrint();
+    // handlePrint();
   },[])
+
+  const getSubTotal = () => {
+    if(isDiscount){
+      return Number(getTotal()) * (Number(disValue) / 100)
+    }
+    else{
+      getTotal();
+    }
+  }
   return (
     <>
       <div className={styles.receipt__box}>
@@ -176,9 +188,20 @@ export default function CashierReceipt(props) {
           <div className={styles.table__container}>
             <table>
               <tbody>
+              {
+                
+                isDiscount?  <tr>
+                <td>Grand Total:</td>
+                <td>{Number(noDiscountValue()).toFixed(2)}</td>
+              </tr>: null}
+                {
+                isDiscount?  <tr>
+                <td>Discount:</td>
+                <td>{Number(noDiscountValue() * (Number(disValue) / 100) ).toFixed(2)} ({disValue}%)</td>
+              </tr>: null}
                 <tr>
                   <td>Total:</td>
-                  <td>{getGTotalFixed2()}</td>
+                  <td>{getTotal()}</td>
                 </tr>
                 <tr>
                   <td>Cash:</td>
