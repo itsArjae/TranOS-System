@@ -103,7 +103,7 @@ export default function CashierPay(props) {
 
   var dateTime = d + " " + t + " " + curMeridiem;
 
-  const changeRef = new useRef(null);
+  const changeRef = new useRef(0);
   const cashRef = new useRef(null);
   const [payment, setPayment] = useState(0);
   const [change, setChange] = useState(0);
@@ -114,12 +114,20 @@ export default function CashierPay(props) {
 
   const pay = (val) => {
     setPayment(Number(val));
+    console.log("pay",val)
     changeRef.current.value = Number(0)
       .toFixed(2)
       .toString()
       .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     let change = 0;
-    change = Number(val) - Number(getGrandTotal());
+    
+    if(isDiscount == true){
+      change = Number(val) - (Number(getGrandTotal1()) - ( Number(getGrandTotal1()) * (Number(disValue) / 100)));
+    
+    }
+    else{
+      change = Number(val) - Number(getGrandTotal1());
+    }
     if (change < 0) {
       return;
     }

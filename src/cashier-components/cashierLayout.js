@@ -313,6 +313,30 @@ export default function CashierLayout({ children }) {
               </ListItemText>
             </ListItem>
 
+            <ListItem button onClick={()=>{
+              router.push('/kitchen/kitchen.serving')
+            }}>
+              <ListItemIcon>
+                <Image
+                  src="/assets/cashier-assets/svg/cashier.menu.icon.svg"
+                  alt="Menu Icon"
+                  width={25}
+                  height={25}
+                />
+              </ListItemIcon>
+              <ListItemText sx={{}}>
+                <Typography
+                  variant="h2"
+                  sx={{
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Serving
+                </Typography>
+              </ListItemText>
+            </ListItem>
+
             <ListItem button onClick={goSignout}>
               <ListItemIcon>
                 <Image

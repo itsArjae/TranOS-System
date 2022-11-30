@@ -528,6 +528,7 @@ export default function CashierOrder() {
             <Confirmation 
             handleConfVisible={handleConfVisible}
             data={voidData}
+            id = {voidData.queueID}
             />
           </InnerBox>
         </OuterBox>
@@ -552,7 +553,7 @@ const InnerBox = styled.div`
 
 const Confirmation = (props) => {
 
-  const {data,handleConfVisible} = props;
+  const {data,handleConfVisible,id} = props;
 
   const db = getFirestore(app);
 
@@ -572,14 +573,40 @@ const Confirmation = (props) => {
     });
   };
 
+  const [qID , setQID] = useState('')
+  const getId = () => {
+    const saleRef = collection(db, "orderQueue");
+    console.log("read");
+    const q = query(saleRef, where("__name__", "==", id));
+    onSnapshot(q, (snapshot) => {
+      let sale = [];
+      snapshot.docs.forEach((doc) => {
+        sale.push({ ...doc.data(), id: doc.id });
+      });
+
+      sale.map((sales)=>{
+        setQID(sales.status);
+      })
+    });
+  }
+
+  const [isLoaded,setIsLoaded] = useState(true);
+
   useEffect(() => {
     getEmpData();
+    getId();
+    setIsLoaded(false);
   }, []);
 
   const [adEmail, setAdEmail] = useState("");
   const [adPass, setAdPass] = useState("");
   const [errMessage,setErrMessage] = useState('');
   const onSubmit = async() => {
+    if(!qID){
+      setErrMessage("Invalid Action - Order has been served");  
+      return;
+    }
+
     console.log(adEmail,adPass)
     try {
       await loginUser2(adEmail, adPass);
@@ -594,7 +621,7 @@ const Confirmation = (props) => {
   return (
     <div className={styles.conf_container}>
       <h2>Do you confirm to void this product? <br/> Item: {data?.itemName} </h2>
-      
+
       <div
         className={styles.admin__email}
         onChange={(e) => {
@@ -633,7 +660,7 @@ const Confirmation = (props) => {
 
       <div className={styles.conf__btn}>
         <button onClick={handleConfVisible} >Cancel</button>
-        <button onClick={onSubmit} >Confirm</button>
+        <button disabled={isLoaded} onClick={onSubmit} >Confirm</button>
       </div>
     </div>
   );

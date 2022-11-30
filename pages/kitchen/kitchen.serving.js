@@ -14,11 +14,13 @@ import { Divider } from "@mui/material";
 import ReactPaginate from "react-paginate";
 import KitchenNav from "../kitchen.nav";
 import { deleteQueue } from "../../src/utility/kitchen-utils/kitchen.firebase";
-
+import CashierLayout from "../../src/cashier-components/cashierLayout";
+import { useRouter } from "next/router";
 export default function KitchenServing() {
+  const router = useRouter();
   useEffect(() => {
     const position = sessionStorage.getItem("Position");
-    if (position != "Chef") {
+    if (position != "Cashier") {
       router.push("/sign-in");
     }
   }, []);
@@ -47,10 +49,8 @@ export default function KitchenServing() {
 
   return (
     <div className={styles.container}>
-      <div>
-        <KitchenNav />
-      </div>
-      <h1>SERVING</h1>
+      
+      <h1 style={{marginTop:"100px"}} >SERVING</h1>
       <div className={styles.table__list}>
         {orderQueue.map((data) => {
           return (
@@ -143,4 +143,8 @@ const OrderDetails = (props) => {
       </div>
     </div>
   );
+};
+
+KitchenServing.getLayout = function getLayout(page) {
+  return <CashierLayout>{page}</CashierLayout>;
 };
