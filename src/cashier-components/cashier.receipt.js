@@ -5,7 +5,9 @@ import { Divider } from "@mui/material";
 import { useReactToPrint } from "react-to-print";
 import { useRef } from "react";
 import { useEffect } from "react";
+import {useAuth} from '../utility/firebase'
 export default function CashierReceipt(props) {
+  const currentUser = useAuth();
   const {
     orderData,
     tid,
@@ -77,6 +79,10 @@ export default function CashierReceipt(props) {
               <tbody>
                 <tr>
                   <td colSpan={2}>===================================</td>
+                </tr>
+                <tr>
+                  <td>Processed: </td>
+                  <td>{currentUser?.email}</td>
                 </tr>
                 <tr>
                   <td>{cat}: </td>
