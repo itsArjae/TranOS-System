@@ -21,13 +21,10 @@ import {
 import { app } from "../../src/utility/firebase";
 import { data } from "autoprefixer";
 import KitchenNav from "../kitchen.nav";
+import { useRouter } from "next/router";
 export default function KitchenOrderStatus() {
-  useEffect(() => {
-    const position = sessionStorage.getItem("Position");
-    if (position != "Chef") {
-      router.push("/sign-in");
-    }
-  }, []);
+  const router = useRouter()
+
 
   const [preparing, setPreparing] = useState([]);
   const [cooking, setCooking] = useState([]);
@@ -88,7 +85,9 @@ export default function KitchenOrderStatus() {
   return (
     <div className={styles.container}>
       <div>
-        <KitchenNav />
+        <button onClick={()=>{
+          router.push('/sign-in')
+        }} >Back to Login</button>
       </div>
       <div className={styles.content}>
         <div className={styles.status__box}>

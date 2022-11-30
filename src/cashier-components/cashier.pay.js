@@ -232,36 +232,86 @@ export default function CashierPay(props) {
     }
     setBtnDisable(true);
     if (!dSales) {
-      saveDaily(getGrandTotal(), year, month, day);
+      if(isDiscount == true){
+        saveDaily(getDiscountValue(), year, month, day);
+      }
+      else{
+        saveDaily(noDiscountValue(), year, month, day);
+      }
+      
     } else {
+
       let sum = 0;
-      sum = Number(dSales) + Number(getGrandTotal());
+      if(isDiscount == true){
+        sum = Number(dSales) + Number(getDiscountValue());
+      }
+      else{
+        sum = Number(dSales) + Number(noDiscountValue());
+      }
       updateDaily(dSalesID, sum);
     }
+
+
     if (!mSales) {
-      saveMonthly(getGrandTotal(), year, month);
+
+      if(isDiscount == true){
+        saveMonthly(getDiscountValue(), year, month);
+      }
+      else{
+        saveMonthly(noDiscountValue(), year, month);
+      }
     } else {
       let sum = 0;
-      sum = Number(mSales) + Number(getGrandTotal());
+      if(isDiscount == true){
+        sum = Number(mSales) + Number(getDiscountValue());
+      }
+      else{
+        sum = Number(mSales) + Number(noDiscountValue());
+      }
       updateMonthly(mSalesID, sum);
     }
     if (!ySales) {
-      saveYearly(getGrandTotal(), year);
+      if(isDiscount == true){
+        saveYearly(getDiscountValue(), year);
+      }
+      else{
+        saveYearly(noDiscountValue(), year);
+      }
     } else {
       let sum = 0;
-      sum = Number(ySales) + Number(getGrandTotal());
+      if(isDiscount == true){
+        sum = Number(ySales) + Number(getDiscountValue());
+      }
+      else{
+        sum = Number(ySales) + Number(noDiscountValue());
+      }
       updateYearly(ySalesID, sum);
     }
-    saveTransaction(
-      trID,
-      d,
-      currentUser.email,
-      getGrandTotal(),
-      tid,
-      day,
-      month,
-      year
-    );
+    if(isDiscount == true){
+      saveTransaction(
+        trID,
+        d,
+        currentUser.email,
+        getDiscountValue(),
+        tid,
+        day,
+        month,
+        year
+      );
+    }
+    else{
+      saveTransaction(
+        trID,
+        d,
+        currentUser.email,
+        noDiscountValue(),
+        tid,
+        day,
+        month,
+        year
+      );
+    }
+   
     saveItems(trID, orderData, miscData, dateTime, day, month, year);
     setIsPaying(true);
     cashRef.current.value = Number(0).toFixed(2);

@@ -299,3 +299,10 @@
  align-items: center;
  justify-content: center;
 }
+
+.statusBtn{
+  background-color: transparent;
+  border: none;
+  color: blue;
+  margin-top: 10px;
+}

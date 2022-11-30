@@ -317,6 +317,9 @@ export default function SignIn() {
             </a>
           </div>
           Tranos v1.0.8
+          <button className={styles.statusBtn} onClick={()=>{
+            router.push('/kitchen/kitchen.orderstatus')
+          }} ><u>Go to Order Status Window</u></button>
         </div>
       </div>
     </div>
