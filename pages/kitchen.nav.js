@@ -30,11 +30,7 @@ export default function KitchenNav() {
               <a>ORDERS</a>
             </Link>
           </div>
-          <div className={styles.scholarship_1}>
-            <Link href="/kitchen/kitchen.orderstatus">
-              <a>ORDER STATUS</a>
-            </Link>
-          </div>
+          
           <div className={styles.login}>
             <Link href="/">
               <a>Log Out</a>
