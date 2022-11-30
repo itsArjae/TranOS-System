@@ -411,8 +411,8 @@ const InnerBox = styled.div`
 `;
 
 const PrintBox = (props) => {
-  const { setEditDataVisible, printItems, day, year, month } = props;
-
+  const { setEditDataVisible, printItems} = props;
+<div>Printed: {month}/{day}/{year}</div>
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -441,6 +441,7 @@ const PrintBox = (props) => {
         </button>
       </div>
       <div className={styles.print_box} ref={componentRef}>
+      <div>Printed: {month}/{day}/{year}</div>
         <div className={styles.headers}>
           <div
             style={{

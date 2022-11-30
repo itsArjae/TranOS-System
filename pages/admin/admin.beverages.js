@@ -332,6 +332,7 @@ export default function AdminBeverages() {
               <PrintBox
                 setEditDataVisible={setEditDataVisible}
                 printItems={beverageData}
+                date={date}
               />
             </InnerBox>
           </OuterBox>
@@ -365,7 +366,13 @@ const InnerBox = styled.div`
 `;
 
 const PrintBox = (props) => {
-  const { setEditDataVisible, printItems, day, year, month } = props;
+  const { setEditDataVisible, printItems } = props;
+
+  const dt = new Date();
+  const day = dt.getDate();
+  const month = dt.getMonth();
+  const year = dt.getFullYear();
+
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -385,6 +392,7 @@ const PrintBox = (props) => {
         </button>
       </div>
       <div className={styles.print_box} ref={componentRef}>
+        <div>Printed: {month}/{day}/{year}</div>
         <div className={styles.headers}>
           <div
             style={{
