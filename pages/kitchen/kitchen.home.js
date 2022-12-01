@@ -107,7 +107,7 @@ const OrderBox = (props) => {
       orderRef,
       where("queueID", "==", data.id),
       where("category", "==", "order"),
-      // where("type", "==", "meals"),
+      where("type", "==", "meals"),
     );
     onSnapshot(q, (snapshot) => {
       let order = [];
