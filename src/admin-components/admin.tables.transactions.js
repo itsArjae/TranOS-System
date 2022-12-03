@@ -411,8 +411,9 @@ const InnerBox = styled.div`
 `;
 
 const PrintBox = (props) => {
-  const { setEditDataVisible, printItems} = props;
-<div>Printed: {month}/{day}/{year}</div>
+  const { setEditDataVisible, printItems,day,year,month} = props;
+  
+
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -429,7 +430,10 @@ const PrintBox = (props) => {
       .toString()
       .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   };
-
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
+  var globalTime = today.getHours()
+  var time = (today.getHours() % 12 || 12)+ ":" + `${today.getMinutes() >= 10 ? today.getMinutes() : '0'+today.getMinutes()}` + ` ${globalTime > 12 ? 'pm' :'am'}`
   return (
     <div className={styles.print_cont}>
       <div className={styles.btn}>
@@ -441,7 +445,7 @@ const PrintBox = (props) => {
         </button>
       </div>
       <div className={styles.print_box} ref={componentRef}>
-      <div>Printed: {month}/{day}/{year}</div>
+      <div>Printed on: {date} {time}</div>
         <div className={styles.headers}>
           <div
             style={{
