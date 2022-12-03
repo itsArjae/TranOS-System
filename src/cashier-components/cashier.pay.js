@@ -52,6 +52,7 @@ export default function CashierPay(props) {
 
   const [disData, setDisData] = useState('');
   const [disValue,setDisValue] = useState(0);
+  const [disName,setDisName] = useState('');
   const getDiscount = async () => {
     
     const querySnapshot = await getDocs(collection(db, "discount"));
@@ -66,9 +67,11 @@ export default function CashierPay(props) {
     })
   };
 
+  const [val1,setVal] = useState(0);
+
   const getGrandTotal = () =>{
     if(isDiscount == true){
-      return Number(getGrandTotal1()) - ( Number(getGrandTotal1()) * (Number(disValue) / 100));
+      return Number(getGrandTotal1()) - ( Number(getGrandTotal1()) * (Number(val1) / 100));
     }
     else{
       Number(getGrandTotal1())
@@ -76,7 +79,7 @@ export default function CashierPay(props) {
   }
 
   const getDiscountValue = () => {
-    return Number(getGrandTotal1()) - ( Number(getGrandTotal1()) * (Number(disValue) / 100));
+    return Number(getGrandTotal1()) - ( Number(getGrandTotal1()) * (Number(val1) / 100));
   }
 
   const noDiscountValue = () => {
@@ -122,7 +125,7 @@ export default function CashierPay(props) {
     let change = 0;
     
     if(isDiscount == true){
-      change = Number(val) - (Number(getGrandTotal1()) - ( Number(getGrandTotal1()) * (Number(disValue) / 100)));
+      change = Number(val) - (Number(getGrandTotal1()) - ( Number(getGrandTotal1()) * (Number(val1) / 100)));
     
     }
     else{
@@ -335,8 +338,23 @@ export default function CashierPay(props) {
   const [isDiscount,setIsDiscount] = useState(false);
   const handleDisc = () => {
     setIsDiscount(!isDiscount);
-    console.log(isDiscount)
   }
+  const [disc,setDisc] = useState([]);
+  const getDisc = async () => {
+    const querySnapshot = await getDocs(collection(db, "discount"));
+    let beverage = [];
+    querySnapshot.forEach((doc) => {
+      beverage.push({ ...doc.data(), id: doc.id });
+    });
+    console.log("read");
+    console.log(beverage)
+    setDisc(beverage);
+    
+  };
+
+  useEffect(()=>{
+    getDisc();
+  },[])
 
   return (
     <div className={styles.container}>
@@ -417,9 +435,29 @@ export default function CashierPay(props) {
                 </div>
               </div>
               <div className={styles.Form__Input_Container}>
-                <div style={{display:"flex",flexDirection:"row"}} >
+                <div style={{display:"flex",flexDirection:"row",alignItems:"center"}} >
                   
-                <input type="checkbox" onChange={handleDisc} /> <div>Discount</div> 
+                <input type="checkbox" onChange={handleDisc}  /> <div>
+                  <select disabled={isDiscount? false: true}  onChange={(e)=>{
+                  // console.log(e.target.value1)
+                  // setVal(e.target.value)
+                  disc.map((data)=>{
+                    if(data.id == e.target.value){
+                      setVal(data.value);
+                      setDisName(data.name);
+                      
+                    }
+                  })
+                }} >
+                  <option disabled selected hidden value="">Discount</option>
+                  {
+                    disc.map((data)=>{
+                      return(
+                        <option key={data.id} value={data.id}  > {data.name}</option>
+                      )
+                    })
+                  }
+                  </select></div> 
                  
                 </div>
                 <div className={styles.Form__Input_Box1}>
@@ -462,9 +500,10 @@ export default function CashierPay(props) {
                 getTotalMisc={getTotalMisc}
                 getTotalFixedMisc={getTotalFixedMisc}
                 getTotalFixedMisc2={getTotalFixedMisc2}
-                disValue={disValue}
+                disValue={val1}
                 isDiscount={isDiscount}
                 noDiscountValue={noDiscountValue}
+                disName={disName}
                 
               />
             ) : (

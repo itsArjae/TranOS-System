@@ -1,0 +1,66 @@
+.container{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.discount_form{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 600px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.head{
+  background-color: #6D67E4;
+  text-align: center;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+.form{
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border-bottom: 1px solid gray;
+}
+.form input{
+  width: 100%;
+  margin: 0 1rem;
+  padding: 5px;
+}
+.form button{
+  cursor: pointer;
+}
+
+.discbox{
+  flex-grow: 1;
+  overflow: auto;
+}
+.disc{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid gray;
+}
+
+.disc div{
+  width: 100%;
+  margin: .5rem 1rem;
+}
+
+.disc button{
+  margin: 0 1rem;
+  color: white;
+  font-weight: bold;
+  background-color: red;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}

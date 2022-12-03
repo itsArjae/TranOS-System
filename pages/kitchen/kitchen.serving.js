@@ -88,7 +88,6 @@ const OrderBox = (props) => {
       orderRef,
       where("queueID", "==", data.id),
       where("category", "==", "order"),
-      where("type", "==", "meals"),
     );
     onSnapshot(q, (snapshot) => {
       let order = [];
@@ -133,7 +132,7 @@ const OrderDetails = (props) => {
   const handleSelect = () => {
     setIsSelected(true);
   };
-  return (
+  return item?(
     <div className={styles.order__box}>
       <div className={styles.order__det}>
         <div className={styles.itemname}>{item.itemName}</div>
@@ -143,7 +142,7 @@ const OrderDetails = (props) => {
         {isSelected ? "✔" : <button onClick={handleSelect}>✔️</button>}
       </div>
     </div>
-  );
+  ):'Only Drinks are ordered';
 };
 
 KitchenServing.getLayout = function getLayout(page) {

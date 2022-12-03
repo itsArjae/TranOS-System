@@ -163,7 +163,7 @@ const OrderBox = (props) => {
   return (
     <div className={styles.q__box}>
       <div className={styles.q__header}>Table {data.tableId}</div>
-      <div className={styles.q__order}>{displayItems}</div>
+      <div className={styles.q__order}>{displayItems.length > 0? displayItems: 'Only Drinks are ordered'}</div>
       <div className={styles.q__btn}>
         
         {stats == "cooking" ? (
@@ -189,8 +189,9 @@ const OrderDetails = (props) => {
   const handleSelect = () => {
     setIsSelected(true);
   };
-  return (
+  return item.itemName? (
     <div className={styles.order__box}>
+      
       <div className={styles.order__det}>
         <div className={styles.itemname}>{item.itemName}</div>
         <div className={styles.itemqty}>QTY: {item.quantity}</div>
@@ -199,5 +200,5 @@ const OrderDetails = (props) => {
         {isSelected ? "✔" : <button onClick={handleSelect}>✔️</button>}
       </div>
     </div>
-  );
+  ):'Only drinks are ordered';
 };

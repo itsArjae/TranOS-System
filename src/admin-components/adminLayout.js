@@ -142,9 +142,9 @@ export default function AdminLayout({ children }) {
     setopen(false);
     router.push("/admin/admin.raw-goods");
   };
-  const goExpenses = () => {
+  const goDiscount = () => {
     setopen(false);
-    router.push("/admin/admin.expenses");
+    router.push("/admin/admin.discount");
   };
   const goSignout = async () => {
     setopen(false);
@@ -407,6 +407,27 @@ export default function AdminLayout({ children }) {
                   }}
                 >
                   Transactions
+                </Typography>
+              </ListItemText>
+            </ListItem>
+            <ListItem button onClick={goDiscount}>
+              <ListItemIcon>
+                <Image
+                  src="/assets/admin-assets/svg/admin.sales.svg"
+                  alt="Sales Icon"
+                  width={25}
+                  height={25}
+                />
+              </ListItemIcon>
+              <ListItemText sx={{}}>
+                <Typography
+                  variant="h2"
+                  sx={{
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Discount
                 </Typography>
               </ListItemText>
             </ListItem>

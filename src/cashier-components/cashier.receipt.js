@@ -30,7 +30,8 @@ export default function CashierReceipt(props) {
     getTotalFixedMisc2,
     disValue,
     isDiscount,
-    noDiscountValue
+    noDiscountValue,
+    disName
   } = props;
 
   const componentRef = useRef();
@@ -202,7 +203,7 @@ export default function CashierReceipt(props) {
               </tr>: null}
                 {
                 isDiscount?  <tr>
-                <td>Discount:</td>
+                <td>Discount({disName}):</td>
                 <td>{Number(noDiscountValue() * (Number(disValue) / 100) ).toFixed(2)} ({disValue}%)</td>
               </tr>: null}
                 <tr>
