@@ -11,7 +11,7 @@ import styled from "@emotion/styled";
 const DefaultPic = "/assets/cashier-assets/pictures/Cashier-Def-Pic-Menu.png";
 import { useReactToPrint } from "react-to-print";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
-import { app } from "../../src/utility/firestore";
+import {app} from '../../src/utility/firestore'
 import {
   Table,
   TableBody,
@@ -251,24 +251,26 @@ export default function AdminTables(props) {
     setVisible(!visible);
   }
 
-  const [disData, setDisData] = useState("");
-  const [disValue, setDisValue] = useState(0);
+  const [disData, setDisData] = useState('');
+  const [disValue,setDisValue] = useState(0);
   const getDiscount = async () => {
+    
     const querySnapshot = await getDocs(collection(db, "discount"));
     let emp = [];
     querySnapshot.forEach((doc) => {
       emp.push({ ...doc.data(), id: doc.id });
     });
     console.log("read");
-    emp.map((data) => {
+    emp.map((data)=>{
       setDisValue(data.value);
       setDisData(data.id);
-    });
+    })
   };
 
-  const updateDisc = () => {
-    updateDiscount(disValue, disData);
-  };
+
+  const updateDisc = () =>{
+    updateDiscount(disValue,disData);
+  }
 
   return (
     <div className={styles.Table__Container}>
@@ -353,34 +355,8 @@ export default function AdminTables(props) {
           )}
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <div>Discount (%)</div>
-          <div>
-            <input
-              placeholder="discount"
-              value={disValue}
-              style={{ textAlign: "center" }}
-              onChange={(e) => {
-                setDisValue(e.target.value);
-              }}
-            />
-            <button onClick={updateDisc}>Save</button>
-          </div>
-        </div>
+      <div  >
+       
         <ReactPaginate
           nextLabel={"Next"}
           previousLabel={"Prev"}
@@ -419,7 +395,7 @@ const OuterBox = styled.div`
   display: flex;
   alignitems: center;
   justifycontent: center;
-  background-color: white;
+  background-color:white;
   backdrop-filter: blur(10px);
   margin-left: -100px;
 `;
@@ -430,7 +406,8 @@ const InnerBox = styled.div`
 `;
 
 const PrintBox = (props) => {
-  const { setEditDataVisible, printItems, day, year, month } = props;
+  const { setEditDataVisible, printItems,day,year,month} = props;
+  
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -449,16 +426,9 @@ const PrintBox = (props) => {
       .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   };
   var today = new Date();
-  var date =
-    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-  var globalTime = today.getHours();
-  var time =
-    (today.getHours() % 12 || 12) +
-    ":" +
-    `${
-      today.getMinutes() >= 10 ? today.getMinutes() : "0" + today.getMinutes()
-    }` +
-    ` ${globalTime > 12 ? "pm" : "am"}`;
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
+  var globalTime = today.getHours()
+  var time = (today.getHours() % 12 || 12)+ ":" + `${today.getMinutes() >= 10 ? today.getMinutes() : '0'+today.getMinutes()}` + ` ${globalTime > 12 ? 'pm' :'am'}`
   return (
     <div className={styles.print_cont}>
       <div className={styles.btn}>
@@ -470,9 +440,7 @@ const PrintBox = (props) => {
         </button>
       </div>
       <div className={styles.print_box} ref={componentRef}>
-        <div>
-          Printed on: {date} {time}
-        </div>
+      <div>Printed on: {date} {time}</div>
         <div className={styles.headers}>
           <div
             style={{
