@@ -227,6 +227,11 @@ export default function CashierPay(props) {
     getDiscount();
   }, []);
 
+  const [notPaid,setNotPaid] = useState(true);
+  const handlePaid = () => {
+    setNotPaid(!notPaid);
+  }
+
   const confirmPayment = () => {
     if (payment < getGrandTotal()) {
       console.log("Kulang"); //MAY LALABAS
@@ -319,6 +324,7 @@ export default function CashierPay(props) {
     setIsPaying(true);
     cashRef.current.value = Number(0).toFixed(2);
     changeRef.current.value = Number(0).toFixed(2);
+    handlePaid();
     successPayment();
   };
 
@@ -435,31 +441,33 @@ export default function CashierPay(props) {
                 </div>
               </div>
               <div className={styles.Form__Input_Container}>
-                <div style={{display:"flex",flexDirection:"row",alignItems:"center"}} >
+                {
+                  notPaid? <div style={{display:"flex",flexDirection:"row",alignItems:"center"}} >
                   
-                <input type="checkbox" onChange={handleDisc}  /> <div>
-                  <select disabled={isDiscount? false: true}  onChange={(e)=>{
-                  // console.log(e.target.value1)
-                  // setVal(e.target.value)
-                  disc.map((data)=>{
-                    if(data.id == e.target.value){
-                      setVal(data.value);
-                      setDisName(data.name);
-                      
-                    }
-                  })
-                }} >
-                  <option disabled selected hidden value="">Discount</option>
-                  {
+                  <input type="checkbox" onChange={handleDisc}  /> <div>
+                    <select disabled={isDiscount? false: true}  onChange={(e)=>{
+                    // console.log(e.target.value1)
+                    // setVal(e.target.value)
                     disc.map((data)=>{
-                      return(
-                        <option key={data.id} value={data.id}  > {data.name}</option>
-                      )
+                      if(data.id == e.target.value){
+                        setVal(data.value);
+                        setDisName(data.name);
+                        
+                      }
                     })
-                  }
-                  </select></div> 
-                 
-                </div>
+                  }} >
+                    <option disabled selected hidden value="">Discount</option>
+                    {
+                      disc.map((data)=>{
+                        return(
+                          <option key={data.id} value={data.id}  > {data.name}</option>
+                        )
+                      })
+                    }
+                    </select></div> 
+                   
+                  </div>: null
+                }
                 <div className={styles.Form__Input_Box1}>
                   {btnDisable ? (
                     <button className={styles.btn__pay1} onClick={proceed}>
