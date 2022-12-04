@@ -294,10 +294,10 @@ export default function CashierLayout({ children }) {
             <ListItem button onClick={goMenu}>
               <ListItemIcon>
                 <Image
-                  src="/assets/cashier-assets/svg/cashier.menu.icon.svg"
-                  alt="Menu Icon"
-                  width={25}
+                  src="/assets/admin-assets/svg/admin.meals.icon.svg"
                   height={25}
+                  width={25}
+                  alt="Meals Icon"
                 />
               </ListItemIcon>
               <ListItemText sx={{}}>
@@ -313,9 +313,12 @@ export default function CashierLayout({ children }) {
               </ListItemText>
             </ListItem>
 
-            <ListItem button onClick={()=>{
-              router.push('/kitchen/kitchen.serving')
-            }}>
+            <ListItem
+              button
+              onClick={() => {
+                router.push("/kitchen/kitchen.serving");
+              }}
+            >
               <ListItemIcon>
                 <Image
                   src="/assets/cashier-assets/svg/cashier.menu.icon.svg"
