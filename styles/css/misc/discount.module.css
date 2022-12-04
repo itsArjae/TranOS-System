@@ -4,6 +4,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-attachment: fixed;
+  overflow: auto;
+  background-image: linear-gradient(to bottom left, #9bcdee, #ffffff, #55a3d6);
 }
 
 .discount_form{
@@ -12,6 +15,9 @@
   height: 500px;
   display: flex;
   flex-direction: column;
+  background-color: white;
+  border-bottom-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
 .head{
@@ -21,6 +27,7 @@
   font-size: 20px;
   font-weight: bold;
   color: white;
+  border-top-right-radius: 30px;
 }
 .form{
   padding: 10px;
@@ -63,4 +70,17 @@
   border: none;
   padding: 5px;
   cursor: pointer;
+  border-radius: 5px;
+}
+
+.addBtn{
+  width: 80px;
+  margin: 0 1rem;
+  color: white;
+  font-weight: bold;
+  background-color: rgb(0, 128, 255);
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 5px;
 }

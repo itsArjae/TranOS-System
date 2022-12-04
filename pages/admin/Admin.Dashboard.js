@@ -142,6 +142,10 @@ const Dashboard = () => {
     setopen(false);
     router.push("/admin/admin.expenses");
   };
+  const goDiscount = () => {
+    setopen(false);
+    router.push("/admin/admin.discount");
+  };
   const goSignout = () => {
     setopen(false);
     localStorage.removeItem("accessToken");
@@ -337,14 +341,14 @@ const Dashboard = () => {
 
           <div className={styles.Icons__Container2}>
             <div className={styles.Icons__Container2_1}>
-              <button className={styles.btnDashboard} onClick={goDash}>
+              <button className={styles.btnDashboard} onClick={goTables}>
                 <Image
-                  src="/assets/admin-assets/svg/db.dashboard.icon.svg"
+                  src="/assets/admin-assets/svg/db.tables.svg"
                   width={50}
                   height={50}
                   alt="dashboard icon"
                 />
-                <p className={styles.Icons__Text}>DASHBOARD</p>
+                <p className={styles.Icons__Text}>TABLES</p>
               </button>
             </div>
 
@@ -363,14 +367,14 @@ const Dashboard = () => {
                 <p className={styles.Icons__Text}>USERS</p>
               </button>
 
-              <button className={styles.btnTables} onClick={goTables}>
+              <button className={styles.btnTables} onClick={goDiscount}>
                 <Image
-                  src="/assets/admin-assets/svg/db.tables.svg"
+                  src="/assets/admin-assets/svg/db.discount.icon.svg"
                   width={50}
                   height={50}
-                  alt="tables icon"
+                  alt="discount icon"
                 />
-                <p className={styles.Icons__Text}>TABLES</p>
+                <p className={styles.Icons__Text}>DISCOUNTS</p>
               </button>
             </div>
 

@@ -354,7 +354,7 @@ const OuterBox = styled.div`
   width: 100vw;
   height: 100vh;
   position: absolute;
-  background-color:white;
+  background-color: white;
   backdrop-filter: blur(10px);
   display: flex;
   alignitems: center;
@@ -369,10 +369,16 @@ const PrintBox = (props) => {
   const { setEditDataVisible, printItems } = props;
 
   var today = new Date();
-  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
-  var globalTime = today.getHours()
-  var time = (today.getHours() % 12 || 12)+ ":" + `${today.getMinutes() >= 10 ? today.getMinutes() : '0'+today.getMinutes()}` + ` ${globalTime > 12 ? 'pm' :'am'}`
-
+  var date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  var globalTime = today.getHours();
+  var time =
+    (today.getHours() % 12 || 12) +
+    ":" +
+    `${
+      today.getMinutes() >= 10 ? today.getMinutes() : "0" + today.getMinutes()
+    }` +
+    ` ${globalTime > 12 ? "pm" : "am"}`;
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -392,7 +398,9 @@ const PrintBox = (props) => {
         </button>
       </div>
       <div className={styles.print_box} ref={componentRef}>
-        <div>Printed: {date} {time}</div>
+        <div>
+          Printed: {date} {time}
+        </div>
         <div className={styles.headers}>
           <div
             style={{

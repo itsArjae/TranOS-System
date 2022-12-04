@@ -413,8 +413,8 @@ export default function AdminLayout({ children }) {
             <ListItem button onClick={goDiscount}>
               <ListItemIcon>
                 <Image
-                  src="/assets/admin-assets/svg/admin.sales.svg"
-                  alt="Sales Icon"
+                  src="/assets/admin-assets/svg/discount.icon.svg"
+                  alt="Discount Icon"
                   width={25}
                   height={25}
                 />
