@@ -355,13 +355,8 @@ export default function AdminTables(props) {
           )}
         </div>
       </div>
-      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}} >
-        <div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}} >
-          <div>Discount (%)</div>
-          <div><input placeholder="discount" value={disValue} style={{textAlign:"center"}} onChange={(e)=>{
-            setDisValue(e.target.value);
-          }} /><button onClick={updateDisc} >Save</button></div>
-        </div>
+      <div  >
+       
         <ReactPaginate
           nextLabel={"Next"}
           previousLabel={"Prev"}
