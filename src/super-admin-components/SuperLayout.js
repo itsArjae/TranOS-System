@@ -50,7 +50,7 @@ export default function SuperLayout({ children }) {
   return (
     <div className={styles.layout__container}>
       <Head>
-        <title>TRANOS | SUPER ADMIN</title>
+        <title>BROS | SUPER ADMIN</title>
         <link rel="icon" href="/logo.ico" />
       </Head>
       <div className={styles.layout__box}>
