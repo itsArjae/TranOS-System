@@ -172,7 +172,7 @@ export default function SignIn() {
     return hasLoaded ? (
       <div>
         <Head>
-          <title>TRANOS | SIGN IN</title>
+          <title>BROS | SIGN IN</title>
           <link rel="icon" href="/logo.ico" />
         </Head>
         <div className={styles.Input__Box}>
@@ -275,7 +275,7 @@ export default function SignIn() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>TRANOS | SIGN IN</title>
+        <title>BROS | SIGN IN</title>
         <link rel="icon" href="/logo.ico" />
       </Head>
       <div className={styles.Login__Box}>
@@ -316,7 +316,7 @@ export default function SignIn() {
             /><div>Download App Here</div></button>
             </a>
           </div>
-          Tranos v1.0.8
+          BROS v1.0.8
           <button className={styles.statusBtn} onClick={()=>{
             router.push('/kitchen/kitchen.orderstatus')
           }} ><u>Go to Order Status Window</u></button>

@@ -271,7 +271,6 @@ const OrderReceipt = styled.td`
 const List = styled.tr`
   font-family: Times New Roman;
 `;
-
 const ListBody = styled.tbody`
   text-align: center;
 `;

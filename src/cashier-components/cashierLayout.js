@@ -127,7 +127,7 @@ export default function CashierLayout({ children }) {
     // full screen
     <Box>
       <Head>
-        <title>TRANOS | CASHIER</title>
+        <title>BROS | CASHIER</title>
         <link rel="icon" href="/logo.ico" />
       </Head>
 

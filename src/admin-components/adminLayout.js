@@ -160,7 +160,7 @@ export default function AdminLayout({ children }) {
     // full screen
     <Box>
       <Head>
-        <title>TRANOS | ADMIN</title>
+        <title>BROS | ADMIN</title>
         <link rel="icon" href="/logo.ico" />
       </Head>
 
@@ -213,7 +213,7 @@ export default function AdminLayout({ children }) {
                     "1px 2px 0 #000,  -1px -1px 0 #000,   1px -1px 0 #000,  -1px 1px 0 #000, 1px 1px 0 #000",
                 }}
               >
-                TranOS: Blue Restobar
+                BROS: Blue Restobar
               </Typography>
             </Box>
 
