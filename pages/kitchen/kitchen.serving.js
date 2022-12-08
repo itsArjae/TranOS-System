@@ -16,6 +16,7 @@ import KitchenNav from "../kitchen.nav";
 import { deleteQueue } from "../../src/utility/kitchen-utils/kitchen.firebase";
 import CashierLayout from "../../src/cashier-components/cashierLayout";
 import { useRouter } from "next/router";
+import { servedOrders } from "../../src/utility/cashier-utils/cashier.firebase";
 export default function KitchenServing() {
   const router = useRouter();
   useEffect(() => {
@@ -81,6 +82,8 @@ const OrderBox = (props) => {
     );
   });
 
+  const [servedItems,setServedItems] = useState(0);
+
   const getOrder = () => {
     const orderRef = collection(db, "orders");
     console.log("read queue");
@@ -96,7 +99,17 @@ const OrderBox = (props) => {
       });
       //console.log(order);
       setOrder(order);
-      //setDailySales(sale);
+
+      let total = 0;
+      order.map((data)=>{
+        if(data.status == true){
+          total = total + 1;
+        }
+      });
+
+      setServedItems(total);
+
+      
     });
   };
 
@@ -112,10 +125,10 @@ const OrderBox = (props) => {
   return (
     <div className={styles.q__box}>
       <div className={styles.q__header}>Table {data.tableId}</div>
-      <div className={styles.q__order}>{displayItems}</div>
+      <div className={styles.q__order}>{displayItems.length > 0? displayItems: 'Only Drinks/Services are ordered - Click Served to proceed'}</div>
       <div className={styles.q__btn}>
         <div className={styles.stat__cook1}>
-          <button onClick={handleCook}>SERVED</button>{" "}
+          {servedItems == order.length? <button onClick={handleCook}>SERVED</button>: <button disabled={true} onClick={handleCook}>SERVED</button>}
         </div>
 
         {/* <button  >COOKING</button>
@@ -130,7 +143,7 @@ const OrderDetails = (props) => {
   const { item } = props;
 
   const handleSelect = () => {
-    setIsSelected(true);
+    servedOrders(item.id)
   };
   return item?(
     <div className={styles.order__box}>
@@ -139,7 +152,7 @@ const OrderDetails = (props) => {
         <div className={styles.itemqty}>QTY: {item.quantity}</div>
       </div>
       <div className={styles.orderbtn}>
-        {isSelected ? "✔" : <button onClick={handleSelect}>✔️</button>}
+        {item.status ? "✔" : <button onClick={handleSelect}>✔️</button>}
       </div>
     </div>
   ):'Only Drinks are ordered';

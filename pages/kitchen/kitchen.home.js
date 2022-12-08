@@ -163,7 +163,7 @@ const OrderBox = (props) => {
   return (
     <div className={styles.q__box}>
       <div className={styles.q__header}>Table {data.tableId}</div>
-      <div className={styles.q__order}>{displayItems.length > 0? displayItems: 'Only Drinks are ordered'}</div>
+      <div className={styles.q__order}>{displayItems.length > 0? displayItems: 'Only Drinks/Service are ordered - Click Cooking and Serve to proceed'}</div>
       <div className={styles.q__btn}>
         
         {stats == "cooking" ? (

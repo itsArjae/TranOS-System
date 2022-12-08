@@ -362,6 +362,8 @@ export default function CashierPay(props) {
     getDisc();
   },[])
 
+  const [mess,setMess] = useState('');
+
   return (
     <div className={styles.container}>
       <div className={styles.inner__container}>
@@ -512,6 +514,7 @@ export default function CashierPay(props) {
                 isDiscount={isDiscount}
                 noDiscountValue={noDiscountValue}
                 disName={disName}
+                mess={mess}
                 
               />
             ) : (
@@ -522,6 +525,7 @@ export default function CashierPay(props) {
                   width={200}
                   alt="beverages Icon"
                 />
+                <input placeholder="Special Message" value={mess} onChange={(e)=>{setMess(e.target.value)}} />
               </div>
             )}
           </div>

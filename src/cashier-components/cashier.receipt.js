@@ -31,7 +31,8 @@ export default function CashierReceipt(props) {
     disValue,
     isDiscount,
     noDiscountValue,
-    disName
+    disName,
+    mess
   } = props;
 
   const componentRef = useRef();
@@ -132,6 +133,29 @@ export default function CashierReceipt(props) {
                     </List>
                   );
                 })}
+                 {miscData.map((record) => {
+                    return (
+                      <List key={record.id}>
+                        <OrderReceipt>{record.itemName}</OrderReceipt>
+                        <OrderReceipt>
+                          {Number(record.subTotal)
+                            .toFixed(2)
+                            .toString()
+                            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                        </OrderReceipt>
+                        <OrderReceipt>1</OrderReceipt>
+                        <OrderReceipt>
+                          {Number(record.subTotal)
+                            .toFixed(2)
+                            .toString()
+                            .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                        </OrderReceipt>
+                      </List>
+                 
+                    )
+                 }
+                 )
+                 }
               </ListBody>
             </table>
           </div>
@@ -141,7 +165,7 @@ export default function CashierReceipt(props) {
           <div className={styles.table__container}>
             <table>
               <tbody>
-                <ListBody>
+                {/* <ListBody>
                   {miscData.map((record) => {
                     return (
                       <List key={record.id}>
@@ -155,7 +179,7 @@ export default function CashierReceipt(props) {
                       </List>
                     );
                   })}
-                </ListBody>
+                </ListBody> */}
                 <Divider />
                 <tr>
                   <td colSpan={2}>===================================</td>
@@ -179,10 +203,8 @@ export default function CashierReceipt(props) {
                   </td>
                   <td>
                     <i>
-                      {Number(getTotal())
-                        .toFixed(2)
-                        .toString()
-                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}
+                    {isDiscount? Number(getTotal()) : getTotal() +getTotalMisc()}
+                     
                     </i>
                   </td>
                 </tr>
@@ -208,7 +230,7 @@ export default function CashierReceipt(props) {
               </tr>: null}
                 <tr>
                   <td>Total:</td>
-                  <td>{getTotal()}</td>
+                  <td>{isDiscount? Number(getTotal()) : getTotal() +getTotalMisc()}</td>
                 </tr>
                 <tr>
                   <td>Cash:</td>
@@ -244,6 +266,7 @@ export default function CashierReceipt(props) {
                       Big Waves... GooZy Friends...<br></br>
                       Thank You! Please Come Again!
                     </p>
+                    <h5>{mess}</h5>
                   </td>
                 </tr>
               </tbody>

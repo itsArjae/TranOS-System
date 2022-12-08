@@ -221,3 +221,18 @@ export async function voidData(orderID) {
     console.error("Error deleting document: ", e);
   }
 }
+
+
+export function servedOrders(yearlyID, total) {
+  const docRef = doc(db, "orders", yearlyID);
+  const data = {
+    status: true,
+  };
+  setDoc(docRef, data, { merge: true })
+    .then((docRef) => {
+      console.log("Entire Document has been updated successfully");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

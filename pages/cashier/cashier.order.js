@@ -451,7 +451,8 @@ export default function CashierOrder() {
                     className={styles.Form__Input}
                     type="text"
                     id="total"
-                    value={total ? getTotalFixed() : getTotalFixed2()}
+                    value={getGTotalFixed2()}
+                    // value={total ? getTotalFixed() : getTotalFixed2()}
                     readOnly={true}
                   ></input>
                 </div>
@@ -529,7 +530,8 @@ export default function CashierOrder() {
             handleConfVisible={handleConfVisible}
             data={voidData}
             id = {voidData.queueID}
-            />
+            status={voidData.status}
+            /> 
           </InnerBox>
         </OuterBox>
       )}
@@ -553,7 +555,7 @@ const InnerBox = styled.div`
 
 const Confirmation = (props) => {
 
-  const {data,handleConfVisible,id} = props;
+  const {data,handleConfVisible,id,status} = props;
 
   const db = getFirestore(app);
 
@@ -594,7 +596,7 @@ const Confirmation = (props) => {
 
   useEffect(() => {
     getEmpData();
-    getId();
+    // getId();
     setIsLoaded(false);
   }, []);
 
@@ -602,7 +604,7 @@ const Confirmation = (props) => {
   const [adPass, setAdPass] = useState("");
   const [errMessage,setErrMessage] = useState('');
   const onSubmit = async() => {
-    if(!qID){
+    if(status == true){
       setErrMessage("Invalid Action - Order has been served");  
       return;
     }

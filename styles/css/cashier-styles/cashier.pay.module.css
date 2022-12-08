@@ -191,3 +191,12 @@
   font-size: 30px;
   font-weight: bolder;
 }
+.ImageCon{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.ImageCon input{
+  padding: 10px;
+}
