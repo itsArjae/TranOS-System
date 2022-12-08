@@ -282,7 +282,7 @@ export default function SignIn() {
         <div className={styles.box} >
         <div className={styles.title__box} >
           <img src="/assets/misc/tranos-logo.png"  />
-          <h2 className={styles.box__title} >TRANOS</h2></div>
+          <h2 className={styles.box__title} >BROS</h2></div>
         <div className={styles.Login__Form}>
         
           <h1>Login to your account</h1>
