@@ -179,7 +179,7 @@ export default function CashierLayout({ children }) {
                     "1px 2px 0 #000,  -1px -1px 0 #000,   1px -1px 0 #000,  -1px 1px 0 #000, 1px 1px 0 #000",
                 }}
               >
-                TranOS: Blue Restobar
+              BROS: Blue Restobar
               </Typography>
             </Box>
 
