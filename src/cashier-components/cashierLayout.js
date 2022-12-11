@@ -117,6 +117,10 @@ export default function CashierLayout({ children }) {
     setopen(false);
     router.push("/cashier/cashier.beverages");
   };
+  const goServe = () => {
+    setopen(false);
+    router.push("/kitchen/kitchen.serving");
+  };
   const goSignout = () => {
     setopen(false);
     localStorage.removeItem("accessToken");
@@ -179,7 +183,7 @@ export default function CashierLayout({ children }) {
                     "1px 2px 0 #000,  -1px -1px 0 #000,   1px -1px 0 #000,  -1px 1px 0 #000, 1px 1px 0 #000",
                 }}
               >
-              BROS: Blue Restobar
+                BROS: Blue Restobar
               </Typography>
             </Box>
 
@@ -313,12 +317,7 @@ export default function CashierLayout({ children }) {
               </ListItemText>
             </ListItem>
 
-            <ListItem
-              button
-              onClick={() => {
-                router.push("/kitchen/kitchen.serving");
-              }}
-            >
+            <ListItem button onClick={goServe}>
               <ListItemIcon>
                 <Image
                   src="/assets/cashier-assets/svg/cashier.menu.icon.svg"
