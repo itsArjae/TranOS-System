@@ -308,7 +308,7 @@ export default function SignIn() {
           </div>
           <div className={styles.download}>
             
-            <a href="/app/Tranos_version1.0.9.apk" download>
+            <a href="/app/Tranos_version1.1.1.apk" download>
               <button className={styles.download_btn} > <img
               src="/assets/admin-assets/svg/download.icon.svg"
               width={30}

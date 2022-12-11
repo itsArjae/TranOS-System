@@ -197,7 +197,7 @@ const OrderDetails = (props) => {
         <div className={styles.itemqty}>QTY: {item.quantity}</div>
       </div>
       <div className={styles.orderbtn}>
-        {isSelected ? "✔" : <button onClick={handleSelect}>✔️</button>}
+        {/* {isSelected ? "✔" : <button onClick={handleSelect}>✔️</button>} */}
       </div>
     </div>
   ):'Only drinks are ordered';

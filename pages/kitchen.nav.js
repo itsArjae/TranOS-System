@@ -15,7 +15,7 @@ export default function KitchenNav() {
   return (
     <div className={styles.all}>
       <Head>
-        <title>TRANOS | KITCHEN</title>
+        <title>BROS | KITCHEN</title>
         <link rel="icon" href="/logo.ico" />
       </Head>
 
