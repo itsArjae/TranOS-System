@@ -276,7 +276,7 @@ export default function SignIn() {
     <div className={styles.container}>
       <Head>
         <title>BROS | SIGN IN</title>
-        <link rel="icon" href="/logo.ico" />
+        <link rel="icon" href="/logo.ico" />  
       </Head>
       <div className={styles.Login__Box}>
         <div className={styles.box} >
@@ -316,7 +316,7 @@ export default function SignIn() {
             /><div>Download App Here</div></button>
             </a>
           </div>
-          BROS v1.0.8
+          BROS v1.1.1
           <button className={styles.statusBtn} onClick={()=>{
             router.push('/kitchen/kitchen.orderstatus')
           }} ><u>Go to Order Status Window</u></button>

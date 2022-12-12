@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../../src/admin-components/adminLayout";
-import { saveDiscount } from "../../src/utility/admin-utils/discount.firebase";
+import { deleteDiscount, saveDiscount } from "../../src/utility/admin-utils/discount.firebase";
 import styles from "../../styles/css/misc/discount.module.css";
 import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { app } from "../../src/utility/firebase";
@@ -36,6 +36,11 @@ export default function AdminDiscount() {
     getDiscount();
   }, []);
 
+  const handleDelete=(id)=>{
+    deleteDiscount(id);
+    getDiscount();
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.discount_form}>
@@ -68,7 +73,9 @@ export default function AdminDiscount() {
             return (
               <div className={styles.disc} key={data.id}>
                 <div>{data.name}</div> - <div>{data.value}%</div>{" "}
-                <button> Delete</button>
+                <button onClick={()=>{
+                  handleDelete(data.id);
+                }} > Delete</button>
               </div>
             );
           })}

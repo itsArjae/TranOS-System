@@ -24,3 +24,13 @@ export async function saveDiscount(
     console.error("Error adding document: ", e);
   }
 }
+
+
+export async function deleteDiscount(disId) {
+  try {
+    await deleteDoc(doc(db, "discount", disId));
+    console.log("Document deleted");
+  } catch (e) {
+    console.error("Error deleting document: ", e);
+  }
+}
