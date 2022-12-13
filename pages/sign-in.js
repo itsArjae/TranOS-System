@@ -308,7 +308,7 @@ export default function SignIn() {
           </div>
           <div className={styles.download}>
             
-            <a href="/app/Tranos_version1.1.1.apk" download>
+            <a href="/app/Tranos_version1.1.2.apk" download>
               <button className={styles.download_btn} > <img
               src="/assets/admin-assets/svg/download.icon.svg"
               width={30}
@@ -316,7 +316,7 @@ export default function SignIn() {
             /><div>Download App Here</div></button>
             </a>
           </div>
-          BROS v1.1.1
+          BROS v1.1.2
           <button className={styles.statusBtn} onClick={()=>{
             router.push('/kitchen/kitchen.orderstatus')
           }} ><u>Go to Order Status Window</u></button>
