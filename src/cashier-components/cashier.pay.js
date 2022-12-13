@@ -233,11 +233,17 @@ export default function CashierPay(props) {
   }
 
   const confirmPayment = () => {
-    if (payment < getGrandTotal()) {
+    if ( isDiscount == true && payment < getGrandTotal()) {
       console.log("Kulang"); //MAY LALABAS
       failPayment();
       return;
     }
+    else if( isDiscount == false && payment < getGTotalFixed2()){
+      console.log("Kulang wala discount"); //MAY LALABAS ano?
+      failPayment();
+      return;
+    }
+    
     setBtnDisable(true);
     if (!dSales) {
       if(isDiscount == true){
