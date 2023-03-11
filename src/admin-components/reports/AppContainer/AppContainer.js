@@ -1,24 +1,44 @@
 import React, { useState } from "react";
 import AppSearchBar from "../AppSearchBar/AppSearchBar";
 import styles from "./AppContainer.module.css";
-
+import "react-datepicker/dist/react-datepicker.css";
 function AppContainer(Props) {
-  const [search, setSearch] = useState("");
-
-  const action = (value) => {
-    setSearch(value);
+  const [searchTable, setSearchTable] = useState("");
+  const [searchDate, setSearchDate] = useState("");
+  const handleSearchTable = (value) => {
+    setSearchTable(value);
   };
+  const handleSearchDate= (value) => {
+    console.log(value)
+    setSearchDate(value);
+  };
+  const handleClear = () => {
+    setSearchDate("")
+    setSearchTable("")
+  }
+
+
 
   return (
     <div className={styles.Container}>
-      <div>
+      <div className={styles.searchBox} >
       <AppSearchBar
-        action={action}
+        action={handleSearchTable}
         type={`number`}
         className={`styles.searchBar`}
         label={`Table Number: `}
+        value={searchTable}
       />
+      <AppSearchBar 
+        action={handleSearchDate}
+        type={`date`}
+        className={`styles.searchBar`}
+        label={`Date: `}
+        valuee={searchDate}
+      />   <button onClick={handleClear} >Clear</button>
       </div>
+   
+      {searchDate.toString()}
     </div>
   );
 }

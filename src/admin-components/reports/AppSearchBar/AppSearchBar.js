@@ -14,6 +14,7 @@ function AppSearchBar(Props) {
         }}
         type={Props?.type}
         className={Props?.className}
+        value={Props?.value}
       />
     </div>
   );
