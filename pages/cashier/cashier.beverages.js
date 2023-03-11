@@ -97,7 +97,7 @@ export default function CashierDrinks() {
             <div className={styles.contentContainer}>
               <div className={styles.Data_Info}>
                 <h2>
-                  {drinks.BeverageName} {drinks.Size}
+                  {drinks.BeverageName} {drinks.Size ? drinks.Size : ""}
                   {drinks.Details}
                 </h2>
                 <p>₱ {Number(drinks.Price).toFixed(2)}</p>

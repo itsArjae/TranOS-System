@@ -58,7 +58,9 @@ export async function saveItems(
   date,
   day,
   month,
-  year
+  year,
+  dateOnly,
+  timeOnly
 ) {
   orderData.map(async (val) => {
     try {
@@ -69,30 +71,40 @@ export async function saveItems(
         price: val.price,
         quantity: val.quantity,
         total: val.subTotal,
+        tableNum: val.tableId,
+        //itemCode: val.ItemCode,
         dateBought: date,
         category: "order",
         day: day,
         month: month,
         year: year,
+        date: dateOnly,
+        time: timeOnly,
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   });
-  saveMiscItems(id, miscData, date);
+  saveMiscItems(id, miscData, date, dateOnly, timeOnly);
 }
 
-export async function saveMiscItems(id, miscData, date) {
+export async function saveMiscItems(id, miscData, date, dateOnly, timeOnly) {
   miscData.map(async (val) => {
     try {
       const docRef = await addDoc(collection(db, "salesDetails"), {
         transacID: id,
         orderID: val.id,
         description: val.itemName,
+        quantity: val.quantity,
+        price: val.price,
         total: val.subTotal,
+        tableNum: val.tableId,
+        //itemCode: val.ItemCode,
         dateBought: date,
         category: "misc",
+        date: dateOnly,
+        time: timeOnly,
       });
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -216,12 +228,10 @@ export async function voidData(orderID) {
   try {
     await deleteDoc(doc(db, "orders", orderID));
     console.log("Document deleted");
-  
   } catch (e) {
     console.error("Error deleting document: ", e);
   }
 }
-
 
 export function servedOrders(yearlyID, total) {
   const docRef = doc(db, "orders", yearlyID);

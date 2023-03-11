@@ -18,10 +18,12 @@ import {
 import CashierLayout from "../../src/cashier-components/cashierLayout";
 import styled from "@emotion/styled";
 import Pay from "../../src/cashier-components/cashier.pay";
+import PartialReceipt from "../../src/cashier-components/cashier.partialReceipt";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { voidData } from "../../src/utility/cashier-utils/cashier.firebase";
+import { padding } from "@mui/system";
 
 const headers = [
   {
@@ -83,6 +85,25 @@ export default function CashierOrder() {
     toast.error("The food is not yet serve!", {
       icon: "❌",
     });
+
+  var dt = new Date();
+  var hours = dt.getHours();
+  var minute = String(dt.getMinutes()).padStart(2, "0");
+
+  const date = new Date();
+
+  let day = dt.getDate();
+  let month = dt.getMonth() + 1;
+  let year = dt.getFullYear();
+
+  hours = hours % 12 || 12;
+
+  var d = new Date().toString().split(" ").splice(1, 3).join(" ");
+  var t = hours + ":" + minute;
+  var curMeridiem = new Date().getHours() > 12 ? "PM" : "AM";
+
+  var dateTime = d + " " + t + " " + curMeridiem;
+
   const router = useRouter();
   const tid = router.query.tid;
   const cat = router.query.tCat;
@@ -100,15 +121,19 @@ export default function CashierOrder() {
   const pagesVisited = pageNumber * itemsPerPage;
 
   const [visible, setVisible] = useState(false);
+  const [receiptVisible, setReceiptVisible] = useState(false);
 
   function setEditDataVisible() {
-    setVisible(!visible);
+    setVisible(!receiptVisible);
+  }
+  function setReceiptDataVisible() {
+    setReceiptVisible(!visible);
   }
   const [confVisible, setConfVisible] = useState(false);
-  const [voidData,setVoidData] = useState([]);
+  const [voidData, setVoidData] = useState([]);
 
   function handleConfVisible(data) {
-    console.log(data)
+    console.log(data);
     setVoidData(data);
     setConfVisible(!confVisible);
   }
@@ -312,9 +337,13 @@ export default function CashierOrder() {
           </div>
           <div className={styles.Table__Data__Box}>
             {" "}
-            <button onClick={()=>{
-              handleConfVisible(data);
-            }} >VOID</button>{" "}
+            <button
+              onClick={() => {
+                handleConfVisible(data);
+              }}
+            >
+              VOID
+            </button>{" "}
           </div>
         </div>
       );
@@ -451,7 +480,7 @@ export default function CashierOrder() {
                     className={styles.Form__Input}
                     type="text"
                     id="total"
-                    value={getGTotalFixed2()}
+                    value={getTotalFixed2()}
                     // value={total ? getTotalFixed() : getTotalFixed2()}
                     readOnly={true}
                   ></input>
@@ -469,10 +498,11 @@ export default function CashierOrder() {
                   ></input>
                 </div>
               </div>
-              <div className={styles.Form__Input_Container}>
+              <div className={styles.Form__Input_Container1}>
                 <div className={styles.Form__Input_Box1}>
                   <button
                     className={styles.btn__pay}
+                    style={{ marginBottom: 15 }}
                     //disabled={disable}
                     onClick={() => {
                       {
@@ -481,6 +511,19 @@ export default function CashierOrder() {
                     }}
                   >
                     Confirm Payment
+                  </button>
+                </div>
+                <div className={styles.Form__Input_Box1}>
+                  <button
+                    className={styles.btn__pay}
+                    //disabled={disable}
+                    onClick={() => {
+                      {
+                        setReceiptVisible(!receiptVisible);
+                      }
+                    }}
+                  >
+                    Partial Receipt
                   </button>
                 </div>
               </div>
@@ -523,15 +566,42 @@ export default function CashierOrder() {
           </InnerBox>
         </OuterBox>
       )}
+      {receiptVisible === true && (
+        <OuterBox>
+          <InnerBox>
+            <PartialReceipt
+              setReceiptDataVisible={setReceiptDataVisible}
+              orderData={orderData}
+              tid={tid}
+              total={total}
+              misce={misce}
+              dateTime={dateTime}
+              getTotal={getTotal}
+              getTotalFixed={getTotalFixed}
+              getTotalFixed2={getTotalFixed2}
+              successPayment={successPayment}
+              failPayment={failPayment}
+              cat={cat}
+              getGrandTotal1={getGrandTotal}
+              getGTotalFixed2={getGTotalFixed2}
+              miscData={miscData}
+              charges={charges}
+              getTotalMisc={getTotalMisc}
+              getTotalFixedMisc={getTotalFixedMisc}
+              getTotalFixedMisc2={getTotalFixedMisc2}
+            />
+          </InnerBox>
+        </OuterBox>
+      )}
       {confVisible === true && (
         <OuterBox>
           <InnerBox>
-            <Confirmation 
-            handleConfVisible={handleConfVisible}
-            data={voidData}
-            id = {voidData.queueID}
-            status={voidData.status}
-            /> 
+            <Confirmation
+              handleConfVisible={handleConfVisible}
+              data={voidData}
+              id={voidData.queueID}
+              status={voidData.status}
+            />
           </InnerBox>
         </OuterBox>
       )}
@@ -554,8 +624,7 @@ const InnerBox = styled.div`
 `;
 
 const Confirmation = (props) => {
-
-  const {data,handleConfVisible,id,status} = props;
+  const { data, handleConfVisible, id, status } = props;
 
   const db = getFirestore(app);
 
@@ -575,7 +644,7 @@ const Confirmation = (props) => {
     });
   };
 
-  const [qID , setQID] = useState('')
+  const [qID, setQID] = useState("");
   const getId = () => {
     const saleRef = collection(db, "orderQueue");
     console.log("read");
@@ -586,13 +655,13 @@ const Confirmation = (props) => {
         sale.push({ ...doc.data(), id: doc.id });
       });
 
-      sale.map((sales)=>{
+      sale.map((sales) => {
         setQID(sales.status);
-      })
+      });
     });
-  }
+  };
 
-  const [isLoaded,setIsLoaded] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(true);
 
   useEffect(() => {
     getEmpData();
@@ -602,27 +671,29 @@ const Confirmation = (props) => {
 
   const [adEmail, setAdEmail] = useState("");
   const [adPass, setAdPass] = useState("");
-  const [errMessage,setErrMessage] = useState('');
-  const onSubmit = async() => {
-    if(status == true){
-      setErrMessage("Invalid Action - Order has been served");  
+  const [errMessage, setErrMessage] = useState("");
+  const onSubmit = async () => {
+    if (status == true) {
+      setErrMessage("Invalid Action - Order has been served");
       return;
     }
 
-    console.log(adEmail,adPass)
+    console.log(adEmail, adPass);
     try {
       await loginUser2(adEmail, adPass);
-      voidData(data.id)
+      voidData(data.id);
       handleConfVisible();
     } catch (err) {
-      setErrMessage("Wrong Password");   
+      setErrMessage("Wrong Password");
       return;
     }
-  }
+  };
 
   return (
     <div className={styles.conf_container}>
-      <h2>Do you confirm to void this product? <br/> Item: {data?.itemName} </h2>
+      <h2>
+        Do you confirm to void this product? <br /> Item: {data?.itemName}{" "}
+      </h2>
 
       <div
         className={styles.admin__email}
@@ -638,13 +709,11 @@ const Confirmation = (props) => {
             return (
               <option key={data.id} value={data.Email}>
                 {data.Email}
-                
               </option>
             );
           })}
         </select>
       </div>
-
 
       <div className={styles.admin_pass}>
         <input
@@ -657,12 +726,12 @@ const Confirmation = (props) => {
         />
         {errMessage}
       </div>
-      
-
 
       <div className={styles.conf__btn}>
-        <button onClick={handleConfVisible} >Cancel</button>
-        <button disabled={isLoaded} onClick={onSubmit} >Confirm</button>
+        <button onClick={handleConfVisible}>Cancel</button>
+        <button disabled={isLoaded} onClick={onSubmit}>
+          Confirm
+        </button>
       </div>
     </div>
   );
