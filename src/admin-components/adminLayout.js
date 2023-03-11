@@ -146,6 +146,10 @@ export default function AdminLayout({ children }) {
     setopen(false);
     router.push("/admin/admin.discount");
   };
+    const goReports = () => {
+    setopen(false);
+    router.push("/admin/reports/admin.reports");
+  };
   const goSignout = async () => {
     setopen(false);
     try {
@@ -432,6 +436,27 @@ export default function AdminLayout({ children }) {
               </ListItemText>
             </ListItem>
 
+            <ListItem button onClick={goReports}>
+              <ListItemIcon>
+                <Image
+                  src="/assets/admin-assets/svg/discount.icon.svg"
+                  alt="Discount Icon"
+                  width={25}
+                  height={25}
+                />
+              </ListItemIcon>
+              <ListItemText sx={{}}>
+                <Typography
+                  variant="h2"
+                  sx={{
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Reports
+                </Typography>
+              </ListItemText>
+            </ListItem>
             <ListItem button onClick={goSignout}>
               <ListItemIcon>
                 <Image

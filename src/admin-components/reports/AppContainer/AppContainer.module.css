@@ -1,0 +1,15 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  width: 90%;
+  min-height: 500px;
+  align-items: center;padding: 10px;
+}
+.AppSearchBox {
+  display: flex;
+  flex-direction: row;
+}
+.searchLabel{
+  margin: 0 .5rem;
+}
